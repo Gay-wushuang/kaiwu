@@ -1,0 +1,38 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\begin{document}
+\noindent\rule{0pt}{0pt}
+% 每页一个公式
+$V \;=\; v_{\text{form}} + v_{\text{gap}}^{\text{low}} + v_{\text{gap}}^{\text{high}} + v_{\text{vbm}} + v_{\text{cbm}},
+\qquad v \;=\; \left[\max\!\left(0,\frac{\delta}{0.5}\right)\right]^{2}$
+\clearpage
+$\widehat{\text{gap}}(A,B,X) \;=\; P(\text{gap}>0 \mid A,B,X)\;\times\;g_{\text{reg}}(A,B,X)$
+\clearpage
+$\min_{a\in\{1,\dots,52\},\; b\in\{1,\dots,52\}} \; \hat V(a,b \mid X=\mathrm{NO_2})$
+\clearpage
+$E(\mathbf{x},\mathbf{y}) \;=\; \sum_{a=1}^{52}\sum_{b=1}^{52} \hat V_{ab}\, x_a y_b \;+\; M\left[\left(\sum_{a=1}^{52}x_a-1\right)^{2}+\left(\sum_{b=1}^{52}y_b-1\right)^{2}\right]$
+\clearpage
+$M\left(\sum_a x_a-1\right)^{2} \;=\; -M\sum_a x_a \;+\; 2M\sum_{a<a'} x_a x_{a'} \;+\; M$
+\clearpage
+$2M \;>\; \max_{a,b}\hat V_{ab} \;-\; \min_{a,b}\hat V_{ab}$
+\clearpage
+$Q^{\text{int}}_{ij} \;=\; \mathrm{round}\!\left(\frac{127}{\max_{ij}|Q_{ij}|}\,Q_{ij}\right)\in\{-127,\dots,127\}$
+\clearpage
+$E_3(\mathbf{x},\mathbf{y},\mathbf{z}) \;=\; \sum_{a}\sum_{b}\sum_{k} \hat V_{abk}\, x_a y_b z_k \;+\; M\Big[\big(\textstyle\sum_a x_a-1\big)^2+\big(\sum_b y_b-1\big)^2+\big(\sum_k z_k-1\big)^2\Big]$
+\clearpage
+$\hat V^{\star} \;=\; \min_{k\in\{\mathrm{O_3},\mathrm{NO_2},\mathrm{FO_2}\}} \; \min_{a,b}\; \hat V(a,b \mid X=k)$
+\clearpage
+$\begin{cases}
+e_{\text{form}} < 0.21\\
+1.4 < E_g < 3.1\\
+\mathrm{VBM} > 5.73\\
+\mathrm{CBM} < 4.50
+\end{cases}$
+\clearpage
+$\rho_s \;=\; 1-\frac{6\sum_i d_i^{2}}{n(n^{2}-1)},\qquad d_i=\mathrm{rank}(\hat V_i)-\mathrm{rank}(V_i)$
+\clearpage
+$\mathrm{Hit@}k \;=\; \frac{\left|\,\mathcal{T}_k \cap \hat{\mathcal{T}}_k\,\right|}{k}$
+\end{document}

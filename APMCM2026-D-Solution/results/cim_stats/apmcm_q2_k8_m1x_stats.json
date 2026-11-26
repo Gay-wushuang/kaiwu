@@ -1,0 +1,22 @@
+{
+  "task": "apmcm_q2_k8_m1x",
+  "mode": "opt",
+  "samples": 10,
+  "mfactor": 1.0,
+  "M": 42.05836562079185,
+  "maxJ": 127.0,
+  "step": 1.0,
+  "obj": 3.0,
+  "resol": 3.0,
+  "n_valid": 1,
+  "valid_rate": 0.1,
+  "best_V": 2.850068770507633,
+  "best_formula": "CaTaO2N",
+  "best_rank": 15,
+  "gold": "La-Hf",
+  "gold_V": 0.0,
+  "hit_top8": 0,
+  "H_min": -1796.0,
+  "H_max": 3228.0,
+  "H_median": -1190.0
+}

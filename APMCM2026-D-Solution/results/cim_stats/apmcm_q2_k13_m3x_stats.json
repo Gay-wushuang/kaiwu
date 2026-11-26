@@ -1,0 +1,22 @@
+{
+  "task": "apmcm_q2_k13_m3x",
+  "mode": "opt",
+  "samples": 10,
+  "mfactor": 3.0,
+  "M": 174.70013347331258,
+  "maxJ": 127.0,
+  "step": 1.0,
+  "obj": 1.0,
+  "resol": 1.0,
+  "n_valid": 1,
+  "valid_rate": 0.1,
+  "best_V": 10.14620502488198,
+  "best_formula": "LaBO2N",
+  "best_rank": 92,
+  "gold": "La-Hf",
+  "gold_V": 0.0,
+  "hit_top8": 0,
+  "H_min": -3126.0,
+  "H_max": 8930.0,
+  "H_median": 4510.0
+}

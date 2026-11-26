@@ -1,0 +1,8 @@
+﻿sample,Hamiltonian,valid,A,B,formula,V_hat,rank_in13
+1,-3008.0,True,Sc,Zr,ScZrO2N,1.2661,9
+2,-2972.0,True,Al,In,AlInO2N,17.5469,165
+3,-2964.0,False,1个,0个,,,-1
+4,-2924.0,False,0个,0个,,,-1
+5,1384.0,False,8个,8个,,,-1
+6,3256.0,False,3个,13个,,,-1
+7,5508.0,False,13个,8个,,,-1
