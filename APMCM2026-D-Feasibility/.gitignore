@@ -23,6 +23,7 @@ Thumbs.db
 
 # 赛题资料（仅队内使用）
 references/*.pdf
+references/*.docx
 references/*.xlsx
 references/*.csv
 references/*.zip
