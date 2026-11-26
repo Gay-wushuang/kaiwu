@@ -1,0 +1,190 @@
+{
+  "environment": {
+    "python": "3.12.6",
+    "platform": "Windows-10-10.0.19045-SP0"
+  },
+  "solver_probe": {
+    "stdout": "26-11-26 12:03:41] [INFO    ] [kaiwu.sampler._simulated_annealing:108] - Expected execution completion time is 0.04102679554489441 seconds\n[2026-11-26 12:03:41] [INFO    ] [kaiwu.sampler._simulated_annealing:108] - Expected execution completion time is 0.05053860126645304 seconds\n[2026-11-26 12:03:41] [INFO    ] [kaiwu.sampler._simulated_annealing:108] - Expected execution completion time is 0.03758880271925591 seconds\n[2026-11-26 12:03:41] [INFO    ] [kaiwu.sampler._simulated_annealing:108] - Expected execution completion time is 0.04664220495033078 seconds\n[2026-11-26 12:03:41] [INFO    ] [kaiwu.sampler._simulated_annealing:108] - Expected execution completion time is 0.044350204174406826 seconds\n[2026-11-26 12:03:41] [INFO    ] [kaiwu.sampler._simulated_annealing:108] - Expected execution completion time is 0.04710059176431969 seconds\n[2026-11-26 12:03:41] [INFO    ] [kaiwu.sampler._simulated_annealing:108] - Expected execution completion time is 0.03793258866062388 seconds\n[2026-11-26 12:03:41] [INFO    ] [kaiwu.sampler._simulated_annealing:108] - Expected execution completion time is 0.0642905892455019 seconds\n[2026-11-26 12:03:41] [INFO    ] [kaiwu.sampler._simulated_annealing:108] - Expected execution completion time is 0.04755899525480345 seconds\n[2026-11-26 12:03:41] [INFO    ] [kaiwu.sampler._simulated_annealing:108] - Expected execution completion time is 0.044350204174406826 seconds\n[2026-11-26 12:03:41] [INFO    ] [kaiwu.sampler._simulated_annealing:108] - Expected execution completion time is 0.0469860075681936 seconds\n[2026-11-26 12:03:41] [INFO    ] [kaiwu.sampler._simulated_annealing:108] - Expected execution completion time is 0.0464130032050889 seconds\nRESULT_JSON:{\"BruteForceOptimizer\": {\"status\": \"PASS\", \"n_solutions\": 2}, \"SimulatedAnnealingOptimizer\": {\"status\": \"BLOCKED_LICENSE\", \"error\": \"EOF when reading a line\"}, \"TabuSearchOptimizer\": {\"status\": \"PASS\", \"n_solutions\": 1}, \"SimulatedAnnealingSampler\": {\"status\": \"PASS\", \"type\": \"ndarray\"}}",
+    "stderr_tail": "",
+    "returncode": 0,
+    "solvers": {
+      "BruteForceOptimizer": {
+        "status": "PASS",
+        "n_solutions": 2
+      },
+      "SimulatedAnnealingOptimizer": {
+        "status": "BLOCKED_LICENSE",
+        "error": "EOF when reading a line"
+      },
+      "TabuSearchOptimizer": {
+        "status": "PASS",
+        "n_solutions": 1
+      },
+      "SimulatedAnnealingSampler": {
+        "status": "PASS",
+        "type": "ndarray"
+      }
+    }
+  },
+  "bruteforce_scale": [
+    {
+      "n_bits": 8,
+      "ising_shape": [
+        8,
+        8
+      ],
+      "solutions_returned": 4,
+      "solve_time_s": 0.0011,
+      "sdk_best_energy": -126.0,
+      "independent_best_energy": -126.0,
+      "energy_match": true
+    },
+    {
+      "n_bits": 12,
+      "ising_shape": [
+        12,
+        12
+      ],
+      "solutions_returned": 2,
+      "solve_time_s": 0.0138,
+      "sdk_best_energy": -302.0,
+      "independent_best_energy": -302.0,
+      "energy_match": true
+    },
+    {
+      "n_bits": 16,
+      "ising_shape": [
+        16,
+        16
+      ],
+      "solutions_returned": 2,
+      "solve_time_s": 0.2456,
+      "sdk_best_energy": -542.0,
+      "independent_best_energy": -542.0,
+      "energy_match": true
+    },
+    {
+      "n_bits": 18,
+      "ising_shape": [
+        18,
+        18
+      ],
+      "solutions_returned": 2,
+      "solve_time_s": 0.9984,
+      "sdk_best_energy": -570.0,
+      "independent_best_energy": -570.0,
+      "energy_match": true
+    },
+    {
+      "n_bits": 20,
+      "ising_shape": [
+        20,
+        20
+      ],
+      "solutions_returned": 2,
+      "solve_time_s": 9.9063,
+      "sdk_best_energy": -794.0,
+      "independent_best_energy": -794.0,
+      "energy_match": true
+    }
+  ],
+  "precision": {
+    "ising_shape": [
+      17,
+      17
+    ],
+    "ising_abs_min_nonzero": 0.125,
+    "ising_abs_max": 23.5,
+    "dynamic_range_metric": 7.554588851677638,
+    "bit_width_8": {
+      "precision": null,
+      "multiplier": null
+    },
+    "bit_width_8_exact_representable": false,
+    "original_optimum_energy": -351.0,
+    "original_solve_time_s": 1.4144,
+    "truncate": {
+      "shape": [
+        17,
+        17
+      ],
+      "time_s": 0.0001,
+      "max_abs_after": 127.0,
+      "all_integer": true,
+      "energy_of_best_truncated_solution_on_original": -351.0,
+      "optimum_preserved": true
+    },
+    "mutate": {
+      "shape": [
+        17,
+        17
+      ],
+      "time_s": 0.171,
+      "max_abs_after": 47.0,
+      "bit_width_after": {
+        "precision": null,
+        "multiplier": null
+      },
+      "energy_of_best_mutated_solution_on_original": -351.0,
+      "optimum_preserved": true
+    },
+    "split": {
+      "shape": [
+        19,
+        19
+      ],
+      "time_s": 0.0005,
+      "bit_width_after": {
+        "precision": 8.0,
+        "multiplier": 8.0
+      },
+      "expansion_bits": 2,
+      "restored_shape": [
+        17
+      ],
+      "energy_of_restored_solution_on_original": -351.0,
+      "optimum_preserved": true
+    }
+  },
+  "stochastic_solvers": {
+    "matrix_shape": [
+      12,
+      12
+    ],
+    "ground_truth_best_energy": -246.0,
+    "runs": 5,
+    "tabu": {
+      "energies": [
+        -246.0,
+        -246.0,
+        -246.0,
+        -246.0,
+        -246.0
+      ],
+      "times_s": [
+        1.0819,
+        1.0759,
+        1.0583,
+        1.0923,
+        1.1309
+      ],
+      "hit_rate": 1.0,
+      "mean_gap": 0.0
+    },
+    "sa_sampler": {
+      "energies": [
+        -246.0,
+        -246.0,
+        -246.0
+      ],
+      "times_s": [
+        12.2467,
+        12.4456,
+        12.4439
+      ],
+      "hit_rate": 1.0,
+      "mean_gap": 0.0,
+      "runs": 3
+    }
+  }
+}

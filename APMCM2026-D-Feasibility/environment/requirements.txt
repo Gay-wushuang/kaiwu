@@ -1,0 +1,21 @@
+# 直接依赖（Phase 1 实测可复现）
+
+本文件只列出直接依赖。逐包精确复现请用 `requirements.lock.txt`。
+
+- 操作系统：Windows 10 22H2 (10.0.19045) x64
+- Python：3.12.6
+- 安装源：https://pypi.org/simple
+
+```text
+kaiwu==1.4.4
+numpy==2.5.5
+pandas==2.2.3
+matplotlib==3.10.3
+```
+
+说明：
+
+1. `kaiwu` 自 1.4.0 起统一以 PyPI 包名发布，企业版元数据写明 `pip install kaiwu` 即可，无需再从平台下载 whl（旧版安装文档的做法）。
+2. `kaiwu==1.4.4` 会自动解析 `kaiwu-community==1.0.8`，`core` 与 `common` 模块由后者提供。
+3. 官方要求 Python 3.10 / 3.12 / 3.14；本机用 3.12 验证通过。Python 3.14 未实测。
+4. 不建议安装到 Anaconda base 环境；本项目使用 `environment/.venv` 独立环境。

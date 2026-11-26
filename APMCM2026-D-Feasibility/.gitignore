@@ -1,0 +1,28 @@
+# 本地环境（不要提交）
+environment/.venv/
+environment/verify_env_result.json
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# 日志与结果（按需保留）
+logs/*.log
+
+# 凭据（绝对不要提交）
+.env
+*.key
+*license*
+
+# 编辑器/系统
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+
+# 赛题资料（仅队内使用）
+references/*.pdf
+references/*.xlsx
+references/*.csv
+references/*.zip
