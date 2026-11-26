@@ -72,6 +72,30 @@ Python 3.12 · numpy · pandas · scikit-learn · xgboost · lightgbm · mendele
 
 详见 `results/FINAL_ANSWERS.md`。
 
+## 端到端复现结果（`code/run_all.py` 实测输出）
+
+| 项目 | 结果 |
+|---|---|
+| 验证集（02→03，元素对不重叠） | R² 0.825 · MAE 2.576 · Spearman 0.934 · Top-100 命中 39/100 |
+| 问题 2 | LaHfO₂N，V̂ = 0.0000；V̂<1 的 7 个 |
+| 问题 3 | PbTiO₃（O₃），V̂ = 0.0000；V̂<1 的 73 个 |
+| 子问题 13×13（26 比特） | 目标分辨率 1.87 档，模拟退火找回 V̂ = 0 |
+| 全量 104 比特 | 目标分辨率 0.51 档（不可用，必须预筛） |
+
+详见 `results/FINAL_ANSWERS.md`。
+
+## 端到端复现结果（`code/run_all.py` 实测输出）
+
+| 项目 | 结果 |
+|---|---|
+| 验证集（02→03，元素对不重叠） | R² 0.825 · MAE 2.576 · Spearman 0.934 · Top-100 命中 39/100 |
+| 问题 2 | LaHfO₂N，V̂ = 0.0000；V̂<1 的 7 个 |
+| 问题 3 | PbTiO₃（O₃），V̂ = 0.0000；V̂<1 的 73 个 |
+| 子问题 13×13（26 比特） | 目标分辨率 1.87 档，模拟退火找回 V̂ = 0 |
+| 全量 104 比特 | 目标分辨率 0.51 档（不可用，必须预筛） |
+
+详见 `results/FINAL_ANSWERS.md`。
+
 ## 注意
 
 仓库内**不含任何账号凭据**。license 由 `kaiwu.license.init(user_id, sdk_code)` 在本机生成，`sdk_code` 不要提交到仓库。
