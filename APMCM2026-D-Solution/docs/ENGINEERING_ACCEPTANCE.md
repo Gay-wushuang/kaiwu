@@ -68,23 +68,21 @@ matplotlib 3.10.3  lightgbm（未安装，仅影响表 2 的可选对照行）
 
 ### 2.2 原始数据
 
-`date/` 目录 **不存在**，赛题附件 8 个 CSV 全部缺失。
+2026-11-27 已从官方离线包接入 `date/`（来源：`E:\BaiduNetdiskDownload\2026 APMCM Problems\2026 APMCM Problem D\date`），
+并按官方 `sha256_public.json` 校验通过。`date/` 已在 `.gitignore` 中排除，不入库。
 
-| 文件 | 官方行数 | 本机 | 判定 |
-|---|---|---|---|
-| 02_castelli_train.csv | 11,256 | 缺失 | BLOCKED |
-| 03_castelli_val.csv | 3,969 | 缺失 | BLOCKED |
-| 04_castelli_test_holdout.csv | 3,703 | 缺失 | BLOCKED |
-| 06_castelli_no_physics.csv | 15,225 | 缺失 | BLOCKED |
-| 07_castelli_q2_pool.csv | 2,704 | 缺失 | BLOCKED |
-| 08_castelli_q3_pool.csv | 8,112 | 缺失 | BLOCKED |
-| 11_castelli_q2_pool_blind.csv | 529 | 缺失 | BLOCKED |
-| 12_castelli_q3_pool_blind.csv | 1,587 | 缺失 | BLOCKED |
+| 文件 | 官方行数 | 实测行数 | 列数 | SHA256 | 判定 |
+|---|---|---|---|---|---|
+| 02_castelli_train.csv | 11,256 | 11,256 | 22 | 匹配 | PASS |
+| 03_castelli_val.csv | 3,969 | 3,969 | 22 | 匹配 | PASS |
+| 04_castelli_test_holdout.csv | 3,703 | 3,703 | 6 | 匹配 | PASS |
+| 06_castelli_no_physics.csv | 15,225 | 15,225 | 6 | 匹配 | PASS |
+| 07_castelli_q2_pool.csv | 2,704 | 2,704 | 6 | 匹配 | PASS |
+| 08_castelli_q3_pool.csv | 8,112 | 8,112 | 6 | 匹配 | PASS |
+| 11_castelli_q2_pool_blind.csv | 529 | 529 | 6 | 匹配 | PASS |
+| 12_castelli_q3_pool_blind.csv | 1,587 | 1,587 | 6 | 匹配 | PASS |
 
-行数依据：赛题 PDF 表 3，且与 `results/logs/run_all.log` 记录的 8 个文件行数一致。
-
-影响：问题 1 的模型训练、`run_all.py` 全流程、`model_compare.py`、`train_q1.py` 无法在本机执行。
-不受影响：QUBO 构造、精度分析、本地退火对照，可直接使用 `code/predictions/*_phys.csv` 复现。
+补充核对：`02`、`03` 的 `V=0` 正例均为 0，符合官方说明的切分设计。
 
 ### 2.3 模型与交付文件
 
@@ -96,8 +94,8 @@ matplotlib 3.10.3  lightgbm（未安装，仅影响表 2 的可选对照行）
 | `results/submission_q3_top20.csv` | 20 行 × 6 列 | PASS |
 | `results/final_answers.json` / `FINAL_ANSWERS.md` | 存在且可解析 | PASS |
 | `results/val_predictions.csv` | 3,969 行 × 9 列 | PASS |
-| `models/surrogate_phys.joblib` | **缺失** | BLOCKED（可由 `run_all.py` 重新生成，前提是补齐数据） |
-| 论文 PDF | 中文版/彩色版各 22 页，草稿版各 21 页，可正常解析 | PASS |
+| `models/surrogate_phys.joblib` | 仓库未入库；临时副本已成功生成 | PASS（可复现，不入库） |
+| 论文 PDF | 中文版/彩色版各 22 页，草稿版各 21 页，可正常解析 | PASS（格式合规见第 11 节） |
 | 赛题原文 PDF | 存在 | PASS |
 
 ---
@@ -186,12 +184,12 @@ Phase 8 已移除 `--user-id` / `--sdk-code` 命令行参数入口，授权只�
 
 | # | 任务 | 状态 | 说明 |
 |---|---|---|---|
-| 1 | 补齐 `date/` | BLOCKED | 数据仍缺失，需队员提供 |
+| 1 | 补齐 `date/` | DONE | 官方 8 个 CSV 已接入并通过 SHA256 校验 |
 | 2 | 统一 `code/predictions/` 读取路径 | DONE | `d_submit_cim.py`、`d_run_stats.py`、`run_all.py`、`final_surrogate*.py` 已统一 |
 | 3 | 移除硬编码绝对路径 | DONE | 新增 `code/paths.py`，11 个脚本改造完成 |
 | 4 | 补 `apmcm_q2_no2_k13` 统计/逐样本 | 未做 | 按约束不补造；`results/EXPERIMENT_INDEX.md` 标记 MISSING |
 | 5 | 真机任务清单 | DONE | `results/EXPERIMENT_INDEX.md` |
-| 6 | 模型产物 `joblib` | BLOCKED | 需先补齐数据后由 `run_all.py` 生成 |
+| 6 | 模型产物 `joblib` | DONE | 临时副本已生成；仓库按 `.gitignore` 不入库 |
 | 7 | README 修正 | DONE | 删除重复章节，脚本数 9 → 15 |
 | 8 | 提交安全加固 | DONE | dry-run 默认 + 二次确认 + 移除凭据参数 |
 
@@ -207,8 +205,9 @@ Phase 8 已移除 `--user-id` / `--sdk-code` 命令行参数入口，授权只�
    - `README` 中 R²=0.831/MAE=2.59 出自 `model_compare.csv`（直接预测 V），R²=0.825/Top-100 39 出自 `run_all.py`（物理量路线），二者不可混引。
 2. **配额归属与余额**：队友账号已用 3 次优化配额，采样配额为 0。用户本人账号已领取的配额数量、机型、有效期需登录平台确认；本记录无法验证。
 3. **是否允许提交新真机任务**：本阶段按约束未提交。后续任何提交需人工明确授权任务数、比特规模与预计消耗。
-4. **原始数据提供方式**：确认由谁提供赛题附件，以及是否允许放入仓库（当前 `.gitignore` 未忽略 `date/`）。
-5. **竞赛指定 SDK 版本**：仍为 BLOCKED（竞赛页需登录）。当前锁定 `kaiwu==1.4.4` 仅代表本地可复现。
+4. **原始数据**：已从官方离线包接入并通过 SHA256 校验；已加入 `.gitignore`，不入库。是否需要在队内共享另行决定。
+5. **论文提交合规**：英文版、文件名、页眉、承诺书签名、支撑材料打包需由队员在提交前完成（见第 12 节）。
+6. **竞赛指定 SDK 版本**：仍为 BLOCKED（竞赛页需登录）。当前锁定 `kaiwu==1.4.4` 仅代表本地可复现。
 
 ---
 
@@ -270,14 +269,14 @@ python -c "..."                                # SAOptimizer = BLOCKED_LICENSE
 
 ```text
 [1] 依赖完整性        9/9 必需依赖 OK；lightgbm 未安装（可选）
-[2] 输入数据          8/8 缺失 → BLOCKED（需人工补齐）
-[3] 预测文件          4/4 OK；models/surrogate_phys.joblib 缺失 → BLOCKED
+[2] 输入数据          8/8 存在，SHA256 与官方清单一致
+[3] 预测文件          4/4 OK；models/surrogate_phys.joblib 未入库 → BLOCKED（临时副本可生成）
 [4] 程序入口          15 个脚本语法检查通过
 [5] 路径可移植性      未发现盘符绝对路径或 sys.path 注入
 [6] 输出文件          10/10 存在，行数符合预期
 [7] dry-run 安全性    退出码 0；含 [DRY-RUN]；未触发 license 输入
 [8] SHA256 校验       43/43 一致
-结论：PASS 14 | FAIL 0 | BLOCKED 2 | WARN 1
+结论：PASS 15 | FAIL 0 | BLOCKED 1 | WARN 1
 ```
 
 ### 10.3 安全验证证据
@@ -292,7 +291,59 @@ python -c "..."                                # SAOptimizer = BLOCKED_LICENSE
 
 ### 10.4 未关闭项
 
-1. `date/` 8 个 CSV 仍缺失 → 问题 1、`run_all.py`、`model_compare.py`、`train_q1.py` 仍 BLOCKED。
-2. `models/surrogate_phys.joblib` 未生成 → BLOCKED（依赖第 1 项）。
-3. `apmcm_q2_no2_k13` 的统计/逐样本/结果 CSV MISSING（按约束不补造）。
-4. 论文表 15 的硬件时长与机型口径差异待队员确认（见第 7 节）。
+1. `models/surrogate_phys.joblib` 未入库（按 `.gitignore` 排除；临时副本已验证可生成）。
+2. `apmcm_q2_no2_k13` 的统计/逐样本/结果 CSV MISSING（按约束不补造）。
+3. 论文表 15 的硬件时长与机型口径差异待队员确认（见第 7 节）。
+4. 论文提交规范存在多项不合规，见第 11 节。
+
+---
+
+## 11. 端到端复现结果差异（2026-11-27）
+
+原始数据接入后，在临时副本 `%TEMP%\apmcm_e2e` 执行 `python code/run_all.py`，全流程 74.0 s 成功完成。
+仓库既有结果未被覆盖。复现值与仓库记录**接近但不完全一致**，按约束只报告差异，不调整算法、参数或随机种子。
+
+| 项目 | 仓库记录 | 本次复现 | 差异 |
+|---|---|---|---|
+| 验证集 R² | 0.824818 | 0.824836 | +0.000018 |
+| 验证集 MAE | 2.575652 | 2.571641 | -0.004011 |
+| 验证集 RMSE | 4.597437 | 4.597198 | -0.000239 |
+| Spearman | 0.933916 | 0.935325 | +0.001409 |
+| Top-100 命中 | 39 | 40 | +1 |
+| 问题 2 首位 | LaHfO₂N | LaZrO₂N | 候选变化（两者 V̂ 均为 0） |
+| 问题 2 V̂<1 数量 | 7 | 6 | -1 |
+| 问题 3 首位 | PbTiO₃ | PbTiO₃ | 一致 |
+| 问题 3 V̂<1 数量 | 73 | 68 | -5 |
+| 13×13 目标分辨率 | 1.87 档 | 1.86 档 | -0.01 |
+| 3 个提交 CSV | — | — | SHA256 全部不同 |
+| 四个池的 V̂ | — | — | 平均绝对差约 0.31，最大 4.73 |
+
+差异定位（未做算法调整）：
+
+1. 仓库未锁定 `xgboost` / `scikit-learn` / `mendeleev` 的具体版本，README 只列包名；本次环境为 `xgboost 3.4.1`、`scikit-learn 1.9.1`、`mendeleev 1.4.0`，与队友当时的 `D:\Python` 环境版本无法核对。
+2. 本次环境未安装 `lightgbm`，`model_compare.py` 少一行可选对照（不影响 `run_all.py` 主流程）。
+3. 代理模型对候选的 V̂ 排序在 0 附近高度敏感，指标几乎相同但首位候选改变，属于版本/数值差异而非流程错误。
+
+建议（需队员决定）：补充锁定依赖版本（`requirements.lock`）后再做一次端到端复现，把差异收敛到 0 或明确记录可接受范围。本次未擅自安装或降级依赖。
+
+---
+
+## 12. 论文提交规范核对（2026 APMCM）
+
+规范来源：`E:\BaiduNetdiskDownload\2026 APMCM Problems\2026 APMCM 论文提交规范、论文模板、承诺书\2026 APMCM Essay format and submission specifications.pdf`。
+
+| 规范要求 | 现状 | 判定 |
+|---|---|---|
+| 论文必须用英文，正文与图表不得出现中文 | `APMCM_D_paper_CN.pdf` 含 10,564 个中文字符，页眉亦为中文 | **FAIL** |
+| 首页为摘要页，第二页为目录页 | 首页为中文摘要，第二页为目录 | 结构 PASS / 语言 FAIL |
+| 页眉只含队号与页码，英文格式 | `TeamDapmcm26306844 第1 页/ 共22 页` | **FAIL**（中文页码格式） |
+| 正文不超过 25 页 | 全文 22 页 | PASS |
+| 字号 11 或 12 | 需人工确认 | UNVERIFIED |
+| 论文文件名 `#***.pdf` | 现有 `APMCM_D_paper_CN.pdf` 等 | **FAIL**（应为 `Dapmcm26306844.pdf`） |
+| 承诺书 `#***cns.pdf` 或 `.jpg`，需全员签名 | 仓库无承诺书文件 | **FAIL**（缺失） |
+| 支撑材料 `#***fj.zip` 或 `.rar` | 仓库无打包文件 | **FAIL**（缺失） |
+| 附录给出软件名称与全部源码 | 有软件清单与 2 段核心代码，其余指向支撑材料 | **FAIL**（不满足“全部源码”） |
+| 参考文献格式 | 已有参考文献，格式需人工逐条核对 | UNVERIFIED |
+
+说明：论文语言与命名属于正式提交材料，需由参赛队员自行翻译、排版、签名并打包；AI 未改写论文正文或研究结论。
+建议最终文件名：`Dapmcm26306844.pdf`、`Dapmcm26306844cns.pdf`、`Dapmcm26306844fj.zip`。

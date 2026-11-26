@@ -3,5 +3,7 @@
 .ipynb_checkpoints/
 *.pkl
 results/cim_tasks/
+date/
+models/
 ~$*.docx
 .DS_Store

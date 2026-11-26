@@ -64,6 +64,7 @@ python code/verify_project.py
 ## 数据说明
 
 赛题附件数据（`02/03/04/06/07/08/11/12_*.csv`，约 3 MB）不入库，请从赛题附件获取后放到仓库根目录 `date/`。
+`date/` 应同时包含官方 `sha256_public.json`，可用它核对数据未被改动；`date/` 已在 `.gitignore` 中排除。
 `date/` 缺失时，`verify_project.py` 记为 BLOCKED，`run_all.py` 会打印缺失清单后退出。
 `code/predictions/` 里的文件是代理模型的**输出**，不是原始数据，可直接复现 QUBO 与真机实验。
 

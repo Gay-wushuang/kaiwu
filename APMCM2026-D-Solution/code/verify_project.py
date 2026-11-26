@@ -89,7 +89,7 @@ def main():
     model = MODELS / "surrogate_phys.joblib"
     print(f"  models/surrogate_phys.joblib: {'OK' if model.is_file() else 'MISSING（可由 run_all.py 生成）'}")
     if not model.is_file():
-        blocked.append("代理模型 joblib 未生成（需先补齐数据）")
+        blocked.append("代理模型 joblib 未入库（可由 run_all.py 生成，仓库按 .gitignore 排除）")
 
     # 4) 程序入口：语法编译
     print("=" * 66)
