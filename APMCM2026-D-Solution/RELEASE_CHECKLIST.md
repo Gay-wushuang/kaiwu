@@ -1,0 +1,154 @@
+# RELEASE CHECKLIST — Phase 9 版本冻结与最终工程交付
+
+- 冻结时间：2026-11-27（Asia/Shanghai）
+- 工程分支：`engineering/reproducibility`
+- 冻结代码：`822b7ea`（Phase 9 仅新增文档、依赖锁与归档，不改代码逻辑）
+- PR：#3 <https://github.com/Gay-wushuang/kaiwu/pull/3>，状态 OPEN，**未合并**
+- 边界：未修改模型、算法、参数、随机种子与科学结论；未提交真机任务；未消耗配额
+
+状态口径：`PASS` / `FAIL` / `BLOCKED` / `UNVERIFIED`。
+
+---
+
+## 1. 版本冻结
+
+| 项目 | 状态 | 证据 / 说明 |
+|---|---|---|
+| 代码冻结 | PASS | 分支 HEAD `822b7ea`；PR 保持 OPEN，等待人工审查 |
+| 官方原始数据 | PASS | `date/` 8 个 CSV，SHA256 与官方 `sha256_public.json` 全部一致；行数/列数匹配 |
+| 本机完整依赖锁定 | PASS | `requirements.lock.txt`（CPython 3.12.6，54 个包） |
+| 原始实验环境依赖清单 | BLOCKED | 队友原始环境位于 `D:\Python`，未提供完整版本清单 |
+| 双环境逐包差异 | BLOCKED | 仅有 README 记录的 `kaiwu==1.4.4` 与 Python 3.12；无法完成逐包对比 |
+| 原始 / 独立复现归档隔离 | PASS | 原始在 `results/`；复现在 `results/reproduction_20261127/`，互不覆盖 |
+| 结果替换 | PASS | 未用复现结果替换原始结果；差异单独记录 |
+| 数值差异归因 | PASS（审慎） | 已记录依赖差异，但**未认定其为唯一原因** |
+
+双环境已知差异（仅记录，不作结论）：
+
+| 依赖 | 独立复现环境 | 原始环境 |
+|---|---|---|
+| Python | 3.12.6 | 3.12（README 记录） |
+| kaiwu | 1.4.4 | 1.4.4（README 记录） |
+| xgboost | 3.4.1 | 未知 |
+| scikit-learn | 1.9.1 | 未知 |
+| mendeleev | 1.4.0 | 未知 |
+| lightgbm | 未安装 | 未知（论文软件清单列出） |
+
+---
+
+## 2. PR #3 最终工程验收
+
+| 检查项 | 状态 | 证据 |
+|---|---|---|
+| 路径修复保持程序逻辑 | PASS | `git diff main...HEAD -- code` 中无模型参数、公式、QUBO 系数、随机种子改动行 |
+| dry-run 不创建云端任务 | PASS | `d_run_stats.py --dry-run` 在 license 校验前返回，输出 `[DRY-RUN]` |
+| 非交互终端无法提交 | PASS | 关闭 stdin 执行 `--submit`，在二次确认处中止，未进入 license |
+| 账号凭据保护 | PASS | 已移除 `--user-id/--sdk-code`；授权仅 `--init` 交互输入；工作区与历史无凭据字面量 |
+| 官方数据排除版本管理 | PASS | `date/` 在 `.gitignore`；`git ls-files` 无数据文件 |
+| 模型产物排除版本管理 | PASS | `models/` 在 `.gitignore`；模型仅本机存在（SHA 见版本清单） |
+| README 与实际程序一致 | PASS | 15 个脚本、命令、`--submit` 语义、论文目录说明均已对齐 |
+
+待队友审查事项（不阻塞工程验收，但影响合并决策）：
+
+1. `d_run_stats.py` 默认行为由“直接提交”改为“dry-run”，提交需显式 `--submit`。
+2. 预测与统计输出目录调整为 `code/predictions/`、`results/cim_stats/`、`results/cim_samples/`。
+3. `results/EXPERIMENT_INDEX.md` 中的任务信息是否与平台记录一致。
+
+PR 合并状态：**BLOCKED（等待人工审查）**，本阶段不自动合并。
+
+---
+
+## 3. 实验版本管理
+
+清单文件：`results/EXPERIMENT_VERSION.json`。
+
+| 项目 | 状态 | 说明 |
+|---|---|---|
+| Git commit SHA | PASS | 原始 `db624f1`；复现 `822b7ea` |
+| 官方数据 SHA256 | PASS | 8 个 CSV 全部记录 |
+| Python / 依赖版本 | PASS | 复现环境完整记录；原始环境 BLOCKED |
+| 实验运行时间 | PASS | 原始 29.1 s；复现 74.0 s |
+| 随机种子 | PASS（源码级） | `random_state=0`、`np.random.default_rng(7)`，位置见清单 |
+| 预测文件 SHA256 | PASS | 四个池的预测与提交文件哈希已记录 |
+| 模型产物 SHA256 | PASS（复现） | `models/surrogate_phys.joblib`，15,509,867 B；原始模型未归档 → UNVERIFIED |
+| 真机任务 ID | PASS | 3 个任务 ID 与 PDF/统计文件关联 |
+| 原始平台报告路径 | PASS | `results/vendor_reports/*.pdf` |
+
+原始实验结果（冻结）：`results/`，哈希见 `results/ARTIFACT_SHA256.json`。
+独立复现结果（单独归档）：`results/reproduction_20261127/`。
+
+---
+
+## 4. 真机运行准备
+
+| 项目 | 状态 | 说明 |
+|---|---|---|
+| 本机 SDK License | BLOCKED | `SimulatedAnnealingOptimizer` 返回 `BLOCKED_LICENSE`；未发现 license 文件 |
+| 凭据输入方式 | PASS | 仅 `d_submit_cim.py --init` 交互 `input`/`getpass`，不落盘、不进命令行历史 |
+| 用户确认的设备类型 | UNVERIFIED | 用户答复“尚未登录确认” |
+| 用户确认的配额 | UNVERIFIED | 用户答复“3 次及以上”，但未经平台核对 |
+| 通用提交接口 | PASS | 参数、矩阵规模、模式、预计消耗均在提交前展示 |
+| dry-run 安全性 | PASS | 不调用 license、不创建任务、不消耗配额 |
+| 本阶段真机提交次数 | PASS | 0 次；配额消耗 0 |
+| 正式实验方案与参数 | 由参赛队员独立决定 | AI 未设计、未选择、未提交 |
+
+如需真机运行，必须先由账号持有人在本机执行授权，并由队员书面确认任务数、矩阵规模与预计消耗。
+
+---
+
+## 5. 提交材料工程检查
+
+| 检查项 | 状态 | 证据 / 位置 |
+|---|---|---|
+| 英文版论文 | **FAIL** | 仓库与历史中均无英文版；`paper/` 仅中文版与草稿版 |
+| 英文正文 | **FAIL** | `APMCM_D_paper_CN.pdf` 含 10,564 个中文字符 |
+| 英文图表 | **FAIL** | DOCX 内嵌 `image2.png`（51,360 B = `f_gap_zh.png`）等中文图；仓库已有 `f_*_en.png` 英文版可替换 |
+| 英文页眉 | **FAIL** | 页眉为 `TeamDapmcm26306844 第1 页/ 共22 页` |
+| 首页摘要 / 第二页目录 | PASS（结构） | 首页摘要、第二页目录；但语言为中文 |
+| 页数 | PASS | 22 页，正文 ≤ 25 页 |
+| 字号 11/12 | UNVERIFIED | 需人工在 Word/PDF 中核对 |
+| 文件名 `#***.pdf` | **FAIL** | 现有 `APMCM_D_paper_CN.pdf`；应为 `Dapmcm26306844.pdf` |
+| 承诺书 `#***cns.pdf/.jpg` | **FAIL** | 仓库无承诺书文件 |
+| 支撑材料 `#***fj.zip/.rar` | **FAIL** | 仓库无打包文件 |
+| 附录源码完整性 | **FAIL** | 附录仅 2 段核心代码，其余指向尚不存在的支撑材料 |
+| AI 使用记录 | **FAIL** | 有 `docs/AI_USAGE_LOG.md` 与预研日志，但无提交用统一披露文件 |
+| 论文数字与原始报告一致性 | **FAIL** | 见下方 5.1 |
+| 提交文件敏感信息 | PASS | PDF/DOCX 中未检出 `sdk_code`/`user_id`/`password`/`token` |
+
+### 5.1 论文数字不一致证据
+
+| 项目 | 论文 | 原始记录 |
+|---|---|---|
+| gap 两阶段（HistGB） | p1、p6、p7 与 `f_gap_zh.png`：0.324 → 0.513 | `results/metrics.csv`：0.3407 → 0.4808；`train_log.txt`：0.341 → 0.481 |
+| 三个任务硬件时长 | p21 表 15：三行均为 0.6673 ms | 三份 PDF：0.6673 / 0.9798 / 0.8221 ms |
+| 排队时间 | p15：每次 12–13 秒 | 任务 1 约 12 s；任务 2、3 各约 4 s |
+| 设备型号 | p1：三组均在 SPQC-550 | 任务 3 PDF：SPQC-1000 |
+| 重试表述 | p21：下载失败后没有重试 | 存在 `run_m3x_retry.log`（复用同名同矩阵任务，未重新提交） |
+| 13×13 分辨率 | p1、p15：2.00 档 | `cim_run_k13.log`：1.87 档（两套计算口径） |
+
+以上只报告差异与证据位置，未修改论文内容或结论。
+
+---
+
+## 6. 必须由参赛队员处理的事项
+
+1. **提供原始实验环境依赖清单**（`pip freeze` 或等价记录），解锁双环境逐包对比。
+2. **登录平台确认**设备类型、优化/采样配额余额与有效期；当前设备为 UNVERIFIED，配额为用户口述。
+3. **生成英文版论文**：正文、图表、页眉全部英文；建议用现有 `figures/f_*_en.png` 替换中文图。
+4. **按规范命名**：论文 `Dapmcm26306844.pdf`。
+5. **准备承诺书**：全员签名后扫描为 `Dapmcm26306844cns.pdf` 或 `.jpg`。
+6. **打包支撑材料**：`Dapmcm26306844fj.zip`（或 `.rar`），包含程序、结果与说明，排除官方原始数据。
+7. **补全附录源码**，或确认支撑材料中的源码满足规范要求。
+8. **统一 AI 使用披露**：将预研与工程阶段记录合并为提交用单份说明。
+9. **核对并修正论文数字差异**（第 5.1 节），经全队确认后再定稿。
+10. **审查并合并 PR #3**；合并前确认 CLI 行为变化与输出目录调整。
+11. **任何真机提交前**，由账号持有人在本机授权并书面确认任务数、矩阵规模与预计消耗。
+
+---
+
+## 7. 本阶段边界声明
+
+- 未提交任何真机任务，未消耗任何算力配额。
+- 未记录、未打印、未提交任何账号、密码、`sdk_code` 或 Token。
+- 未修改数学模型、算法、参数、随机种子、QUBO 系数与科学结论。
+- 未代写论文正文、未改写研究结论、未自动合并 PR、未自动提交比赛作品。

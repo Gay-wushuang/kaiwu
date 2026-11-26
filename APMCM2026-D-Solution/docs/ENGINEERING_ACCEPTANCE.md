@@ -2,6 +2,7 @@
 
 - 首次记录：2026-11-27（Asia/Shanghai）
 - 更新记录：2026-11-27，Phase 8 工程修复后（分支 `engineering/reproducibility`，PR #3）
+- 冻结记录：2026-11-27，Phase 9 版本冻结（最终交付清单见 `RELEASE_CHECKLIST.md`）
 - 验收对象：`Gay-wushuang/kaiwu` @ `db624f16af2ed28d9f11b59bfe0fb3950afb0ca6`
 - 工作区状态：`main` 与 `origin/main` 一致；工程修复在独立分支进行，未改动 `main`
 - 验收范围：环境、依赖、数据、真机记录完整性、提交安全审计、路径可移植性
@@ -19,7 +20,7 @@
 | 操作系统 | Windows 10 企业版 22H2，10.0.19045，x64 | PASS |
 | CPU / 内存 | i5-12600KF（10C/16T）/ 63.8 GB（可用 30.4 GB） | PASS |
 | 系统 Python | Anaconda 3.12.5（`E:\anaconda3`），未改动 | PASS |
-| 独立复现环境 | `%LOCALAPPDATA%\kaiwu-verify`（CPython 3.12.5，新建，独立于队友环境） | PASS |
+| 独立复现环境 | `%LOCALAPPDATA%\kaiwu-verify`（CPython 3.12.6，新建，独立于队友环境） | PASS |
 | 队友既有环境 | `APMCM2026-D-Feasibility\environment\.venv`（Python 3.12.6），未改动 | PASS |
 | 仓库体积 | `APMCM2026-D-Solution` 17.1 MB / 130 文件；`APMCM2026-D-Feasibility` 0.5 MB / 34 文件 | PASS |
 
@@ -347,3 +348,23 @@ python -c "..."                                # SAOptimizer = BLOCKED_LICENSE
 
 说明：论文语言与命名属于正式提交材料，需由参赛队员自行翻译、排版、签名并打包；AI 未改写论文正文或研究结论。
 建议最终文件名：`Dapmcm26306844.pdf`、`Dapmcm26306844cns.pdf`、`Dapmcm26306844fj.zip`。
+
+---
+
+## 13. Phase 9 版本冻结记录（2026-11-27）
+
+| 项目 | 结果 |
+|---|---|
+| 代码冻结 | 分支 `engineering/reproducibility`，PR #3 OPEN，未合并 |
+| 官方数据 | 8/8 CSV 通过官方 SHA256 与行数校验 |
+| 本机依赖锁定 | `requirements.lock.txt`（CPython 3.12.6，54 个包） |
+| 原始环境依赖清单 | BLOCKED：队友未提供完整清单 |
+| 实验版本清单 | `results/EXPERIMENT_VERSION.json`（代码 SHA、数据 SHA、依赖、种子、产物哈希、真机任务 ID） |
+| 原始实验归档 | `results/`（冻结，未覆盖） |
+| 独立复现归档 | `results/reproduction_20261127/`（单独目录，未覆盖原始结果） |
+| 最终工程自检 | PASS 15 / FAIL 0 / BLOCKED 0 / WARN 1（lightgbm 可选未装） |
+| 真机 License | BLOCKED（本机未授权） |
+| 真机任务 | 本阶段 0 次提交、0 配额消耗 |
+| 最终交付清单 | `RELEASE_CHECKLIST.md` |
+
+未解决与需人工处理事项见 `RELEASE_CHECKLIST.md`。

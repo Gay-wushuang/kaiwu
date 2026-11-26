@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-27 Asia/Shanghai",
+  "repository": {
+    "remote": "https://github.com/Gay-wushuang/kaiwu.git",
+    "branch": "engineering/reproducibility",
+    "head_commit": "822b7ea17f55a917411a3c409402cb577f2b20a9",
+    "base_commit": "db624f16af2ed28d9f11b59bfe0fb3950afb0ca6",
+    "pr": 3,
+    "pr_state": "OPEN (not merged)"
+  },
+  "datasets": {
+    "path": "date/",
+    "source": "official offline package",
+    "files": {
+      "02_castelli_train.csv": {
+        "sha256": "973e6a6d39e1846338f4df8870b0e223d573849d38b10eeddc70f11e6e5918f3",
+        "rows": 11256,
+        "cols": 22,
+        "rows_expected": 11256,
+        "match": true
+      },
+      "03_castelli_val.csv": {
+        "sha256": "42a62b0fa114a736ea5003ad48615359d8d1046bf73286c8ccefc5a386df2d3d",
+        "rows": 3969,
+        "cols": 22,
+        "rows_expected": 3969,
+        "match": true
+      },
+      "04_castelli_test_holdout.csv": {
+        "sha256": "8ed9d46b8c134ce55a633df768acbd0ce2beff4e49df4ee5bc41f06d71c58d52",
+        "rows": 3703,
+        "cols": 6,
+        "rows_expected": 3703,
+        "match": true
+      },
+      "06_castelli_no_physics.csv": {
+        "sha256": "73bfe2c23cc5a8248137492beeae63e39f56dc8c0bf5df679792db424de8edeb",
+        "rows": 15225,
+        "cols": 6,
+        "rows_expected": 15225,
+        "match": true
+      },
+      "07_castelli_q2_pool.csv": {
+        "sha256": "a0cd72b4b0ca52269277d4e8287da92d8d8751a291733586fba8a08d8d3f91fe",
+        "rows": 2704,
+        "cols": 6,
+        "rows_expected": 2704,
+        "match": true
+      },
+      "08_castelli_q3_pool.csv": {
+        "sha256": "d09da16984ab90b110c934bdd51e129818d5d527d75854f74acf8c98d73b941b",
+        "rows": 8112,
+        "cols": 6,
+        "rows_expected": 8112,
+        "match": true
+      },
+      "11_castelli_q2_pool_blind.csv": {
+        "sha256": "8227db4320dd5a435e993a261ede446ee2068382ee8e4648152fd42a593c0721",
+        "rows": 529,
+        "cols": 6,
+        "rows_expected": 529,
+        "match": true
+      },
+      "12_castelli_q3_pool_blind.csv": {
+        "sha256": "321cef2c4fafcf66b7141360e7dc247b9f6f71ac60c6206c0f910303a3f67868",
+        "rows": 1587,
+        "cols": 6,
+        "rows_expected": 1587,
+        "match": true
+      },
+      "README_数据集说明.md": {
+        "sha256": "d55948388b81522ebb9cbb6b2b16493c0a2d19fe005075d84e56853e5487f79e",
+        "match": true
+      }
+    }
+  },
+  "environments": {
+    "original_solution_env": {
+      "status": "BLOCKED",
+      "known": {
+        "python": "3.12 (README)",
+        "kaiwu": "1.4.4 (README)"
+      },
+      "notes": "队友原始环境位于 D:\\Python；完整依赖版本清单未提供，无法逐包核对。"
+    },
+    "independent_reproduction_env": {
+      "status": "PASS",
+      "python": "3.12.6",
+      "platform": "Windows-10-10.0.19045-SP0",
+      "lock_file": "requirements.lock.txt",
+      "packages": {
+        "kaiwu": "1.4.4",
+        "kaiwu-community": "1.0.8",
+        "numpy": "2.5.5",
+        "pandas": "2.2.3",
+        "scikit-learn": "1.9.1",
+        "xgboost": "3.4.1",
+        "mendeleev": "1.4.0",
+        "scipy": "1.18.1",
+        "joblib": "1.6.0",
+        "matplotlib": "3.10.3"
+      }
+    },
+    "pre_research_env": {
+      "status": "REFERENCE_ONLY",
+      "path": "APMCM2026-D-Feasibility/environment",
+      "python": "3.12.6",
+      "lock_file": "APMCM2026-D-Feasibility/environment/requirements.lock.txt",
+      "notes": "可行性预研环境，只含 kaiwu 依赖，不是正式求解环境。"
+    }
+  },
+  "experiments": {
+    "original": {
+      "label": "Original team experiment (frozen in repository)",
+      "git_commit": "db624f1",
+      "status": "FROZEN",
+      "run_time_s": 29.1,
+      "seed_sources": [
+        "code/run_all.py: XGBRegressor/XGBClassifier random_state=0",
+        "code/run_all.py: np.random.default_rng(7) in solve_block",
+        "code/run_all.py: random_state=0 in all tree models"
+      ],
+      "artifacts": {
+        "code/predictions/pool_q2.csv": "f6158399381c4fa801d27a152b827400d73f8441ca77d7f90aad26b1e8743b8b",
+        "code/predictions/pool_q2_final.csv": "18b3def636fe231e7f56ededf823171b8d49da5970dcc77ec1caf2cc49a73792",
+        "code/predictions/pool_q2_phys.csv": "41937214602302bd9ef4b503ce0f792b0db4cb475ff5565bf17ae41aca44aa3a",
+        "code/predictions/pool_q2b.csv": "9e10bb359589673cafb9616f8072f1069b64ee8af11b9829f9bf0626dc1427c0",
+        "code/predictions/pool_q2b_final.csv": "ba76745fbd0bded48424a1b322f331c6487d79cdd0cfdd7acfca4657ca3f2215",
+        "code/predictions/pool_q2b_phys.csv": "0fe375b683405ef6e61047fb6196afba665aaacbc7fffde1645c6a0acbdd0cb6",
+        "code/predictions/pool_q3.csv": "b086b6183261e0d254d1c5cae5279e52eb4c6e70022ace42b091c5885eb3773e",
+        "code/predictions/pool_q3_final.csv": "05a7a10913b7b93444c90653774238daea7706d5bcf6c947e5fb71aef7f458a7",
+        "code/predictions/pool_q3_phys.csv": "6c4544b561f0fd62ed910af10d8c234aac105510b65bcd0bab02094643f2f76d",
+        "code/predictions/pool_q3b.csv": "6b8beea0b6f621df512f355cb2290f4651c20f97b68aaef66d8dcd4e1a60c0ed",
+        "code/predictions/pool_q3b_final.csv": "3c2b96b682c07fd6a8f9e1e6a40130ca32eb32d71a181ca52e00829fe970b771",
+        "code/predictions/pool_q3b_phys.csv": "ecc09980d97bf309fce0bce32831479a40b512a9ca42998039b09c2e5f21262f",
+        "code/predictions/qubo_q2.npz": "f8b6c7ef2684feb2614aecc761eb9f74030d02dcee45f320ca58b195a4456110",
+        "results/EXPERIMENT_INDEX.md": "d541a50a4269eeb1e53a7833d83509291c814f91612fa8220a00dd7d5e981b1e",
+        "results/final_answers.json": "e3d6dcc0826bb110d09e6338ef16b560f6dbc6250b9976ef8a6aaeb52d809b23",
+        "results/FINAL_ANSWERS.md": "596e959c51a0abe33730d42f5910ccf61a22dfe8ac5ad0bf332f41505a3f28f9",
+        "results/local_sa_stats.csv": "5a1a6f4afda1a79b3bd9b1e1f9842e71e580c45a33bb5776ba5f600dad8f80be",
+        "results/metrics.csv": "69f5acd59dc4c6961f63a469a2e9605d94ddccc33357ab34827a40d774041b59",
+        "results/metrics.json": "e6d4e80ce51471d47080327ea416bdd7975c80f63b8a7cb4f20b2fe5dd346d57",
+        "results/model_compare.csv": "068498796089fda575a088ef74be44c6ca9e6909b619f631afcc0f22831c51eb",
+        "results/official_task_report.csv": "583e1b73c71c9612570bb8c708fc4bc96a1d06ee08bc9d2084d96153a0285d5b",
+        "results/submission_q1_holdout.csv": "5006d65829972137e6fd3292da951950b14134cdc8053aa56c84c682ff75a59a",
+        "results/submission_q2_top20.csv": "2d77db7053d04f7446269bdc1068f22f89c79327a3c358d84571456b3d402d0d",
+        "results/submission_q3_top20.csv": "146937c87df07f2b39d07f30a6c950f4e46231464039439e8bff6be5a621e955",
+        "results/val_predictions.csv": "fc026affc113f44b954d34ba91823c3dc9558cd8788858a2a79614b0ea66362c",
+        "results/vendor_reports/apmcm_q2_k13_m3x.pdf": "9a4caf17dd14af6ee10ec251b75fc02d2658d5eca30bae7a769b3cd84973e831",
+        "results/vendor_reports/apmcm_q2_k8_m1x.pdf": "942588c5309d08f3fde3701abfbe2847f84c58a5990ade9542b152b02616ea09",
+        "results/vendor_reports/apmcm_q2_no2_k13.pdf": "da29b4566cb081f097fae2d948926cd8a01ea3e7d033c46cfc02af1577cfbf83",
+        "results/cim_stats/apmcm_q2_k13_m3x_stats.json": "89ebaca730bf6cb3da1541aec901431fe7edccbaf13e3593ce30cf4ec4509203",
+        "results/cim_stats/apmcm_q2_k8_m1x_stats.json": "bfd09e4514a36a7d84fadf194ccdd6fff48776868a8027f292b1b248b530d07b",
+        "results/cim_samples/apmcm_q2_k13_m3x_samples.csv": "0fb0f0866bfedc69731066b989ad20d1563bebb52b8a09b4195f6737cdc5b4a4",
+        "results/cim_samples/apmcm_q2_k8_m1x_samples.csv": "38aab63909f9e9c5ec7ed66c6828048f153c287ea6acb0db9286dd99f25b7ce8",
+        "results/cim_samples/local_sa_topk13_Mx1_samples.csv": "233ec5ff52790004efb3c98e1fb78c1a36398d568bd4165071094a825dba75a7",
+        "results/cim_samples/local_sa_topk13_Mx3_samples.csv": "2483a7ceb4fcef29093fc6ffb3ec36747595a501c65c7f42a32b9041861341f3",
+        "results/cim_samples/local_sa_topk8_Mx1_samples.csv": "7568bf17dc91dda71926279fa70c632ff58c77a9184d0185c9d8abca300e9264",
+        "results/logs/cim_run_k13.log": "90877af2525c6982fbf4656d31fca415f78f723df5445d861d2fd699a1ab5faa",
+        "results/logs/local_sa.log": "b99255c11a1b028813da959f599527360a1539dc364f7afd0da2c75ad124b79a",
+        "results/logs/run_all.log": "2dd221b721254914437176db16ddb21a10a910ec0f7c13c2e05aecd8dd08e8b5",
+        "results/logs/run_k8.log": "fd13662cca880eaf26aa208754fe2b32eb96be83ca80bb020fe4534de7f91b3f",
+        "results/logs/run_m3x.log": "141454e63607e020019a36c67fa1e9ee7ff2e3125401d826e55c531171f0f205",
+        "results/logs/run_m3x_retry.log": "154c4b441e25f3dfc77772ca05dea0d45ea1f485ea943b2f6e53cf563a12e8cd",
+        "results/logs/run_samp200.log": "e0df94c772b2edc95c007781c26f83bc142db5987204b9404670de3641a824a7",
+        "results/logs/train_log.txt": "81e5f223d1a2aee98d749d6603ffb57e33877969bd6a90d543b5a5613dd8fc7e"
+      },
+      "model_artifact": null,
+      "real_machine_tasks": [
+        {
+          "task": "apmcm_q2_no2_k13",
+          "task_id": "4cc56fdeb17d4fdc95cbdd1d436ffeef",
+          "device": "SPQC-550",
+          "report": "results/vendor_reports/apmcm_q2_no2_k13.pdf"
+        },
+        {
+          "task": "apmcm_q2_k13_m3x",
+          "task_id": "fa769c1bf4974f5594c357ada1bf4d5a",
+          "device": "SPQC-550",
+          "report": "results/vendor_reports/apmcm_q2_k13_m3x.pdf"
+        },
+        {
+          "task": "apmcm_q2_k8_m1x",
+          "task_id": "3d77a22670424dc7be3ff1872e2db416",
+          "device": "SPQC-1000",
+          "report": "results/vendor_reports/apmcm_q2_k8_m1x.pdf"
+        }
+      ]
+    },
+    "independent_reproduction_20261127": {
+      "label": "Independent reproduction (separate archive)",
+      "git_commit": "822b7ea",
+      "code_snapshot": {
+        "run_all.py_sha256": "ee24ac0a83e7cab5d87adf97a10ef3c9884133d80231c8c24b13147ab25f860c"
+      },
+      "run_time_s": 74.0,
+      "archive_dir": "results/reproduction_20261127",
+      "artifacts": {
+        "results/reproduction_20261127/final_answers.json": {
+          "sha256": "b81e60740c3421975f6aedf40a04355ebeb18dbf5700783faf4e08141dd3b746",
+          "bytes": 1134
+        },
+        "results/reproduction_20261127/FINAL_ANSWERS.md": {
+          "sha256": "40e7d82399f7eaeb7a10999457ec29131f633637ab58f2d8798f911283698b87",
+          "bytes": 1441
+        },
+        "results/reproduction_20261127/run_all.log": {
+          "sha256": "9b1e8d96c48edca4f9717f111442e3bae76860374c8b39b29908c2b8ebf49b7f",
+          "bytes": 2835
+        },
+        "results/reproduction_20261127/submission_q1_holdout.csv": {
+          "sha256": "9395cb54a010be851007e08f61cf3f0c3361d120c1f5a14da86a17f937302b4d",
+          "bytes": 155465
+        },
+        "results/reproduction_20261127/submission_q2_top20.csv": {
+          "sha256": "7cf63c8ce6ea5aa921022b70c1ebe81f45e75143bd5c2688f53f36b06cbfdc9b",
+          "bytes": 874
+        },
+        "results/reproduction_20261127/submission_q3_top20.csv": {
+          "sha256": "c53d633775baa265d352f0ed4903d5a78cfd87e36a2035aba57959fb8b5bb59b",
+          "bytes": 802
+        }
+      },
+      "model_artifact": {
+        "path": "models/surrogate_phys.joblib",
+        "sha256": "ba22ec9ec9c7555c62d15f4bf543546ad99f2b445f800a25f2cabcd33c300357",
+        "bytes": 15509867,
+        "note": "generated by independent reproduction; gitignored, not the original artifact"
+      },
+      "differences_vs_original": {
+        "validate": {
+          "r2": [
+            0.8248177659331984,
+            0.8248360139436758
+          ],
+          "mae": [
+            2.5756521937039945,
+            2.571641375773894
+          ],
+          "rmse": [
+            4.5974371645222725,
+            4.597197710256738
+          ],
+          "spearman": [
+            0.9339156652481144,
+            0.9353252386820915
+          ],
+          "top100": [
+            39,
+            40
+          ]
+        },
+        "q2_best": [
+          "LaHfO2N",
+          "LaZrO2N"
+        ],
+        "q2_num_lt1": [
+          7,
+          6
+        ],
+        "q3_num_lt1": [
+          73,
+          68
+        ],
+        "pool_vhat_abs_diff_mean": 0.311235,
+        "pool_vhat_abs_diff_max": 4.733255,
+        "submission_sha256_different": true
+      }
+    }
+  },
+  "notes": [
+    "Original artifacts are not overwritten; reproduction outputs live in results/reproduction_20261127/.",
+    "Dependency differences are recorded as observed, not asserted as the sole cause of numerical differences.",
+    "No real-machine task was submitted in Phase 9; quota consumption is zero."
+  ]
+}

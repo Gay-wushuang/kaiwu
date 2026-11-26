@@ -16,7 +16,7 @@
 | `results/EXPERIMENT_INDEX.md` | 三次真机实验的索引（任务 ID、设备、时长、文件对应关系、MISSING 标记） |
 | `results/ARTIFACT_SHA256.json` | 实验产物 SHA256 清单 |
 | `figures/` | 论文用图（图 1–图 6）与平台演化图 |
-| `paper/` | 论文底稿：英文版（docx + pdf）与中文版（docx + pdf） |
+| `paper/` | 论文底稿：中文版（docx + pdf，含彩色版与草稿版）；英文提交版尚未生成 |
 | `docs/` | 中文思路稿、工程验收记录、AI 使用记录 |
 | `date/` | 赛题附件 CSV（不入库，需自行放置） |
 | `models/` | 代理模型产物（`run_all.py` 生成，当前未入库） |
@@ -73,6 +73,9 @@ python code/verify_project.py
 Python 3.12 · numpy · pandas · scikit-learn · xgboost · mendeleev · `kaiwu==1.4.4`
 （`lightgbm` 为 `model_compare.py` 的可选依赖；量子部分需要平台授权，见 `APMCM2026-D-Feasibility/docs/SDK_VERSION_REPORT.md`）
 
+独立复现环境的完整依赖版本见根目录 `requirements.lock.txt`；实验版本与产物哈希见 `results/EXPERIMENT_VERSION.json`。
+队友原始实验环境的依赖清单尚未提供，双环境差异记录在 `docs/ENGINEERING_ACCEPTANCE.md`。
+
 ## 真机提交安全约定
 
 - `d_run_stats.py` 默认 dry-run：只做本地建模与精度分析，不调用 license、不创建云端任务。
@@ -100,6 +103,8 @@ Python 3.12 · numpy · pandas · scikit-learn · xgboost · mendeleev · `kaiwu
 - 工程验收记录：`docs/ENGINEERING_ACCEPTANCE.md`
 - AI 使用记录：`docs/AI_USAGE_LOG.md`
 - 真机实验索引：`results/EXPERIMENT_INDEX.md`
+- 实验版本与产物哈希：`results/EXPERIMENT_VERSION.json`
+- 独立复现归档：`results/reproduction_20261127/`（与原始实验分离，不覆盖）
 
 ## 注意
 
