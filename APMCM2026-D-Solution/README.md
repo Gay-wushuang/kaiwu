@@ -14,12 +14,14 @@
 | `results/cim_stats/`、`results/cim_samples/` | 各次真机任务的统计量与逐样本数据 |
 | `results/logs/` | 训练与提交日志 |
 | `figures/` | 论文用图（图 1–图 6）与平台演化图 |
-| `paper/` | 论文底稿（docx + pdf） |
+| `paper/` | 论文底稿：英文版（docx + pdf）与中文版（docx + pdf） |
 | `docs/` | 中文思路稿（名词解释、公式推导、实验设计） |
 
 ## 复现顺序
 
 ```bash
+# 0. 一键全流程（数据核对 → 代理模型 → 三题求解 → 交付文件，约 30 秒）
+python code/run_all.py
 # 1. 数据准备：把赛题附件解压到 ../date/（8 个 csv）
 # 2. 模型对照（表 2）
 python code/model_compare.py
@@ -57,6 +59,18 @@ python code/local_sa_stats.py
 
 Python 3.12 · numpy · pandas · scikit-learn · xgboost · lightgbm · mendeleev · `kaiwu==1.4.4`
 （量子部分需要平台授权，见 `APMCM2026-D-Feasibility/docs/SDK_VERSION_REPORT.md`）
+
+## 端到端复现结果（`code/run_all.py` 实测输出）
+
+| 项目 | 结果 |
+|---|---|
+| 验证集（02→03，元素对不重叠） | R² 0.825 · MAE 2.576 · Spearman 0.934 · Top-100 命中 39/100 |
+| 问题 2 | LaHfO₂N，V̂ = 0.0000；V̂<1 的 7 个 |
+| 问题 3 | PbTiO₃（O₃），V̂ = 0.0000；V̂<1 的 73 个 |
+| 子问题 13×13（26 比特） | 目标分辨率 1.87 档，模拟退火找回 V̂ = 0 |
+| 全量 104 比特 | 目标分辨率 0.51 档（不可用，必须预筛） |
+
+详见 `results/FINAL_ANSWERS.md`。
 
 ## 注意
 
