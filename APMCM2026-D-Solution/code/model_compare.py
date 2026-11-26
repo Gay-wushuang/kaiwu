@@ -2,21 +2,20 @@
 """模型对照实验（回应 GPT 方案里的 RF/XGBoost/LightGBM 比较要求）
 指标：RMSE / MAE / R² / Spearman / 低 V 区间 MAE / Top-K 命中
 """
-import os, warnings, json
+import warnings, json
 warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from mendeleev import element as mel
 from sklearn.ensemble import HistGradientBoostingRegressor, RandomForestRegressor
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 from scipy.stats import spearmanr
+from paths import DATA, RES, ensure_output_dirs, require_data
 
-ROOT = r"D:\比赛\APMCM\D题"
-DAT = os.path.join(ROOT, "date")
-RES = os.path.join(ROOT, "results")
-os.makedirs(RES, exist_ok=True)
+ensure_output_dirs()
+require_data("02_castelli_train.csv", "03_castelli_val.csv")
 
-tr = pd.read_csv(os.path.join(DAT, "02_castelli_train.csv"))
-va = pd.read_csv(os.path.join(DAT, "03_castelli_val.csv"))
+tr = pd.read_csv(DATA / "02_castelli_train.csv")
+va = pd.read_csv(DATA / "03_castelli_val.csv")
 ELEMS = sorted(set(tr.A) | set(tr.B))
 P = {}
 for s in ELEMS:
@@ -92,6 +91,6 @@ for name, m in models.items():
           f"ρ={row['Spearman']:.4f} MAE_low10={row['MAE_low10']:6.2f} Top100={row['Top100']}")
 
 df = pd.DataFrame(rows).sort_values("MAE")
-df.to_csv(os.path.join(RES, "model_compare.csv"), index=False, encoding="utf-8-sig")
+df.to_csv(RES / "model_compare.csv", index=False, encoding="utf-8-sig")
 print("\n" + df.to_string(index=False))
-print("\n已存 results/model_compare.csv")
+print(f"\n已存 {RES / 'model_compare.csv'}")

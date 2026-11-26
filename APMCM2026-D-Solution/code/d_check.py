@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
-import pandas as pd, os, numpy as np
-d = r"D:\比赛\APMCM\2026 APMCM Problems B&C&D\D题 中文翻译\date"
-f02 = pd.read_csv(os.path.join(d, "02_castelli_train.csv"))
-f03 = pd.read_csv(os.path.join(d, "03_castelli_val.csv"))
-f04 = pd.read_csv(os.path.join(d, "04_castelli_test_holdout.csv"))
-f06 = pd.read_csv(os.path.join(d, "06_castelli_no_physics.csv"))
-f07 = pd.read_csv(os.path.join(d, "07_castelli_q2_pool.csv"))
-f08 = pd.read_csv(os.path.join(d, "08_castelli_q3_pool.csv"))
-f11 = pd.read_csv(os.path.join(d, "11_castelli_q2_pool_blind.csv"))
-f12 = pd.read_csv(os.path.join(d, "12_castelli_q3_pool_blind.csv"))
+import pandas as pd, numpy as np
+from paths import DATA, require_data
+
+require_data()
+f02 = pd.read_csv(DATA / "02_castelli_train.csv")
+f03 = pd.read_csv(DATA / "03_castelli_val.csv")
+f04 = pd.read_csv(DATA / "04_castelli_test_holdout.csv")
+f06 = pd.read_csv(DATA / "06_castelli_no_physics.csv")
+f07 = pd.read_csv(DATA / "07_castelli_q2_pool.csv")
+f08 = pd.read_csv(DATA / "08_castelli_q3_pool.csv")
+f11 = pd.read_csv(DATA / "11_castelli_q2_pool_blind.csv")
+f12 = pd.read_csv(DATA / "12_castelli_q3_pool_blind.csv")
 
 print("列（02）:", list(f02.columns))
 print("列（07 池）:", list(f07.columns))

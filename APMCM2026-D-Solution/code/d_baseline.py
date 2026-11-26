@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 """D 题 问题 1 基线：组分 → V 的代理模型（零正例、按 (A,B) 分组的真实切分验证）"""
-import os, warnings
+import warnings
 warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.metrics import r2_score, mean_absolute_error
+from paths import DATA, RES, ensure_output_dirs, require_data
 
-d = r"D:\比赛\APMCM\2026 APMCM Problems B&C&D\D题 中文翻译\date"
-tr = pd.read_csv(os.path.join(d, "02_castelli_train.csv"))
-va = pd.read_csv(os.path.join(d, "03_castelli_val.csv"))
-pool = pd.read_csv(os.path.join(d, "07_castelli_q2_pool.csv"))
+ensure_output_dirs()
+require_data("02_castelli_train.csv", "03_castelli_val.csv", "07_castelli_q2_pool.csv")
+tr = pd.read_csv(DATA / "02_castelli_train.csv")
+va = pd.read_csv(DATA / "03_castelli_val.csv")
+pool = pd.read_csv(DATA / "07_castelli_q2_pool.csv")
 
 elems = sorted(set(tr.A) | set(tr.B))
 xcat = sorted(tr.X.unique())
@@ -68,5 +70,5 @@ pool = pool.assign(V_hat=pv).sort_values("V_hat")
 print("\n07 池（X=NO2，2704 个 (A,B)）预测最优前 10：")
 print(pool[["formula", "A", "B", "V_hat"]].head(10).to_string(index=False))
 print("\n预测 V 最小的 10 个分布：min %.3f 中位 %.3f max %.3f" % (pv.min(), np.median(pv), pv.max()))
-pool.to_csv(r"D:\temp\q2_pool_pred.csv", index=False, encoding="utf-8-sig")
-print("已存 D:\\temp\\q2_pool_pred.csv")
+pool.to_csv(RES / "q2_pool_pred.csv", index=False, encoding="utf-8-sig")
+print(f"已存 {RES / 'q2_pool_pred.csv'}")

@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 """D 题 Step 3：问题 2 的 104 比特 QUBO 构造 + 穷举验证 + 8bit 精度量化影响"""
-import os, itertools, numpy as np, pandas as pd
+import itertools, numpy as np, pandas as pd
+from paths import PRED, ensure_output_dirs, require_files
 
-d = r"D:\temp\d_out"
-pool = pd.read_csv(os.path.join(d, "pool_q2.csv"))
+ensure_output_dirs()
+require_files([PRED / "pool_q2.csv", PRED / "pool_q3.csv"], "池子预测文件")
+pool = pd.read_csv(PRED / "pool_q2.csv")
 A = sorted(pool.A.unique()); B = sorted(pool.B.unique())
 ai = {a: i for i, a in enumerate(A)}; bi = {b: i + len(A) for i, b in enumerate(B)}
 n = len(A) + len(B)          # 104
@@ -62,14 +64,13 @@ print(f"量化后最优: {best_q} | 与量化前{'一致 ✅' if best_q == best 
 bits = np.zeros(n, dtype=np.int64); bits[0] = 1; bits[1] = 1; bits[len(A)] = 1
 print(f"约束违反样例（2 个 A、1 个 B）能量: {energy(bits):.1f}（合法解约 {bv:.1f}）→ 罚项{M}足够")
 
-out = r"D:\temp\d_out"
-np.savez(os.path.join(out, "qubo_q2.npz"), Q=Q, offset=offset, M=M,
+np.savez(PRED / "qubo_q2.npz", Q=Q, offset=offset, M=M,
          elems=np.array(A), n=n)
-pd.DataFrame(Q).to_csv(os.path.join(out, "qubo_q2_matrix.csv"), index=False, header=False)
-print(f"\n已存 qubo_q2.npz / qubo_q2_matrix.csv（{n}×{n}）")
+pd.DataFrame(Q).to_csv(PRED / "qubo_q2_matrix.csv", index=False, header=False)
+print(f"\n已存 {PRED / 'qubo_q2.npz'} / qubo_q2_matrix.csv（{n}×{n}）")
 
 # --- 问题 3：三自由度，先按固定 X 分三次求解（主线方案） ---
-p3 = pd.read_csv(os.path.join(out, "pool_q3.csv"))
+p3 = pd.read_csv(PRED / "pool_q3.csv")
 print("\n问题 3（固定 X 三次求解）:")
 for x in ["O3", "NO2", "FO2"]:
     sub = p3[p3.X == x].sort_values("V_hat")

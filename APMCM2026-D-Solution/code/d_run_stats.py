@@ -1,28 +1,31 @@
 # -*- coding: utf-8 -*-
 """真机统计实验：SAMPLING 多次采样 / 罚项倍数对照
 
+安全约定：
+  默认是 dry-run：只做本地建模与精度分析，不调用 license、不创建云端任务、不消耗配额。
+  实际提交必须显式加 --submit，并在交互终端逐字输入任务名完成二次确认。
+
 用法：
   python d_run_stats.py --task-name apmcm_q2_k13_samp200 --topk 13 --mode sampling --samples 200
-  python d_run_stats.py --task-name apmcm_q2_k13_m3x      --topk 13 --mode sampling --samples 200 --mfactor 3
+  python d_run_stats.py --task-name apmcm_q2_k13_samp200 --topk 13 --mode sampling --samples 200 --submit
 """
-import argparse, os, sys, json
+import argparse, json
 import numpy as np, pandas as pd
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import d_submit_cim as S
-import kaiwu as kw
 import kaiwu.preprocess as pp
-from kaiwu.cim import CIMOptimizer, TaskMode
+from paths import CIM_SAMPLES, CIM_STATS, FIG, ensure_output_dirs
 
+ensure_output_dirs()
 plt.rcParams["font.sans-serif"] = ["SimHei", "Microsoft YaHei"]
 plt.rcParams["axes.unicode_minus"] = False
 RES = S.RES
 
 
-def run(task_name, topk, mfactor, mode, samples, project_no=None):
+def run(task_name, topk, mfactor, mode, samples, project_no=None, submit=False):
     A, B, V = S.load_pool(topk=topk)
     Q, offset, M0 = S.build_qubo(V)
     M = M0 * mfactor
@@ -40,9 +43,23 @@ def run(task_name, topk, mfactor, mode, samples, project_no=None):
     print(f"  max|J|={Ia.max():.0f} | 目标块 {obj:.2f} | 步长 {step:.2f} | 目标可分档数 {obj/step:.2f}")
     print(f"  真值最优 {gold[0]}-{gold[1]} V*={gold[2]:.4f} | 模式 {mode} 采样 {samples}")
 
+    if not submit:
+        print("\n[DRY-RUN] 已完成本地建模与精度分析；未调用 license、未创建云端任务、未消耗配额。")
+        print(f"          若确认提交，请追加 --submit，并在提示处逐字输入任务名 {task_name}。")
+        return dict(task=task_name, mode=mode, samples=int(samples), mfactor=mfactor,
+                    M=M, maxJ=float(Ia.max()), step=float(step), obj=float(obj),
+                    resol=float(obj / step), gold=f"{gold[0]}-{gold[1]}", gold_V=gold[2],
+                    submitted=False)
+
+    if not S.confirm_submit(task_name, adj.shape[0] - 1, adj.shape[0], mode,
+                            max(int(samples), 10)):
+        return dict(task=task_name, submitted=False, reason="user_cancelled")
+
+    import kaiwu as kw
+    from kaiwu.cim import CIMOptimizer, TaskMode
     kw.license.verify_license(adj.shape[0])
-    save = os.path.join(RES, "cim_tasks"); os.makedirs(save, exist_ok=True)
-    kw.common.CheckpointManager.save_dir = save
+    save = RES / "cim_tasks"; save.mkdir(parents=True, exist_ok=True)
+    kw.common.CheckpointManager.save_dir = str(save)
     tm = TaskMode.SAMPLING if mode == "sampling" else TaskMode.OPTIMIZATION
     opt = CIMOptimizer(task_name=task_name, wait=True, interval=6, project_no=project_no,
                        task_mode=tm, sample_number=max(int(samples), 10))
@@ -78,9 +95,9 @@ def run(task_name, topk, mfactor, mode, samples, project_no=None):
                  hit_top8=hit8, H_min=float(df.H.min()), H_max=float(df.H.max()),
                  H_median=float(df.H.median()))
     print("\n" + pd.DataFrame([stats]).T.to_string(header=False))
-    df.sort_values("H", ascending=False).to_csv(os.path.join(RES, f"{task_name}_samples.csv"),
+    df.sort_values("H", ascending=False).to_csv(CIM_SAMPLES / f"{task_name}_samples.csv",
                                                 index=False, encoding="utf-8-sig")
-    json.dump(stats, open(os.path.join(RES, f"{task_name}_stats.json"), "w", encoding="utf-8"),
+    json.dump(stats, open(CIM_STATS / f"{task_name}_stats.json", "w", encoding="utf-8"),
               ensure_ascii=False, indent=2)
 
     # H 分布图
@@ -88,7 +105,7 @@ def run(task_name, topk, mfactor, mode, samples, project_no=None):
     ax.hist(df.H, bins=40, color="#2E7D8F")
     ax.set_xlabel("Hamiltonian（越大越好，按 QBoson 约定）"); ax.set_ylabel("解个数")
     ax.set_title(f"{task_name}：{len(df)} 个采样解的 Hamiltonian 分布")
-    fig.tight_layout(); fig.savefig(os.path.join(RES, f"{task_name}_H_hist.png"), dpi=200); plt.close(fig)
+    fig.tight_layout(); fig.savefig(FIG / f"{task_name}_H_hist.png", dpi=200); plt.close(fig)
     return stats
 
 
@@ -100,5 +117,11 @@ if __name__ == "__main__":
     ap.add_argument("--samples", type=int, default=200)
     ap.add_argument("--mfactor", type=float, default=1.0)
     ap.add_argument("--project-no", default=None)
+    ap.add_argument("--submit", action="store_true",
+                    help="实际提交真机任务（需交互二次确认，消耗配额）")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="仅本地分析，不提交（默认行为，显式声明用）")
     a = ap.parse_args()
-    run(a.task_name, a.topk, a.mfactor, a.mode, a.samples, a.project_no)
+    if a.submit and a.dry_run:
+        raise SystemExit("[中止] --submit 与 --dry-run 不能同时使用。")
+    run(a.task_name, a.topk, a.mfactor, a.mode, a.samples, a.project_no, submit=a.submit)

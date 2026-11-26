@@ -1,17 +1,21 @@
 # -*- coding: utf-8 -*-
 """最终代理模型（物理量路线）：02+03 训练 e_form/gap(两阶段)/vbm/cbm，再按公式组 V*"""
-import os, warnings
+import warnings
 warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from mendeleev import element as mel
 from xgboost import XGBRegressor, XGBClassifier
+from paths import DATA, PRED, ensure_output_dirs, require_data
 
-ROOT = r"D:\比赛\APMCM\D题"
-DAT = os.path.join(ROOT, "date"); CODE = os.path.join(ROOT, "code")
-tr = pd.read_csv(os.path.join(DAT, "02_castelli_train.csv"))
-va = pd.read_csv(os.path.join(DAT, "03_castelli_val.csv"))
+ensure_output_dirs()
+require_data("02_castelli_train.csv", "03_castelli_val.csv", "07_castelli_q2_pool.csv",
+             "08_castelli_q3_pool.csv", "11_castelli_q2_pool_blind.csv",
+             "12_castelli_q3_pool_blind.csv")
+
+tr = pd.read_csv(DATA / "02_castelli_train.csv")
+va = pd.read_csv(DATA / "03_castelli_val.csv")
 al = pd.concat([tr, va], ignore_index=True)
-pools = {k: pd.read_csv(os.path.join(DAT, f)) for k, f in [
+pools = {k: pd.read_csv(DATA / f) for k, f in [
     ("q2", "07_castelli_q2_pool.csv"), ("q3", "08_castelli_q3_pool.csv"),
     ("q2b", "11_castelli_q2_pool_blind.csv"), ("q3b", "12_castelli_q3_pool_blind.csv")]}
 
@@ -68,7 +72,7 @@ for k, df in pools.items():
     gp = clf.predict_proba(Xp)[:, 1] * greg.predict(Xp)
     v = Vof(reg["e_form"].predict(Xp), gp, reg["vbm"].predict(Xp), reg["cbm"].predict(Xp))
     d2 = df.assign(V_hat=v).sort_values("V_hat")
-    d2.to_csv(os.path.join(CODE, f"pool_{k}_phys.csv"), index=False, encoding="utf-8-sig")
+    d2.to_csv(PRED / f"pool_{k}_phys.csv", index=False, encoding="utf-8-sig")
     out[k] = d2
     print(f"\n池 {k}: {len(df)} 个 | V_hat min {v.min():.3f} 中位 {np.median(v):.2f} | V_hat<1 的 {int((v<1).sum())} 个")
     print(d2[["formula", "A", "B", "X", "V_hat"]].head(5).to_string(index=False))

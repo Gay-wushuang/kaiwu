@@ -9,21 +9,23 @@
 
 用法：
   自检（不提交、不耗配额）：python d_submit_cim.py
-  授权（只需一次）：        python d_submit_cim.py --init --user-id <ID> --sdk-code <CODE>
+  授权（只需一次）：        python d_submit_cim.py --init
+                            （交互输入 user_id / sdk_code，不落盘、不进命令行历史）
   真机（主线 K=13）：       python d_submit_cim.py --run --topk 13 --task-name apmcm_q2_no2_k13
+                            （提交前须逐字输入任务名完成二次确认）
 """
-import argparse, os
+import argparse, sys
 import numpy as np
 import pandas as pd
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-RES = os.path.join(ROOT, "results")
-CODE = os.path.join(ROOT, "code")
-os.makedirs(RES, exist_ok=True)
+from paths import PRED, RES, ensure_output_dirs, require_files
+
+ensure_output_dirs()
 
 
 def load_pool(fname="pool_q2_phys.csv", topk=0):
-    pool = pd.read_csv(os.path.join(CODE, fname))
+    (pool_path,) = require_files([PRED / fname], "池子预测文件")
+    pool = pd.read_csv(pool_path)
     A = sorted(pool.A.unique()); B = sorted(pool.B.unique())
     V = np.zeros((len(A), len(B)))
     for _, r in pool.iterrows():
@@ -100,29 +102,60 @@ def analyse(topk=0, verbose=True):
                 gold=(A[i], B[j], float(V[i, j])))
 
 
-def do_init(user_id="", sdk_code=""):
-    """凭据只留本机：不带参数时走交互输入，不写进命令行历史"""
+def do_init():
+    """凭据只在本机交互输入：不接收命令行参数，不写文件，不打印。"""
     import getpass
     import kaiwu.license as lic
-    if not user_id:
-        user_id = input("user_id: ").strip()
-    if not sdk_code:
-        sdk_code = getpass.getpass("sdk_code（输入时不显示）: ").strip()
+    user_id = input("user_id: ").strip()
+    sdk_code = getpass.getpass("sdk_code（输入时不显示）: ").strip()
+    if not user_id or not sdk_code:
+        raise SystemExit("[中止] user_id 或 sdk_code 为空，未生成 license。")
     lic.init(user_id, sdk_code)
     print("license 已生成 → 可以 --run")
 
 
+def confirm_submit(task_name, bits, ising_dim, mode, samples):
+    """真机提交前的二次确认；未确认时返回 False，不创建任何云端任务。"""
+    print("\n" + "=" * 58)
+    print("真机提交确认（确认后将创建云端任务并消耗配额）")
+    print(f"  任务名称 : {task_name}")
+    print(f"  计算模式 : {mode}")
+    print(f"  矩阵规模 : {bits} 比特（Ising {ising_dim}×{ising_dim}，含辅助自旋）")
+    print(f"  采样数量 : {samples}")
+    print("  设备型号 : 由平台调度（SDK 不支持指定机型）")
+    if mode == "sampling":
+        print("  预计消耗 : 1 次采样任务配额（账户无采样配额时会在创建阶段失败）")
+    else:
+        print("  预计消耗 : 1 次优化任务配额（依据 results/EXPERIMENT_INDEX.md 历史记录）")
+    print("=" * 58)
+    if not sys.stdin.isatty():
+        print("[中止] 当前不是交互终端，无法完成二次确认。")
+        return False
+    try:
+        answer = input(f"确认提交请输入完整任务名 {task_name}（其他输入取消）: ").strip()
+    except (EOFError, KeyboardInterrupt):
+        print("\n[中止] 未获得确认，未提交任务。")
+        return False
+    if answer != task_name:
+        print("[中止] 确认文本不匹配，未提交任务。")
+        return False
+    return True
+
+
 def do_run(task_name, project_no, sample_number, wait, topk, force):
     import kaiwu as kw
-    from kaiwu.cim import CIMOptimizer, TaskMode
     info = analyse(topk=topk)
     if info["res"]["resol"] < 1 and not force:
         print("\n[中止] 目标可分档数 < 1，8bit 下目标项会被量化抹平，结果不可信。"
               "请用 --topk 13（或更小）或加 --force 强制提交。")
         return
+    if not confirm_submit(task_name, info["Q"].shape[0], info["adj"].shape[0],
+                          "optimization", sample_number):
+        return
+    from kaiwu.cim import CIMOptimizer, TaskMode
     kw.license.verify_license(info["I"].shape[0])
-    save = os.path.join(RES, "cim_tasks"); os.makedirs(save, exist_ok=True)
-    kw.common.CheckpointManager.save_dir = save
+    save = RES / "cim_tasks"; save.mkdir(parents=True, exist_ok=True)
+    kw.common.CheckpointManager.save_dir = str(save)
     opt = CIMOptimizer(task_name=task_name, wait=wait, interval=6, project_no=project_no,
                        task_mode=TaskMode.OPTIMIZATION, sample_number=sample_number)
     sol = np.atleast_2d(np.asarray(opt.solve(info["adj"])))   # 提交 SDK 精度适配后的 8bit 整数矩阵
@@ -137,7 +170,7 @@ def do_run(task_name, project_no, sample_number, wait, topk, force):
                          V_hat=float(V[A.index(dd[0]), B.index(dd[1])]) if dd else np.nan,
                          valid=dd is not None))
     df = pd.DataFrame(rows)
-    out = os.path.join(RES, f"{task_name}_result.csv")
+    out = RES / f"{task_name}_result.csv"
     df.to_csv(out, index=False, encoding="utf-8-sig")
     print(df.to_string(index=False))
     print(f"\n穷举金标准 {info['gold'][0]}-{info['gold'][1]} V*={info['gold'][2]:.4f}")
@@ -150,9 +183,8 @@ def do_run(task_name, project_no, sample_number, wait, topk, force):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--init", action="store_true")
-    ap.add_argument("--user-id", default=""); ap.add_argument("--sdk-code", default="")
-    ap.add_argument("--run", action="store_true")
+    ap.add_argument("--init", action="store_true", help="交互生成本机 license（不接收凭据参数）")
+    ap.add_argument("--run", action="store_true", help="提交真机任务（需二次确认，消耗 1 次配额）")
     ap.add_argument("--task-name", default="apmcm_q2_no2_k13")
     ap.add_argument("--project-no", default=None)
     ap.add_argument("--sample-number", type=int, default=10)
@@ -161,7 +193,7 @@ if __name__ == "__main__":
     ap.add_argument("--force", action="store_true")
     a = ap.parse_args()
     if a.init:
-        do_init(a.user_id, a.sdk_code)
+        do_init()
     elif a.run:
         do_run(a.task_name, a.project_no, a.sample_number, not a.no_wait, a.topk, a.force)
     else:

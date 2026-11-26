@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 """本地模拟退火：在同样的 8bit 整数 Ising 矩阵上跑大量重启，得到合法率与命中的统计量（免费、可重复）"""
-import sys, os, json
+import json
 import numpy as np, pandas as pd
-sys.path.insert(0, r"D:\比赛\APMCM\D题\code")
 import d_submit_cim as S
 import kaiwu.preprocess as pp
+from paths import CIM_SAMPLES, ensure_output_dirs
 
+ensure_output_dirs()
 RES = S.RES
 
 
@@ -74,7 +75,7 @@ for topk, mf in [(13, 1.0), (13, 3.0), (8, 1.0)]:
     r, df = stats(A, B, V, adj, tag)
     r.update(topk=topk, mfactor=mf, M=M)
     allres.append(r)
-    df.to_csv(os.path.join(RES, f"local_sa_{tag}_samples.csv"), index=False, encoding="utf-8-sig")
+    df.to_csv(CIM_SAMPLES / f"local_sa_{tag}_samples.csv", index=False, encoding="utf-8-sig")
 
-pd.DataFrame(allres).to_csv(os.path.join(RES, "local_sa_stats.csv"), index=False, encoding="utf-8-sig")
-print("\n已存 results/local_sa_stats.csv")
+pd.DataFrame(allres).to_csv(RES / "local_sa_stats.csv", index=False, encoding="utf-8-sig")
+print(f"\n已存 {RES / 'local_sa_stats.csv'}")

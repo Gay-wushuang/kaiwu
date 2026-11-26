@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """D 题 问题 1 训练脚本（正式版）：多模型对照 + 消融 + 两阶段 gap + 不确定性 + 出图"""
-import os, json, warnings, time
+import json, warnings, time
 warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 import matplotlib
@@ -15,19 +15,16 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import GroupKFold
 from sklearn.metrics import r2_score, mean_absolute_error
 from scipy.stats import spearmanr
+from paths import DATA, FIG, RES, ensure_output_dirs, require_data
 
 plt.rcParams["font.sans-serif"] = ["SimHei", "Microsoft YaHei"]
 plt.rcParams["axes.unicode_minus"] = False
 
-ROOT = r"D:\比赛\APMCM\D题"
-DAT = os.path.join(ROOT, "date")
-FIG = os.path.join(ROOT, "figures")
-RES = os.path.join(ROOT, "results")
-os.makedirs(FIG, exist_ok=True)
-os.makedirs(RES, exist_ok=True)
+ensure_output_dirs()
+require_data("02_castelli_train.csv", "03_castelli_val.csv")
 
-tr = pd.read_csv(os.path.join(DAT, "02_castelli_train.csv"))
-va = pd.read_csv(os.path.join(DAT, "03_castelli_val.csv"))
+tr = pd.read_csv(DATA / "02_castelli_train.csv")
+va = pd.read_csv(DATA / "03_castelli_val.csv")
 ELEMS = sorted(set(tr.A) | set(tr.B))
 P = {}
 for s in ELEMS:
@@ -160,7 +157,7 @@ ax.hist(np.log10(tr.V.values + 1e-3), bins=80, color="#2E7D8F")
 ax.set_xlabel("log10(V + 0.001)"); ax.set_ylabel("样本数")
 ax.set_title("图 1  目标违反度 V 的分布（训练集 11,256 条，V=0 的正例为 0 条）")
 ax.axvline(np.log10(1 + 1e-3), color="#C0392B", ls="--", lw=1, label="V = 1")
-ax.legend(); fig.tight_layout(); fig.savefig(os.path.join(FIG, "fig1_V_dist.png"), dpi=200); plt.close(fig)
+ax.legend(); fig.tight_layout(); fig.savefig(FIG / "fig1_V_dist.png", dpi=200); plt.close(fig)
 
 fig, ax = plt.subplots(figsize=(5.2, 5))
 ax.scatter(va.V.values, pB_val, s=6, alpha=.35, color="#2E7D8F")
@@ -168,12 +165,12 @@ lim = [0, 60]; ax.plot(lim, lim, "k--", lw=1)
 ax.set_xlim(lim); ax.set_ylim(lim)
 ax.set_xlabel("真实 V"); ax.set_ylabel("预测 V*")
 ax.set_title(f"图 2  验证集预测 vs 真实（R²={metrics[-1]['R2']:.3f}，MAE={metrics[-1]['MAE']:.2f}）")
-fig.tight_layout(); fig.savefig(os.path.join(FIG, "fig2_pred_vs_true.png"), dpi=200); plt.close(fig)
+fig.tight_layout(); fig.savefig(FIG / "fig2_pred_vs_true.png", dpi=200); plt.close(fig)
 
 fig, ax = plt.subplots(figsize=(6, 3.4))
 ax.hist(va.V.values - pB_val, bins=80, color="#8E7CC3")
 ax.set_xlabel("残差（真实 − 预测）"); ax.set_ylabel("样本数"); ax.set_title("图 3  V 预测残差分布")
-fig.tight_layout(); fig.savefig(os.path.join(FIG, "fig3_residual.png"), dpi=200); plt.close(fig)
+fig.tight_layout(); fig.savefig(FIG / "fig3_residual.png", dpi=200); plt.close(fig)
 
 fig, ax = plt.subplots(figsize=(5.6, 3.2))
 ax.bar(["单阶段回归", "两阶段（分类×回归）"], [r2_gap_1, r2_gap_2], color=["#B0BEC5", "#2E7D8F"])
@@ -181,7 +178,7 @@ ax.set_ylabel("gap 的验证 R²"); ax.set_ylim(0, 0.6)
 for i, v in enumerate([r2_gap_1, r2_gap_2]):
     ax.text(i, v + .01, f"{v:.3f}", ha="center")
 ax.set_title(f"图 4  gap 两阶段处理的效果（分类器 AUC={auc:.3f}）")
-fig.tight_layout(); fig.savefig(os.path.join(FIG, "fig4_gap_stage.png"), dpi=200); plt.close(fig)
+fig.tight_layout(); fig.savefig(FIG / "fig4_gap_stage.png", dpi=200); plt.close(fig)
 
 # 特征重要性（置换重要性，取 V 直接回归模型）
 from sklearn.inspection import permutation_importance
@@ -191,20 +188,20 @@ order = np.argsort(pi.importances_mean)[-15:]
 fig, ax = plt.subplots(figsize=(6.4, 4.4))
 ax.barh([names[i] for i in order], pi.importances_mean[order], color="#2E7D8F")
 ax.set_xlabel("置换重要性（对 MAE 的影响）"); ax.set_title("图 5  特征重要性 Top-15")
-fig.tight_layout(); fig.savefig(os.path.join(FIG, "fig5_importance.png"), dpi=200); plt.close(fig)
+fig.tight_layout(); fig.savefig(FIG / "fig5_importance.png", dpi=200); plt.close(fig)
 
 # ---------- 5) 落盘 ----------
-pd.DataFrame(metrics).to_csv(os.path.join(RES, "metrics.csv"), index=False, encoding="utf-8-sig")
+pd.DataFrame(metrics).to_csv(RES / "metrics.csv", index=False, encoding="utf-8-sig")
 json.dump(dict(metrics=metrics,
                gap_single=float(r2_gap_1), gap_two_stage=float(r2_gap_2), gap_auc=float(auc),
                topk={str(k): len(set(np.argsort(va.V.values)[:k]) & set(np.argsort(pB_val)[:k])) for k in [20, 50, 100]},
                unc_median=float(np.median(std_val)), elapsed_sec=round(time.time() - t0, 1)),
-          open(os.path.join(RES, "metrics.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+          open(RES / "metrics.json", "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 
 va_out = va[["id", "formula", "A", "B", "X", "V"]].copy()
 va_out["V_hat"] = pB_val
 va_out["V_hat_std"] = std_val
 va_out["gap_hat"] = gap2_val
-va_out.sort_values("V_hat").to_csv(os.path.join(RES, "val_predictions.csv"), index=False, encoding="utf-8-sig")
+va_out.sort_values("V_hat").to_csv(RES / "val_predictions.csv", index=False, encoding="utf-8-sig")
 print(f"\n完成，用时 {time.time()-t0:.0f}s；结果在 {RES}，图在 {FIG}")
 print(pd.DataFrame(metrics).to_string(index=False))
