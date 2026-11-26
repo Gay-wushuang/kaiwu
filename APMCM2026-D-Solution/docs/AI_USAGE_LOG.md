@@ -6,6 +6,7 @@
 
 - 记录时间：2026-11-27（Asia/Shanghai）
 - 工作分支：`engineering/reproducibility`
+- Pull Request：#3 <https://github.com/Gay-wushuang/kaiwu/pull/3>（未自动合并，待队友审查）
 - 对应验收记录：`docs/ENGINEERING_ACCEPTANCE.md`
 - 依据：上一阶段本地 `ENGINEERING_ACCEPTANCE.md` 的验收结论
 

@@ -1,7 +1,7 @@
 # 工程验收记录（独立复现环境）
 
 - 首次记录：2026-11-27（Asia/Shanghai）
-- 更新记录：2026-11-27，Phase 8 工程修复后（分支 `engineering/reproducibility`）
+- 更新记录：2026-11-27，Phase 8 工程修复后（分支 `engineering/reproducibility`，PR #3）
 - 验收对象：`Gay-wushuang/kaiwu` @ `db624f16af2ed28d9f11b59bfe0fb3950afb0ca6`
 - 工作区状态：`main` 与 `origin/main` 一致；工程修复在独立分支进行，未改动 `main`
 - 验收范围：环境、依赖、数据、真机记录完整性、提交安全审计、路径可移植性
