@@ -83,7 +83,7 @@ PR 合并状态：**BLOCKED（等待人工审查）**，本阶段不自动合并
 
 | 项目 | 状态 | 说明 |
 |---|---|---|
-| 本机 SDK License | BLOCKED | `SimulatedAnnealingOptimizer` 返回 `BLOCKED_LICENSE`；未发现 license 文件 |
+| 本机 SDK License | PASS | 已通过 `--init` 交互生成；`verify_license(27)` 通过。仅证明 27 比特权限，不代表配额余额或机型 |
 | 凭据输入方式 | PASS | 仅 `d_submit_cim.py --init` 交互 `input`/`getpass`，不落盘、不进命令行历史 |
 | 用户确认的设备类型 | UNVERIFIED | 用户答复“尚未登录确认” |
 | 用户确认的配额 | UNVERIFIED | 用户答复“3 次及以上”，但未经平台核对 |

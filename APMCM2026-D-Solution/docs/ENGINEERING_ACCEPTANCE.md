@@ -105,9 +105,9 @@ matplotlib 3.10.3  lightgbm（未安装，仅影响表 2 的可选对照行）
 
 | 项目 | 实测 | 判定 |
 |---|---|---|
-| 本机 license 文件 | 未发现 | BLOCKED |
+| 本机 license 文件 | 已通过 `--init` 交互生成（凭据未落盘、未记录） | PASS |
 | `BruteForceOptimizer` / `TabuSearchOptimizer` | 可运行 | PASS（免授权） |
-| `SimulatedAnnealingOptimizer` | `BLOCKED_LICENSE` | BLOCKED |
+| `SimulatedAnnealingOptimizer` | 本次未复测（license 已通过 27 比特校验） | UNVERIFIED |
 | `CIMOptimizer` 签名 | `(task_name, wait=False, interval=6, project_no=None, task_mode='optimization', sample_number=10)`，与 SDK 1.4.4 文档一致 | PASS |
 
 授权需由账号持有人在本机交互输入，建议命令：
@@ -363,7 +363,7 @@ python -c "..."                                # SAOptimizer = BLOCKED_LICENSE
 | 原始实验归档 | `results/`（冻结，未覆盖） |
 | 独立复现归档 | `results/reproduction_20261127/`（单独目录，未覆盖原始结果） |
 | 最终工程自检 | PASS 15 / FAIL 0 / BLOCKED 0 / WARN 1（lightgbm 可选未装） |
-| 真机 License | BLOCKED（本机未授权） |
+| 真机 License | PASS（`verify_license(27)` 通过；未提交任务、未消耗配额） |
 | 真机任务 | 本阶段 0 次提交、0 配额消耗 |
 | 最终交付清单 | `RELEASE_CHECKLIST.md` |
 
