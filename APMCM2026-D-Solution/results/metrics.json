@@ -1,0 +1,126 @@
+{
+  "metrics": [
+    {
+      "task": "V_direct",
+      "feat": "描述符",
+      "model": "HistGB",
+      "R2": 0.811,
+      "MAE": 2.8653,
+      "spearman": 0.9215
+    },
+    {
+      "task": "V_direct",
+      "feat": "描述符",
+      "model": "RF",
+      "R2": 0.7866,
+      "MAE": 3.0934,
+      "spearman": 0.9086
+    },
+    {
+      "task": "V_direct",
+      "feat": "描述符",
+      "model": "Ridge",
+      "R2": 0.5246,
+      "MAE": 5.3743,
+      "spearman": 0.7311
+    },
+    {
+      "task": "V_direct",
+      "feat": "描述符+one-hot",
+      "model": "HistGB",
+      "R2": 0.8091,
+      "MAE": 2.8628,
+      "spearman": 0.9217
+    },
+    {
+      "task": "V_direct",
+      "feat": "描述符+one-hot",
+      "model": "RF",
+      "R2": 0.7862,
+      "MAE": 3.062,
+      "spearman": 0.9114
+    },
+    {
+      "task": "V_direct",
+      "feat": "描述符+one-hot",
+      "model": "Ridge",
+      "R2": 0.6537,
+      "MAE": 4.4152,
+      "spearman": 0.8358
+    },
+    {
+      "task": "e_form",
+      "feat": "描述符",
+      "model": "HistGB",
+      "R2": 0.8997,
+      "MAE": 0.1676,
+      "spearman": 0.9539
+    },
+    {
+      "task": "vbm",
+      "feat": "描述符",
+      "model": "HistGB",
+      "R2": 0.8614,
+      "MAE": 0.0785,
+      "spearman": 0.962
+    },
+    {
+      "task": "cbm",
+      "feat": "描述符",
+      "model": "HistGB",
+      "R2": 0.8568,
+      "MAE": 0.0886,
+      "spearman": 0.968
+    },
+    {
+      "task": "a_lat",
+      "feat": "描述符",
+      "model": "HistGB",
+      "R2": 0.9653,
+      "MAE": 0.0393,
+      "spearman": 0.9836
+    },
+    {
+      "task": "volume",
+      "feat": "描述符",
+      "model": "HistGB",
+      "R2": 0.9613,
+      "MAE": 2.1133,
+      "spearman": 0.9836
+    },
+    {
+      "task": "gap",
+      "feat": "描述符",
+      "model": "单阶段回归",
+      "R2": 0.3407,
+      "MAE": 0.0975,
+      "spearman": ""
+    },
+    {
+      "task": "gap",
+      "feat": "描述符",
+      "model": "两阶段(分类×回归)",
+      "R2": 0.4808,
+      "MAE": 0.0775,
+      "spearman": "AUC=0.941"
+    },
+    {
+      "task": "V_via_physics",
+      "feat": "描述符",
+      "model": "物理量→公式",
+      "R2": 0.8109,
+      "MAE": 2.8034,
+      "spearman": 0.9279
+    }
+  ],
+  "gap_single": 0.34068673052921983,
+  "gap_two_stage": 0.4808059214772926,
+  "gap_auc": 0.9407529069121146,
+  "topk": {
+    "20": 5,
+    "50": 18,
+    "100": 36
+  },
+  "unc_median": 0.6644918230143085,
+  "elapsed_sec": 154.7
+}

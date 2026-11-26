@@ -1,0 +1,7 @@
+﻿__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.pkl
+results/cim_tasks/
+~$*.docx
+.DS_Store
