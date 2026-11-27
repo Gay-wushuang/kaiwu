@@ -1,0 +1,11 @@
+﻿sample,H,n_selected_A,n_selected_B,A,B,V_hat,valid
+9,-2322.0,1,0,Ca,,,False
+8,-2322.0,1,0,Hf,,,False
+5,-2326.0,1,0,Sc,,,False
+4,-2326.0,0,1,,Si,,False
+2,-2326.0,0,1,,Ta,,False
+3,-2326.0,0,1,,Al,,False
+7,-2326.0,0,1,,Ti,,False
+6,-2326.0,1,0,Al,,,False
+1,-2330.0,1,0,Mg,,,False
+0,-2330.0,0,0,,,,False
