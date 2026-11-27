@@ -10,6 +10,10 @@
 6. 只归档原始返回，不重算、不替换参赛队员的科学结论。
 
 用法示例：
+    python code/d_experiment.py plan --config <队员确定的单任务.json>
+    python code/d_experiment.py run --config <同一份.json> --submit
+    JSON 必填 input_version、task_name、mode、topk、mfactor、samples；
+    可选 project_no 和 expected_hashes（预演列出的哈希名称与完整摘要）。
     python code/d_experiment.py inputs register --version team_q2_v1 \
         --matrix code/predictions/pool_q2_phys.csv --format long --sub-q Q2 --x NO2
     python code/d_experiment.py inputs list
@@ -40,7 +44,9 @@ from experiment_archive import (
     TaskArchive,
     make_task_id,
     now_str,
+    submitted_variables,
     validate_spin_matrix,
+    variables_sha256,
 )
 from experiment_input import ExperimentInput, numeric_matrix_sha256
 from paths import ROOT
@@ -72,6 +78,11 @@ def build_problem(exin: ExperimentInput, topk: int = 0, mfactor: float = 1.0) ->
         Q, offset, M = S.build_qubo(V, M=M0 * mfactor)
     I, bias = S.to_ising(Q)
     adj = np.asarray(pp.adjust_ising_matrix_precision(I, 8), dtype=float)
+    if adj.shape != I.shape or not np.array_equal(adj, adj.T) or not np.isfinite(adj).all():
+        raise SystemExit("[精度] 适配矩阵的形状、对称性或有限性检查失败。")
+    # 可等比缩放到 8 位整数的浮点矩阵也是 SDK 的合法提交矩阵。
+    if not pp.calculate_ising_matrix_bit_width(adj, 8)["precision"] <= 8:
+        raise SystemExit("[精度] 提交矩阵未通过 SDK 的 8 位可表示性检查。")
 
     nA, nB = len(A), len(B)
     raw = S.resolution(I, nA, nB)
@@ -129,19 +140,21 @@ def _prepare_backend(task_name: str, mode: str, samples: int, backend: str,
     return opt, sdk_hash
 
 
-def print_plan(exin, problem, task_name, mode, samples, submit, dup, budget_info, task_id):
+def print_plan(exin, problem, task_name, mode, samples, submit, dup, budget_info, task_id,
+               hashes, variables, project_no):
     print("=" * 66)
     print(f"输入版本      : {exin.version}（{exin.kind}）")
     print(f"来源说明      : {exin_mod.INPUT_KINDS.get(exin.kind)}")
-    print(f"输入矩阵哈希  : {exin.matrix_sha256}")
-    print(f"矩阵规模      : {exin.shape[0]}×{exin.shape[1]}"
-          + (f"（topk={problem['topk']} 预筛后）" if problem["topk"] else ""))
+    print(f"任务名称      : {task_name} | 项目 {project_no or '默认'}")
+    print(f"目标矩阵规模  : {exin.shape} → {problem['V'].shape}（topk={problem['topk']}）")
+    for name, digest in hashes.items():
+        print(f"{name} = {digest}")
+    print("实际变量映射  : " + json.dumps(variables, ensure_ascii=False))
     print(f"QUBO / Ising  : {problem['n_qubo']} 比特 → {problem['n_ising']} 比特"
           f"（辅助自旋 {problem['aux_bits']} 个，位于末位）")
     print(f"罚项 M        : {problem['M']:.3f}（基准 {problem['M0']:.3f} × {problem['mfactor']:g}）")
     print(f"目标分辨率    : 原始 Ising {problem['resol_raw']:.2f} 档 | "
           f"8bit 适配后 {problem['resol_adj']:.2f} 档（两种口径同时给出）")
-    print(f"实际提交矩阵  : sha256={problem['matrix_sha256'][:16]}…  shape={problem['n_ising']}×{problem['n_ising']}")
     print(f"模式          : {mode} | 采样数 {samples}")
     print(f"设备          : 由平台调度（SDK 不支持指定机型）")
     print(f"本地配额      : {budget_info['label']} 总额 {budget_info['total']} / "
@@ -227,11 +240,32 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
                  mfactor: float = 1.0, samples: int = 10, submit: bool = False,
                  backend: str = "real", mock_fail_stage: str = None,
                  allow_matrix_reuse: bool = False, confirm=None,
-                 project_no: str = None, notes: str = "") -> dict:
+                 project_no: str = None, notes: str = "", expected_hashes=None,
+                 baseline_b_only: bool = False) -> dict:
     """执行一次实验（默认 dry-run）。返回结构化结果，便于测试与审计。"""
     exin = exin_mod.load(input_version)
+    if baseline_b_only and (not exin.version.startswith("B-") or exin.kind != "independent_reproduction"):
+        raise SystemExit("[配置] 第二轮真机配置需要基线 B 的独立复现输入。")
     validate_run_args(mode, topk, len(exin.A), samples)
+    if not np.isfinite(mfactor):
+        raise SystemExit("[参数] mfactor 必须是有限数值。")
     problem = build_problem(exin, topk=topk, mfactor=mfactor)
+    variables = submitted_variables(problem["A"], problem["B"], problem["n_ising"])
+    hashes = {
+        "input_matrix_sha256": exin.matrix_sha256,
+        "submitted_target_V_semantic_sha256": numeric_matrix_sha256(problem["V"]),
+        "raw_ising_matrix_sha256": numeric_matrix_sha256(problem["I"]),
+        "submitted_matrix_sha256": problem["matrix_sha256"],
+        "variables_sha256": variables_sha256(variables),
+    }
+    if expected_hashes is not None:
+        if not isinstance(expected_hashes, dict):
+            raise SystemExit("[核验] expected_hashes 应为哈希名称到 SHA-256 的对象。")
+        for name, expected in expected_hashes.items():
+            if name not in hashes:
+                raise SystemExit(f"[核验] 未知哈希名称：{name}")
+            if not isinstance(expected, str) or expected.lower() != hashes[name]:
+                raise SystemExit(f"[核验] {name} 与预期不符，实际为 {hashes[name]}")
     registry = Registry()
     mode_key = budget.mode_key(mode)
     b_info = budget.available(mode, registry)
@@ -240,13 +274,14 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
     prospective_id = make_task_id(task_name, problem["matrix_sha256"], registry)
 
     print_plan(exin, problem, task_name, mode, samples, submit, (dup, dup_reason) if dup else None,
-               b_info, prospective_id)
+               b_info, prospective_id, hashes, variables, project_no)
 
     base = {
         "task_id": None, "task_name": task_name, "input_version": exin.version,
         "input_kind": exin.kind, "matrix_sha256": problem["matrix_sha256"],
         "status": "dry_run", "submitted": False, "archive_dir": None,
         "backend": backend,
+        "hashes": hashes, "variables": variables,
     }
 
     if not submit:
@@ -272,7 +307,7 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
     b_info = budget.check(mode, 1, registry)
 
     task_id = prospective_id
-    if confirm is None:
+    if backend != "mock" or confirm is None:
         ok = interactive_confirm(task_id, task_name, exin.version, mode,
                                  problem["n_ising"], b_info)
     else:
@@ -294,6 +329,7 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
         "quota_units": 1,
         "backend": backend,
         "notes": notes,
+        "expected_hashes": expected_hashes,
         "n_qubo": problem["n_qubo"],
         "n_ising": problem["n_ising"],
         "aux_bits": problem["aux_bits"],
@@ -559,14 +595,16 @@ def cmd_inputs_show(a):
 
 def cmd_plan(a):
     r = execute_task(a.input_version, a.task_name, a.mode, a.topk, a.mfactor, a.samples,
-                     submit=False, backend=a.backend)
+                     submit=False, backend=a.backend, project_no=a.project_no,
+                     expected_hashes=a.expected_hashes, baseline_b_only=a.config is not None and a.backend == "real")
     return EXIT_OK if r.get("status") == "dry_run" else EXIT_BLOCKED
 
 
 def cmd_run(a):
     r = execute_task(a.input_version, a.task_name, a.mode, a.topk, a.mfactor, a.samples,
                      submit=a.submit, backend=a.backend, mock_fail_stage=a.mock_fail_stage,
-                     allow_matrix_reuse=a.allow_matrix_reuse, project_no=a.project_no)
+                     allow_matrix_reuse=a.allow_matrix_reuse, project_no=a.project_no,
+                     expected_hashes=a.expected_hashes, baseline_b_only=a.config is not None and a.backend == "real")
     if r.get("status") in ("dry_run", "completed", "submitted", "cancelled"):
         return EXIT_OK
     return EXIT_FAILED
@@ -659,30 +697,24 @@ def build_parser():
     ps.add_argument("--version", required=True)
     ps.set_defaults(func=cmd_inputs_show)
 
-    p = sub.add_parser("plan", help="预演一次实验（不写文件、不联网）")
-    p.add_argument("--input-version", required=True)
-    p.add_argument("--task-name", required=True)
-    p.add_argument("--mode", choices=["opt", "sampling"], default="opt")
-    p.add_argument("--topk", type=int, default=13)
-    p.add_argument("--mfactor", type=float, default=1.0)
-    p.add_argument("--samples", type=int, default=10)
-    p.add_argument("--backend", choices=["real", "mock"], default="real")
-    p.set_defaults(func=cmd_plan)
-
+    plan = sub.add_parser("plan", help="预演一次实验（不写文件、不联网）")
     p = sub.add_parser("run", help="执行实验（默认 dry-run；--submit 才提交）")
-    p.add_argument("--input-version", required=True)
-    p.add_argument("--task-name", required=True)
-    p.add_argument("--mode", choices=["opt", "sampling"], default="opt")
-    p.add_argument("--topk", type=int, default=13)
-    p.add_argument("--mfactor", type=float, default=1.0)
-    p.add_argument("--samples", type=int, default=10)
+    for task_parser in (plan, p):
+        task_parser.add_argument("--config", type=Path, help="单任务 JSON 参数文件")
+        task_parser.add_argument("--input-version")
+        task_parser.add_argument("--task-name")
+        task_parser.add_argument("--mode", choices=["opt", "sampling"])
+        task_parser.add_argument("--topk", type=int)
+        task_parser.add_argument("--mfactor", type=float)
+        task_parser.add_argument("--samples", type=int)
+        task_parser.add_argument("--project-no")
+        task_parser.add_argument("--backend", choices=["real", "mock"], default="real")
+    plan.set_defaults(func=cmd_plan)
     p.add_argument("--submit", action="store_true", help="实际提交（需人工逐字确认）")
-    p.add_argument("--backend", choices=["real", "mock"], default="real")
     p.add_argument("--mock-fail-stage", choices=["submit", "run", "download", "interrupt"],
                    default=None, help="仅 mock 后端：注入失败阶段")
     p.add_argument("--allow-matrix-reuse", action="store_true",
                    help="允许同一矩阵换名重复提交（会再消耗配额）")
-    p.add_argument("--project-no", default=None)
     p.set_defaults(func=cmd_run)
 
     p = sub.add_parser("status", help="查看本地任务状态")
@@ -709,11 +741,48 @@ def build_parser():
     return ap
 
 
+def resolve_task_config(args):
+    defaults = {"mode": "opt", "topk": 13, "mfactor": 1.0, "samples": 10}
+    args.expected_hashes = None
+    if args.config is None:
+        if not args.input_version or not args.task_name:
+            raise SystemExit("[参数] 请指定 --input-version 和 --task-name，或使用 --config。")
+        for field, value in defaults.items():
+            if getattr(args, field) is None:
+                setattr(args, field, value)
+        return
+
+    required = {"input_version", "task_name", *defaults}
+    allowed = required | {"expected_hashes", "project_no"}
+    if any(getattr(args, field) is not None for field in allowed):
+        raise SystemExit("[配置] 使用 --config 时，研究参数须全部来自同一份文件。")
+    try:
+        cfg = json.loads(args.config.read_text(encoding="utf-8-sig"))
+    except (OSError, ValueError) as exc:
+        raise SystemExit(f"[配置] 无法读取 JSON：{exc}") from exc
+    if not isinstance(cfg, dict):
+        raise SystemExit("[配置] 需要单个任务的 JSON 对象。")
+    if required - cfg.keys() or cfg.keys() - allowed:
+        raise SystemExit(f"[配置] 缺少字段 {sorted(required - cfg.keys())}；"
+                         f"未知字段 {sorted(cfg.keys() - allowed)}。")
+    for field in ("input_version", "task_name", "mode"):
+        if not isinstance(cfg[field], str) or not cfg[field].strip():
+            raise SystemExit(f"[配置] {field} 必须是非空文本。")
+    if cfg.get("project_no") is not None and not isinstance(cfg["project_no"], str):
+        raise SystemExit("[配置] project_no 应为项目编号字符串。")
+    if type(cfg["topk"]) is not int or type(cfg["samples"]) is not int:
+        raise SystemExit("[配置] topk 和 samples 必须是整数。")
+    if type(cfg["mfactor"]) not in (int, float):
+        raise SystemExit("[配置] mfactor 必须是数值。")
+    for field, value in cfg.items():
+        setattr(args, field, value)
+
+
 def main(argv=None):
     ap = build_parser()
     a = ap.parse_args(argv)
-    if a.cmd == "inputs":
-        return a.func(a)
+    if a.cmd in ("plan", "run"):
+        resolve_task_config(a)
     return a.func(a)
 
 

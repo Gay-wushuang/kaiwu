@@ -8,6 +8,7 @@
 """
 from __future__ import annotations
 
+import hashlib
 import importlib.metadata
 import json
 import platform
@@ -210,6 +211,19 @@ class Registry:
                    if t.get("mode_key") == mode_key and t.get("quota_counted"))
 
 
+def submitted_variables(A, B, n_ising):
+    labels = [("A", str(a)) for a in A] + [("B", str(b)) for b in B]
+    labels.extend([("aux", None)] * (n_ising - len(labels)))
+    return [{"index": i, "kind": kind, "label": label}
+            for i, (kind, label) in enumerate(labels)]
+
+
+def variables_sha256(variables):
+    # 仅包含实际变量顺序，预演与最终归档的任务编号可以不同。
+    data = json.dumps(variables, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(data.encode("utf-8")).hexdigest()
+
+
 class TaskArchive:
     """单个任务的归档目录。创建后任何写操作都不得覆盖已有原始文件。"""
 
@@ -249,16 +263,20 @@ class TaskArchive:
             json.dumps(json_safe(cfg), ensure_ascii=False, indent=2), encoding="utf-8")
 
         # 输入快照（复制已冻结的输入，不引用原目录）
-        for name in ("matrix.csv", "mapping.json", "manifest.json"):
+        for name in ("matrix.csv", "mapping.json", "source_manifest.json", "manifest.json"):
             src = exin.dir / name
             if src.is_file():
                 shutil.copy2(src, arc.dir / "input" / name)
-        np.savetxt(arc.dir / "input" / "ising_matrix.csv", np.asarray(ising_matrix, dtype=np.float64),
-                   delimiter=",", fmt="%.10g")
+        submitted_csv = arc.dir / "input" / "ising_matrix.csv"
+        np.savetxt(submitted_csv, np.asarray(ising_matrix, dtype=np.float64),
+                   delimiter=",", fmt="%.17g")
+        submitted_hash = numeric_matrix_sha256(ising_matrix)
+        if numeric_matrix_sha256(np.loadtxt(submitted_csv, delimiter=",", ndmin=2)) != submitted_hash:
+            raise SystemExit("[归档] 提交矩阵回读哈希不一致，已中止。")
         hashes = {
             "input_files": exin.files,
             "input_matrix_sha256": exin.matrix_sha256,
-            "ising_matrix_sha256": numeric_matrix_sha256(ising_matrix),
+            "ising_matrix_sha256": submitted_hash,
             "ising_matrix_csv_sha256": sha256_file(arc.dir / "input" / "ising_matrix.csv"),
         }
         if raw_ising_matrix is not None:
@@ -329,11 +347,7 @@ class TaskArchive:
                 "B_axis": "column",
                 "A": A,
                 "B": B,
-                "variables": (
-                    [{"index": i, "kind": "A", "label": A[i]} for i in range(nA)]
-                    + [{"index": nA + j, "kind": "B", "label": B[j]} for j in range(nB)]
-                    + [{"index": n_qubo + k, "kind": "aux", "label": None} for k in range(aux)]
-                ),
+                "variables": submitted_variables(A, B, n_ising),
                 "filtered_target_matrix": {
                     "path": "input/submitted_target_V.csv",
                     "shape": [nA, nB],
@@ -345,6 +359,7 @@ class TaskArchive:
             mapping_path.write_text(json.dumps(mapping, ensure_ascii=False, indent=2),
                                     encoding="utf-8")
             hashes.update({
+                "variables_sha256": variables_sha256(mapping["variables"]),
                 "submitted_mapping_sha256": sha256_file(mapping_path),
                 "submitted_target_V_csv_sha256": sha256_file(v_csv),
                 "submitted_target_V_semantic_sha256": numeric_matrix_sha256(V),

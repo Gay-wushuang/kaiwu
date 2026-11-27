@@ -281,9 +281,11 @@ class Phase10Test(unittest.TestCase):
         """授权/构造失败发生在提交前，应记为 submit_failed 且允许同名重试。"""
         make_input("prep_" + self.tag, list("ABC"), list("XYZ"),
                    np.array([[0.0, 2, 6], [2, 0, 1], [6, 1, 0]]))
-        with mock.patch.object(dx, "_prepare_backend", side_effect=ValueError("license missing")):
+        with (mock.patch.object(dx, "interactive_confirm", return_value=True) as confirm,
+              mock.patch.object(dx, "_prepare_backend", side_effect=ValueError("license missing"))):
             r, _ = quiet(dx.execute_task, "prep_" + self.tag, "prep_task", "opt", 0, 1.0, 10,
                          submit=True, backend="real", confirm=True)
+            confirm.assert_called_once()
         self.assertEqual(r["status"], "submit_failed")
         self.assertFalse(TaskArchive(r["task_id"]).meta()["quota_counted"])
 
@@ -470,8 +472,42 @@ class Phase10Test(unittest.TestCase):
 
         cfg = json.loads((arc.dir / "config.json").read_text(encoding="utf-8"))
         hashes = json.loads((arc.dir / "input" / "hashes.json").read_text(encoding="utf-8"))
+        self.assertEqual(r["hashes"], {name: hashes[name] for name in r["hashes"]})
+        self.assertEqual(r["variables"], m["variables"])
         self.assertEqual(cfg["submitted_mapping_sha256"], hashes["submitted_mapping_sha256"])
         self.assertEqual(cfg["submitted_target_V_csv_sha256"], hashes["submitted_target_V_csv_sha256"])
+
+    def test_single_config_preview_and_submission_checks(self):
+        ver = "json_config"
+        make_input(ver, list("AB"), list("XY"), np.array([[1., 3.], [4., 2.]]))
+        config = {"input_version": ver, "task_name": "config_test", "mode": "opt",
+                  "topk": 0, "mfactor": 1.0, "samples": 10}
+        path = Path(_SANDBOX) / "single.json"
+        path.write_text(json.dumps(config), encoding="utf-8")
+        cli = ["--config", str(path), "--backend", "mock"]
+        preview, _ = quiet(dx.execute_task, **config, backend="mock")
+        code, output = quiet(dx.main, ["plan", *cli])
+        self.assertEqual(code, dx.EXIT_OK)
+        for digest in preview["hashes"].values():
+            self.assertIn(digest, output)
+        with self.assertRaisesRegex(SystemExit, "基线 B"):
+            quiet(dx.main, ["plan", "--config", str(path)])
+        config["expected_hashes"] = preview["hashes"].copy()
+        path.write_text(json.dumps(config), encoding="utf-8")
+        with mock.patch.object(dx, "interactive_confirm", return_value=False) as confirm:
+            _, out = quiet(dx.main, ["run", *cli, "--submit"])
+            confirm.assert_called_once()
+            self.assertIn("[取消]", out)
+        config["expected_hashes"]["variables_sha256"] = "0" * 64
+        path.write_text(json.dumps(config), encoding="utf-8")
+        with mock.patch.object(dx, "interactive_confirm") as confirm:
+            with self.assertRaisesRegex(SystemExit, "variables_sha256"):
+                quiet(dx.main, ["run", *cli, "--submit"])
+            confirm.assert_not_called()
+        config["submit"] = True
+        path.write_text(json.dumps(config), encoding="utf-8")
+        with self.assertRaisesRegex(SystemExit, "未知字段"):
+            quiet(dx.main, ["run", *cli])
 
 
 if __name__ == "__main__":
