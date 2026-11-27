@@ -163,4 +163,16 @@
 
 按队员要求，Codex 只查阅现有罚项和精度适配代码及 Kaiwu 官方文档，给出直接取整的步长近似、合法指派集合与排序的比较口径、合法与非法最低能量的间隔，并用非赛题两灯例子手算不同罚项强度的效果。正式方案、参数、求解和结论由队员完成。本次仅追加使用日志，正式预演、真机提交和配额消耗均为 0。队员的核验、采纳及修改情况待据实补记。关键提示与回复见本次会话。[Kaiwu 精度说明](https://kaiwu-sdk-docs.qboson.com/zh/latest/source/advanced/precision.html) · [预处理接口](https://kaiwu-sdk-docs.qboson.com/zh/latest/source/modules/kaiwu.preprocess.html)
 
+## 2026-11-28 第一轮真机执行与项目接管记录（Trae）
+
+- 工具为 Trae 编程助手；会话模型标识为 DeepSeek-V4.1-Flash，实际型号与推理档位以会话元数据为准。
+- 在队员明确授权、确认五组合法指派枚举结果，并选择“由执行脚本在 PTY 中回填任务编号”的确认方式后，AI 使用既有 `code/d_experiment.py run --submit` 逐条提交 5 个预先确定的基线 B 配置（B_Q2_baseline、B_Q2_m3x、B_Q2_k8、B_Q3_O3_baseline、B_Q3_FO2_baseline）。AI 未选择或修改模型、算法、QUBO 系数、topk、mfactor、采样数；未执行 Q3 NO2；未重复提交。
+- 5 次优化任务全部 completed，消耗 5 次配额；另有 1 次因本机缺少 license 在提交前终止的尝试（submit_failed，0 配额，无云端任务），记录保留。
+- 执行环境为 `kaiwu-original`（kaiwu 1.4.4 / Python 3.12.5）。因该环境缺少 `license.lic`，经队员同意复用本机 `kaiwu-verify` 中已有、且验证支持 27 比特的 license 文件；AI 未读取、输入或记录 user_id/sdk_code。
+- AI 将平台返回的原始解向量、能量、提交矩阵、变量映射、平台 PDF、设备与硬件耗时归档到 `experiments/tasks/<task_id>/`；逐任务按 `H=-sᵀJs` 复算能量并与平台结果比对，5 组全部一致；平台 PDF 内解向量与归档逐位一致。AI 依据归档数据生成 `results/ROUND1_REAL_MACHINE_REPORT.md`，未替队员解释科学含义。
+- 平台报告下载时，队员本人完成平台登录；AI 仅按任务名选择并下载报告，未进行提交、配额或账户变更。
+- 项目接管核对：本地与远程 `main` 均为 `17683352876c7d736919534b5ed34d32be418b36`；按队员指定聚焦五个文件；用 `d_experiment.py status` 确认第一轮 5 个完成任务与 1 个失败尝试均在。本次接管未做 dry-run、未提交真机、配额消耗 0。
+- 第二轮正式参数尚未由队员给出；AI 未预设方案。后续仅按队员确定并人工确认的配置调用既有入口，保留逐任务人工确认。
+- 队员对第一轮结果、报告及本记录的独立核验、采纳与修改情况待据实补记。
+
 
