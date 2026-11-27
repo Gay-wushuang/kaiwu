@@ -1,0 +1,15 @@
+{
+  "input_version": "B-Q2-NO2",
+  "task_name": "B_Q2_k8_lowM",
+  "mode": "opt",
+  "topk": 8,
+  "mfactor": 0.33826009024559534,
+  "samples": 10,
+  "expected_hashes": {
+    "input_matrix_sha256": "0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e",
+    "submitted_target_V_semantic_sha256": "4abbd63ce9054386c4fb62cb416c358b89f3f4e16d3437e8c33235c0836a4887",
+    "raw_ising_matrix_sha256": "8f714e44bc6fd06e41f8eeeba526907c6f7928772fed5a9438c7d5673aa1b386",
+    "submitted_matrix_sha256": "34f84ed6633373975e3211b6099b20313a26d3734fa3770dded0187767454b30",
+    "variables_sha256": "b0a216f5f5562854d996303b9dc51ea4d952db455de9233ceaef9aacd8f8c57f"
+  }
+}

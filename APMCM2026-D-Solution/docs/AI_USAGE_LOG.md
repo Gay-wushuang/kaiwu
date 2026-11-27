@@ -200,6 +200,7 @@
 - Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）调用 1 次，返回 REVISE：修正 Spearman 常量秩、weak 有效计数，并给出 domain-wall 强罚项反例（`M=4.2` 时非法码 `(010,010)` 能量 −2.6，低于合法最优 1.0）。Trae 已修正实现/README 并复现反例；本次没有追加第二次 Codex。
 - 该基准是合成验证，不是正式第二轮实验；编码/参数/验收仍由队员决定。
 - 追加冻结 B 输入 topk=8 全空间对照：one-hot 与 domain-wall 在 Q2/O3/FO2 上互有胜负，无跨输入稳定占优；未产生可提交真机的候选，真机 0 次、配额 0。
+- 追加 one-hot 罚项缩放候选：B-Q2-NO2 topk=8，M0 本地保留 0、非原始 5、分辨率 3；`lowM=1.05*max V`（mfactor 0.33826009024559534）本地保留 1、非原始 0、分辨率 7.10/7.00、量化约束有效。已生成 `REAL_MACHINE_CANDIDATES/B_Q2_k8_lowM.json` 并 dry-run（未调用 license、未提交、配额 0），等待真机授权。
 
 
 

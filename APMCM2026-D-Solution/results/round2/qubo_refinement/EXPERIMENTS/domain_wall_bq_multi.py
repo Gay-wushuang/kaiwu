@@ -11,6 +11,7 @@ sys.path.insert(0, str(ROOT / "code"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import experiment_input as exin          # noqa: E402
 import d_experiment as dx                # noqa: E402
+import d_submit_cim as S                 # noqa: E402
 import synthetic_encoding_benchmark as SB  # noqa: E402
 
 OUT = Path(__file__).resolve().parent
@@ -23,18 +24,23 @@ for version in INPUTS:
     e = exin.load(version)
     A, B, V = dx.select_topk(e.A, e.B, e.V, TOPK)
     vmax = float(V.max())
+    _, _, M0 = S.build_qubo(V)
     rows = []
     for enc in ("onehot", "domainwall"):
-        for ratio in ([1.05] if enc == "onehot" else RATIOS):
-            M = ratio * vmax
+        variants = ([("M0", M0), ("lowM", 1.05 * vmax)] if enc == "onehot"
+                    else [(f"ratio{r:g}", r * vmax) for r in RATIOS])
+        for variant, M in variants:
             r = SB.eval_instance(V, M, enc)
-            r.update({"encoding": enc, "M": float(M), "M_over_maxV": ratio})
+            r.update({"encoding": enc, "variant": variant, "M": float(M),
+                      "M_over_maxV": float(M / vmax)})
             rows.append(r)
     result[version] = {
         "A": A, "B": B, "V": V.tolist(), "vmin": float(V.min()), "vmax": vmax,
+        "M0": float(M0),
         "rows": rows,
         "summary": {
             enc: {
+                "variants": [r["variant"] for r in rows if r["encoding"] == enc],
                 "ratios": [r["M_over_maxV"] for r in rows if r["encoding"] == enc],
                 "exact_valid": [r["exact_valid"] for r in rows if r["encoding"] == enc],
                 "quant_valid": [r["quant_valid"] for r in rows if r["encoding"] == enc],

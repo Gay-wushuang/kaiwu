@@ -113,7 +113,58 @@
       ],
       "vmin": 0.0,
       "vmax": 13.585476613855576,
+      "M0": 42.17095322771115,
       "rows": [
+        {
+          "encoding": "onehot",
+          "n_var": 16,
+          "n_ising": 17,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              0
+            ]
+          ],
+          "quant_set": [
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "intersection_size": 0,
+          "retention": 0.0,
+          "non_original": 5,
+          "spearman": 0.7777698919306011,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 42.17095322771115,
+          "exact_gap": 42.17095322771115,
+          "quant_best_legal": -1780.0,
+          "quant_best_illegal": -1716.0,
+          "quant_gap": 64.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "variant": "M0",
+          "M": 42.17095322771115,
+          "M_over_maxV": 3.104120262126231
+        },
         {
           "encoding": "onehot",
           "n_var": 16,
@@ -144,6 +195,7 @@
           "quant_gap": 60.0,
           "exact_valid": true,
           "quant_valid": true,
+          "variant": "lowM",
           "M": 14.264750444548355,
           "M_over_maxV": 1.05
         },
@@ -181,6 +233,7 @@
           "quant_gap": 628.0,
           "exact_valid": true,
           "quant_valid": true,
+          "variant": "ratio1.05",
           "M": 14.264750444548355,
           "M_over_maxV": 1.05
         },
@@ -218,6 +271,7 @@
           "quant_gap": 916.0,
           "exact_valid": true,
           "quant_valid": true,
+          "variant": "ratio4",
           "M": 54.341906455422304,
           "M_over_maxV": 4.0
         },
@@ -255,6 +309,7 @@
           "quant_gap": 976.0,
           "exact_valid": true,
           "quant_valid": true,
+          "variant": "ratio8",
           "M": 108.68381291084461,
           "M_over_maxV": 8.0
         },
@@ -296,34 +351,47 @@
           "quant_gap": 984.0,
           "exact_valid": true,
           "quant_valid": true,
+          "variant": "ratio16",
           "M": 217.36762582168922,
           "M_over_maxV": 16.0
         }
       ],
       "summary": {
         "onehot": {
+          "variants": [
+            "M0",
+            "lowM"
+          ],
           "ratios": [
+            3.104120262126231,
             1.05
           ],
           "exact_valid": [
+            true,
             true
           ],
           "quant_valid": [
+            true,
             true
           ],
           "retention": [
+            0.0,
             1.0
           ],
           "non_original": [
+            5,
             0
           ],
           "spearman": [
+            0.7777698919306011,
             0.9779053098125594
           ],
           "exact_gap": [
+            42.17095322771115,
             14.264750444548355
           ],
           "quant_gap": [
+            64.0,
             60.0
           ],
           "n_var": 16,
@@ -331,6 +399,12 @@
           "aux": 1
         },
         "domainwall": {
+          "variants": [
+            "ratio1.05",
+            "ratio4",
+            "ratio8",
+            "ratio16"
+          ],
           "ratios": [
             1.05,
             4.0,
@@ -490,7 +564,50 @@
       ],
       "vmin": 0.0,
       "vmax": 33.75626001987348,
+      "M0": 82.51252003974696,
       "rows": [
+        {
+          "encoding": "onehot",
+          "n_var": 16,
+          "n_ising": 17,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "quant_set": [
+            [
+              6,
+              0
+            ]
+          ],
+          "intersection_size": 0,
+          "retention": 0.0,
+          "non_original": 1,
+          "spearman": 0.8513452064692373,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 82.51252003974696,
+          "exact_gap": 82.51252003974696,
+          "quant_best_legal": -1836.0,
+          "quant_best_illegal": -1760.0,
+          "quant_gap": 76.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "variant": "M0",
+          "M": 82.51252003974696,
+          "M_over_maxV": 2.4443620232563967
+        },
         {
           "encoding": "onehot",
           "n_var": 16,
@@ -541,6 +658,7 @@
           "quant_gap": 60.0,
           "exact_valid": true,
           "quant_valid": true,
+          "variant": "lowM",
           "M": 35.44407302086716,
           "M_over_maxV": 1.05
         },
@@ -582,6 +700,7 @@
           "quant_gap": 56.0,
           "exact_valid": true,
           "quant_valid": true,
+          "variant": "ratio1.05",
           "M": 35.44407302086716,
           "M_over_maxV": 1.05
         },
@@ -627,6 +746,7 @@
           "quant_gap": 660.0,
           "exact_valid": true,
           "quant_valid": true,
+          "variant": "ratio4",
           "M": 135.02504007949392,
           "M_over_maxV": 4.0
         },
@@ -680,6 +800,7 @@
           "quant_gap": 824.0,
           "exact_valid": true,
           "quant_valid": true,
+          "variant": "ratio8",
           "M": 270.05008015898784,
           "M_over_maxV": 8.0
         },
@@ -725,34 +846,47 @@
           "quant_gap": 916.0,
           "exact_valid": true,
           "quant_valid": true,
+          "variant": "ratio16",
           "M": 540.1001603179757,
           "M_over_maxV": 16.0
         }
       ],
       "summary": {
         "onehot": {
+          "variants": [
+            "M0",
+            "lowM"
+          ],
           "ratios": [
+            2.4443620232563967,
             1.05
           ],
           "exact_valid": [
+            true,
             true
           ],
           "quant_valid": [
+            true,
             true
           ],
           "retention": [
+            0.0,
             0.6666666666666666
           ],
           "non_original": [
+            1,
             2
           ],
           "spearman": [
+            0.8513452064692373,
             0.9087411017804009
           ],
           "exact_gap": [
+            82.51252003974696,
             35.44407302086716
           ],
           "quant_gap": [
+            76.0,
             60.0
           ],
           "n_var": 16,
@@ -760,6 +894,12 @@
           "aux": 1
         },
         "domainwall": {
+          "variants": [
+            "ratio1.05",
+            "ratio4",
+            "ratio8",
+            "ratio16"
+          ],
           "ratios": [
             1.05,
             4.0,
@@ -919,7 +1059,58 @@
       ],
       "vmin": 0.0,
       "vmax": 20.27326721574657,
+      "M0": 55.54653443149314,
       "rows": [
+        {
+          "encoding": "onehot",
+          "n_var": 16,
+          "n_ising": 17,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "quant_set": [
+            [
+              3,
+              1
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              6,
+              1
+            ]
+          ],
+          "intersection_size": 0,
+          "retention": 0.0,
+          "non_original": 4,
+          "spearman": 0.8254754513719083,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 55.54653443149314,
+          "exact_gap": 55.54653443149314,
+          "quant_best_legal": -1788.0,
+          "quant_best_illegal": -1728.0,
+          "quant_gap": 60.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "variant": "M0",
+          "M": 55.54653443149314,
+          "M_over_maxV": 2.739890607684057
+        },
         {
           "encoding": "onehot",
           "n_var": 16,
@@ -954,6 +1145,7 @@
           "quant_gap": 56.0,
           "exact_valid": true,
           "quant_valid": true,
+          "variant": "lowM",
           "M": 21.2869305765339,
           "M_over_maxV": 1.05
         },
@@ -995,6 +1187,7 @@
           "quant_gap": 44.0,
           "exact_valid": true,
           "quant_valid": true,
+          "variant": "ratio1.05",
           "M": 21.2869305765339,
           "M_over_maxV": 1.05
         },
@@ -1032,6 +1225,7 @@
           "quant_gap": 784.0,
           "exact_valid": true,
           "quant_valid": true,
+          "variant": "ratio4",
           "M": 81.09306886298629,
           "M_over_maxV": 4.0
         },
@@ -1077,6 +1271,7 @@
           "quant_gap": 904.0,
           "exact_valid": true,
           "quant_valid": true,
+          "variant": "ratio8",
           "M": 162.18613772597257,
           "M_over_maxV": 8.0
         },
@@ -1122,34 +1317,47 @@
           "quant_gap": 964.0,
           "exact_valid": true,
           "quant_valid": true,
+          "variant": "ratio16",
           "M": 324.37227545194514,
           "M_over_maxV": 16.0
         }
       ],
       "summary": {
         "onehot": {
+          "variants": [
+            "M0",
+            "lowM"
+          ],
           "ratios": [
+            2.739890607684057,
             1.05
           ],
           "exact_valid": [
+            true,
             true
           ],
           "quant_valid": [
+            true,
             true
           ],
           "retention": [
+            0.0,
             0.0
           ],
           "non_original": [
+            4,
             1
           ],
           "spearman": [
+            0.8254754513719083,
             0.9437305382569678
           ],
           "exact_gap": [
+            55.54653443149314,
             21.2869305765339
           ],
           "quant_gap": [
+            60.0,
             56.0
           ],
           "n_var": 16,
@@ -1157,6 +1365,12 @@
           "aux": 1
         },
         "domainwall": {
+          "variants": [
+            "ratio1.05",
+            "ratio4",
+            "ratio8",
+            "ratio16"
+          ],
           "ratios": [
             1.05,
             4.0,
@@ -1212,5 +1426,5 @@
       }
     }
   },
-  "runtime_s": 2.170958200003952
+  "runtime_s": 3.0819236999959685
 }
