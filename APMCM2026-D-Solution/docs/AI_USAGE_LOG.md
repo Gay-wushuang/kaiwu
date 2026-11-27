@@ -181,5 +181,12 @@
 - Codex（`gpt-6.2-sol` / `medium`）作为独立审查 Agent，仅检查候选包目录与交付清单。前三次使用 `read-only`，每次调用的 status、findings、evidence、required_changes 见交付目录 `results/support_materials_candidate_20261128/REVIEW/CODEX_REVIEW_01..03.json`。队员先例外授权第三次复审；第三次仍为 REVISE 后，明确要求 Codex 直接修复。第 4 次调用改用 `workspace-write`，仅允许修改候选包内文件，未改动任何文件并返回 PASS，记录见 `CODEX_REVIEW_04.json`。Trae 按有效反馈修复实际交付问题，并做本地哈希与清单复核。
 - 两个 Agent 均未参与核心建模、算法设计、求解方案或科学结论；论文负责人仍需按 `PENDING_CONFIRMATIONS.md` 独立核验。
 
+## 2026-11-28 T002 第一阶段：有限精度目标保真与约束有效性
+
+- Trae（DeepSeek-V4.1-Flash）在队员指定范围内读取数学接口代码、测试、第一轮报告与相关任务归档；运行 `tests/test_math_interfaces.py`（5/5 PASS），执行非赛题 3×3 教学探针，机械复核第一轮 5 个任务的返回向量、合法性与原始/量化最优集合；生成 `results/round2/phase1_math_interfaces/` 证据。未训练模型、未修改第一轮数据、未提交真机，量子配额消耗 0。
+- Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）调用 2 次。第一次核验为 REVISE：指出 `M0` 不能对任意非负 V 保证合法解胜出、`resolution` 不能单独决定排序、第一轮复核需列出全部返回样本；Trae 补全证据并修正表述。第二次核验为 CONFIRMED，确认上述修正、48/11/合法命中口径、原始 argmin 保留 2/5 与返回命中 0/5 的区分、合法子空间边界。两次结论见 `results/round2/phase1_math_interfaces/codex_review_01/02.json`。
+- 第二轮正式研究配置未提供，第二阶段停止；未选择参数、未执行真机、未消耗配额。
+
+
 
 

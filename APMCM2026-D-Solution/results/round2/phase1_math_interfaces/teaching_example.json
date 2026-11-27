@@ -1,0 +1,312 @@
+{
+  "teaching_matrix": [
+    [
+      0.2544058321170608,
+      1.478493748067384,
+      0.3913056598906419
+    ],
+    [
+      0.12384047029690515,
+      1.1967842146480763,
+      1.7915155034825632
+    ],
+    [
+      0.053886822769405596,
+      1.6102719797833385,
+      0.38034003345668155
+    ]
+  ],
+  "default_M0": 18.475257361426316,
+  "notes": [
+    "rank 字段只用于展示；判断原始最优是否保留应使用集合交集，不能用 rank == 1 代替。",
+    "returned_samples 中所有样本含 bits/legal/H；仅合法样本含 pair/V；非法样本的 pair/V 缺失不表示 0。",
+    "resolution 的步长取 max|I|/127，分子分母来自同一 Ising 矩阵；它衡量目标系数占多少量化格，不能单独决定合法解排序。"
+  ],
+  "cases": [
+    {
+      "mfactor": 0.001,
+      "M": 0.018475257361426314,
+      "M0": 18.475257361426316,
+      "min_V": 0.053886822769405596,
+      "max_V": 1.7915155034825632,
+      "M_gt_minV": false,
+      "M_gt_maxV": false,
+      "resolution_raw": 52.63677151546881,
+      "resolution_adj": 53.0,
+      "raw_top": 0.5403125571527064,
+      "raw_obj": 0.2239394379353204,
+      "raw_step": 0.004254429583879578,
+      "adj_top": 127.0,
+      "adj_obj": 53.0,
+      "adj_step": 1.0,
+      "adj_max_abs": 127.0,
+      "bit_width_check": {
+        "precision": 8,
+        "multiplier": 1.0
+      },
+      "best_legal_qubo": 0.053886822769405596,
+      "best_illegal_qubo": 0.018475257361426314,
+      "illegal_minus_legal": -0.03541156540797928,
+      "penalty_formula_max_error": 1.817990202823694e-15,
+      "qubo_ising_identity_max_error": 1.7763568394002505e-15,
+      "H_adj_vs_Veff_max_error": 0.0,
+      "raw_argmin": [
+        [
+          2,
+          0
+        ]
+      ],
+      "raw_argmin_adj_ranks": [
+        1
+      ],
+      "raw_in_adjusted_argmin": true,
+      "adjusted_argmin_bits": [
+        [
+          0,
+          0,
+          1,
+          1,
+          0,
+          0
+        ]
+      ],
+      "adjusted_tie_count": 1
+    },
+    {
+      "mfactor": 0.005,
+      "M": 0.09237628680713159,
+      "M0": 18.475257361426316,
+      "min_V": 0.053886822769405596,
+      "max_V": 1.7915155034825632,
+      "M_gt_minV": true,
+      "M_gt_maxV": false,
+      "resolution_raw": 50.89643667787316,
+      "resolution_adj": 51.0,
+      "raw_top": 0.5587878145141327,
+      "raw_obj": 0.2239394379353204,
+      "raw_step": 0.004399904051292384,
+      "adj_top": 127.0,
+      "adj_obj": 51.0,
+      "adj_step": 1.0,
+      "adj_max_abs": 127.0,
+      "bit_width_check": {
+        "precision": 8,
+        "multiplier": 1.0
+      },
+      "best_legal_qubo": 0.053886822769405596,
+      "best_illegal_qubo": 0.09237628680713159,
+      "illegal_minus_legal": 0.03848946403772599,
+      "penalty_formula_max_error": 9.992007221626409e-16,
+      "qubo_ising_identity_max_error": 1.7763568394002505e-15,
+      "H_adj_vs_Veff_max_error": 0.0,
+      "raw_argmin": [
+        [
+          2,
+          0
+        ]
+      ],
+      "raw_argmin_adj_ranks": [
+        1
+      ],
+      "raw_in_adjusted_argmin": true,
+      "adjusted_argmin_bits": [
+        [
+          0,
+          0,
+          1,
+          1,
+          0,
+          0
+        ]
+      ],
+      "adjusted_tie_count": 1
+    },
+    {
+      "mfactor": 1.0,
+      "M": 18.475257361426316,
+      "M0": 18.475257361426316,
+      "min_V": 0.053886822769405596,
+      "max_V": 1.7915155034825632,
+      "M_gt_minV": true,
+      "M_gt_maxV": true,
+      "resolution_raw": 5.5175601936976575,
+      "resolution_adj": 6.0,
+      "raw_top": 5.154508083168928,
+      "raw_obj": 0.2239394379353204,
+      "raw_step": 0.040586677820227776,
+      "adj_top": 127.0,
+      "adj_obj": 6.0,
+      "adj_step": 1.0,
+      "adj_max_abs": 127.0,
+      "bit_width_check": {
+        "precision": 8,
+        "multiplier": 1.0
+      },
+      "best_legal_qubo": 0.053886822769406706,
+      "best_illegal_qubo": 18.475257361426316,
+      "illegal_minus_legal": 18.42137053865691,
+      "penalty_formula_max_error": 1.4210854715202004e-14,
+      "qubo_ising_identity_max_error": 2.842170943040401e-14,
+      "H_adj_vs_Veff_max_error": 0.0,
+      "raw_argmin": [
+        [
+          2,
+          0
+        ]
+      ],
+      "raw_argmin_adj_ranks": [
+        2
+      ],
+      "raw_in_adjusted_argmin": false,
+      "adjusted_argmin_bits": [
+        [
+          0,
+          1,
+          0,
+          1,
+          0,
+          0
+        ]
+      ],
+      "adjusted_tie_count": 1
+    },
+    {
+      "mfactor": 3.0,
+      "M": 55.42577208427895,
+      "M0": 18.475257361426316,
+      "min_V": 0.053886822769405596,
+      "max_V": 1.7915155034825632,
+      "M_gt_minV": true,
+      "M_gt_maxV": true,
+      "resolution_raw": 1.976100497402048,
+      "resolution_adj": 2.0,
+      "raw_top": 14.392136763882085,
+      "raw_obj": 0.2239394379353204,
+      "raw_step": 0.1133239115266306,
+      "adj_top": 127.0,
+      "adj_obj": 2.0,
+      "adj_step": 1.0,
+      "adj_max_abs": 127.0,
+      "bit_width_check": {
+        "precision": 8,
+        "multiplier": 1.0
+      },
+      "best_legal_qubo": 0.05388682276941381,
+      "best_illegal_qubo": 55.42577208427895,
+      "illegal_minus_legal": 55.37188526150953,
+      "penalty_formula_max_error": 2.842170943040401e-14,
+      "qubo_ising_identity_max_error": 5.684341886080802e-14,
+      "H_adj_vs_Veff_max_error": 0.0,
+      "raw_argmin": [
+        [
+          2,
+          0
+        ]
+      ],
+      "raw_argmin_adj_ranks": [
+        2
+      ],
+      "raw_in_adjusted_argmin": true,
+      "adjusted_argmin_bits": [
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      ],
+      "adjusted_tie_count": 5
+    },
+    {
+      "mfactor": 10.0,
+      "M": 184.75257361426316,
+      "M0": 18.475257361426316,
+      "min_V": 0.053886822769405596,
+      "max_V": 1.7915155034825632,
+      "M_gt_minV": true,
+      "M_gt_maxV": true,
+      "resolution_raw": 0.6086894903063473,
+      "resolution_adj": 1.0,
+      "raw_top": 46.723837146378145,
+      "raw_obj": 0.2239394379353204,
+      "raw_step": 0.3679042294990405,
+      "adj_top": 127.0,
+      "adj_obj": 1.0,
+      "adj_step": 1.0,
+      "adj_max_abs": 127.0,
+      "bit_width_check": {
+        "precision": 8,
+        "multiplier": 1.0
+      },
+      "best_legal_qubo": 0.05388682276941381,
+      "best_illegal_qubo": 184.75257361426316,
+      "illegal_minus_legal": 184.69868679149374,
+      "penalty_formula_max_error": 1.1368683772161603e-13,
+      "qubo_ising_identity_max_error": 1.7053025658242404e-13,
+      "H_adj_vs_Veff_max_error": 0.0,
+      "raw_argmin": [
+        [
+          2,
+          0
+        ]
+      ],
+      "raw_argmin_adj_ranks": [
+        3
+      ],
+      "raw_in_adjusted_argmin": false,
+      "adjusted_argmin_bits": [
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "adjusted_tie_count": 2
+    }
+  ]
+}
