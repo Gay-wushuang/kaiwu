@@ -48,6 +48,32 @@ python code/verify_project.py
 所有脚本使用 `code/paths.py` 定位资源，路径相对仓库根目录解析，不依赖当前工作目录，也没有硬编码盘符。
 缺失输入文件时会打印缺失清单并以非零码退出。
 
+## 正式实验执行入口（Phase 10）
+
+`code/d_experiment.py` 在既有求解脚本之上增加输入版本管理、配额检查、重复拦截与任务归档，
+不改变任何模型、参数或 QUBO 构造。默认 dry-run。
+
+```bash
+# 1. 登记一个输入版本（冻结文件并记录 SHA256；已登记版本不可覆盖）
+python code/d_experiment.py inputs register --version team_q2_v1 \
+    --matrix code/predictions/pool_q2_phys.csv --format long \
+    --value-col V_hat --x-col X --x NO2 --kind official_prediction --sub-q Q2
+# 2. 查看版本 / 预演（不写文件、不联网）
+python code/d_experiment.py inputs list
+python code/d_experiment.py plan --input-version team_q2_v1 --task-name q2_k13 --topk 13
+# 3. 实际提交：必须交互终端，逐字输入任务编号，消耗 1 次配额
+python code/d_experiment.py run --input-version team_q2_v1 --task-name q2_k13 --topk 13 --submit
+# 4. 状态 / 恢复 / 归档平台报告 / 本地配额账本
+python code/d_experiment.py status
+python code/d_experiment.py resume --task-id <task_id>
+python code/d_experiment.py attach-report --task-id <task_id> --file <report.pdf> --device SPQC-550
+python code/d_experiment.py budget
+```
+
+每次任务在 `experiments/tasks/<task_id>/` 独立归档：配置、输入与变量映射、输入哈希、实际提交矩阵、
+Git commit、SDK 版本、返回向量、能量核对、日志、尝试记录与配额消耗。
+详见 `docs/PHASE10_REPORT.md`。
+
 ## 关键结果
 
 | 项目 | 数值 | 出处 |
