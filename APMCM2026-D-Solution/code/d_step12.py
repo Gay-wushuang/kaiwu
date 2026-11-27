@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
 """D 题 Step 1+2：元素属性特征 + 多任务物理量预测（gap 两阶段）→ V 预测"""
-import os, warnings
+import warnings
 warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from mendeleev import element as mel
 from sklearn.ensemble import HistGradientBoostingRegressor, HistGradientBoostingClassifier
 from sklearn.metrics import r2_score, mean_absolute_error, roc_auc_score
+from paths import DATA, PRED, ensure_output_dirs, require_data
 
-d = r"D:\比赛\APMCM\2026 APMCM Problems B&C&D\D题 中文翻译\date"
-tr = pd.read_csv(os.path.join(d, "02_castelli_train.csv"))
-va = pd.read_csv(os.path.join(d, "03_castelli_val.csv"))
-pools = {k: pd.read_csv(os.path.join(d, f)) for k, f in [
+ensure_output_dirs()
+require_data("02_castelli_train.csv", "03_castelli_val.csv", "07_castelli_q2_pool.csv",
+             "08_castelli_q3_pool.csv", "11_castelli_q2_pool_blind.csv",
+             "12_castelli_q3_pool_blind.csv")
+tr = pd.read_csv(DATA / "02_castelli_train.csv")
+va = pd.read_csv(DATA / "03_castelli_val.csv")
+pools = {k: pd.read_csv(DATA / f) for k, f in [
     ("q2", "07_castelli_q2_pool.csv"), ("q3", "08_castelli_q3_pool.csv"),
     ("q2b", "11_castelli_q2_pool_blind.csv"), ("q3b", "12_castelli_q3_pool_blind.csv")]}
 
@@ -117,11 +121,9 @@ def predict_pool(df):
     return Vof(ef, gp, vb, cb), dict(e_form=ef, gap=gp, vbm=vb, cbm=cb)
 
 
-resdir = r"D:\temp\d_out"
-os.makedirs(resdir, exist_ok=True)
 for k, df in pools.items():
     v, parts = predict_pool(df)
     df2 = df.assign(V_hat=v, **{f"pred_{c}": parts[c] for c in parts})
-    df2.sort_values("V_hat").to_csv(os.path.join(resdir, f"pool_{k}.csv"), index=False, encoding="utf-8-sig")
+    df2.sort_values("V_hat").to_csv(PRED / f"pool_{k}.csv", index=False, encoding="utf-8-sig")
     print(f"\n池 {k}: {len(df)} 个候选 | V_hat min {v.min():.3f} 中位 {np.median(v):.2f} max {v.max():.2f} | V_hat<1 的 {int((v < 1).sum())} 个")
     print(df2.sort_values("V_hat")[["formula", "A", "B", "X", "V_hat"]].head(5).to_string(index=False))

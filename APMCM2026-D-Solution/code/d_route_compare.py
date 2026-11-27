@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 """路线对比：直接回归 V  vs  先预测 4 个物理量再按公式算 V"""
-import os, warnings
+import warnings
 warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.metrics import r2_score, mean_absolute_error
+from paths import DATA, RES, ensure_output_dirs, require_data
 
-d = r"D:\比赛\APMCM\2026 APMCM Problems B&C&D\D题 中文翻译\date"
-tr = pd.read_csv(os.path.join(d, "02_castelli_train.csv"))
-va = pd.read_csv(os.path.join(d, "03_castelli_val.csv"))
-pool = pd.read_csv(os.path.join(d, "07_castelli_q2_pool.csv"))
+ensure_output_dirs()
+require_data("02_castelli_train.csv", "03_castelli_val.csv", "07_castelli_q2_pool.csv")
+tr = pd.read_csv(DATA / "02_castelli_train.csv")
+va = pd.read_csv(DATA / "03_castelli_val.csv")
+pool = pd.read_csv(DATA / "07_castelli_q2_pool.csv")
 elems = sorted(set(tr.A) | set(tr.B)); xcat = sorted(set(tr.X.unique()))
 ei = {e: i for i, e in enumerate(elems)}; xi = {x: i for i, x in enumerate(xcat)}
 
@@ -70,4 +72,4 @@ print("\n07 池按路线 B 排序前 10：")
 print(out[["formula", "A", "B", "V_hat_B", "V_hat_A"]].head(10).to_string(index=False))
 print("\n路线B 预测池子最小/中位/最大: %.3f / %.3f / %.3f" % (qB.min(), np.median(qB), qB.max()))
 print("路线B 预测 V<1 的池内候选数:", int((qB < 1).sum()), " | V<2:", int((qB < 2).sum()))
-out.to_csv(r"D:\temp\q2_pool_pred2.csv", index=False, encoding="utf-8-sig")
+out.to_csv(RES / "q2_pool_pred2.csv", index=False, encoding="utf-8-sig")

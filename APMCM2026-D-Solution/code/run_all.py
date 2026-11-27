@@ -2,7 +2,7 @@
 """D 题端到端一键复现：数据核对 → 代理模型 → 三题求解 → 交付物
 输出：results/FINAL_ANSWERS.md、results/submission_*.csv、models/*.joblib
 """
-import os, json, warnings, time
+import json, warnings, time
 warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from mendeleev import element as mel
@@ -11,10 +11,11 @@ import joblib
 import kaiwu as kw
 import kaiwu.preprocess as pp
 
-ROOT = r"D:\比赛\APMCM\D题"
-DAT, CODE, RES = (os.path.join(ROOT, d) for d in ("date", "code", "results"))
-MOD = os.path.join(ROOT, "models")
-os.makedirs(MOD, exist_ok=True); os.makedirs(RES, exist_ok=True)
+from paths import DATA, MODELS, PRED, RES, ensure_output_dirs, require_data
+
+ensure_output_dirs()
+MOD = MODELS
+require_data()
 t0 = time.time()
 log = []
 
@@ -30,7 +31,7 @@ say("步骤 1  数据核对")
 FILES = {"02": "02_castelli_train.csv", "03": "03_castelli_val.csv", "04": "04_castelli_test_holdout.csv",
          "06": "06_castelli_no_physics.csv", "07": "07_castelli_q2_pool.csv", "08": "08_castelli_q3_pool.csv",
          "11": "11_castelli_q2_pool_blind.csv", "12": "12_castelli_q3_pool_blind.csv"}
-D = {k: pd.read_csv(os.path.join(DAT, f)) for k, f in FILES.items()}
+D = {k: pd.read_csv(DATA / f) for k, f in FILES.items()}
 for k, df in D.items():
     say(f"  {k}: {len(df):>6} 行, {df.shape[1]:>2} 列")
 tr, va, ho = D["02"], D["03"], D["04"]
@@ -115,7 +116,7 @@ clf = XGBClassifier(n_estimators=600, learning_rate=0.05, max_depth=5, subsample
                     tree_method="hist", eval_metric="logloss").fit(Xa, (al.gap > 0).astype(int))
 suba = (al.gap > 0).values
 greg = XGBRegressor(**MK).fit(Xa[suba], al.gap.values[suba])
-joblib.dump({"reg": reg, "clf": clf, "greg": greg, "P": P}, os.path.join(MOD, "surrogate_phys.joblib"))
+joblib.dump({"reg": reg, "clf": clf, "greg": greg, "P": P}, MOD / "surrogate_phys.joblib")
 say(f"  最终模型已保存 models/surrogate_phys.joblib（02+03 共 {len(al):,} 行）")
 
 # ---------------------------------------------------------------- 3. 交付：holdout 与四个池
@@ -124,16 +125,16 @@ say("=" * 62)
 say("步骤 3  预测与交付文件")
 ho2 = ho.assign(V_hat=predict(ho, (reg, clf, greg)))
 ho2[["id", "formula", "A", "B", "X", "V_hat"]].to_csv(
-    os.path.join(RES, "submission_q1_holdout.csv"), index=False, encoding="utf-8-sig")
+    RES / "submission_q1_holdout.csv", index=False, encoding="utf-8-sig")
 say(f"  holdout 3,703 行 → results/submission_q1_holdout.csv（V̂ 最小 {ho2.V_hat.min():.3f}）")
 
 POOLS = {"q2": "07_castelli_q2_pool.csv", "q3": "08_castelli_q3_pool.csv",
          "q2b": "11_castelli_q2_pool_blind.csv", "q3b": "12_castelli_q3_pool_blind.csv"}
 pool = {}
 for k, f in POOLS.items():
-    df = D[k] if k in D else pd.read_csv(os.path.join(DAT, f))
+    df = D[k] if k in D else pd.read_csv(DATA / f)
     d2 = df.assign(V_hat=predict(df, (reg, clf, greg))).sort_values("V_hat")
-    d2.to_csv(os.path.join(CODE, f"pool_{k}_phys.csv"), index=False, encoding="utf-8-sig")
+    d2.to_csv(PRED / f"pool_{k}_phys.csv", index=False, encoding="utf-8-sig")
     pool[k] = d2
     say(f"  {k}: {len(df):>5} 个 | V̂ min {d2.V_hat.min():.4f} | V̂<1 的 {int((d2.V_hat<1).sum()):>3} 个 | 首位 {d2.iloc[0].formula}")
 
@@ -234,9 +235,9 @@ say(f"  全流程耗时 {time.time()-t0:.1f} s")
 
 # 提交文件
 pool["q2"].head(20)[["id", "formula", "A", "B", "X", "V_hat"]].to_csv(
-    os.path.join(RES, "submission_q2_top20.csv"), index=False, encoding="utf-8-sig")
+    RES / "submission_q2_top20.csv", index=False, encoding="utf-8-sig")
 pool["q3"].head(20)[["id", "formula", "A", "B", "X", "V_hat"]].to_csv(
-    os.path.join(RES, "submission_q3_top20.csv"), index=False, encoding="utf-8-sig")
+    RES / "submission_q3_top20.csv", index=False, encoding="utf-8-sig")
 
 summary = dict(validate=dict(r2=r2, mae=mae, rmse=rmse, spearman=rho, top100=top100),
                q2=dict(best=best_q2.formula, V=float(best_q2.V_hat), num_lt1=int((pool["q2"].V_hat < 1).sum())),
@@ -245,7 +246,7 @@ summary = dict(validate=dict(r2=r2, mae=mae, rmse=rmse, spearman=rho, top100=top
                q3_by_X={r["tag"]: dict(exact=r["exact"], V=r["exact_V"]) for r in r_q3},
                q2_blocks=[r_q2_full, r_q2], holdout_min=float(ho2.V_hat.min()),
                runtime_s=round(time.time() - t0, 1))
-json.dump(summary, open(os.path.join(RES, "final_answers.json"), "w", encoding="utf-8"),
+json.dump(summary, open(RES / "final_answers.json", "w", encoding="utf-8"),
           ensure_ascii=False, indent=2)
 
 md = ["# D 题端到端复现结果", "", f"运行时间：{time.strftime('%Y-%m-%d %H:%M')}，耗时 {summary['runtime_s']} s", "",
@@ -269,7 +270,7 @@ md += ["", "## 交付文件", "", "| 文件 | 内容 |", "|---|---|",
        "| `results/final_answers.json` | 全部数值的机器可读版本 |",
        "| `models/surrogate_phys.joblib` | 训练好的代理模型 |", "",
        "> 真机实验（3 次配额已用完）的结果见 `results/cim_stats/` 与 `results/vendor_reports/`。"]
-open(os.path.join(RES, "FINAL_ANSWERS.md"), "w", encoding="utf-8").write("\n".join(md))
-open(os.path.join(RES, "run_all.log"), "w", encoding="utf-8").write("\n".join(log))
+open(RES / "FINAL_ANSWERS.md", "w", encoding="utf-8").write("\n".join(md))
+open(RES / "run_all.log", "w", encoding="utf-8").write("\n".join(log))
 say()
 say("已写 results/FINAL_ANSWERS.md · final_answers.json · run_all.log")
