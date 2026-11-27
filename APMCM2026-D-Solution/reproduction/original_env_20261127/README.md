@@ -94,7 +94,7 @@ cd APMCM2026-D-Solution
 | 原始材料归档 | PASS（含 SHA256） |
 | 依赖差异清单 | PASS（直接依赖） |
 | 独立环境创建 | PASS |
-| 依赖安装 | 见 `docs/reproduction/original_environment/ENVIRONMENT_REPORT.md` |
-| 模块导入检查 | 见同报告 |
-| 主流程正式复跑 | **待参赛队员执行** |
+| 依赖安装 | PASS（`pip check` 无冲突，10/10 模块导入 OK） |
+| 模块导入检查 | PASS（见 `docs/reproduction/original_environment/import_check.json`） |
+| 主流程正式复跑 | **PASS**（2026-11-27，20.8 s；指标与 3.12.6 独立复现完全一致，三个交付文件逐字节一致；见 `run_20261127/COMPARISON.md`） |
 | 04 官方评分 | 无法本地完成 |

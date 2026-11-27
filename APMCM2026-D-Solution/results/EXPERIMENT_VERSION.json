@@ -129,7 +129,7 @@
       "notes": "可行性预研环境，只含 kaiwu 依赖，不是正式求解环境。"
     },
     "original_env_replication": {
-      "status": "PARTIAL_PASS",
+      "status": "PASS",
       "path": "%LOCALAPPDATA%/kaiwu-original",
       "python": "3.12.5",
       "platform": "Windows-10-10.0.19045-SP0",
@@ -161,7 +161,35 @@
         },
         "note": "其余 51 个传递依赖版本一致"
       },
-      "notes": "Python 精确匹配；操作系统不同；不得宣称与队友环境完全相同。未修改 kaiwu-verify。"
+      "notes": "Python 精确匹配；操作系统不同；不得宣称与队友环境完全相同。未修改 kaiwu-verify。",
+      "run_20261127": {
+        "status": "PASS",
+        "archive": "reproduction/original_env_20261127/run_20261127/",
+        "command": "reproduction/original_env_20261127/run_reproduction.ps1",
+        "workdir": "%TEMP%/apmcm_repro_original_20261127",
+        "runtime_s": 17.8,
+        "wall_time_s": 20.8,
+        "exit_code": 0,
+        "metrics": {
+          "r2": 0.8248360139436758,
+          "mae": 2.571641375773894,
+          "rmse": 4.597197710256738,
+          "spearman": 0.9353252386820915,
+          "top100": 40
+        },
+        "submission_sha256": {
+          "results/submission_q1_holdout.csv": "9395cb54a010be851007e08f61cf3f0c3361d120c1f5a14da86a17f937302b4d",
+          "results/submission_q2_top20.csv": "7cf63c8ce6ea5aa921022b70c1ebe81f45e75143bd5c2688f53f36b06cbfdc9b",
+          "results/submission_q3_top20.csv": "c53d633775baa265d352f0ed4903d5a78cfd87e36a2035aba57959fb8b5bb59b"
+        },
+        "identical_to_independent_reproduction": {
+          "metrics": true,
+          "submission_files": true,
+          "final_answers_except_runtime": true
+        },
+        "differences_vs_original": "same as experiments.independent_reproduction_20261127.differences_vs_original",
+        "notes": "只记录差异，不归因；04 盲测集无标签，未计算任何监督指标；未修改仓库历史产物。"
+      }
     }
   },
   "experiments": {
@@ -327,9 +355,10 @@
     "Original artifacts are not overwritten; reproduction outputs live in results/reproduction_20261127/.",
     "Dependency differences are recorded as observed, not asserted as the sole cause of numerical differences.",
     "No real-machine task was submitted in Phase 9; quota consumption is zero.",
-    "Phase 10 supplement: original direct dependencies provided; OS still differs (Windows 11 vs Windows 10), so the environment is not claimed to be identical."
+    "Phase 10 supplement: original direct dependencies provided; OS still differs (Windows 11 vs Windows 10), so the environment is not claimed to be identical.",
+    "Phase 10 supplement: formal reproduction run completed in the aligned environment; it matches the 3.12.6 independent reproduction exactly, while the previously recorded difference vs the original frozen results remains unexplained and unattributed."
   ],
-  "updated_at": "2026-11-27 Asia/Shanghai (Phase 10 supplement)",
+  "updated_at": "2026-11-27 Asia/Shanghai (Phase 10 supplement, reproduction run)",
   "evaluation_protocols": {
     "P1_validation_02_to_03": {
       "train": "date/02_castelli_train.csv (11,256 rows)",

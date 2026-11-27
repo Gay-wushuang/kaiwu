@@ -46,6 +46,7 @@
 | 直接依赖版本未知 | **已解除**：9/9 项按队友 `requirements.txt` 安装 |
 | 独立对齐环境 | `%LOCALAPPDATA%\kaiwu-original`，CPython 3.12.5 |
 | 依赖安装 | PASS：`pip check` 无冲突；10 个模块导入全部 OK |
+| 正式复跑 | PASS：2026-11-27，20.8 s；指标与 3.12.6 独立复现完全一致，三个交付文件逐字节一致（`reproduction/original_env_20261127/run_20261127/COMPARISON.md`） |
 | 全量锁定 | `docs/reproduction/original_environment/requirements.freeze.txt`（55 项） |
 | 与 kaiwu-verify 差异 | lightgbm 新增；numpy / scikit-learn / scipy 三个版本不同；其余 51 项一致 |
 | kaiwu-verify 保护 | PASS：`pip freeze` 与 `requirements.lock.txt` 逐包一致，未降级、未覆盖 |

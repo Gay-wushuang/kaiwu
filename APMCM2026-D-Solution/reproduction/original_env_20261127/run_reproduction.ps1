@@ -50,12 +50,14 @@ Write-Host "Work directory: $WorkDir"
 Write-Host "Repository results were not modified. Compare, do not copy back."
 Write-Host "SHA256 of key outputs:"
 $targets = @(
-    'results\metrics.csv',
-    'results\model_compare.csv',
+    'results\final_answers.json',
+    'results\FINAL_ANSWERS.md',
+    'results\run_all.log',
     'results\submission_q1_holdout.csv',
     'results\submission_q2_top20.csv',
     'results\submission_q3_top20.csv',
-    'results\final_answers.json'
+    'code\predictions\pool_q2_phys.csv',
+    'code\predictions\pool_q3_phys.csv'
 )
 foreach ($t in $targets) {
     $p = Join-Path $WorkDir $t

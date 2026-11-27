@@ -140,7 +140,7 @@ PASS 15 | FAIL 0 | BLOCKED 0 | WARN 0
 
 - 脚本：`reproduction/original_env_20261127/run_reproduction.ps1`
 - 行为：把 `code/` 与 `date/` 复制到独立临时目录后运行 `run_all.py`，不覆盖仓库历史产物
-- 正式复跑与结果核验：**由参赛队员执行**
+- 正式复跑：**已完成**（2026-11-27，20.8 s，退出码 0）。关键指标与 3.12.6 独立复现完全一致，三个交付文件逐字节一致；详见 `reproduction/original_env_20261127/run_20261127/COMPARISON.md`
 - 三种口径：`docs/reproduction/PROTOCOLS.md`（02→03 验证 / 分组 OOF / 04 官方盲测）
 
 ---
