@@ -40,6 +40,7 @@ from experiment_archive import (
     TaskArchive,
     make_task_id,
     now_str,
+    validate_spin_matrix,
 )
 from experiment_input import ExperimentInput, numeric_matrix_sha256
 from paths import ROOT
@@ -90,6 +91,42 @@ def build_problem(exin: ExperimentInput, topk: int = 0, mfactor: float = 1.0) ->
         "maxJ": float(Ia.max()), "obj_adj": float(obj), "step_adj": float(step),
         "matrix_sha256": numeric_matrix_sha256(adj),
     }
+
+
+def validate_run_args(mode: str, topk: int, n_labels: int, samples: int):
+    """本地参数校验：避免把明显非法的规模送到 SDK。"""
+    if topk < 0:
+        raise SystemExit(f"[参数] --topk 不能为负：{topk}")
+    if topk and topk > n_labels:
+        raise SystemExit(f"[参数] --topk={topk} 超过可用标签数 {n_labels}")
+    if mode not in ("opt", "sampling"):
+        raise SystemExit(f"[参数] 未知模式：{mode}")
+    if not (10 <= int(samples) <= 2000):
+        raise SystemExit(f"[参数] --samples 必须在 10..2000（SDK 限制）：{samples}")
+
+
+def _prepare_backend(task_name: str, mode: str, samples: int, backend: str,
+                     arc: TaskArchive, problem: dict, project_no: str = None,
+                     mock_fail_stage: str = None):
+    """构造后端；与 solve 分开，便于把授权/构造失败归档为提交失败。"""
+    if backend == "mock":
+        from mock_backend import MockCIMOptimizer
+        opt = MockCIMOptimizer(task_name=task_name, wait=True, interval=6, project_no=project_no,
+                               task_mode="sampling" if mode == "sampling" else "optimization",
+                               sample_number=max(int(samples), 10),
+                               fail_stage=mock_fail_stage)
+        return opt, None
+
+    import kaiwu as kw
+    kw.license.verify_license(problem["n_ising"])
+    opt = _make_real_optimizer(task_name, mode, samples,
+                               arc.dir / "sdk_checkpoints", project_no)
+    sdk_hash = None
+    try:
+        sdk_hash = opt._ising_to_md5_hash(problem["adj"])
+    except Exception as e:
+        arc.log(f"[WARN] 无法获取 SDK 矩阵哈希：{e}")
+    return opt, sdk_hash
 
 
 def print_plan(exin, problem, task_name, mode, samples, submit, dup, budget_info, task_id):
@@ -193,6 +230,7 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
                  project_no: str = None, notes: str = "") -> dict:
     """执行一次实验（默认 dry-run）。返回结构化结果，便于测试与审计。"""
     exin = exin_mod.load(input_version)
+    validate_run_args(mode, topk, len(exin.A), samples)
     problem = build_problem(exin, topk=topk, mfactor=mfactor)
     registry = Registry()
     mode_key = budget.mode_key(mode)
@@ -280,25 +318,27 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
     arc.append_attempt("submit", "started", f"backend={backend}")
 
     # ---- 后端起任务 ----
-    sdk_hash = None
-    if backend == "mock":
-        from mock_backend import MockCIMOptimizer
-        opt = MockCIMOptimizer(task_name=task_name, wait=True, interval=6, project_no=project_no,
-                               task_mode="sampling" if mode == "sampling" else "optimization",
-                               sample_number=max(int(samples), 10),
-                               fail_stage=mock_fail_stage)
-    else:
-        import kaiwu as kw
-        kw.license.verify_license(problem["n_ising"])
-        opt = _make_real_optimizer(task_name, mode, samples,
-                                   arc.dir / "sdk_checkpoints", project_no)
-        try:
-            sdk_hash = opt._ising_to_md5_hash(problem["adj"])
-        except Exception as e:
-            arc.log(f"[WARN] 无法获取 SDK 矩阵哈希：{e}")
-        if sdk_hash:
-            arc.update(sdk_matrix_hash=sdk_hash)
-            registry.update(task_id, sdk_matrix_hash=sdk_hash)
+    try:
+        opt, sdk_hash = _prepare_backend(task_name, mode, samples, backend, arc, problem,
+                                         project_no, mock_fail_stage)
+    except BaseException as exc:  # noqa: BLE001 - 授权/构造失败按提交失败归档
+        stage = classify_error(exc, _traceback_text())
+        arc.log(f"[失败] 后端准备阶段 {stage} 类型={type(exc).__name__}：{exc}")
+        arc.append_attempt("prepare", "failed", str(exc), error_type=type(exc).__name__)
+        arc.update(status="submit_failed", error_stage=f"prepare:{stage}",
+                   error_type=type(exc).__name__, error_message=str(exc), quota_counted=False)
+        registry.update(task_id, status="submit_failed", quota_counted=False,
+                        error_stage=f"prepare:{stage}")
+        base.update({"status": "submit_failed", "error_stage": f"prepare:{stage}",
+                     "error": str(exc)})
+        print(f"\n[失败] 后端准备失败（未创建云端任务）：{type(exc).__name__}: {exc}")
+        print(f"       归档：{arc.dir}")
+        print("       该状态不计配额，可用同一任务名重新提交。")
+        return base
+
+    if sdk_hash:
+        arc.update(sdk_matrix_hash=sdk_hash)
+        registry.update(task_id, sdk_matrix_hash=sdk_hash)
 
     t0 = time.perf_counter()
     try:
@@ -319,7 +359,7 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
         elapsed = time.perf_counter() - t0
         stage = classify_error(exc, _traceback_text())
         status = {"submit": "submit_failed", "run": "run_failed",
-                  "download": "download_failed"}.get(stage, "submit_failed")
+                  "download": "download_failed"}.get(stage, "unknown_failure")
         counted = status != "submit_failed"
         arc.log(f"[失败] 阶段={stage} 类型={type(exc).__name__}：{exc}")
         arc.append_attempt(stage, "failed", str(exc), error_type=type(exc).__name__,
@@ -335,7 +375,25 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
         return base
 
     elapsed = time.perf_counter() - t0
-    arr = np.atleast_2d(np.asarray(solutions))
+    try:
+        arr = validate_spin_matrix(solutions, problem["n_ising"])
+    except ValueError as exc:
+        raw = np.atleast_2d(np.asarray(solutions))
+        arc.save_solutions(raw)
+        arc.log(f"[非法返回] {exc}；原始数组已保存，未采信。")
+        arc.append_attempt("result", "invalid", str(exc), shape=list(raw.shape),
+                           runtime_s=elapsed)
+        arc.update(status="invalid_result", error_stage="result",
+                   error_type="ValueError", error_message=str(exc),
+                   returned_solutions=list(raw.shape), runtime_s=round(elapsed, 3),
+                   quota_counted=True)
+        registry.update(task_id, status="invalid_result", quota_counted=True,
+                        error_stage="result")
+        base.update({"status": "invalid_result", "error_stage": "result", "error": str(exc)})
+        print(f"\n[失败] 返回解格式非法：{exc}")
+        print(f"       原始数组已归档：{arc.dir}")
+        return base
+
     arc.save_solutions(arr)
     arc.save_energy(arr, problem["adj"])
     arc.log(f"提交成功，返回 {arr.shape[0]} 个解 × {arr.shape[1]} 比特，耗时 {elapsed:.2f}s")
@@ -365,7 +423,8 @@ def resume_task(task_id: str, backend=None, local_only: bool = False) -> dict:
         raise SystemExit(f"[恢复] 归档缺少实际提交矩阵：{matrix_path}")
     adj = np.loadtxt(matrix_path, delimiter=",")
     if meta.get("status") not in ("submitted", "download_failed", "run_failed",
-                                  "resume_no_result", "completed", "created"):
+                                  "unknown_failure", "invalid_result", "resume_no_result",
+                                  "completed", "created"):
         raise SystemExit(f"[恢复] 当前状态 {meta.get('status')} 不支持恢复。")
 
     if backend is None:
@@ -404,6 +463,14 @@ def resume_task(task_id: str, backend=None, local_only: bool = False) -> dict:
                 solutions = None
 
     if solutions is not None and solutions.size:
+        try:
+            solutions = validate_spin_matrix(solutions, adj.shape[0])
+        except ValueError as exc:
+            arc.update(status="invalid_result", error_stage="result",
+                       error_type="ValueError", error_message=str(exc))
+            Registry().update(task_id, status="invalid_result", error_stage="result")
+            print(f"[恢复] 平台返回解格式非法：{exc}；原始返回已归档。")
+            return {"task_id": task_id, "status": "invalid_result", "error": str(exc)}
         if not (arc.dir / "raw" / "solutions.npz").exists():
             arc.save_solutions(solutions)
             arc.save_energy(solutions, adj)

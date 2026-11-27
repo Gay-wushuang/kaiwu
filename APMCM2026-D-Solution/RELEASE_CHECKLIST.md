@@ -1,7 +1,7 @@
 # RELEASE CHECKLIST — Phase 9 版本冻结与最终工程交付
 
 - 冻结时间：2026-11-27（Asia/Shanghai）
-- 工程分支：`engineering/reproducibility`（已并入 `main`；原始环境补充任务在 `main` 上进行）
+- 工程分支：`engineering/reproducibility`（已并入 `main`）；最终质量冲刺在 `engineering/final-quality`（未合并、未推送）
 - 冻结代码：`822b7ea`（Phase 9 仅新增文档、依赖锁与归档，不改代码逻辑）
 - PR：#3 <https://github.com/Gay-wushuang/kaiwu/pull/3>，已于 2026-11-27 合并（merge commit `eded807`）；Phase 10 补充修复 `101ff28`
 - 边界：未修改模型、算法、参数、随机种子与科学结论；未提交真机任务；未消耗配额
@@ -162,7 +162,7 @@ PR 合并状态：**已合并**（2026-11-27，merge commit `eded807`）；合�
 7. **补全附录源码**，或确认支撑材料中的源码满足规范要求。
 8. **统一 AI 使用披露**：将预研与工程阶段记录合并为提交用单份说明。
 9. **核对并修正论文数字差异**（第 5.1 节），经全队确认后再定稿。
-10. **审查并合并 PR #3**；合并前确认 CLI 行为变化与输出目录调整。
+10. **审查并合并 PR #3**；PR #3 已合并。后续审查 `engineering/final-quality` 的工程修复，确认后再由本人决定是否合并。
 11. **任何真机提交前**，由账号持有人在本机授权并书面确认任务数、矩阵规模与预计消耗。
 
 ---
@@ -173,3 +173,50 @@ PR 合并状态：**已合并**（2026-11-27，merge commit `eded807`）；合�
 - 未记录、未打印、未提交任何账号、密码、`sdk_code` 或 Token。
 - 未修改数学模型、算法、参数、随机种子、QUBO 系数与科学结论。
 - 未代写论文正文、未改写研究结论；PR #3 的合并在 Phase 10 由用户明确指示后执行；未自动提交比赛作品。
+
+---
+
+## 8. Phase 10 最终质量冲刺（2026-11-27）
+
+- 分支：`engineering/final-quality`（基于 `main` @ `a372327`；**未合并、未推送**）
+- 配套文件：`CODE_AUDIT.md`、`QUALITY_TEST_REPORT.md`、`CHANGELOG.md`
+- 边界：未提交真机任务、未消耗配额、未保存凭据、未改模型与科学结论
+
+### 8.1 已完成
+
+| 项目 | 状态 | 证据 |
+|---|---|---|
+| P0 未知阶段失败分类 | PASS | `unknown_failure` 计配额并拦截重复；`test_unknown_failure_is_conservative` |
+| P1 授权/构造失败可重试 | PASS | `submit_failed` + `prepare:*`；`test_backend_prepare_failure_is_retryable` |
+| P1 返回解格式校验 | PASS | 列数/±1/空解；3 个入口统一校验；`test_invalid_solution_shape_rejected` |
+| P1 旧输出覆盖保护 | PASS | 写入前生成 `*.bak-时间戳`；`test_backup_if_exists_preserves_old_output` |
+| P1 采样参数可追溯 | PASS | `sample_number_param` / `returned_solutions`；`test_dry_run_separates_requested_and_returned_samples` |
+| P1 README 脚本数 | PASS | 15 → 20 |
+| 自动化测试 | PASS | 16/16，3.553 s |
+| 工程自检 | PASS | kaiwu-verify：PASS 15 / FAIL 0 / WARN 1；kaiwu-original：PASS 15 / FAIL 0 / WARN 0 |
+| Gate 2 实验记录 | PASS（任务级） | 3 个任务 ID/设备/时长/解数/合法数与 PDF 一致；27 个解向量 H 最大偏差 0.000 |
+| 历史实验产物 | PASS | 未改写 `results/` 历史文件 |
+
+### 8.2 必须关闭的阻塞项（交参赛队员）
+
+| # | 阻塞项 | 状态 |
+|---|---|---|
+| 1 | A1 Hamiltonian 排序方向与图注 | 待确认（`CODE_AUDIT.md` 第 3 节） |
+| 2 | A2 退火 ΔH 系数与温度定义 | 待确认 |
+| 3 | A3 辅助自旋/变量名解码方式 | 待确认 |
+| 4 | A4 分辨率口径统一 | 待确认 |
+| 5 | A5 “金标准”术语改为“代理模型矩阵精确最优” | 待确认 |
+| 6 | A6 优化模式 sample_number 文案 | 待确认 |
+| 7 | 论文元数据 5 处差异（第 5.1 节） | 待修正 |
+| 8 | 英文版论文、命名、承诺书、支撑材料 | 待完成 |
+| 9 | 传递依赖清单（可选） | 待提供 |
+| 10 | 任何新的真机实验方案与配额分配 | 待本人书面授权 |
+
+### 8.3 最终交付条件
+
+工程侧已满足：无未处理 P0、必要 P1 已关闭、数学/术语问题已移交、16/16 测试通过、历史产物未覆盖、dry-run 安全、源码可追溯至输入版本（后续任务）。
+
+仍不满足：论文元数据与英文版等提交材料由参赛队员完成；历史三次任务缺少当时的输入哈希（已标记 PARTIAL，不补造）。
+
+满足以上人工事项后，可停止工程开发，不再开启新阶段。
+

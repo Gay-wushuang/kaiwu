@@ -7,7 +7,7 @@
 | 目录 | 内容 |
 |---|---|
 | `statement/` | 赛题原文 PDF |
-| `code/` | 全部脚本（15 个 .py：分析与求解脚本 + `paths.py` 路径配置 + `verify_project.py` 工程验收） |
+| `code/` | 全部脚本（20 个 .py：分析与求解脚本 + `paths.py` 路径配置 + Phase 10 实验基础设施 + `verify_project.py` 工程验收） |
 | `code/predictions/` | 代理模型对四个池子的全量预测（`pool_*_phys.csv` 为主线用的物理量路线）与中间产物 |
 | `results/` | 指标表、验证集预测、真机任务统计、本地退火统计 |
 | `results/vendor_reports/` | 平台导出的官方任务结果报告（PDF，含解向量与 Hamiltonian） |

@@ -18,6 +18,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 import numpy as np
 import pandas as pd
@@ -33,7 +34,12 @@ os.environ["APMCM_EXPERIMENT_ROOT"] = _SANDBOX
 import d_experiment as dx            # noqa: E402
 import experiment_budget as budget   # noqa: E402
 import experiment_input as exin      # noqa: E402
-from experiment_archive import Registry, TaskArchive  # noqa: E402
+from experiment_archive import (  # noqa: E402
+    Registry,
+    TaskArchive,
+    backup_if_exists,
+    validate_spin_matrix,
+)
 from mock_backend import MockCIMOptimizer            # noqa: E402
 
 HAS_KAIWU = importlib.util.find_spec("kaiwu") is not None
@@ -242,6 +248,98 @@ class Phase10Test(unittest.TestCase):
         self.assertEqual(meta["device"], "SPQC-550")
         self.assertEqual(meta["device_source"], "platform_report")
         self.assertTrue((arc.dir / "reports" / "vendor_report.pdf").is_file())
+
+
+    # ------------------------------------------------------------------ 修复回归
+    def test_unknown_failure_is_conservative(self):
+        """未预期异常不得当成“未提交”，必须计配额并拦截重复提交。"""
+        make_input("unk_" + self.tag, list("ABC"), list("XYZ"),
+                   np.array([[0.0, 1, 5], [1, 0, 2], [5, 2, 0]]))
+        r, _ = quiet(dx.execute_task, "unk_" + self.tag, "unknown_task", "opt", 0, 1.0, 10,
+                     submit=True, backend="mock", mock_fail_stage="unknown", confirm=True)
+        self.assertEqual(r["status"], "unknown_failure")
+        self.assertTrue(TaskArchive(r["task_id"]).meta()["quota_counted"])
+
+        with self.assertRaises(SystemExit):
+            quiet(dx.execute_task, "unk_" + self.tag, "unknown_task", "opt", 0, 1.0, 10,
+                  submit=True, backend="mock", confirm=True)
+
+    def test_backend_prepare_failure_is_retryable(self):
+        """授权/构造失败发生在提交前，应记为 submit_failed 且允许同名重试。"""
+        make_input("prep_" + self.tag, list("ABC"), list("XYZ"),
+                   np.array([[0.0, 2, 6], [2, 0, 1], [6, 1, 0]]))
+        with mock.patch.object(dx, "_prepare_backend", side_effect=ValueError("license missing")):
+            r, _ = quiet(dx.execute_task, "prep_" + self.tag, "prep_task", "opt", 0, 1.0, 10,
+                         submit=True, backend="real", confirm=True)
+        self.assertEqual(r["status"], "submit_failed")
+        self.assertFalse(TaskArchive(r["task_id"]).meta()["quota_counted"])
+
+        r2, _ = quiet(dx.execute_task, "prep_" + self.tag, "prep_task", "opt", 0, 1.0, 10,
+                      submit=True, backend="mock", confirm=True)
+        self.assertEqual(r2["status"], "completed")
+
+    def test_invalid_solution_shape_rejected(self):
+        """返回解列数或取值非法时，原样归档但不得标记为 completed。"""
+        make_input("bad_" + self.tag, list("ABC"), list("XYZ"),
+                   np.array([[0.0, 1, 7], [1, 0, 3], [7, 3, 0]]))
+
+        class BadMock(MockCIMOptimizer):
+            def _solutions(self, matrix):
+                arr = super()._solutions(matrix)
+                arr[0, 0] = 0
+                return arr
+
+        with mock.patch("mock_backend.MockCIMOptimizer", BadMock):
+            r, _ = quiet(dx.execute_task, "bad_" + self.tag, "bad_task", "opt", 0, 1.0, 10,
+                         submit=True, backend="mock", confirm=True)
+        self.assertEqual(r["status"], "invalid_result")
+        arc = TaskArchive(r["task_id"])
+        self.assertTrue(arc.meta()["quota_counted"])
+        self.assertTrue((arc.dir / "raw" / "solutions.npz").is_file())
+
+    def test_run_arg_validation(self):
+        make_input("args_" + self.tag, list("ABC"), list("XYZ"),
+                   np.array([[0.0, 1, 2], [1, 0, 3], [2, 3, 0]]))
+        with self.assertRaises(SystemExit):
+            quiet(dx.execute_task, "args_" + self.tag, "bad_topk", "opt", -1, 1.0, 10,
+                  submit=False, backend="mock")
+        with self.assertRaises(SystemExit):
+            quiet(dx.execute_task, "args_" + self.tag, "bad_samples", "opt", 0, 1.0, 5,
+                  submit=False, backend="mock")
+        with self.assertRaises(SystemExit):
+            quiet(dx.execute_task, "args_" + self.tag, "bad_samples", "opt", 0, 1.0, 5000,
+                  submit=False, backend="mock")
+
+    def test_validate_spin_matrix(self):
+        good = np.array([[1, -1, 1], [-1, 1, -1]])
+        self.assertEqual(validate_spin_matrix(good, 3).shape, (2, 3))
+        with self.assertRaises(ValueError):
+            validate_spin_matrix(good, 4)
+        bad = good.copy()
+        bad[0, 0] = 0
+        with self.assertRaises(ValueError):
+            validate_spin_matrix(bad, 3)
+        with self.assertRaises(ValueError):
+            validate_spin_matrix(np.empty((0, 3)), 3)
+
+    def test_backup_if_exists_preserves_old_output(self):
+        p = Path(_SANDBOX) / f"old_{self.tag}.csv"
+        p.write_text("old-content", encoding="utf-8")
+        backup = backup_if_exists(p)
+        self.assertIsNotNone(backup)
+        self.assertTrue(backup.is_file())
+        self.assertEqual(backup.read_text(encoding="utf-8"), "old-content")
+        self.assertTrue(p.is_file())
+        self.assertIsNone(backup_if_exists(Path(_SANDBOX) / f"missing_{self.tag}.csv"))
+
+    def test_dry_run_separates_requested_and_returned_samples(self):
+        import d_run_stats
+        stats, _ = quiet(d_run_stats.run, "dry_stats_" + self.tag, 13, 1.0, "opt", 200,
+                         submit=False)
+        self.assertEqual(stats["sample_number_param"], 200)
+        self.assertIsNone(stats["samples"])
+        self.assertIsNone(stats["returned_solutions"])
+        self.assertFalse(stats["submitted"])
 
 
 if __name__ == "__main__":

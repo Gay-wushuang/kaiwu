@@ -19,6 +19,7 @@ import numpy as np
 import pandas as pd
 
 from paths import PRED, RES, ensure_output_dirs, require_files
+from experiment_archive import backup_if_exists, validate_spin_matrix
 
 ensure_output_dirs()
 
@@ -159,6 +160,10 @@ def do_run(task_name, project_no, sample_number, wait, topk, force):
     opt = CIMOptimizer(task_name=task_name, wait=wait, interval=6, project_no=project_no,
                        task_mode=TaskMode.OPTIMIZATION, sample_number=sample_number)
     sol = np.atleast_2d(np.asarray(opt.solve(info["adj"])))   # 提交 SDK 精度适配后的 8bit 整数矩阵
+    try:
+        sol = validate_spin_matrix(sol, info["adj"].shape[0])
+    except ValueError as exc:
+        raise SystemExit(f"[中止] 返回解格式异常：{exc}；未写入结果文件。")
     print(f"返回 {len(sol)} 个解，形状 {sol.shape}")
     A, B, V = info["A"], info["B"], info["V"]
     bits_all = ((sol + 1) // 2).astype(int)
@@ -171,6 +176,9 @@ def do_run(task_name, project_no, sample_number, wait, topk, force):
                          valid=dd is not None))
     df = pd.DataFrame(rows)
     out = RES / f"{task_name}_result.csv"
+    backup = backup_if_exists(out)
+    if backup:
+        print(f"[提示] 旧结果已备份：{backup}")
     df.to_csv(out, index=False, encoding="utf-8-sig")
     print(df.to_string(index=False))
     print(f"\n穷举金标准 {info['gold'][0]}-{info['gold'][1]} V*={info['gold'][2]:.4f}")

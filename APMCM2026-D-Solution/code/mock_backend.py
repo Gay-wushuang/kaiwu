@@ -58,6 +58,8 @@ class MockCIMOptimizer:
             raise RuntimeError("Task run failed: [mock] 云端运行失败")
         if self.fail_stage == "download":
             raise URLError("[mock] 结果下载失败：SSL EOF")
+        if self.fail_stage == "unknown":
+            raise RuntimeError("[mock] 未预期异常（用于验证保守分类）")
         if self.fail_stage == "interrupt":
             raise KeyboardInterrupt("mock: 提交后进程被中断")
         return self._solutions(matrix)

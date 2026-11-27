@@ -37,6 +37,8 @@ STATUS_TEXT = {
     "submitted": "已提交，等待结果",
     "run_failed": "云端运行失败",
     "download_failed": "任务完成但结果下载失败",
+    "unknown_failure": "未知阶段失败（保守按已提交计）",
+    "invalid_result": "返回解格式非法（原样归档，未采信）",
     "completed": "结果已归档",
     "resume_no_result": "恢复时未取到结果",
     "cancelled": "用户取消，未提交",
@@ -102,6 +104,38 @@ def json_safe(obj):
 def slugify(text: str, limit: int = 28) -> str:
     s = re.sub(r"[^A-Za-z0-9._-]+", "-", str(text)).strip("-")
     return (s[:limit] or "task").lower()
+
+
+def validate_spin_matrix(solutions, n_bits: int) -> np.ndarray:
+    """校验返回解：二维、列数等于 Ising 比特数、取值只能为 ±1。
+
+    只做格式校验，不解释物理含义；异常时抛出 ValueError，由调用方决定如何归档。
+    """
+    arr = np.atleast_2d(np.asarray(solutions))
+    if arr.ndim != 2:
+        raise ValueError(f"返回解不是二维数组：shape={arr.shape}")
+    if arr.shape[1] != int(n_bits):
+        raise ValueError(f"返回解列数 {arr.shape[1]} != Ising 比特数 {n_bits}")
+    if arr.size == 0:
+        raise ValueError("返回解为空")
+    values = np.unique(arr)
+    if not np.all(np.isin(values, (-1, 1))):
+        raise ValueError(f"返回解存在非 ±1 取值：{values[:10]}")
+    return arr.astype(int)
+
+
+def backup_if_exists(path) -> Path:
+    """写入前备份已有文件，返回备份路径；不存在时返回 None。
+
+    用于历史脚本的输出文件，避免重跑时静默覆盖旧结果。
+    """
+    p = Path(path)
+    if not p.exists():
+        return None
+    stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    backup = p.with_name(f"{p.stem}.bak-{stamp}{p.suffix}")
+    shutil.copy2(p, backup)
+    return backup
 
 
 def make_task_id(task_name: str, matrix_hash: str, registry: "Registry" = None) -> str:
@@ -298,7 +332,8 @@ class TaskArchive:
         if path.exists():
             raise SystemExit(f"[归档] 原始解已存在，拒绝覆盖：{path}")
         np.savez(path, solutions=arr)
-        np.savetxt(self.dir / "raw" / "solutions.csv", arr, delimiter=",", fmt="%d")
+        fmt = "%d" if np.all(arr == np.round(arr)) else "%.10g"
+        np.savetxt(self.dir / "raw" / "solutions.csv", arr, delimiter=",", fmt=fmt)
         return str(path)
 
     def save_platform_result(self, result) -> str:
