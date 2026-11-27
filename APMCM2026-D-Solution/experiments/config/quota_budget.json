@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-11-27 23:08:13 +0800",
+  "source": "用户口述 2026-11-27，未经平台核对",
+  "verified": false,
+  "budgets": {
+    "optimization": {
+      "total": 32,
+      "note": "SPQC-550 31 次 + SPQC-1000 1 次"
+    },
+    "sampling": {
+      "total": 0,
+      "note": "采样配额为 0"
+    }
+  }
+}

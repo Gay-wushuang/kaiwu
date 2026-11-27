@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "version": "B-Q3-NO2",
+  "sub_question": "Q3",
+  "x_value": "NO2",
+  "x_declared": true,
+  "value_column": "V_hat",
+  "value_semantics": "lower_is_better",
+  "A_axis": "row",
+  "B_axis": "column",
+  "source_format": "long",
+  "notes": ""
+}
