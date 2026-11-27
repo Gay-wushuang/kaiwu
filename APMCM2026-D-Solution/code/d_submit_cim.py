@@ -24,13 +24,29 @@ from experiment_archive import backup_if_exists, validate_spin_matrix
 ensure_output_dirs()
 
 
-def load_pool(fname="pool_q2_phys.csv", topk=0):
+def load_pool(fname="pool_q2_phys.csv", topk=0, x_value=None):
+    """读取池预测为 A×B 矩阵。
+
+    重复 (A,B) 不再静默覆盖：Q2 每个 (A,B) 只应有一行；Q3 有多个 X，
+    必须显式传 x_value（或在调用前按 X 过滤），否则直接中止。
+    """
     (pool_path,) = require_files([PRED / fname], "池子预测文件")
     pool = pd.read_csv(pool_path)
-    A = sorted(pool.A.unique()); B = sorted(pool.B.unique())
-    V = np.zeros((len(A), len(B)))
-    for _, r in pool.iterrows():
-        V[A.index(r.A), B.index(r.B)] = r.V_hat
+    if x_value is not None:
+        if "X" not in pool.columns:
+            raise SystemExit(f"[中止] {fname} 没有 X 列，无法按 X={x_value} 过滤。")
+        pool = pool[pool.X.astype(str) == str(x_value)]
+        if pool.empty:
+            raise SystemExit(f"[中止] X={x_value} 过滤后没有数据。")
+    dup = int(pool.duplicated(["A", "B"]).sum())
+    if dup:
+        xs = sorted(pool.X.astype(str).unique()) if "X" in pool.columns else []
+        raise SystemExit(
+            f"[中止] {fname} 存在 {dup} 组重复 (A,B)，拒绝静默覆盖。"
+            f"X 取值={xs}；请显式指定 x_value（Q3）或检查输入。")
+    Vdf = pool.pivot_table(index="A", columns="B", values="V_hat", aggfunc="first")
+    A = [str(v) for v in Vdf.index]; B = [str(v) for v in Vdf.columns]
+    V = Vdf.to_numpy(dtype=float)
     if topk and topk < len(A):
         ia = np.argsort(V.min(1))[:topk]; ib = np.argsort(V.min(0))[:topk]
         A = [A[k] for k in ia]; B = [B[k] for k in ib]; V = V[np.ix_(ia, ib)]
@@ -58,12 +74,17 @@ def to_ising(Q):
 
 
 def resolution(I, nA, nB):
-    """目标可分档数 = 目标块最大系数 / 量化步长"""
+    """目标可分档数 = 目标块最大系数 / 量化步长（调用方需说明矩阵口径）。"""
     A = np.abs(I)
     top = A.max()
     obj = A[:nA, nA:nA + nB].max()
     step = top / 127.0
     return dict(top=top, obj=obj, step=step, resol=obj / step)
+
+
+def resolution_pair(I_raw, I_adj, nA, nB):
+    """同时返回原始 Ising 与 8bit 适配后两种口径，禁止混用。"""
+    return {"raw": resolution(I_raw, nA, nB), "adjusted": resolution(I_adj, nA, nB)}
 
 
 def decode(bits, A, B):
@@ -81,7 +102,6 @@ def analyse(topk=0, verbose=True):
     A, B, V = load_pool(topk=topk)
     Q, offset, M = build_qubo(V)
     I, bias = to_ising(Q)
-    r = resolution(I, len(A), len(B))
     i, j = np.unravel_index(V.argmin(), V.shape)
     # SDK 官方精度适配
     try:
@@ -90,16 +110,21 @@ def analyse(topk=0, verbose=True):
         adj = np.asarray(pp.adjust_ising_matrix_precision(I, 8), dtype=float)
     except Exception as e:
         bw, dr, adj = {"err": str(e)}, None, I
+    rr = resolution_pair(I, adj, len(A), len(B))
+    r, r_adj = rr["raw"], rr["adjusted"]
     if verbose:
         print(f"方案 topk={topk or '全量'}：{len(A)}×{len(B)} = {Q.shape[0]} 比特，M={M:.1f}")
-        print(f"  QUBO max|Q|={np.abs(Q).max():.0f} | 穷举金标准 {A[i]}-{B[j]} V*={V[i,j]:.4f}")
-        print(f"  Ising {I.shape} max|J|={r['top']:.0f} | 目标块 {r['obj']:.1f} | 步长 {r['step']:.2f}"
+        print(f"  QUBO max|Q|={np.abs(Q).max():.0f} | 代理模型矩阵精确最优 {A[i]}-{B[j]} V*={V[i,j]:.4f}")
+        print(f"  原始 Ising：max|J|={r['top']:.0f} | 目标块 {r['obj']:.1f} | 步长 {r['step']:.2f}"
               f" | 目标可分档数 {r['resol']:.2f}")
+        print(f"  8bit 适配后：max|J|={r_adj['top']:.0f} | 目标块 {r_adj['obj']:.1f}"
+              f" | 步长 {r_adj['step']:.2f} | 目标可分档数 {r_adj['resol']:.2f}")
         print(f"  SDK 精度适配: bit_width={bw} | dynamic_range={dr if dr is None else round(dr,2)}"
               f" | 8bit 整数矩阵 max={np.abs(adj).max():.0f}")
-        flag = "可用" if r["resol"] >= 1.5 else ("勉强" if r["resol"] >= 1 else "不可用（目标被罚项淹没）")
-        print(f"  → 8bit 分辨率判定：{flag}")
+        flag = "可用" if r_adj["resol"] >= 1.5 else ("勉强" if r_adj["resol"] >= 1 else "不可用（目标被罚项淹没）")
+        print(f"  → 8bit 适配后分辨率判定：{flag}")
     return dict(A=A, B=B, V=V, Q=Q, I=I, adj=adj, bias=bias, M=M, res=r,
+                res_raw=r, res_adj=r_adj,
                 gold=(A[i], B[j], float(V[i, j])))
 
 
@@ -122,7 +147,7 @@ def confirm_submit(task_name, bits, ising_dim, mode, samples):
     print(f"  任务名称 : {task_name}")
     print(f"  计算模式 : {mode}")
     print(f"  矩阵规模 : {bits} 比特（Ising {ising_dim}×{ising_dim}，含辅助自旋）")
-    print(f"  采样数量 : {samples}")
+    print(f"  采样参数 : sample_number={samples}（优化模式实际返回解数由平台决定）")
     print("  设备型号 : 由平台调度（SDK 不支持指定机型）")
     if mode == "sampling":
         print("  预计消耗 : 1 次采样任务配额（账户无采样配额时会在创建阶段失败）")
@@ -146,8 +171,9 @@ def confirm_submit(task_name, bits, ising_dim, mode, samples):
 def do_run(task_name, project_no, sample_number, wait, topk, force):
     import kaiwu as kw
     info = analyse(topk=topk)
-    if info["res"]["resol"] < 1 and not force:
-        print("\n[中止] 目标可分档数 < 1，8bit 下目标项会被量化抹平，结果不可信。"
+    resol_min = min(info["res_raw"]["resol"], info["res_adj"]["resol"])
+    if resol_min < 1 and not force:
+        print("\n[中止] 原始或 8bit 适配后的目标可分档数 < 1，量化会抹平目标差异，结果不可信。"
               "请用 --topk 13（或更小）或加 --force 强制提交。")
         return
     if not confirm_submit(task_name, info["Q"].shape[0], info["adj"].shape[0],
@@ -181,7 +207,7 @@ def do_run(task_name, project_no, sample_number, wait, topk, force):
         print(f"[提示] 旧结果已备份：{backup}")
     df.to_csv(out, index=False, encoding="utf-8-sig")
     print(df.to_string(index=False))
-    print(f"\n穷举金标准 {info['gold'][0]}-{info['gold'][1]} V*={info['gold'][2]:.4f}")
+    print(f"\n代理模型矩阵精确最优 {info['gold'][0]}-{info['gold'][1]} V*={info['gold'][2]:.4f}")
     if df.valid.any():
         bt = df[df.valid].sort_values("V_hat").iloc[0]
         print(f"真机最优   {bt.A}-{bt.B} V*={bt.V_hat:.4f}"

@@ -35,14 +35,19 @@ def run(task_name, topk, mfactor, mode, samples, project_no=None, submit=False):
     I, bias = S.to_ising(Q)
     adj = np.asarray(pp.adjust_ising_matrix_precision(I, 8), dtype=float)
     nA, nB = len(A), len(B)
+    Ir = np.abs(I)
+    step_raw, obj_raw = Ir.max() / 127, Ir[:nA, nA:nA + nB].max()
     Ia = np.abs(adj)
     step = Ia.max() / 127
     obj = Ia[:nA, nA:nA + nB].max()
     i0, j0 = np.unravel_index(V.argmin(), V.shape)
     gold = (A[i0], B[j0], float(V[i0, j0]))
     print(f"[{task_name}] {nA}×{nB} -> Ising {adj.shape} | M={M:.1f}（基准 {M0:.1f} × {mfactor}）")
-    print(f"  max|J|={Ia.max():.0f} | 目标块 {obj:.2f} | 步长 {step:.2f} | 目标可分档数 {obj/step:.2f}")
-    print(f"  真值最优 {gold[0]}-{gold[1]} V*={gold[2]:.4f} | 模式 {mode} 采样 {samples}")
+    print(f"  原始 Ising：max|J|={Ir.max():.0f} | 目标块 {obj_raw:.2f} | 步长 {step_raw:.2f}"
+          f" | 目标可分档数 {obj_raw/step_raw:.2f}")
+    print(f"  8bit 适配后：max|J|={Ia.max():.0f} | 目标块 {obj:.2f} | 步长 {step:.2f}"
+          f" | 目标可分档数 {obj/step:.2f}")
+    print(f"  代理模型矩阵最优 {gold[0]}-{gold[1]} V*={gold[2]:.4f} | 模式 {mode} 采样 {samples}")
 
     if not submit:
         print("\n[DRY-RUN] 已完成本地建模与精度分析；未调用 license、未创建云端任务、未消耗配额。")
@@ -50,10 +55,13 @@ def run(task_name, topk, mfactor, mode, samples, project_no=None, submit=False):
         return dict(task=task_name, mode=mode, samples=None, mfactor=mfactor,
                     sample_number_param=int(samples), returned_solutions=None,
                     M=M, maxJ=float(Ia.max()), step=float(step), obj=float(obj),
-                    resol=float(obj / step), gold=f"{gold[0]}-{gold[1]}", gold_V=gold[2],
+                    resol=float(obj / step), resol_raw=float(obj_raw / step_raw),
+                    resol_adj=float(obj / step),
+                    h_direction="lower_is_better",
+                    gold=f"{gold[0]}-{gold[1]}", gold_V=gold[2],
                     submitted=False)
 
-    if not S.confirm_submit(task_name, adj.shape[0] - 1, adj.shape[0], mode,
+    if not S.confirm_submit(task_name, Q.shape[0], adj.shape[0], mode,
                             max(int(samples), 10)):
         return dict(task=task_name, submitted=False, reason="user_cancelled")
 
@@ -86,7 +94,6 @@ def run(task_name, topk, mfactor, mode, samples, project_no=None, submit=False):
                          V_hat=float(V[ai[0], bi[0]]) if ok else np.nan))
     df = pd.DataFrame(rows)
     valid = df[df.valid]
-    top8 = set(V.ravel().argsort()[:8])
     def rank_of(r):
         idx = (A.index(r.A), B.index(r.B))
         return int((V < V[idx]).sum()) + 1
@@ -95,6 +102,8 @@ def run(task_name, topk, mfactor, mode, samples, project_no=None, submit=False):
                  sample_number_param=int(samples), returned_solutions=int(sol.shape[0]),
                  mfactor=mfactor,
                  M=M, maxJ=float(Ia.max()), step=float(step), obj=float(obj), resol=float(obj / step),
+                 resol_raw=float(obj_raw / step_raw), resol_adj=float(obj / step),
+                 h_direction="lower_is_better",
                  n_valid=int(valid.shape[0]), valid_rate=round(float(valid.shape[0] / len(df)), 4),
                  best_V=float(valid.V_hat.min()) if len(valid) else None,
                  best_formula=(valid.sort_values("V_hat").iloc[0].formula if len(valid) else ""),
@@ -110,15 +119,15 @@ def run(task_name, topk, mfactor, mode, samples, project_no=None, submit=False):
         backup = backup_if_exists(p)
         if backup:
             print(f"[提示] 旧文件已备份：{backup}")
-    df.sort_values("H", ascending=False).to_csv(samples_path,
-                                                index=False, encoding="utf-8-sig")
+    df.sort_values("H", ascending=True).to_csv(samples_path,
+                                               index=False, encoding="utf-8-sig")
     json.dump(stats, open(stats_path, "w", encoding="utf-8"),
               ensure_ascii=False, indent=2)
 
     # H 分布图
     fig, ax = plt.subplots(figsize=(6, 3.4))
     ax.hist(df.H, bins=40, color="#2E7D8F")
-    ax.set_xlabel("Hamiltonian（越大越好，按 QBoson 约定）"); ax.set_ylabel("解个数")
+    ax.set_xlabel("Hamiltonian（越小越好，按 H = -sᵀJs）"); ax.set_ylabel("解个数")
     ax.set_title(f"{task_name}：{len(df)} 个采样解的 Hamiltonian 分布")
     fig.tight_layout(); fig.savefig(fig_path, dpi=200); plt.close(fig)
     return stats

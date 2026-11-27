@@ -1,0 +1,53 @@
+{
+  "source": "results/vendor_reports/*.pdf 文本提取",
+  "extracted_at": "2026-11-27 Asia/Shanghai",
+  "note": "只摘录任务级关键值，不包含平台账号或授权信息；PDF 哈希见 INPUT_HASHES.json",
+  "tasks": [
+    {
+      "name": "apmcm_q2_no2_k13",
+      "task_id": "4cc56fdeb17d4fdc95cbdd1d436ffeef",
+      "device": "SPQC-550",
+      "submitted_at": "2026-11-26 14:11:16",
+      "finished_at": "2026-11-26 14:11:28",
+      "hardware_ms": 0.6673,
+      "returned": 7,
+      "valid": 2,
+      "H_min": -3008,
+      "H_max": 5508
+    },
+    {
+      "name": "apmcm_q2_k13_m3x",
+      "task_id": "fa769c1bf4974f5594c357ada1bf4d5a",
+      "device": "SPQC-550",
+      "submitted_at": "2026-11-26 14:40:12",
+      "finished_at": "2026-11-26 14:40:16",
+      "hardware_ms": 0.9798,
+      "returned": 10,
+      "valid": 1,
+      "H_min": -3126,
+      "H_max": 8930
+    },
+    {
+      "name": "apmcm_q2_k8_m1x",
+      "task_id": "3d77a22670424dc7be3ff1872e2db416",
+      "device": "SPQC-1000",
+      "submitted_at": "2026-11-26 14:47:39",
+      "finished_at": "2026-11-26 14:47:43",
+      "hardware_ms": 0.8221,
+      "returned": 10,
+      "valid": 1,
+      "H_min": -1796,
+      "H_max": 3228
+    }
+  ],
+  "resolution": [
+    {"config": "Q2 k13", "raw": 1.874, "adjusted": 2.000},
+    {"config": "Q2 k13 m3x", "raw": 0.682, "adjusted": 1.000},
+    {"config": "Q2 k8", "raw": 2.942, "adjusted": 3.000},
+    {"config": "Q3 k12（最优 X 折叠）", "raw": 2.572, "adjusted": 3.000}
+  ],
+  "quantization_flip": {
+    "Q2 k13": {"raw_argmin": "La-Hf (V=0)", "adjusted_argmin": "Sc-Hf (2.134) / Sc-Zr (1.266)"},
+    "Q3 k12": {"raw_argmin": "8 个 V=0 并列", "adjusted_argmin": "La-Mg / Ge-Hf / Ge-Ti / Ge-Zr"}
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "current": {
+    "python": "3.12.6 (tags/v3.12.6:a4a2d2b, Sep  6 2024, 20:11:23) [MSC v.1940 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.19045-SP0"
+  },
+  "kaiwu-verify": {
+    "python": "3.12.6",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "packages": {
+      "kaiwu": "1.4.4",
+      "numpy": "2.5.5",
+      "pandas": "2.2.3",
+      "xgboost": "3.4.1",
+      "scipy": "1.18.1",
+      "mendeleev": "1.4.0",
+      "matplotlib": "3.10.3",
+      "joblib": "1.6.0"
+    },
+    "status": "OK",
+    "executable": "C:\\Users\\ERE.DESKTOP-JD48OPB\\AppData\\Local\\kaiwu-verify\\Scripts\\python.exe"
+  },
+  "kaiwu-original": {
+    "python": "3.12.5",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "packages": {
+      "kaiwu": "1.4.4",
+      "numpy": "2.4.4",
+      "pandas": "2.2.3",
+      "xgboost": "3.4.1",
+      "lightgbm": "4.7.0",
+      "scipy": "1.17.1",
+      "mendeleev": "1.4.0",
+      "matplotlib": "3.10.3",
+      "joblib": "1.6.0"
+    },
+    "status": "OK",
+    "executable": "C:\\Users\\ERE.DESKTOP-JD48OPB\\AppData\\Local\\kaiwu-original\\Scripts\\python.exe"
+  }
+}

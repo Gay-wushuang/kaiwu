@@ -155,7 +155,9 @@ def _read_matrix_file(path: Path, fmt: str, value_col: str, a_col: str, b_col: s
         df = df.assign(**{a_col: df[a_col].astype(str), b_col: df[b_col].astype(str)})
         dup = df.duplicated([a_col, b_col]).sum()
         if dup:
-            _fail(f"长表存在 {dup} 组重复 (A,B)，无法确定唯一矩阵")
+            _fail(f"长表存在 {dup} 组重复 (A,B)，无法确定唯一矩阵。"
+                  f"若同一 (A,B) 有多个 X，必须显式指定 --x-col X 与 --x <取值>，"
+                  f"禁止按行序静默覆盖。")
         Vdf = df.pivot(index=a_col, columns=b_col, values=value_col)
         A = [str(v) for v in Vdf.index]
         B = [str(v) for v in Vdf.columns]
@@ -204,6 +206,11 @@ def register(version: str, matrix_path: Path, fmt: str = "auto", kind: str = Non
         _fail(f"来源类型冲突：声明 {kind}，但路径特征指向 {detected}。"
               f"原始预测与独立复现不得混用。")
 
+    if fmt == "long" and str(sub_question).upper().startswith("Q3"):
+        if not x_col or x_value is None:
+            _fail("Q3 长表输入必须显式声明 X 分组：--x-col X --x <O3|NO2|FO2>。"
+                  "禁止把多个 X 折叠成同一 (A,B) 矩阵。")
+
     vdir = inputs_root() / version
     manifest_path = vdir / "manifest.json"
     if manifest_path.exists():
@@ -221,6 +228,7 @@ def register(version: str, matrix_path: Path, fmt: str = "auto", kind: str = Non
         "version": version,
         "sub_question": sub_question,
         "x_value": x_value,
+        "x_declared": bool(x_col),
         "value_column": value_col,
         "value_semantics": value_semantics,
         "A_axis": "row",
@@ -250,6 +258,7 @@ def register(version: str, matrix_path: Path, fmt: str = "auto", kind: str = Non
         "created_at": _now(),
         "sub_question": sub_question,
         "x_value": x_value,
+        "x_declared": bool(x_col),
         "value_column": value_col,
         "value_semantics": value_semantics,
         "shape": [len(A), len(B)],

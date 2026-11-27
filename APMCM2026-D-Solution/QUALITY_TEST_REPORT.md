@@ -16,7 +16,7 @@
 | # | 命令 | 实测结果 | 判定 |
 |---|---|---|---|
 | 1 | `python -m compileall -q code tests` | 退出码 0，无语法错误 | PASS |
-| 2 | `python -m unittest discover -s tests -v` | 16 个测试全部通过，3.553 s | PASS |
+| 2 | `python -m unittest discover -s tests -v` | 26 个测试全部通过，约 2.6 s | PASS |
 | 3 | `python code/verify_project.py`（kaiwu-verify） | PASS 15 / FAIL 0 / BLOCKED 0 / WARN 1（lightgbm 可选未装） | PASS |
 | 4 | `python code/verify_project.py`（kaiwu-original） | PASS 15 / FAIL 0 / BLOCKED 0 / WARN 0 | PASS |
 | 5 | `python code/d_submit_cim.py`（自检，不提交） | 退出码 0；13×13 原始口径 1.87 档；8×8 2.94 档 | PASS |
@@ -91,8 +91,49 @@
 
 ## 6. 回归结论
 
-- 16/16 自动化测试通过。
-- 两套环境 `verify_project.py` 均为 FAIL 0。
+- 26/26 自动化测试通过。
+- 两套环境 `verify_project.py` 均为 FAIL 0；kaiwu-verify 新增 1 个 WARN（模型与池预测不同批次，属预期告警）。
 - 历史脚本自检与 dry-run 行为未变。
 - 新增修复均有对应测试，未发现回归。
 - 未修改模型、算法、参数、随机种子或科学结论。
+
+---
+
+## 7. 关键缺陷修复回归（2026-11-27）
+
+### 7.1 命令与结果
+
+| 命令 | 结果 | 判定 |
+|---|---|---|
+| `python -m compileall -q code tests` | 退出码 0 | PASS |
+| `python -m unittest discover -s tests -v` | **26/26 PASS**（约 2.6 s） | PASS |
+| `python code/verify_project.py`（kaiwu-verify） | PASS 15 / FAIL 0 / BLOCKED 0 / **WARN 2** | PASS（含预期告警） |
+| `python code/verify_project.py`（kaiwu-original） | PASS 15 / FAIL 0 / WARN 1 | PASS（含预期告警） |
+| `python code/artifact_consistency.py` | 输出 `MISMATCH`，max\|ΔV\|=4.733 | 预期告警 |
+
+WARN 1：lightgbm 在 kaiwu-verify 中未安装（可选依赖）。
+WARN 2：模型与池预测不是同一批次（max\|ΔV\|=4.733，mean\|ΔV\|=0.311，exact=0/2704）。这是新增的告警，不是 FAIL。
+
+### 7.2 新增测试（10 项）
+
+| 用例 | 验证内容 |
+|---|---|
+| `test_load_pool_refuses_duplicate_ab_without_x` | 重复 (A,B) 不再静默覆盖；显式 X 后成功 |
+| `test_q3_long_input_requires_explicit_x` | Q3 长表必须声明 `--x-col/--x` |
+| `test_artifact_diff_stats` | 模型/预测差异统计与形状检查 |
+| `test_h_direction_and_dual_resolution_recorded` | H 方向字段、原始/适配双口径、排序与图注 |
+| `test_no_physical_optimum_claim_in_code` | 代码不再出现“穷举金标准/真值最优” |
+| `test_qubo_ising_identity_only_in_aux_plus_gauge` | QUBO=H+bias 仅 aux=+1 |
+| `test_onehot_penalty_and_aux_degeneracy` | one-hot 罚项、aux 退化、非法解码 |
+| `test_spin_flip_delta_h_is_twice_the_code_formula` | ΔH 精确值与代码值关系 |
+| `test_quantization_can_change_legal_argmin` | 8bit 量化可改变合法最优（教学矩阵） |
+| `test_full_space_optimum_is_not_legal_optimum_without_penalty` | 合法指派最优 ≠ 全空间最优 |
+
+### 7.3 未验证项
+
+| 项 | 原因 |
+|---|---|
+| 真实提交/恢复 | 未提交真机任务，未消耗配额 |
+| 量化翻转对正式结论的影响 | 属科学研究问题，交队员确认 |
+| 论文元数据修订 | 由队员完成，见 `PAPER_CORRECTION_LIST.md` |
+| 历史提交矩阵/原始模型哈希 | 当时未记录，见 `results/EXPERIMENT_TRACEABILITY.json` |

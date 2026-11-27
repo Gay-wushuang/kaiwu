@@ -34,6 +34,8 @@ os.environ["APMCM_EXPERIMENT_ROOT"] = _SANDBOX
 import d_experiment as dx            # noqa: E402
 import experiment_budget as budget   # noqa: E402
 import experiment_input as exin      # noqa: E402
+import d_submit_cim as S             # noqa: E402
+import artifact_consistency as ac    # noqa: E402
 from experiment_archive import (  # noqa: E402
     Registry,
     TaskArchive,
@@ -340,6 +342,73 @@ class Phase10Test(unittest.TestCase):
         self.assertIsNone(stats["samples"])
         self.assertIsNone(stats["returned_solutions"])
         self.assertFalse(stats["submitted"])
+
+
+    def test_load_pool_refuses_duplicate_ab_without_x(self):
+        pool_dir = Path(_SANDBOX) / "pools"
+        pool_dir.mkdir(parents=True, exist_ok=True)
+        p = pool_dir / "dup_pool.csv"
+        pd.DataFrame([
+            dict(A="La", B="Hf", X="NO2", V_hat=0.0),
+            dict(A="La", B="Hf", X="O3", V_hat=5.0),
+            dict(A="La", B="Zr", X="NO2", V_hat=0.1),
+        ]).to_csv(p, index=False)
+        with mock.patch.object(S, "PRED", pool_dir):
+            with self.assertRaises(SystemExit):
+                S.load_pool("dup_pool.csv")
+            A, B, V = S.load_pool("dup_pool.csv", x_value="NO2")
+        self.assertEqual(A, ["La"])
+        self.assertEqual(B, ["Hf", "Zr"])
+        self.assertEqual(V.shape, (1, 2))
+
+    def test_q3_long_input_requires_explicit_x(self):
+        p = Path(_SANDBOX) / f"q3_long_{self.tag}.csv"
+        pd.DataFrame([
+            dict(A="Pb", B="Ti", X="O3", V_hat=0.0),
+            dict(A="Pb", B="Sc", X="O3", V_hat=0.4),
+            dict(A="Ba", B="Ti", X="O3", V_hat=0.5),
+            dict(A="Ba", B="Sc", X="O3", V_hat=0.0),
+            dict(A="Pb", B="Ti", X="NO2", V_hat=6.4),
+        ]).to_csv(p, index=False)
+        with self.assertRaises(SystemExit):
+            exin.register(f"q3_no_x_{self.tag}", p, fmt="long", kind="teaching",
+                          sub_question="Q3")
+        vdir = exin.register(f"q3_with_x_{self.tag}", p, fmt="long", kind="teaching",
+                             sub_question="Q3", x_col="X", x_value="O3")
+        manifest = json.loads((vdir / "manifest.json").read_text(encoding="utf-8"))
+        self.assertTrue(manifest["x_declared"])
+        self.assertEqual(manifest["x_value"], "O3")
+        self.assertEqual(manifest["shape"], [2, 2])
+
+    def test_artifact_diff_stats(self):
+        self.assertEqual(ac.diff_stats([1, 2], [1, 2])["status"], "OK")
+        bad = ac.diff_stats([1, 2], [1, 3])
+        self.assertEqual(bad["status"], "MISMATCH")
+        self.assertEqual(bad["max_abs"], 1.0)
+        shape = ac.diff_stats([1, 2], [1, 2, 3])
+        self.assertEqual(shape["status"], "SHAPE_MISMATCH")
+
+    def test_h_direction_and_dual_resolution_recorded(self):
+        import d_run_stats
+        stats, _ = quiet(d_run_stats.run, "hdir_" + self.tag, 13, 1.0, "opt", 10,
+                         submit=False)
+        self.assertEqual(stats["h_direction"], "lower_is_better")
+        self.assertIn("resol_raw", stats)
+        self.assertIn("resol_adj", stats)
+        self.assertNotAlmostEqual(stats["resol_raw"], stats["resol_adj"], places=3)
+
+        text = (CODE / "d_run_stats.py").read_text(encoding="utf-8")
+        self.assertIn('ascending=True', text)
+        self.assertIn("越小越好", text)
+        self.assertNotIn('ascending=False', text)
+        self.assertNotIn("越大越好", text)
+
+    def test_no_physical_optimum_claim_in_code(self):
+        for name in ("d_submit_cim.py", "d_run_stats.py", "run_all.py"):
+            text = (CODE / name).read_text(encoding="utf-8")
+            self.assertNotIn("穷举金标准", text, name)
+            self.assertNotIn("真值最优", text, name)
+        self.assertIn("代理模型矩阵", (CODE / "d_submit_cim.py").read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

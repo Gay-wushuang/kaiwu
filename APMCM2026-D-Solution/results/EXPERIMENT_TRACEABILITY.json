@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-27 Asia/Shanghai",
+  "purpose": "逐任务可追溯性核对；缺失项明确标记，不补造",
+  "code_commit_current": "engineering/critical-fixes",
+  "data_files": {
+    "02": {
+      "path": "date/02_castelli_train.csv",
+      "status": "PRESENT",
+      "bytes": 1861154,
+      "sha256": "973e6a6d39e1846338f4df8870b0e223d573849d38b10eeddc70f11e6e5918f3"
+    },
+    "03": {
+      "path": "date/03_castelli_val.csv",
+      "status": "PRESENT",
+      "bytes": 656072,
+      "sha256": "42a62b0fa114a736ea5003ad48615359d8d1046bf73286c8ccefc5a386df2d3d"
+    },
+    "04": {
+      "path": "date/04_castelli_test_holdout.csv",
+      "status": "PRESENT",
+      "bytes": 94175,
+      "sha256": "8ed9d46b8c134ce55a633df768acbd0ce2beff4e49df4ee5bc41f06d71c58d52"
+    }
+  },
+  "prediction_files": {
+    "q2": {
+      "path": "code/predictions/pool_q2_phys.csv",
+      "status": "PRESENT",
+      "bytes": 120602,
+      "sha256": "41937214602302bd9ef4b503ce0f792b0db4cb475ff5565bf17ae41aca44aa3a"
+    },
+    "q3": {
+      "path": "code/predictions/pool_q3_phys.csv",
+      "status": "PRESENT",
+      "bytes": 356272,
+      "sha256": "6c4544b561f0fd62ed910af10d8c234aac105510b65bcd0bab02094643f2f76d"
+    }
+  },
+  "model_artifact": {
+    "current": {
+      "path": "models/surrogate_phys.joblib",
+      "status": "PRESENT",
+      "bytes": 15509867,
+      "sha256": "ba22ec9ec9c7555c62d15f4bf543546ad99f2b445f800a25f2cabcd33c300357"
+    },
+    "status": "REPRODUCTION_NOT_ORIGINAL",
+    "note": "EXPERIMENT_VERSION.json 已注明该 joblib 由独立复现生成；原始模型未归档。"
+  },
+  "tasks": [
+    {
+      "task_name": "apmcm_q2_no2_k13",
+      "task_id": "4cc56fdeb17d4fdc95cbdd1d436ffeef",
+      "device": "SPQC-550",
+      "hardware_ms": 0.6673,
+      "submitted_at": "2026-11-26 14:11:16",
+      "finished_at": "2026-11-26 14:11:28",
+      "returned": 7,
+      "valid": 2,
+      "matrix": {
+        "config": "Q2 k13 M=1x",
+        "M": 58.233377824437525,
+        "sha256_recomputed": "585e509f823bab3a1de0d527a46c133ec32fbbfa610c4e27f7c187340e266dec",
+        "status": "RECOMPUTED_NOT_ARCHIVED"
+      },
+      "report": {
+        "path": "results/vendor_reports/apmcm_q2_no2_k13.pdf",
+        "status": "PRESENT",
+        "bytes": 108323,
+        "sha256": "da29b4566cb081f097fae2d948926cd8a01ea3e7d033c46cfc02af1577cfbf83"
+      },
+      "traceability": {
+        "code_commit": {
+          "value": "db624f1",
+          "status": "RECORDED_IN_INDEX"
+        },
+        "data_sha256": {
+          "02": "973e6a6d39e1846338f4df8870b0e223d573849d38b10eeddc70f11e6e5918f3",
+          "03": "42a62b0fa114a736ea5003ad48615359d8d1046bf73286c8ccefc5a386df2d3d",
+          "status": "PRESENT"
+        },
+        "model_version": {
+          "historical_original": "MISSING（仓库 joblib 为独立复现模型，不可代表当时模型）",
+          "current_joblib": "ba22ec9ec9c7555c62d15f4bf543546ad99f2b445f800a25f2cabcd33c300357",
+          "status": "UNVERIFIED"
+        },
+        "prediction_file": {
+          "path": "code/predictions/pool_q2_phys.csv",
+          "sha256": "41937214602302bd9ef4b503ce0f792b0db4cb475ff5565bf17ae41aca44aa3a",
+          "status": "PRESENT"
+        },
+        "solver_version": {
+          "kaiwu": "1.4.4",
+          "status": "PRESENT"
+        },
+        "matrix_sha256": {
+          "historical_submitted": "MISSING（当时未记录）",
+          "recomputed_20261127": "585e509f823bab3a1de0d527a46c133ec32fbbfa610c4e27f7c187340e266dec",
+          "status": "RECOMPUTED_NOT_ARCHIVED"
+        },
+        "original_report": {
+          "sha256": "da29b4566cb081f097fae2d948926cd8a01ea3e7d033c46cfc02af1577cfbf83",
+          "status": "PRESENT"
+        }
+      }
+    },
+    {
+      "task_name": "apmcm_q2_k13_m3x",
+      "task_id": "fa769c1bf4974f5594c357ada1bf4d5a",
+      "device": "SPQC-550",
+      "hardware_ms": 0.9798,
+      "submitted_at": "2026-11-26 14:40:12",
+      "finished_at": "2026-11-26 14:40:16",
+      "returned": 10,
+      "valid": 1,
+      "matrix": {
+        "config": "Q2 k13 M=3x",
+        "M": 174.70013347331258,
+        "sha256_recomputed": "254edf3d26c5a7ab2399b11c04bf9ef8e0783b436adb1affc90162e57ccb2d6c",
+        "status": "RECOMPUTED_NOT_ARCHIVED"
+      },
+      "report": {
+        "path": "results/vendor_reports/apmcm_q2_k13_m3x.pdf",
+        "status": "PRESENT",
+        "bytes": 121881,
+        "sha256": "9a4caf17dd14af6ee10ec251b75fc02d2658d5eca30bae7a769b3cd84973e831"
+      },
+      "traceability": {
+        "code_commit": {
+          "value": "db624f1",
+          "status": "RECORDED_IN_INDEX"
+        },
+        "data_sha256": {
+          "02": "973e6a6d39e1846338f4df8870b0e223d573849d38b10eeddc70f11e6e5918f3",
+          "03": "42a62b0fa114a736ea5003ad48615359d8d1046bf73286c8ccefc5a386df2d3d",
+          "status": "PRESENT"
+        },
+        "model_version": {
+          "historical_original": "MISSING（仓库 joblib 为独立复现模型，不可代表当时模型）",
+          "current_joblib": "ba22ec9ec9c7555c62d15f4bf543546ad99f2b445f800a25f2cabcd33c300357",
+          "status": "UNVERIFIED"
+        },
+        "prediction_file": {
+          "path": "code/predictions/pool_q2_phys.csv",
+          "sha256": "41937214602302bd9ef4b503ce0f792b0db4cb475ff5565bf17ae41aca44aa3a",
+          "status": "PRESENT"
+        },
+        "solver_version": {
+          "kaiwu": "1.4.4",
+          "status": "PRESENT"
+        },
+        "matrix_sha256": {
+          "historical_submitted": "MISSING（当时未记录）",
+          "recomputed_20261127": "254edf3d26c5a7ab2399b11c04bf9ef8e0783b436adb1affc90162e57ccb2d6c",
+          "status": "RECOMPUTED_NOT_ARCHIVED"
+        },
+        "original_report": {
+          "sha256": "9a4caf17dd14af6ee10ec251b75fc02d2658d5eca30bae7a769b3cd84973e831",
+          "status": "PRESENT"
+        }
+      }
+    },
+    {
+      "task_name": "apmcm_q2_k8_m1x",
+      "task_id": "3d77a22670424dc7be3ff1872e2db416",
+      "device": "SPQC-1000",
+      "hardware_ms": 0.8221,
+      "submitted_at": "2026-11-26 14:47:39",
+      "finished_at": "2026-11-26 14:47:43",
+      "returned": 10,
+      "valid": 1,
+      "matrix": {
+        "config": "Q2 k8 M=1x",
+        "M": 42.05836562079185,
+        "sha256_recomputed": "5d795cc367f6e3c193bad72014c60c41fc6efebda2b0a1f7023bb4213061894d",
+        "status": "RECOMPUTED_NOT_ARCHIVED"
+      },
+      "report": {
+        "path": "results/vendor_reports/apmcm_q2_k8_m1x.pdf",
+        "status": "PRESENT",
+        "bytes": 114805,
+        "sha256": "942588c5309d08f3fde3701abfbe2847f84c58a5990ade9542b152b02616ea09"
+      },
+      "traceability": {
+        "code_commit": {
+          "value": "db624f1",
+          "status": "RECORDED_IN_INDEX"
+        },
+        "data_sha256": {
+          "02": "973e6a6d39e1846338f4df8870b0e223d573849d38b10eeddc70f11e6e5918f3",
+          "03": "42a62b0fa114a736ea5003ad48615359d8d1046bf73286c8ccefc5a386df2d3d",
+          "status": "PRESENT"
+        },
+        "model_version": {
+          "historical_original": "MISSING（仓库 joblib 为独立复现模型，不可代表当时模型）",
+          "current_joblib": "ba22ec9ec9c7555c62d15f4bf543546ad99f2b445f800a25f2cabcd33c300357",
+          "status": "UNVERIFIED"
+        },
+        "prediction_file": {
+          "path": "code/predictions/pool_q2_phys.csv",
+          "sha256": "41937214602302bd9ef4b503ce0f792b0db4cb475ff5565bf17ae41aca44aa3a",
+          "status": "PRESENT"
+        },
+        "solver_version": {
+          "kaiwu": "1.4.4",
+          "status": "PRESENT"
+        },
+        "matrix_sha256": {
+          "historical_submitted": "MISSING（当时未记录）",
+          "recomputed_20261127": "5d795cc367f6e3c193bad72014c60c41fc6efebda2b0a1f7023bb4213061894d",
+          "status": "RECOMPUTED_NOT_ARCHIVED"
+        },
+        "original_report": {
+          "sha256": "942588c5309d08f3fde3701abfbe2847f84c58a5990ade9542b152b02616ea09",
+          "status": "PRESENT"
+        }
+      }
+    }
+  ],
+  "summary": {
+    "tasks": 3,
+    "report_present": 3,
+    "task_id_device_time_present": 3,
+    "historical_matrix_hash_present": 0,
+    "historical_model_present": 0,
+    "overall": "PARTIAL：任务级元数据完整；模型与提交矩阵哈希缺失"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "date/02_castelli_train.csv": {
+    "status": "PRESENT",
+    "bytes": 1861154,
+    "sha256": "973e6a6d39e1846338f4df8870b0e223d573849d38b10eeddc70f11e6e5918f3"
+  },
+  "date/03_castelli_val.csv": {
+    "status": "PRESENT",
+    "bytes": 656072,
+    "sha256": "42a62b0fa114a736ea5003ad48615359d8d1046bf73286c8ccefc5a386df2d3d"
+  },
+  "date/04_castelli_test_holdout.csv": {
+    "status": "PRESENT",
+    "bytes": 94175,
+    "sha256": "8ed9d46b8c134ce55a633df768acbd0ce2beff4e49df4ee5bc41f06d71c58d52"
+  },
+  "date/06_castelli_no_physics.csv": {
+    "status": "PRESENT",
+    "bytes": 387725,
+    "sha256": "73bfe2c23cc5a8248137492beeae63e39f56dc8c0bf5df679792db424de8edeb"
+  },
+  "date/07_castelli_q2_pool.csv": {
+    "status": "PRESENT",
+    "bytes": 70389,
+    "sha256": "a0cd72b4b0ca52269277d4e8287da92d8d8751a291733586fba8a08d8d3f91fe"
+  },
+  "date/08_castelli_q3_pool.csv": {
+    "status": "PRESENT",
+    "bytes": 205778,
+    "sha256": "d09da16984ab90b110c934bdd51e129818d5d527d75854f74acf8c98d73b941b"
+  },
+  "date/11_castelli_q2_pool_blind.csv": {
+    "status": "PRESENT",
+    "bytes": 13759,
+    "sha256": "8227db4320dd5a435e993a261ede446ee2068382ee8e4648152fd42a593c0721"
+  },
+  "date/12_castelli_q3_pool_blind.csv": {
+    "status": "PRESENT",
+    "bytes": 40221,
+    "sha256": "321cef2c4fafcf66b7141360e7dc247b9f6f71ac60c6206c0f910303a3f67868"
+  },
+  "code/predictions/pool_q2_phys.csv": {
+    "status": "PRESENT",
+    "bytes": 120602,
+    "sha256": "41937214602302bd9ef4b503ce0f792b0db4cb475ff5565bf17ae41aca44aa3a"
+  },
+  "code/predictions/pool_q3_phys.csv": {
+    "status": "PRESENT",
+    "bytes": 356272,
+    "sha256": "6c4544b561f0fd62ed910af10d8c234aac105510b65bcd0bab02094643f2f76d"
+  },
+  "code/predictions/pool_q2b_phys.csv": {
+    "status": "PRESENT",
+    "bytes": 23572,
+    "sha256": "0fe375b683405ef6e61047fb6196afba665aaacbc7fffde1645c6a0acbdd0cb6"
+  },
+  "code/predictions/pool_q3b_phys.csv": {
+    "status": "PRESENT",
+    "bytes": 69625,
+    "sha256": "ecc09980d97bf309fce0bce32831479a40b512a9ca42998039b09c2e5f21262f"
+  },
+  "models/surrogate_phys.joblib": {
+    "status": "PRESENT",
+    "bytes": 15509867,
+    "sha256": "ba22ec9ec9c7555c62d15f4bf543546ad99f2b445f800a25f2cabcd33c300357"
+  },
+  "results/final_answers.json": {
+    "status": "PRESENT",
+    "bytes": 1136,
+    "sha256": "e3d6dcc0826bb110d09e6338ef16b560f6dbc6250b9976ef8a6aaeb52d809b23"
+  },
+  "results/EXPERIMENT_INDEX.md": {
+    "status": "PRESENT",
+    "bytes": 4177,
+    "sha256": "d541a50a4269eeb1e53a7833d83509291c814f91612fa8220a00dd7d5e981b1e"
+  },
+  "results/ARTIFACT_SHA256.json": {
+    "status": "PRESENT",
+    "bytes": 4766,
+    "sha256": "4f89c0e8883c5b9102c8914cfb8b742ec8a2a2acc867883be9e632af15fd19c1"
+  },
+  "results/vendor_reports/apmcm_q2_no2_k13.pdf": {
+    "status": "PRESENT",
+    "bytes": 108323,
+    "sha256": "da29b4566cb081f097fae2d948926cd8a01ea3e7d033c46cfc02af1577cfbf83"
+  },
+  "results/vendor_reports/apmcm_q2_k13_m3x.pdf": {
+    "status": "PRESENT",
+    "bytes": 121881,
+    "sha256": "9a4caf17dd14af6ee10ec251b75fc02d2658d5eca30bae7a769b3cd84973e831"
+  },
+  "results/vendor_reports/apmcm_q2_k8_m1x.pdf": {
+    "status": "PRESENT",
+    "bytes": 114805,
+    "sha256": "942588c5309d08f3fde3701abfbe2847f84c58a5990ade9542b152b02616ea09"
+  },
+  "paper/APMCM_D_paper_CN.pdf": {
+    "status": "PRESENT",
+    "bytes": 2122815,
+    "sha256": "a0e85851c21dee1abefc0428de1e6a1ed297447c0b223b28bbb76d7bfc07dc7b"
+  },
+  "statement/2026_APMCM_Problem_D.pdf": {
+    "status": "PRESENT",
+    "bytes": 157965,
+    "sha256": "45bcffb9219a83b676f8b1673d1a96af31371de05b2c591d976ed7f9b3d7dd87"
+  }
+}

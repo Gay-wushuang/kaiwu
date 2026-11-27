@@ -145,6 +145,8 @@ say("步骤 4  问题 2（X=NO2）：QUBO + 精确枚举 + 模拟退火")
 
 
 def build_sub(poolX, topk):
+    if poolX.duplicated(["A", "B"]).any():
+        raise ValueError("build_sub 收到重复 (A,B)；Q3 必须先按 X 过滤，禁止静默覆盖。")
     Vm = poolX.pivot_table(index="A", columns="B", values="V_hat", aggfunc="first")
     A, B, V = list(Vm.index), list(Vm.columns), Vm.values
     if topk:
@@ -171,9 +173,10 @@ def solve_block(A, B, V, tag, topk, sa_restarts=400):
     I, _ = kw.core.qubo_matrix_to_ising_matrix(Q)
     adj = np.asarray(pp.adjust_ising_matrix_precision(I, 8), dtype=float)
     nA, nB = V.shape
-    Ir = np.abs(np.asarray(I, dtype=float))          # 解析口径：用原始 Ising 矩阵算分辨率
-    step = Ir.max() / 127
-    obj = Ir[:nA, nA:nA + nB].max()
+    Ir = np.abs(np.asarray(I, dtype=float))          # 原始 Ising 口径
+    step_raw, obj_raw = Ir.max() / 127, Ir[:nA, nA:nA + nB].max()
+    Ia = np.abs(adj)                                 # 8bit 适配后口径
+    step_adj, obj_adj = Ia.max() / 127, Ia[:nA, nA:nA + nB].max()
     rng = np.random.default_rng(7)
     best_sa, best_v = None, np.inf
     n = adj.shape[0]
@@ -192,14 +195,19 @@ def solve_block(A, B, V, tag, topk, sa_restarts=400):
         if len(ai) == 1 and len(bi) == 1 and V[ai[0], bi[0]] < best_v:
             best_v = V[ai[0], bi[0]]; best_sa = (A[ai[0]], B[bi[0]])
     i0, j0 = np.unravel_index(V.argmin(), V.shape)
-    say(f"  {tag}: {V.shape[0]}×{V.shape[1]} | {Q.shape[0]} 比特 | M={M:.0f} | 物体分辨率 {obj/step:.2f} 档")
+    say(f"  {tag}: {V.shape[0]}×{V.shape[1]} | {Q.shape[0]} 比特 | M={M:.0f} | "
+        f"分辨率 原始 {obj_raw/step_raw:.2f} 档 / 8bit 适配后 {obj_adj/step_adj:.2f} 档")
     i0, j0 = np.unravel_index(V.argmin(), V.shape)
     if best_sa is None:
-        say(f"      精确最优 {A[i0]}-{B[j0]} V*={V[i0,j0]:.4f}；退火在 {sa_restarts} 次重启内未找到合法解")
-        return dict(tag=tag, bits=int(Q.shape[0]), M=float(M), resol=round(float(obj / step), 2),
+        say(f"      矩阵内精确最优 {A[i0]}-{B[j0]} V*={V[i0,j0]:.4f}；退火在 {sa_restarts} 次重启内未找到合法解")
+        return dict(tag=tag, bits=int(Q.shape[0]), M=float(M), resol=round(float(obj_raw / step_raw), 2),
+                    resol_raw=round(float(obj_raw / step_raw), 2),
+                    resol_adj=round(float(obj_adj / step_adj), 2),
                     exact=f"{A[i0]}-{B[j0]}", exact_V=float(V[i0, j0]), sa="未找到合法解", sa_V=None)
-    say(f"      精确最优 {A[i0]}-{B[j0]} V*={V[i0,j0]:.4f}；退火最优 {best_sa[0]}-{best_sa[1]} V={best_v:.4f}")
-    return dict(tag=tag, bits=int(Q.shape[0]), M=float(M), resol=round(float(obj / step), 2),
+    say(f"      矩阵内精确最优 {A[i0]}-{B[j0]} V*={V[i0,j0]:.4f}；退火最优 {best_sa[0]}-{best_sa[1]} V={best_v:.4f}")
+    return dict(tag=tag, bits=int(Q.shape[0]), M=float(M), resol=round(float(obj_raw / step_raw), 2),
+                resol_raw=round(float(obj_raw / step_raw), 2),
+                resol_adj=round(float(obj_adj / step_adj), 2),
                 exact=f"{A[i0]}-{B[j0]}", exact_V=float(V[i0, j0]),
                 sa=f"{best_sa[0]}-{best_sa[1]}", sa_V=float(best_v))
 
@@ -254,7 +262,7 @@ md = ["# D 题端到端复现结果", "", f"运行时间：{time.strftime('%Y-%m
       f"| R² | MAE | RMSE | Spearman | Top-100 命中 |", "|---|---|---|---|---|",
       f"| {r2:.3f} | {mae:.3f} | {rmse:.3f} | {rho:.3f} | {top100}/100 |", "",
       "## 问题 2（X = NO₂）", "", f"**答案：{best_q2.formula}，V̂ = {best_q2.V_hat:.4f}**", "",
-      "| 配置 | 比特 | 罚项 M | 目标分辨率 | 精确最优 | 退火最优 |", "|---|---|---|---|---|---|"]
+      "| 配置 | 比特 | 罚项 M | 目标分辨率（原始口径） | 矩阵内精确最优 | 退火最优 |", "|---|---|---|---|---|---|"]
 for r in [r_q2_full, r_q2]:
     sv = "—" if r['sa_V'] is None else f"{r['sa_V']:.4f}"
     md.append(f"| {r['tag']} | {r['bits']} | {r['M']:.0f} | {r['resol']:.2f} 档 | {r['exact']} ({r['exact_V']:.4f}) | {r['sa']} ({sv}) |")

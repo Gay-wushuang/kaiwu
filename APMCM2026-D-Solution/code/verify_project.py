@@ -14,6 +14,7 @@ import sys
 from pathlib import Path
 
 from paths import DATA, DATA_FILES, MODELS, PRED, RES, ROOT
+from artifact_consistency import compare_model_pool
 
 CODE = ROOT / "code"
 MANIFEST = RES / "ARTIFACT_SHA256.json"
@@ -183,6 +184,21 @@ def main():
         else:
             print(f"  PASS：{len(manifest.get('files', {}))} 个文件哈希一致")
             ok.append("SHA256")
+
+    # 9) 模型产物与池预测批次一致性
+    print("=" * 66)
+    print("[9] 模型产物 vs 池预测一致性")
+    ac = compare_model_pool()
+    if ac.get("status") == "MISSING":
+        print(f"  BLOCKED：缺少 {ac.get('model')} 或 {ac.get('pool')}")
+        blocked.append("模型/池预测文件缺失，无法核对批次")
+    elif ac.get("status") == "OK":
+        print(f"  PASS：V_hat 与模型推理一致（n={ac['n']}）")
+        ok.append("模型/池预测批次一致")
+    else:
+        print(f"  WARN：模型与池预测不是同一批次（max|ΔV|={ac.get('max_abs', float('nan')):.6g}，"
+              f"mean|ΔV|={ac.get('mean_abs', float('nan')):.6g}，exact={ac.get('exact', '?')}/{ac.get('n', '?')}）")
+        warn.append("模型与池预测不是同一批次；论文声明需注明权威产物")
 
     # 汇总
     print("=" * 66)
