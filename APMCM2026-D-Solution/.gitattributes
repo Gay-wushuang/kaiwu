@@ -1,0 +1,3 @@
+# 该文件被 results/ARTIFACT_SHA256.json 记录为原始字节哈希。
+# 禁止 Git 做换行转换，否则全新检出的文件哈希会与清单不一致。
+results/EXPERIMENT_INDEX.md -text
