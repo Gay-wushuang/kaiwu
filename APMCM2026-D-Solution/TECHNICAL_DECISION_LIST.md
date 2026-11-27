@@ -222,3 +222,84 @@ WARN：lightgbm 可选未装；模型与池预测不同批次。无 FAIL、无 B
 
 已做：合并前检查、基线整理、归档字段补全、离线测试、文档记录。
 未做：选择竞赛基线、修改模型/算法/论文结论、设计正式优化实验、提交真机任务、消耗配额、合并 main。
+
+---
+
+## 10. 最终工程交接（2026-11-27）
+
+### 10.1 最终版本
+
+| 项目 | 值 |
+|---|---|
+| 分支 | `main` |
+| 代码提交（合并后） | `300d2e4`（`engineering/critical-fixes` 快进合并；main 相对 origin 领先 6 个提交） |
+| 交接记录 | 本文件本次更新；`git log -1` 为最终交接提交 |
+| 合并方式 | fast-forward，无冲突；包含 PR #4（`engineering/final-quality`）全部提交 |
+| 远端 | 合并后推送 `main`；`engineering/critical-fixes` 分支保留 |
+| 真机/配额 | 0 次提交、0 配额消耗；31 SPQC-550 + 1 SPQC-1000 未动（以平台为准） |
+
+### 10.2 基线采用
+
+- **正式后续研究版本：B（独立复现模型 + 预测）**。
+- **历史实验对照：A（队友原始预测 + 三次真机结果）**。
+- 两套产物**不得混用**：`models/` 是 B，`code/predictions/` 是 A；`verify_project` 第 [9] 项持续告警（max\|ΔV\|=4.733）。
+
+基线 B 一致性复核（2026-11-27）：
+
+| 检查 | 结果 |
+|---|---|
+| 模型 SHA256 | `ba22ec9e…`，与 3.12.5 复现模型一致 |
+| 四个池预测 vs 模型推理 | **全部 OK**；max\|ΔV\| 分别为 6.7e-6 / 6.7e-6 / 4.8e-6 / 5.1e-6（容差 1e-4） |
+| 三个交付 CSV | 与 `reproduction/original_env_20261127/run_20261127/` 逐字节一致（9395cb54 / 7cf63c8c / c53d6337） |
+| 依赖 | kaiwu-original 3.12.5，9 项直接依赖，`pip check` 无冲突 |
+| 说明 | 同批次约 1e-6 的差来自 float32/CSV 往返，不是批次差异 |
+
+### 10.3 原始浮点 Ising 矩阵无损归档
+
+- 新增 `input/ising_matrix_raw.npz`（`np.savez`，float64 原样保存）。
+- 写入后立即回读，`numeric_matrix_sha256` 与写入前一致才继续；`hashes.json` 同时记录：
+  - `raw_ising_matrix_sha256`
+  - `raw_ising_matrix_npz_sha256`
+  - `raw_ising_matrix_readback_sha256`
+- 测试：`test_archive_records_raw_and_metadata` 断言 npz 存在、回读哈希相等、shape 与 config 一致。
+- CSV 仍保留（`%.10g`，供人工查看），但**以 npz 为无损权威副本**。
+
+### 10.4 研究入口（供本人独立核验）
+
+| 目的 | 入口 |
+|---|---|
+| 数学接口（QUBO/Ising、aux、ΔH、量化、合法 vs 全空间） | `tests/test_math_interfaces.py`；`python -m unittest discover -s tests -p test_math_interfaces.py -v` |
+| 模拟退火 ΔH 源码 | `code/local_sa_stats.py`（`dH = 2 * ...`）、`code/run_all.py` 的 `solve_block` |
+| 8bit 量化与分辨率 | `code/d_submit_cim.py` 的 `resolution_pair` / `analyse`；`code/d_run_stats.py`；`code/d_experiment.py` 的 `build_problem` |
+| 科学审计证据 | `SCIENTIFIC_AUDIT.md` 第 1.2/1.4 节；`docs/audit_evidence/20261127/`（脚本、哈希、PDF 摘录） |
+| 论文修订清单 | `PAPER_CORRECTION_LIST.md` |
+| 批次一致性告警 | `python code/artifact_consistency.py`；`verify_project.py` 第 [9] 项 |
+| 正式实验入口 | `python code/d_experiment.py inputs register / plan / run`（默认 dry-run；`--submit` 需交互确认） |
+
+端到端教学验证（mock 后端，临时目录）：输入登记 → 建模 → mock 求解 → 归档，以下文件全部存在且哈希回读一致：
+`input/matrix.csv`、`mapping.json`、`ising_matrix.csv`、`ising_matrix_raw.csv`、`ising_matrix_raw.npz`、`hashes.json`、`raw/solutions.npz`、`raw/solution_energy.csv`、`config.json`、`task.json`。
+设备与硬件耗时可通过 `attach-report --device --hardware-ms` 录入。
+
+### 10.5 最终验收
+
+| 项目 | main @ `300d2e4` |
+|---|---|
+| 26 项测试 | PASS（2.874 s） |
+| compileall | PASS |
+| verify_project | PASS 15 / FAIL 0 / BLOCKED 0 / WARN 2 |
+| 历史结果 | 未修改；仅新增追溯 JSON 与基线 B 预测 |
+| 工作区 | 干净 |
+
+### 10.6 剩余阻塞项（均需人工决策）
+
+1. 原始模型产物缺失；历史任务无法用当前 joblib 精确复现。
+2. 历史提交矩阵哈希缺失；只能反推。
+3. 8bit 量化改变合法指派内的最优集合；论文解释或重跑方案未定。
+4. Q3 尚无真机验证（三次任务均为 Q2）。
+5. 论文部分指标缺少逐行预测证据（分层误差、稀有集命中）。
+6. 新真机实验方案未批准；任何提交需本人书面授权。
+
+### 10.7 AI 参与范围声明
+
+本阶段 AI 仅执行：合并前检查、快进合并、基线 B 一致性验证、无损归档字段补全、离线教学测试、交接记录。
+未执行：核心数学修改、优化方案设计、正式求解实验、真机提交、配额消耗、论文结论改写。
