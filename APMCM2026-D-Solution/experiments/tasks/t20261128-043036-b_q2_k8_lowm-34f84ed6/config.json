@@ -1,0 +1,66 @@
+{
+  "task_name": "B_Q2_k8_lowM",
+  "mode": "opt",
+  "mode_key": "optimization",
+  "task_mode": "optimization",
+  "topk": 8,
+  "mfactor": 0.33826009024559534,
+  "samples": 10,
+  "project_no": null,
+  "quota_units": 1,
+  "backend": "real",
+  "notes": "",
+  "expected_hashes": {
+    "input_matrix_sha256": "0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e",
+    "submitted_target_V_semantic_sha256": "4abbd63ce9054386c4fb62cb416c358b89f3f4e16d3437e8c33235c0836a4887",
+    "raw_ising_matrix_sha256": "8f714e44bc6fd06e41f8eeeba526907c6f7928772fed5a9438c7d5673aa1b386",
+    "submitted_matrix_sha256": "34f84ed6633373975e3211b6099b20313a26d3734fa3770dded0187767454b30",
+    "variables_sha256": "b0a216f5f5562854d996303b9dc51ea4d952db455de9233ceaef9aacd8f8c57f"
+  },
+  "n_qubo": 16,
+  "n_ising": 17,
+  "aux_bits": 1,
+  "M": 14.264750444548355,
+  "M0": 42.17095322771115,
+  "resol_raw": 7.1014207134711755,
+  "resol_adj": 7.0,
+  "ising_matrix_sha256": "34f84ed6633373975e3211b6099b20313a26d3734fa3770dded0187767454b30",
+  "git_dir": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution",
+  "started_at": "2026-11-28 04:30:36 +0800",
+  "git_commit": "af06a977e2daf4975c00661bab64fa010fe67e3a",
+  "git_branch": "research/qubo-refinement",
+  "git_dirty": false,
+  "sdk_version": "1.4.4",
+  "python_version": "3.12.5",
+  "task_id": "t20261128-043036-b_q2_k8_lowm-34f84ed6",
+  "created_at": "2026-11-28 04:30:36 +0800",
+  "input_version": "B-Q2-NO2",
+  "input_kind": "independent_reproduction",
+  "input_matrix_sha256": "0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e",
+  "input_shape": [
+    52,
+    52
+  ],
+  "input_files": {
+    "matrix.csv": "55254bdcfc71a39b6a6f8542403c0b9704cbe929a0f20f66a6d5113fca07ebaf",
+    "mapping.json": "76075b1a49ed602a752f038bd6dd6d9ec9c66e21ecb7d2679c5ca4966fdc8c5c",
+    "source_manifest.json": "d5bb963cf7ad25ac7d72f6ba88251601c97cee110609001b07fd8140a1e8354e"
+  },
+  "submitted_matrix_sha256": "34f84ed6633373975e3211b6099b20313a26d3734fa3770dded0187767454b30",
+  "ising_shape": [
+    17,
+    17
+  ],
+  "raw_ising_matrix_sha256": "8f714e44bc6fd06e41f8eeeba526907c6f7928772fed5a9438c7d5673aa1b386",
+  "raw_ising_shape": [
+    17,
+    17
+  ],
+  "submitted_mapping_file": "input/submitted_mapping.json",
+  "submitted_mapping_sha256": "a935bb002095fde28fe3d5aed43668d5a4319b86cb08d69cf1c6f0746695cd8e",
+  "submitted_target_V_file": "input/submitted_target_V.csv",
+  "submitted_target_V_csv_sha256": "542a73a03487b06230e1a991d5a7d16e4a29ea96dcc2b6b4faa1c8c177810ff5",
+  "submitted_A_count": 8,
+  "submitted_B_count": 8,
+  "aux_spin_count": 1
+}

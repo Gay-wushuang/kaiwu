@@ -1,10 +1,11 @@
 # 真机候选：B_Q2_k8_lowM（待队员授权）
 
-- 性质：**真机提交清单，未提交**；未调用 license、未创建云端任务、未消耗配额。
+- 性质：**已授权的真机提交；任务已完成**；结果见 `RESULTS.md`。
 - 分支：`research/qubo-refinement`
 - 依据：T002-A V2 的 one-hot 罚项缩放研究；全空间本地验证与 `d_experiment plan` dry-run。
 - 配置：`B_Q2_k8_lowM.json`
 - Dry-run 输出：`PLAN.txt`
+- 实际结果：`RESULTS.md`（task `t20261128-043036-b_q2_k8_lowm-34f84ed6`）
 
 ## 1. 数学假设
 
@@ -56,4 +57,4 @@
 
 ## 5. 授权状态
 
-**未授权、未提交。** 需要队员明确授权后，才可用现有 `d_experiment.py run --config ... --submit` 执行；提交时仍保留逐字任务编号人工确认。
+**已授权并完成 1 次真机提交**，任务 `t20261128-043036-b_q2_k8_lowm-34f84ed6` 状态 `completed`；实际返回 La-Zr（H=−1716，V=0），原始最优命中 1/1。详见 `RESULTS.md`。未重复提交。

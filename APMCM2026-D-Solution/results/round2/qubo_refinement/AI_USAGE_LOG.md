@@ -28,4 +28,5 @@
 - 本次没有新增需要第二次 Codex 的未解决矛盾；Codex 调用合计 1 次（V2）。
 - 追加冻结 B 输入 topk=8 全空间对照（`B-Q2-NO2`、`B-Q3-O3`、`B-Q3-FO2`）：one-hot 与 domain-wall 无跨输入稳定占优；Q2 one-hot 保留 1.0，O3 0.667，FO2 0.0；domain-wall 分别为 1.0（含额外非原始最优）、0.333、部分 M 下 1.0。未产生可提交真机的候选，未消耗配额。
 - 追加 one-hot 罚项缩放检查：B-Q2-NO2 topk=8 的 M0=42.171 本地保留 0.0、非原始 5、分辨率 3；`lowM=1.05*max V`（mfactor 0.33826009024559534，M=14.265）本地保留 1.0、非原始 0、分辨率 7.10/7.00、量化约束有效。已生成 `REAL_MACHINE_CANDIDATES/B_Q2_k8_lowM.json` 并执行 `d_experiment plan` dry-run（未调用 license、未提交、配额 0）；等待真机授权。
+- 队员授权后提交 `B_Q2_k8_lowM` 1 次：task `t20261128-043036-b_q2_k8_lowm-34f84ed6`，状态 completed；返回 10、合法 2，最低合法 La-Zr（H=−1716，V=0），原始/量化最优命中 1/1；设备 SPQC-1，硬件 4.3098 ms，端到端 7.754 s。平台 PDF 已归档；配额已用 6、剩余 26。未重复提交。
 

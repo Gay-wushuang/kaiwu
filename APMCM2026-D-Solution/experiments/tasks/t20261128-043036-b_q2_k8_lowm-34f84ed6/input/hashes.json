@@ -1,0 +1,19 @@
+{
+  "input_files": {
+    "matrix.csv": "55254bdcfc71a39b6a6f8542403c0b9704cbe929a0f20f66a6d5113fca07ebaf",
+    "mapping.json": "76075b1a49ed602a752f038bd6dd6d9ec9c66e21ecb7d2679c5ca4966fdc8c5c",
+    "source_manifest.json": "d5bb963cf7ad25ac7d72f6ba88251601c97cee110609001b07fd8140a1e8354e"
+  },
+  "input_matrix_sha256": "0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e",
+  "ising_matrix_sha256": "34f84ed6633373975e3211b6099b20313a26d3734fa3770dded0187767454b30",
+  "ising_matrix_csv_sha256": "1b38374c54d76a0e701fa47a13a1c101f3dd34d1d03bd88beccdcf9faa964bc1",
+  "raw_ising_matrix_sha256": "8f714e44bc6fd06e41f8eeeba526907c6f7928772fed5a9438c7d5673aa1b386",
+  "raw_ising_matrix_csv_sha256": "9b4b5a93604169a45a5eb55914c5fea08186db9752016134dfd0f9d072db094b",
+  "raw_ising_matrix_npz_sha256": "0fd246b308166aa5d66a07684f377f37d2dd603c23ff4693585f509fe3659e55",
+  "raw_ising_matrix_readback_sha256": "8f714e44bc6fd06e41f8eeeba526907c6f7928772fed5a9438c7d5673aa1b386",
+  "variables_sha256": "b0a216f5f5562854d996303b9dc51ea4d952db455de9233ceaef9aacd8f8c57f",
+  "submitted_mapping_sha256": "a935bb002095fde28fe3d5aed43668d5a4319b86cb08d69cf1c6f0746695cd8e",
+  "submitted_target_V_csv_sha256": "542a73a03487b06230e1a991d5a7d16e4a29ea96dcc2b6b4faa1c8c177810ff5",
+  "submitted_target_V_semantic_sha256": "4abbd63ce9054386c4fb62cb416c358b89f3f4e16d3437e8c33235c0836a4887",
+  "submitted_matrix_sha256": "34f84ed6633373975e3211b6099b20313a26d3734fa3770dded0187767454b30"
+}
