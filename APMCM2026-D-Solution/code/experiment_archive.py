@@ -221,7 +221,7 @@ class TaskArchive:
     # ---------------------------------------------------------------- 创建
     @classmethod
     def create(cls, task_id: str, config: dict, exin: ExperimentInput, ising_matrix: np.ndarray,
-               extra: dict = None) -> "TaskArchive":
+               extra: dict = None, raw_ising_matrix: np.ndarray = None) -> "TaskArchive":
         arc = cls(task_id)
         if arc.dir.exists():
             raise SystemExit(f"[归档] 任务目录已存在，拒绝覆盖：{arc.dir}")
@@ -260,6 +260,19 @@ class TaskArchive:
             "ising_matrix_sha256": numeric_matrix_sha256(ising_matrix),
             "ising_matrix_csv_sha256": sha256_file(arc.dir / "input" / "ising_matrix.csv"),
         }
+        if raw_ising_matrix is not None:
+            np.savetxt(arc.dir / "input" / "ising_matrix_raw.csv",
+                       np.asarray(raw_ising_matrix, dtype=np.float64), delimiter=",", fmt="%.10g")
+            hashes.update({
+                "raw_ising_matrix_sha256": numeric_matrix_sha256(raw_ising_matrix),
+                "raw_ising_matrix_csv_sha256": sha256_file(arc.dir / "input" / "ising_matrix_raw.csv"),
+            })
+            cfg.update({
+                "raw_ising_matrix_sha256": numeric_matrix_sha256(raw_ising_matrix),
+                "raw_ising_shape": list(np.asarray(raw_ising_matrix).shape),
+            })
+            (arc.dir / "config.json").write_text(
+                json.dumps(json_safe(cfg), ensure_ascii=False, indent=2), encoding="utf-8")
         (arc.dir / "input" / "hashes.json").write_text(
             json.dumps(hashes, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -354,7 +367,8 @@ class TaskArchive:
             for i, (h, s) in enumerate(zip(H, sol)):
                 f.write(f"{i},{h:.10g},{int((s > 0).sum())}\n")
 
-    def attach_report(self, report_path: Path, device: str = None, platform_task_id: str = None):
+    def attach_report(self, report_path: Path, device: str = None, platform_task_id: str = None,
+                      hardware_ms: float = None):
         report_path = Path(report_path)
         if not report_path.is_file():
             raise SystemExit(f"[归档] 报告文件不存在：{report_path}")
@@ -368,6 +382,9 @@ class TaskArchive:
         if platform_task_id:
             fields.update({"platform_task_id": platform_task_id,
                            "platform_task_id_source": "platform_report"})
+        if hardware_ms is not None:
+            fields.update({"hardware_ms": float(hardware_ms),
+                           "hardware_ms_source": "platform_report"})
         return self.update(**fields)
 
     def archive_dir_size(self) -> int:

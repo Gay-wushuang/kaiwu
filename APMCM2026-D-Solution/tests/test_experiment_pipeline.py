@@ -174,12 +174,14 @@ class Phase10Test(unittest.TestCase):
 
         cfg = json.loads((arc.dir / "config.json").read_text(encoding="utf-8"))
         for key in ("input_version", "input_matrix_sha256", "submitted_matrix_sha256",
-                    "ising_shape", "git_commit", "sdk_version", "python_version"):
+                    "ising_shape", "raw_ising_matrix_sha256", "raw_ising_shape",
+                    "git_commit", "sdk_version", "python_version"):
             self.assertIn(key, cfg)
 
         self.assertTrue((arc.dir / "input" / "matrix.csv").is_file())
         self.assertTrue((arc.dir / "input" / "mapping.json").is_file())
         self.assertTrue((arc.dir / "input" / "ising_matrix.csv").is_file())
+        self.assertTrue((arc.dir / "input" / "ising_matrix_raw.csv").is_file())
         self.assertTrue((arc.dir / "input" / "hashes.json").is_file())
         self.assertTrue((arc.dir / "raw" / "solutions.npz").is_file())
         self.assertTrue((arc.dir / "raw" / "solutions.csv").is_file())
@@ -246,9 +248,12 @@ class Phase10Test(unittest.TestCase):
         pdf = Path(_SANDBOX) / "vendor_report.pdf"
         pdf.write_bytes(b"%PDF-1.4 mock report\n")
         arc = TaskArchive(r["task_id"])
-        meta = arc.attach_report(pdf, device="SPQC-550", platform_task_id="mock-task-id")
+        meta = arc.attach_report(pdf, device="SPQC-550", platform_task_id="mock-task-id",
+                                 hardware_ms=0.6673)
         self.assertEqual(meta["device"], "SPQC-550")
         self.assertEqual(meta["device_source"], "platform_report")
+        self.assertEqual(meta["hardware_ms"], 0.6673)
+        self.assertEqual(meta["hardware_ms_source"], "platform_report")
         self.assertTrue((arc.dir / "reports" / "vendor_report.pdf").is_file())
 
 

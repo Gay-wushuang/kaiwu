@@ -135,8 +135,12 @@ WARN：lightgbm 可选未装；模型与池预测不同批次。无 FAIL、无 B
 | 条件 | 状态 |
 |---|---|
 | 输入版本登记、SHA256、来源隔离 | PASS |
+| 原始与量化矩阵归档 | PASS（`input/ising_matrix_raw.csv` + `input/ising_matrix.csv`） |
+| 变量映射记录 | PASS（`input/mapping.json`） |
+| 原始返回向量归档 | PASS（`raw/solutions.npz`） |
+| 设备与硬件耗时记录 | PASS（`attach-report --device --hardware-ms`，PDF 原样归档） |
 | 配额账本、dry-run、人工逐任务确认 | PASS |
-| 原始返回归档、失败分类、恢复 | PASS（mock 验证；真实恢复未验证） |
+| 失败分类、恢复 | PASS（mock 验证；真实恢复未验证） |
 | 模型/预测批次告警 | PASS（WARN 可见） |
 | 科学实验方案（规模、M、配额分配） | **未批准**，由队员设计、本人确认 |
 | 当前配额 | 31 SPQC-550 + 1 SPQC-1000，未消耗 |
@@ -158,3 +162,63 @@ WARN：lightgbm 可选未装；模型与池预测不同批次。无 FAIL、无 B
 2. M3 的标签重叠表述；
 3. M4/M5 是否修代码；
 4. 是否合并 `engineering/critical-fixes`。
+
+---
+
+## 9. 正式研究版本冻结验收（2026-11-27）
+
+### 9.1 合并前检查
+
+| 项目 | 结果 |
+|---|---|
+| 当前分支/提交 | `engineering/critical-fixes` @ `267fcfd`（工作区干净） |
+| main 是否为祖先 | 是；可 **fast-forward**，无冲突 |
+| 自动化测试 | **26/26 PASS**（约 2.8 s） |
+| 工程自检 | PASS 15 / FAIL 0 / BLOCKED 0 / WARN 2（lightgbm 可选；模型/池批次不一致） |
+| 历史实验产物 | 未修改；相对 main 仅新增 `results/EXPERIMENT_TRACEABILITY.json` 与复现池预测 |
+| 合并阻塞 | 无技术阻塞；分支包含 PR #4（`engineering/final-quality`）的全部提交，合并后 PR #4 可关闭 |
+| 远端状态 | 分支尚未推送；创建 PR 前需 push |
+
+结论：**可以合并**；是否合并、关闭 PR #4 由本人决定。
+
+### 9.2 两套可选基线
+
+| 项目 | A. 队友原始预测 + 历史实验 | B. 独立复现模型 + 预测 |
+|---|---|---|
+| 定位 | 论文表 3 / 历史真机的正式产物 | 独立复现，用于核验工程可复现性 |
+| 代码 commit | 预测 `779cbae`；实验索引记录 `db624f1` | `822b7ea`（复现记录；代码内容与当前 main 的 `code/` 一致） |
+| 数据 | 02 `973e6a6d…`、03 `42a62b0f…`、04 `8ed9d46b…` | 同一套数据，哈希相同 |
+| 模型 | **原始模型 MISSING**（仓库 joblib 不是 A） | `models/surrogate_phys.joblib` `ba22ec9e…`（与 3.12.5 复现模型同哈希） |
+| Q2 预测 | `code/predictions/pool_q2_phys.csv` `41937214…` | `results/reproduction_20261127/predictions/pool_q2_phys.csv` `e818443c…` |
+| Q3 预测 | `code/predictions/pool_q3_phys.csv` `6c4544b5…` | `results/reproduction_20261127/predictions/pool_q3_phys.csv` `37c21d9d…` |
+| 盲池预测 | q2b `0fe375b6…`、q3b `ecc09980…` | q2b `5898af30…`、q3b `f362fa5a…` |
+| 依赖/环境 | 队友 `requirements.txt`（9 项）、Python 3.12.5/Win11（声明） | kaiwu-original 3.12.5（9 项对齐；freeze 55 项）；3.12.6 结果逐字节一致 |
+| 历史实验 | 3 个真机任务、PDF 齐全；任务 1 统计/样本/结果图 MISSING；任务 2/3 结果 CSV MISSING | 无真机；`results/reproduction_20261127/` + `run_20261127/` 复现交付物 |
+| 完整性 | 预测/报告完整；模型与提交矩阵哈希缺失 | 模型/预测/结果完整；无真机证据 |
+| 结论 | **PARTIAL**：可作为论文历史基线，但模型不可复现 | **完整（工程复现）**：可作独立核验基线，不代表历史真机 |
+
+**禁止混用**：仓库当前 `models/` 是 B，`code/predictions/` 是 A。`verify_project` 第 [9] 项已对此告警（max|ΔV|=4.733）。选择 A 时不要引用当前 joblib；选择 B 时不要引用 `code/predictions/` 的原始池。
+
+### 9.3 本人必须作出的技术决策
+
+1. **最终采用 A 还是 B**（或分用途：论文历史结果用 A、工程复现用 B）；不得把两者指标混在同一张表。
+2. **8bit 量化解释**：论文改为“设备求解量化矩阵”，还是提高分辨率/变量拆分后重跑；后者需新的实验方案与授权。
+3. **是否修 ΔH 系数/温度**：影响 SA 轨迹，不影响精确枚举与最终排序。
+4. **论文修订范围**：C1/C2/C3/C4/C5/C6/C7/C8 等，见 `PAPER_CORRECTION_LIST.md`。
+5. **是否合并 `engineering/critical-fixes`**、是否关闭 PR #4。
+
+### 9.4 正式实验前仍存在的阻塞项
+
+| 阻塞项 | 类型 | 说明 |
+|---|---|---|
+| 原始模型产物缺失 | 科学/复现 | 历史任务无法用当前 joblib 精确复现 |
+| 历史提交矩阵哈希缺失 | 科学/复现 | 只能反推，不能替代当时记录 |
+| 量化改变合法最优集合 | 科学 | 需队员决定论文解释或重跑 |
+| Q3 无真机验证 | 科学 | 三次任务均为 Q2；Q3 只有本地枚举 |
+| 论文逐行预测证据缺失 | 论文 | 分层误差/稀有集数字无法由已保存文件复现 |
+| 新真机实验方案未批准 | 流程 | 任何提交需本人书面授权；当前 31+1 配额未动 |
+
+### 9.5 AI 参与范围（本阶段）
+
+已做：合并前检查、基线整理、归档字段补全、离线测试、文档记录。
+未做：选择竞赛基线、修改模型/算法/论文结论、设计正式优化实验、提交真机任务、消耗配额、合并 main。

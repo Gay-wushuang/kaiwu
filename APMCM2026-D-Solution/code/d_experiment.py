@@ -305,7 +305,8 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
         "git_dir": str(ROOT),
         "started_at": now_str(),
     }
-    arc = TaskArchive.create(task_id, config, exin, problem["adj"])
+    arc = TaskArchive.create(task_id, config, exin, problem["adj"],
+                             raw_ising_matrix=problem["I"])
     entry = {k: arc.meta()[k] for k in (
         "task_id", "task_name", "status", "input_version", "input_kind",
         "input_matrix_sha256", "submitted_matrix_sha256", "mode_key", "mode",
@@ -604,11 +605,14 @@ def cmd_resume(a):
 
 def cmd_attach(a):
     arc = TaskArchive(a.task_id)
-    meta = arc.attach_report(Path(a.file), device=a.device, platform_task_id=a.platform_task_id)
+    meta = arc.attach_report(Path(a.file), device=a.device, platform_task_id=a.platform_task_id,
+                             hardware_ms=a.hardware_ms)
     print(f"[已归档] 报告 {Path(a.file).name} → {meta['report_file']}")
     print(f"  报告 SHA256 = {meta['report_sha256']}")
     if a.device:
         print(f"  设备（来自平台报告）= {a.device}")
+    if a.hardware_ms is not None:
+        print(f"  硬件耗时（来自平台报告）= {a.hardware_ms} ms")
     return EXIT_OK
 
 
@@ -693,6 +697,7 @@ def build_parser():
     p.add_argument("--task-id", required=True)
     p.add_argument("--file", required=True)
     p.add_argument("--device", default=None, help="平台报告中的实际设备型号")
+    p.add_argument("--hardware-ms", type=float, default=None, help="平台报告中的硬件求解时间（毫秒）")
     p.add_argument("--platform-task-id", default=None)
     p.set_defaults(func=cmd_attach)
 
