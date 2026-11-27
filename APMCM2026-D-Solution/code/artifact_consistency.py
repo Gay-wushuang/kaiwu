@@ -42,20 +42,25 @@ def predict_vhat(model: dict, df: pd.DataFrame) -> np.ndarray:
             + q(5.73 - r["vbm"].predict(Xp)) + q(r["cbm"].predict(Xp) - 4.50))
 
 
-def diff_stats(expected, actual) -> dict:
+def diff_stats(expected, actual, tol: float = 1e-9) -> dict:
     a = np.asarray(expected, dtype=float)
     b = np.asarray(actual, dtype=float)
     if a.shape != b.shape:
         return {"status": "SHAPE_MISMATCH", "expected_shape": list(a.shape),
                 "actual_shape": list(b.shape)}
     d = np.abs(a - b)
-    return {"status": "OK" if d.max() <= 1e-9 else "MISMATCH",
+    return {"status": "OK" if d.max() <= tol else "MISMATCH",
             "n": int(d.size), "max_abs": float(d.max()), "mean_abs": float(d.mean()),
             "exact": int(np.sum(d == 0))}
 
 
 def compare_model_pool(model_path: Path = None, pool_path: Path = None,
-                       tol: float = 1e-6) -> dict:
+                       tol: float = 1e-4) -> dict:
+    """比较模型推理与池文件 V_hat。
+
+    默认容差 1e-4：同批次也会因 float32 特征/CSV 往返产生 ~1e-5 的差；
+    不同批次的差异通常远大于该值（当前仓库为 4.7）。
+    """
     model_path = Path(model_path or (MODELS / "surrogate_phys.joblib"))
     pool_path = Path(pool_path or (PRED / "pool_q2_phys.csv"))
     if not model_path.is_file() or not pool_path.is_file():
@@ -63,12 +68,10 @@ def compare_model_pool(model_path: Path = None, pool_path: Path = None,
     model = joblib.load(model_path)
     df = pd.read_csv(pool_path)
     pred = predict_vhat(model, df)
-    stats = diff_stats(df.V_hat.values, pred)
+    stats = diff_stats(df.V_hat.values, pred, tol=tol)
     stats.update({"model": str(model_path), "pool": str(pool_path),
                   "model_sha256": _sha(model_path), "pool_sha256": _sha(pool_path),
                   "tolerance": tol})
-    if stats.get("max_abs", 0) > tol:
-        stats["status"] = "MISMATCH"
     return stats
 
 

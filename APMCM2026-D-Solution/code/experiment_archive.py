@@ -263,12 +263,21 @@ class TaskArchive:
         if raw_ising_matrix is not None:
             np.savetxt(arc.dir / "input" / "ising_matrix_raw.csv",
                        np.asarray(raw_ising_matrix, dtype=np.float64), delimiter=",", fmt="%.10g")
+            raw_npz = arc.dir / "input" / "ising_matrix_raw.npz"
+            np.savez(raw_npz, matrix=np.asarray(raw_ising_matrix, dtype=np.float64))
+            readback = np.load(raw_npz, allow_pickle=False)["matrix"]
+            h_raw = numeric_matrix_sha256(raw_ising_matrix)
+            h_read = numeric_matrix_sha256(readback)
+            if h_read != h_raw:
+                raise SystemExit("[归档] 原始浮点 Ising 矩阵二进制回读哈希不一致，已中止。")
             hashes.update({
-                "raw_ising_matrix_sha256": numeric_matrix_sha256(raw_ising_matrix),
+                "raw_ising_matrix_sha256": h_raw,
                 "raw_ising_matrix_csv_sha256": sha256_file(arc.dir / "input" / "ising_matrix_raw.csv"),
+                "raw_ising_matrix_npz_sha256": sha256_file(raw_npz),
+                "raw_ising_matrix_readback_sha256": h_read,
             })
             cfg.update({
-                "raw_ising_matrix_sha256": numeric_matrix_sha256(raw_ising_matrix),
+                "raw_ising_matrix_sha256": h_raw,
                 "raw_ising_shape": list(np.asarray(raw_ising_matrix).shape),
             })
             (arc.dir / "config.json").write_text(

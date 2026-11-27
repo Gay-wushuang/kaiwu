@@ -182,7 +182,13 @@ class Phase10Test(unittest.TestCase):
         self.assertTrue((arc.dir / "input" / "mapping.json").is_file())
         self.assertTrue((arc.dir / "input" / "ising_matrix.csv").is_file())
         self.assertTrue((arc.dir / "input" / "ising_matrix_raw.csv").is_file())
+        self.assertTrue((arc.dir / "input" / "ising_matrix_raw.npz").is_file())
         self.assertTrue((arc.dir / "input" / "hashes.json").is_file())
+        hashes = json.loads((arc.dir / "input" / "hashes.json").read_text(encoding="utf-8"))
+        self.assertEqual(hashes["raw_ising_matrix_sha256"],
+                         hashes["raw_ising_matrix_readback_sha256"])
+        raw = np.load(arc.dir / "input" / "ising_matrix_raw.npz", allow_pickle=False)["matrix"]
+        self.assertEqual(raw.shape, tuple(cfg["raw_ising_shape"]))
         self.assertTrue((arc.dir / "raw" / "solutions.npz").is_file())
         self.assertTrue((arc.dir / "raw" / "solutions.csv").is_file())
         self.assertTrue((arc.dir / "raw" / "solution_energy.csv").is_file())
@@ -387,6 +393,7 @@ class Phase10Test(unittest.TestCase):
 
     def test_artifact_diff_stats(self):
         self.assertEqual(ac.diff_stats([1, 2], [1, 2])["status"], "OK")
+        self.assertEqual(ac.diff_stats([1, 2], [1, 2 + 1e-5], tol=1e-4)["status"], "OK")
         bad = ac.diff_stats([1, 2], [1, 3])
         self.assertEqual(bad["status"], "MISMATCH")
         self.assertEqual(bad["max_abs"], 1.0)
