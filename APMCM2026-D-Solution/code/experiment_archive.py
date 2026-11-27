@@ -221,7 +221,8 @@ class TaskArchive:
     # ---------------------------------------------------------------- 创建
     @classmethod
     def create(cls, task_id: str, config: dict, exin: ExperimentInput, ising_matrix: np.ndarray,
-               extra: dict = None, raw_ising_matrix: np.ndarray = None) -> "TaskArchive":
+               extra: dict = None, raw_ising_matrix: np.ndarray = None,
+               submitted_A=None, submitted_B=None, filtered_V=None) -> "TaskArchive":
         arc = cls(task_id)
         if arc.dir.exists():
             raise SystemExit(f"[归档] 任务目录已存在，拒绝覆盖：{arc.dir}")
@@ -282,6 +283,85 @@ class TaskArchive:
             })
             (arc.dir / "config.json").write_text(
                 json.dumps(json_safe(cfg), ensure_ascii=False, indent=2), encoding="utf-8")
+
+        # 实际提交映射：topk 预筛后 A/B 顺序、辅助自旋、变量索引、筛选后的 V
+        if (submitted_A is None) != (submitted_B is None) or \
+                (submitted_A is None) != (filtered_V is None):
+            raise SystemExit("[归档] submitted_A/submitted_B/filtered_V 必须同时提供。")
+        if submitted_A is not None:
+            A = [str(v) for v in submitted_A]
+            B = [str(v) for v in submitted_B]
+            V = np.asarray(filtered_V, dtype=np.float64)
+            nA, nB = len(A), len(B)
+            n_qubo, n_ising = nA + nB, int(np.asarray(ising_matrix).shape[0])
+            aux = n_ising - n_qubo
+            if V.shape != (nA, nB):
+                raise SystemExit(f"[归档] 筛选后 V 形状 {V.shape} 与 A/B 数量 {(nA, nB)} 不一致。")
+            if aux < 1:
+                raise SystemExit(f"[归档] Ising 维度 {n_ising} 未包含辅助自旋（QUBO {n_qubo}）。")
+
+            v_csv = arc.dir / "input" / "submitted_target_V.csv"
+            with open(v_csv, "w", encoding="utf-8-sig", newline="") as f:
+                f.write("A," + ",".join(B) + "\n")
+                for a, row in zip(A, V):
+                    f.write(a + "," + ",".join(f"{x:.17g}" for x in row) + "\n")
+            readback = np.loadtxt(v_csv, delimiter=",", skiprows=1,
+                                  usecols=range(1, nB + 1), dtype=np.float64, ndmin=2)
+            if not np.array_equal(readback, V):
+                raise SystemExit("[归档] 筛选后目标矩阵 V 回读不一致，已中止。")
+
+            mapping = {
+                "schema_version": SCHEMA_VERSION,
+                "task_id": task_id,
+                "input_version": exin.version,
+                "input_kind": exin.kind,
+                "input_matrix_sha256": exin.matrix_sha256,
+                "topk": cfg.get("topk"),
+                "mfactor": cfg.get("mfactor"),
+                "submitted_matrix_sha256": numeric_matrix_sha256(ising_matrix),
+                "submitted_matrix_shape": [n_ising, n_ising],
+                "n_qubo": n_qubo,
+                "n_ising": n_ising,
+                "aux_spin_count": aux,
+                "aux_spin_position": "last",
+                "aux_spin_indices": list(range(n_qubo, n_ising)),
+                "A_axis": "row",
+                "B_axis": "column",
+                "A": A,
+                "B": B,
+                "variables": (
+                    [{"index": i, "kind": "A", "label": A[i]} for i in range(nA)]
+                    + [{"index": nA + j, "kind": "B", "label": B[j]} for j in range(nB)]
+                    + [{"index": n_qubo + k, "kind": "aux", "label": None} for k in range(aux)]
+                ),
+                "filtered_target_matrix": {
+                    "path": "input/submitted_target_V.csv",
+                    "shape": [nA, nB],
+                    "file_sha256": sha256_file(v_csv),
+                    "semantic_sha256": numeric_matrix_sha256(V),
+                },
+            }
+            mapping_path = arc.dir / "input" / "submitted_mapping.json"
+            mapping_path.write_text(json.dumps(mapping, ensure_ascii=False, indent=2),
+                                    encoding="utf-8")
+            hashes.update({
+                "submitted_mapping_sha256": sha256_file(mapping_path),
+                "submitted_target_V_csv_sha256": sha256_file(v_csv),
+                "submitted_target_V_semantic_sha256": numeric_matrix_sha256(V),
+                "submitted_matrix_sha256": numeric_matrix_sha256(ising_matrix),
+            })
+            cfg.update({
+                "submitted_mapping_file": "input/submitted_mapping.json",
+                "submitted_mapping_sha256": sha256_file(mapping_path),
+                "submitted_target_V_file": "input/submitted_target_V.csv",
+                "submitted_target_V_csv_sha256": sha256_file(v_csv),
+                "submitted_A_count": nA,
+                "submitted_B_count": nB,
+                "aux_spin_count": aux,
+            })
+            (arc.dir / "config.json").write_text(
+                json.dumps(json_safe(cfg), ensure_ascii=False, indent=2), encoding="utf-8")
+
         (arc.dir / "input" / "hashes.json").write_text(
             json.dumps(hashes, ensure_ascii=False, indent=2), encoding="utf-8")
 

@@ -306,7 +306,9 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
         "started_at": now_str(),
     }
     arc = TaskArchive.create(task_id, config, exin, problem["adj"],
-                             raw_ising_matrix=problem["I"])
+                             raw_ising_matrix=problem["I"],
+                             submitted_A=problem["A"], submitted_B=problem["B"],
+                             filtered_V=problem["V"])
     entry = {k: arc.meta()[k] for k in (
         "task_id", "task_name", "status", "input_version", "input_kind",
         "input_matrix_sha256", "submitted_matrix_sha256", "mode_key", "mode",

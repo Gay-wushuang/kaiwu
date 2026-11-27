@@ -423,5 +423,56 @@ class Phase10Test(unittest.TestCase):
         self.assertIn("代理模型矩阵", (CODE / "d_submit_cim.py").read_text(encoding="utf-8"))
 
 
+    def test_submitted_mapping_preserves_filtered_order(self):
+        """topk 会重排 A/B；归档必须保存实际提交顺序、辅助自旋与筛选后的 V。"""
+        A = ["a1", "a2", "a3", "a4"]
+        B = ["b1", "b2", "b3", "b4"]
+        V = np.array([
+            [0.05, 0.40, 0.50, 0.60],
+            [0.30, 0.02, 0.70, 0.80],
+            [0.10, 0.35, 0.45, 0.55],
+            [0.90, 0.40, 0.20, 0.30],
+        ])
+        ver = "submap_" + self.tag
+        make_input(ver, A, B, V)
+        r, _ = quiet(dx.execute_task, ver, "submap_task", "opt", 2, 1.0, 10,
+                     submit=True, backend="mock", confirm=True)
+        self.assertEqual(r["status"], "completed")
+
+        arc = TaskArchive(r["task_id"])
+        m = json.loads((arc.dir / "input" / "submitted_mapping.json").read_text(encoding="utf-8"))
+        p = dx.build_problem(exin.load(ver), topk=2, mfactor=1.0)
+
+        self.assertEqual(m["A"], ["a2", "a1"])
+        self.assertEqual(m["B"], ["b2", "b1"])
+        self.assertEqual(m["A"], p["A"])
+        self.assertEqual(m["B"], p["B"])
+        self.assertEqual(m["n_qubo"], 4)
+        self.assertEqual(m["n_ising"], 5)
+        self.assertEqual(m["aux_spin_indices"], [4])
+        self.assertEqual(m["aux_spin_position"], "last")
+        self.assertEqual(len(m["variables"]), 5)
+        self.assertEqual(m["variables"][0], {"index": 0, "kind": "A", "label": "a2"})
+        self.assertEqual(m["variables"][-1], {"index": 4, "kind": "aux", "label": None})
+        self.assertEqual(m["submitted_matrix_sha256"], p["matrix_sha256"])
+        self.assertEqual(m["filtered_target_matrix"]["semantic_sha256"],
+                         exin.numeric_matrix_sha256(p["V"]))
+
+        df = pd.read_csv(arc.dir / "input" / "submitted_target_V.csv", index_col=0)
+        self.assertEqual(list(df.index), p["A"])
+        self.assertEqual(list(df.columns), p["B"])
+        # np.loadtxt 是归档写后自检使用的解析器；要求逐位一致
+        raw = np.loadtxt(arc.dir / "input" / "submitted_target_V.csv", delimiter=",",
+                         skiprows=1, usecols=range(1, len(p["B"]) + 1),
+                         dtype=np.float64, ndmin=2)
+        self.assertTrue(np.array_equal(raw, p["V"]))
+        self.assertTrue(np.allclose(df.to_numpy(), p["V"], rtol=0, atol=1e-15))
+
+        cfg = json.loads((arc.dir / "config.json").read_text(encoding="utf-8"))
+        hashes = json.loads((arc.dir / "input" / "hashes.json").read_text(encoding="utf-8"))
+        self.assertEqual(cfg["submitted_mapping_sha256"], hashes["submitted_mapping_sha256"])
+        self.assertEqual(cfg["submitted_target_V_csv_sha256"], hashes["submitted_target_V_csv_sha256"])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
