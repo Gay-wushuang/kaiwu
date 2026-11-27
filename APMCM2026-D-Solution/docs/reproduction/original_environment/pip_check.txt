@@ -1,0 +1,5 @@
+﻿# command: python -m pip check
+# checked_at: 2026-11-27 11:36:16
+# python: 3.12.5
+
+No broken requirements found.

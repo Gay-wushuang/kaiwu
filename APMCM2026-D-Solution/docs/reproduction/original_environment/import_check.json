@@ -1,0 +1,66 @@
+{
+  "python": "3.12.5 (main, Aug 14 2024, 04:23:18) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "executable": "C:\\Users\\ERE.DESKTOP-JD48OPB\\AppData\\Local\\kaiwu-original\\Scripts\\python.exe",
+  "modules": {
+    "numpy": {
+      "import": "OK",
+      "version": "2.4.4"
+    },
+    "pandas": {
+      "import": "OK",
+      "version": "2.2.3"
+    },
+    "sklearn": {
+      "import": "OK",
+      "version": "1.8.0"
+    },
+    "xgboost": {
+      "import": "OK",
+      "version": "3.4.1"
+    },
+    "lightgbm": {
+      "import": "OK",
+      "version": "4.7.0"
+    },
+    "mendeleev": {
+      "import": "OK",
+      "version": "1.4.0"
+    },
+    "scipy": {
+      "import": "OK",
+      "version": "1.17.1"
+    },
+    "matplotlib": {
+      "import": "OK",
+      "version": "3.10.3"
+    },
+    "joblib": {
+      "import": "OK",
+      "version": "1.6.0"
+    },
+    "kaiwu": {
+      "import": "OK",
+      "version": "1.4.4",
+      "attribute_version": "1.0.8"
+    }
+  },
+  "license_module_present": true,
+  "license_paths": [
+    {
+      "path": "C:\\Users\\ERE.DESKTOP-JD48OPB\\.kaiwu",
+      "exists": false,
+      "file_count": 0
+    },
+    {
+      "path": "C:\\Users\\ERE.DESKTOP-JD48OPB\\AppData\\Roaming\\kaiwu",
+      "exists": false,
+      "file_count": 0
+    },
+    {
+      "path": "C:\\Users\\ERE.DESKTOP-JD48OPB\\AppData\\Local\\kaiwu",
+      "exists": false,
+      "file_count": 0
+    }
+  ]
+}

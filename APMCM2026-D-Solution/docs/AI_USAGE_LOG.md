@@ -108,3 +108,41 @@
 - 发现的 H 方向与 ΔH 系数问题只报告证据，未修改既有代码与论文数字。
 - 新增测试全部使用非赛题教学矩阵与本地模拟后端。
 
+---
+
+## 6. Phase 10 补充：原始实验环境对齐（2026-11-27）
+
+### 6.1 参与范围
+
+| 允许（已做） | 禁止（未做） |
+|---|---|
+| 原样归档队友提供的 3 份材料并计算哈希 | 修改材料内容或补造缺失信息 |
+| 按 `requirements.txt` 建立独立 Python 3.12.5 环境 | 修改、降级或覆盖 `kaiwu-verify` 及其 License |
+| 对比依赖、检查导入与 `pip check` | 修改模型、算法、参数、随机种子 |
+| 生成 `pip freeze` 锁定与复现说明 | 代替队员执行正式实验或解释数值差异 |
+| 区分三种评价口径并写明引用规则 | 把 OOF 或公开池指标写成论文指标 |
+| 更新版本清单与发布检查表 | 提交真机任务、消耗配额 |
+
+### 6.2 操作流水
+
+| 顺序 | 操作 | 结果 |
+|---|---|---|
+| 1 | 归档 `REPRO_NOTES.md` / `requirements.txt` / `same_protocol_metrics.json` | 3 份原样保存，SHA256 记录于 `MANIFEST.json` |
+| 2 | 对比队友直接依赖与 `requirements.lock.txt` | 9 项：6 项一致，numpy / scikit-learn / scipy 版本不同，lightgbm 旧环境未装 |
+| 3 | 创建独立 CPython 3.12.5 环境 | Anaconda 自带 3.12.5 的 `pyexpat` 加载被拒，改用 uv 独立解释器，未修改 Anaconda |
+| 4 | 安装队友 `requirements.txt` | 全部成功，`pip check` 无冲突 |
+| 5 | 导入检查 | 10/10 模块 OK；kaiwu 1.4.4（`kw.__version__` 为 1.0.8） |
+| 6 | 生成 `pip freeze` | 55 项，`requirements.freeze.txt` |
+| 7 | 保护 `kaiwu-verify` | `pip freeze` 与原锁文件逐包一致，未被改动 |
+| 8 | 准备复现目录与脚本 | `reproduction/original_env_20261127/`，临时目录运行、不覆盖历史产物 |
+| 9 | 区分评价口径 | `docs/reproduction/PROTOCOLS.md`：02→03 / 分组 OOF / 04 盲测 |
+| 10 | 更新版本清单与发布检查表 | `EXPERIMENT_VERSION.json`、`RELEASE_CHECKLIST.md` |
+
+### 6.3 边界声明
+
+- 操作系统无法匹配：队友 Windows 11，本机 Windows 10 19045；未宣称环境完全相同。
+- 未提交真机任务、未消耗配额、未读取或记录任何凭据。
+- 未执行正式复跑；运行与核验由参赛队员完成。
+- 数值差异只记录，不归因、不修改研究结论。
+
+

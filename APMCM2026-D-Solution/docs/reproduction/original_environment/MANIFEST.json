@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "archived_at": "2026-11-27 Asia/Shanghai",
+  "source": "队友通过微信提供的原始文件（2026-11 目录）",
+  "archive_policy": "原样复制，未做任何内容修改；哈希用于后续核对",
+  "files": {
+    "REPRO_NOTES.md": {
+      "bytes": 3245,
+      "sha256": "e601b556065bb3bf061223a027a575bc5f8aa16e7b2a8df81411271035cff9c9"
+    },
+    "requirements.txt": {
+      "bytes": 181,
+      "sha256": "fe0fd99f3f9fbfb145e34a6b02384555f26b2b39281aed249e01273e30b9f479"
+    },
+    "same_protocol_metrics.json": {
+      "bytes": 233,
+      "sha256": "20a68f7df3bf6c4b7755d300b79f6e39cf669c426b45da2f26cd9a51b90728e7"
+    }
+  }
+}

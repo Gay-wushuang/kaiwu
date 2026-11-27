@@ -1,9 +1,9 @@
 # RELEASE CHECKLIST — Phase 9 版本冻结与最终工程交付
 
 - 冻结时间：2026-11-27（Asia/Shanghai）
-- 工程分支：`engineering/reproducibility`
+- 工程分支：`engineering/reproducibility`（已并入 `main`；原始环境补充任务在 `main` 上进行）
 - 冻结代码：`822b7ea`（Phase 9 仅新增文档、依赖锁与归档，不改代码逻辑）
-- PR：#3 <https://github.com/Gay-wushuang/kaiwu/pull/3>，状态 OPEN，**未合并**
+- PR：#3 <https://github.com/Gay-wushuang/kaiwu/pull/3>，已于 2026-11-27 合并（merge commit `eded807`）；Phase 10 补充修复 `101ff28`
 - 边界：未修改模型、算法、参数、随机种子与科学结论；未提交真机任务；未消耗配额
 
 状态口径：`PASS` / `FAIL` / `BLOCKED` / `UNVERIFIED`。
@@ -14,11 +14,11 @@
 
 | 项目 | 状态 | 证据 / 说明 |
 |---|---|---|
-| 代码冻结 | PASS | 分支 HEAD `822b7ea`；PR 保持 OPEN，等待人工审查 |
+| 代码冻结 | PASS | 冻结代码 `822b7ea`；PR #3 已于 2026-11-27 合并（`eded807`），合并后补充 `28df547` / `101ff28` |
 | 官方原始数据 | PASS | `date/` 8 个 CSV，SHA256 与官方 `sha256_public.json` 全部一致；行数/列数匹配 |
 | 本机完整依赖锁定 | PASS | `requirements.lock.txt`（CPython 3.12.6，54 个包） |
-| 原始实验环境依赖清单 | BLOCKED | 队友原始环境位于 `D:\Python`，未提供完整版本清单 |
-| 双环境逐包差异 | BLOCKED | 仅有 README 记录的 `kaiwu==1.4.4` 与 Python 3.12；无法完成逐包对比 |
+| 原始实验环境依赖清单 | PASS（直接依赖）/ PARTIAL（传递依赖） | 队友已提供 `requirements.txt`（9 项）与 `REPRO_NOTES.md`，归档于 `docs/reproduction/original_environment/` |
+| 双环境逐包差异 | PASS（直接依赖 9/9）/ PARTIAL（传递依赖） | 直接依赖逐项对照见 `docs/reproduction/original_environment/ENVIRONMENT_REPORT.md`；队友未提供传递依赖 |
 | 原始 / 独立复现归档隔离 | PASS | 原始在 `results/`；复现在 `results/reproduction_20261127/`，互不覆盖 |
 | 结果替换 | PASS | 未用复现结果替换原始结果；差异单独记录 |
 | 数值差异归因 | PASS（审慎） | 已记录依赖差异，但**未认定其为唯一原因** |
@@ -27,12 +27,32 @@
 
 | 依赖 | 独立复现环境 | 原始环境 |
 |---|---|---|
-| Python | 3.12.6 | 3.12（README 记录） |
-| kaiwu | 1.4.4 | 1.4.4（README 记录） |
-| xgboost | 3.4.1 | 未知 |
-| scikit-learn | 1.9.1 | 未知 |
-| mendeleev | 1.4.0 | 未知 |
-| lightgbm | 未安装 | 未知（论文软件清单列出） |
+| Python | 3.12.6 | 3.12.5（队友材料） |
+| kaiwu | 1.4.4 | 1.4.4 |
+| numpy | 2.5.5 | 2.4.4 |
+| scikit-learn | 1.9.1 | 1.8.0 |
+| scipy | 1.18.1 | 1.17.1 |
+| xgboost | 3.4.1 | 3.4.1 |
+| lightgbm | 未安装 | 4.7.0 |
+| mendeleev | 1.4.0 | 1.4.0 |
+| matplotlib | 3.10.3 | 3.10.3 |
+| 操作系统 | Windows 10 19045 | Windows 11 |
+
+### 1.1 Phase 10 补充：原始环境对齐（2026-11-27）
+
+| 项目 | 结果 |
+|---|---|
+| 原始材料归档 | PASS：`REPRO_NOTES.md` / `requirements.txt` / `same_protocol_metrics.json`，含 SHA256 |
+| 直接依赖版本未知 | **已解除**：9/9 项按队友 `requirements.txt` 安装 |
+| 独立对齐环境 | `%LOCALAPPDATA%\kaiwu-original`，CPython 3.12.5 |
+| 依赖安装 | PASS：`pip check` 无冲突；10 个模块导入全部 OK |
+| 全量锁定 | `docs/reproduction/original_environment/requirements.freeze.txt`（55 项） |
+| 与 kaiwu-verify 差异 | lightgbm 新增；numpy / scikit-learn / scipy 三个版本不同；其余 51 项一致 |
+| kaiwu-verify 保护 | PASS：`pip freeze` 与 `requirements.lock.txt` 逐包一致，未降级、未覆盖 |
+| 操作系统 | **不一致**：队友 Windows 11，本机 Windows 10 19045；不得宣称环境完全相同 |
+| 传递依赖 | PARTIAL：队友未提供，无法逐包核对 |
+| 复现入口 | `reproduction/original_env_20261127/run_reproduction.ps1`（临时目录运行，不覆盖历史产物） |
+| 三种口径 | `docs/reproduction/PROTOCOLS.md`（02→03 / 分组 OOF / 04 官方盲测） |
 
 ---
 
@@ -54,7 +74,7 @@
 2. 预测与统计输出目录调整为 `code/predictions/`、`results/cim_stats/`、`results/cim_samples/`。
 3. `results/EXPERIMENT_INDEX.md` 中的任务信息是否与平台记录一致。
 
-PR 合并状态：**BLOCKED（等待人工审查）**，本阶段不自动合并。
+PR 合并状态：**已合并**（2026-11-27，merge commit `eded807`）；合并后修复换行哈希问题 `101ff28`。
 
 ---
 
@@ -66,7 +86,7 @@ PR 合并状态：**BLOCKED（等待人工审查）**，本阶段不自动合并
 |---|---|---|
 | Git commit SHA | PASS | 原始 `db624f1`；复现 `822b7ea` |
 | 官方数据 SHA256 | PASS | 8 个 CSV 全部记录 |
-| Python / 依赖版本 | PASS | 复现环境完整记录；原始环境 BLOCKED |
+| Python / 依赖版本 | PASS | 复现环境完整记录；原始环境直接依赖 9/9 已由队友提供并安装验证（传递依赖 PARTIAL） |
 | 实验运行时间 | PASS | 原始 29.1 s；复现 74.0 s |
 | 随机种子 | PASS（源码级） | `random_state=0`、`np.random.default_rng(7)`，位置见清单 |
 | 预测文件 SHA256 | PASS | 四个池的预测与提交文件哈希已记录 |
@@ -132,7 +152,7 @@ PR 合并状态：**BLOCKED（等待人工审查）**，本阶段不自动合并
 
 ## 6. 必须由参赛队员处理的事项
 
-1. **提供原始实验环境依赖清单**（`pip freeze` 或等价记录），解锁双环境逐包对比。
+1. **提供原始实验环境依赖清单**（`pip freeze` 或等价记录），解锁双环境逐包对比。—— 直接依赖已提供（9 项，见 `docs/reproduction/original_environment/`）；传递依赖仍待提供。
 2. **登录平台确认**设备类型、优化/采样配额余额与有效期；当前设备为 UNVERIFIED，配额为用户口述。
 3. **生成英文版论文**：正文、图表、页眉全部英文；建议用现有 `figures/f_*_en.png` 替换中文图。
 4. **按规范命名**：论文 `Dapmcm26306844.pdf`。
@@ -151,4 +171,4 @@ PR 合并状态：**BLOCKED（等待人工审查）**，本阶段不自动合并
 - 未提交任何真机任务，未消耗任何算力配额。
 - 未记录、未打印、未提交任何账号、密码、`sdk_code` 或 Token。
 - 未修改数学模型、算法、参数、随机种子、QUBO 系数与科学结论。
-- 未代写论文正文、未改写研究结论、未自动合并 PR、未自动提交比赛作品。
+- 未代写论文正文、未改写研究结论；PR #3 的合并在 Phase 10 由用户明确指示后执行；未自动提交比赛作品。

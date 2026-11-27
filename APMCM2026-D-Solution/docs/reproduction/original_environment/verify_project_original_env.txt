@@ -1,0 +1,49 @@
+﻿==================================================================
+[1] 依赖完整性
+  kaiwu       : OK
+  numpy       : OK
+  pandas      : OK
+  sklearn     : OK
+  xgboost     : OK
+  mendeleev   : OK
+  scipy       : OK
+  joblib      : OK
+  matplotlib  : OK
+  lightgbm    : OK
+==================================================================
+[2] 输入数据（赛题附件）
+  8/8 个附件存在
+==================================================================
+[3] 预测与模型文件
+  pool_q2_phys.csv      : OK
+  pool_q3_phys.csv      : OK
+  pool_q2b_phys.csv     : OK
+  pool_q3b_phys.csv     : OK
+  models/surrogate_phys.joblib: OK
+==================================================================
+[4] 程序入口语法检查
+  已检查 20 个脚本
+==================================================================
+[5] 路径可移植性
+  未发现盘符绝对路径或 sys.path 注入
+==================================================================
+[6] 输出文件完整性
+  OK results\submission_q1_holdout.csv
+  OK results\submission_q2_top20.csv
+  OK results\submission_q3_top20.csv
+  OK results\final_answers.json
+  OK results\FINAL_ANSWERS.md
+  OK results\metrics.csv
+  OK results\metrics.json
+  OK results\val_predictions.csv
+  OK results\model_compare.csv
+  OK results\local_sa_stats.csv
+==================================================================
+[7] dry-run 安全性
+  退出码 0 | 输出含 DRY-RUN：True | 未触发 license 输入：True
+  PASS：dry-run 未创建云端任务、未进入授权流程
+==================================================================
+[8] SHA256 校验
+  PASS：43 个文件哈希一致
+==================================================================
+结论：PASS 15 项 | FAIL 0 项 | BLOCKED 0 项 | WARN 0 项

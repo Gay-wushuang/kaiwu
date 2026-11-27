@@ -1,0 +1,10 @@
+# Python 3.12.5 on Windows 11
+numpy==2.4.4
+pandas==2.2.3
+scikit-learn==1.8.0
+xgboost==3.4.1
+lightgbm==4.7.0
+mendeleev==1.4.0
+scipy==1.17.1
+matplotlib==3.10.3
+kaiwu==1.4.4
