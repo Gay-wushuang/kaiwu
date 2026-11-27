@@ -194,6 +194,13 @@
 - Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）调用 1 次，输入为问题、上下文和文献种子，未扫描整个仓库；输出罚项阈值、目标变换、替代编码、量化误差四部分的公式、推导、反例与 3 个手算例。Trae 复算未发现需要追加第二次调用的实质性矛盾。
 - 本阶段只产出数学研究辅助资料；编码、罚项、变换、评价指标与正式实验参数由队员独立决定，第二阶段工程实现未启动。
 
+## 2026-11-28 T002-A V2：合成编码基准
+
+- Trae（DeepSeek-V4.1-Flash）在 `research/qubo-refinement` 上实现非赛题合成基准：200 个随机 4×4 成本表，one-hot vs domain-wall，strong/weak 两档 M；全逻辑空间穷举并走 8bit 适配；归档 `results/round2/qubo_refinement/EXPERIMENTS/`。未使用赛题输入、未修改第一轮数据、未提交真机、量子配额消耗 0。
+- Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）调用 1 次，返回 REVISE：修正 Spearman 常量秩、weak 有效计数，并给出 domain-wall 强罚项反例（`M=4.2` 时非法码 `(010,010)` 能量 −2.6，低于合法最优 1.0）。Trae 已修正实现/README 并复现反例；本次没有追加第二次 Codex。
+- 该基准是合成验证，不是正式第二轮实验；编码/参数/验收仍由队员决定。
+
+
 
 
 

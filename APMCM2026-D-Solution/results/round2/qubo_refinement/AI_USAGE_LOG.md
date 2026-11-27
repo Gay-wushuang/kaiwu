@@ -20,3 +20,10 @@
 - 输出四个方向的数学研究备忘录：罚项阈值、目标变换、替代编码、量化误差；含公式、推导、反例、3 个手算例、文献引用和待队员解决的问题。
 - 输出经 Trae 独立复算；未发现需要追加第二次 Codex 的实质性数学矛盾，因此本轮只调用 1 次。
 - 未修改任何文件、未提交真机、未消耗配额。
+
+## T002-A V2：合成编码基准
+
+- Trae：实现 `EXPERIMENTS/synthetic_encoding_benchmark.py`，对 200 个非赛题随机 4×4 成本表比较 one-hot 与 domain-wall、strong/weak 两档 M；全逻辑空间穷举（one-hot 256 状态、domain-wall 64 状态）；运行约 1.2 s；生成 `synthetic_benchmark_results.json` 与 `EXPERIMENTS/README.md`。未使用赛题输入、未修改第一轮数据、未提交真机、配额 0。
+- Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）调用 1 次；返回 REVISE，指出 Spearman 常量秩应记为未定义、README 的 weak 有效数需精确、strong 100% 不是普遍保证，并给出 domain-wall 强罚项反例。Trae 修正 Spearman（`null` + 有效条数），补录 weak 计数，并新增反例脚本/JSON；独立复现反例：M=4.2 时合法最低 1.0、非法 (010,010) 为 −2.6。
+- 本次没有新增需要第二次 Codex 的未解决矛盾；Codex 调用合计 1 次（V2）。
+
