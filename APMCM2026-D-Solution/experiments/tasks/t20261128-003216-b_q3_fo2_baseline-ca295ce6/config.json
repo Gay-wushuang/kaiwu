@@ -1,0 +1,59 @@
+{
+  "task_name": "B_Q3_FO2_baseline",
+  "mode": "opt",
+  "mode_key": "optimization",
+  "task_mode": "optimization",
+  "topk": 13,
+  "mfactor": 1.0,
+  "samples": 10,
+  "project_no": null,
+  "quota_units": 1,
+  "backend": "real",
+  "notes": "",
+  "n_qubo": 26,
+  "n_ising": 27,
+  "aux_bits": 1,
+  "M": 73.1704424810107,
+  "M0": 73.1704424810107,
+  "resol_raw": 1.9946673067071037,
+  "resol_adj": 2.0,
+  "ising_matrix_sha256": "ca295ce6a0b4af05eed472c0f2862e861c055d8214970105ce9b57163dc34b45",
+  "git_dir": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution",
+  "started_at": "2026-11-28 00:32:16 +0800",
+  "git_commit": "2a56c554f1a62561a883fe83f16d8c8a327b4357",
+  "git_branch": "main",
+  "git_dirty": true,
+  "sdk_version": "1.4.4",
+  "python_version": "3.12.5",
+  "task_id": "t20261128-003216-b_q3_fo2_baseline-ca295ce6",
+  "created_at": "2026-11-28 00:32:16 +0800",
+  "input_version": "B-Q3-FO2",
+  "input_kind": "independent_reproduction",
+  "input_matrix_sha256": "ef4f5e512b5b4ef3860d5ec71fc67e0ccd478a666eb730b84ae578d8b6cefcf8",
+  "input_shape": [
+    52,
+    52
+  ],
+  "input_files": {
+    "matrix.csv": "ab603dedddde1c0f76578ad0f913516fde5ebfbea98011a82490b6ee4b6c33e2",
+    "mapping.json": "26e5b3e016d2ac2865f44dc0fbe519eef7a4aa1907b60eb6a859852e544206f0",
+    "source_manifest.json": "cfbfa63f6db0d56ad5825afb76b26043cdada790ff8b0a0a54eda69583e9961d"
+  },
+  "submitted_matrix_sha256": "ca295ce6a0b4af05eed472c0f2862e861c055d8214970105ce9b57163dc34b45",
+  "ising_shape": [
+    27,
+    27
+  ],
+  "raw_ising_matrix_sha256": "e306ec0bb2a0d50842669c0c5bd983167a4bb3004c44b5924d7ca620ec590277",
+  "raw_ising_shape": [
+    27,
+    27
+  ],
+  "submitted_mapping_file": "input/submitted_mapping.json",
+  "submitted_mapping_sha256": "a996213bd7e552f9ae0ad70414c11541e928c1d0ac0cf858c8eb699f35626882",
+  "submitted_target_V_file": "input/submitted_target_V.csv",
+  "submitted_target_V_csv_sha256": "f8597f78def0354a1f8effdd3661f745400eadef649e2c74b179f4bd701b605d",
+  "submitted_A_count": 13,
+  "submitted_B_count": 13,
+  "aux_spin_count": 1
+}

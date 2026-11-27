@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "task_id": "t20261128-003216-b_q3_fo2_baseline-ca295ce6",
+  "input_version": "B-Q3-FO2",
+  "input_kind": "independent_reproduction",
+  "input_matrix_sha256": "ef4f5e512b5b4ef3860d5ec71fc67e0ccd478a666eb730b84ae578d8b6cefcf8",
+  "topk": 13,
+  "mfactor": 1.0,
+  "submitted_matrix_sha256": "ca295ce6a0b4af05eed472c0f2862e861c055d8214970105ce9b57163dc34b45",
+  "submitted_matrix_shape": [
+    27,
+    27
+  ],
+  "n_qubo": 26,
+  "n_ising": 27,
+  "aux_spin_count": 1,
+  "aux_spin_position": "last",
+  "aux_spin_indices": [
+    26
+  ],
+  "A_axis": "row",
+  "B_axis": "column",
+  "A": [
+    "Na",
+    "K",
+    "Rb",
+    "Ba",
+    "Li",
+    "Pb",
+    "La",
+    "Sr",
+    "Mg",
+    "Ga",
+    "Ca",
+    "Ge",
+    "In"
+  ],
+  "B": [
+    "Ti",
+    "Sc",
+    "Al",
+    "Mg",
+    "La",
+    "In",
+    "Zr",
+    "Si",
+    "Hf",
+    "Ca",
+    "Be",
+    "B",
+    "Sr"
+  ],
+  "variables": [
+    {
+      "index": 0,
+      "kind": "A",
+      "label": "Na"
+    },
+    {
+      "index": 1,
+      "kind": "A",
+      "label": "K"
+    },
+    {
+      "index": 2,
+      "kind": "A",
+      "label": "Rb"
+    },
+    {
+      "index": 3,
+      "kind": "A",
+      "label": "Ba"
+    },
+    {
+      "index": 4,
+      "kind": "A",
+      "label": "Li"
+    },
+    {
+      "index": 5,
+      "kind": "A",
+      "label": "Pb"
+    },
+    {
+      "index": 6,
+      "kind": "A",
+      "label": "La"
+    },
+    {
+      "index": 7,
+      "kind": "A",
+      "label": "Sr"
+    },
+    {
+      "index": 8,
+      "kind": "A",
+      "label": "Mg"
+    },
+    {
+      "index": 9,
+      "kind": "A",
+      "label": "Ga"
+    },
+    {
+      "index": 10,
+      "kind": "A",
+      "label": "Ca"
+    },
+    {
+      "index": 11,
+      "kind": "A",
+      "label": "Ge"
+    },
+    {
+      "index": 12,
+      "kind": "A",
+      "label": "In"
+    },
+    {
+      "index": 13,
+      "kind": "B",
+      "label": "Ti"
+    },
+    {
+      "index": 14,
+      "kind": "B",
+      "label": "Sc"
+    },
+    {
+      "index": 15,
+      "kind": "B",
+      "label": "Al"
+    },
+    {
+      "index": 16,
+      "kind": "B",
+      "label": "Mg"
+    },
+    {
+      "index": 17,
+      "kind": "B",
+      "label": "La"
+    },
+    {
+      "index": 18,
+      "kind": "B",
+      "label": "In"
+    },
+    {
+      "index": 19,
+      "kind": "B",
+      "label": "Zr"
+    },
+    {
+      "index": 20,
+      "kind": "B",
+      "label": "Si"
+    },
+    {
+      "index": 21,
+      "kind": "B",
+      "label": "Hf"
+    },
+    {
+      "index": 22,
+      "kind": "B",
+      "label": "Ca"
+    },
+    {
+      "index": 23,
+      "kind": "B",
+      "label": "Be"
+    },
+    {
+      "index": 24,
+      "kind": "B",
+      "label": "B"
+    },
+    {
+      "index": 25,
+      "kind": "B",
+      "label": "Sr"
+    },
+    {
+      "index": 26,
+      "kind": "aux",
+      "label": null
+    }
+  ],
+  "filtered_target_matrix": {
+    "path": "input/submitted_target_V.csv",
+    "shape": [
+      13,
+      13
+    ],
+    "file_sha256": "f8597f78def0354a1f8effdd3661f745400eadef649e2c74b179f4bd701b605d",
+    "semantic_sha256": "f13f9c405d887e95bbcbcca24302a6d2e8b92a89f168f85a7ad15ee6b2bd90a3"
+  }
+}

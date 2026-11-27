@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "task_id": "t20261128-001932-b_q2_baseline-be06017f",
+  "task_name": "B_Q2_baseline",
+  "status": "submit_failed",
+  "created_at": "2026-11-28 00:19:33 +0800",
+  "updated_at": "2026-11-28 00:30:10 +0800",
+  "input_version": "B-Q2-NO2",
+  "input_kind": "independent_reproduction",
+  "input_matrix_sha256": "0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e",
+  "submitted_matrix_sha256": "be06017ff8837e0b70886e5bbc049b25c5e61bb17890658da83d58d52d617940",
+  "ising_shape": [
+    27,
+    27
+  ],
+  "sdk_matrix_hash": null,
+  "mode_key": "optimization",
+  "mode": "opt",
+  "topk": 13,
+  "mfactor": 1.0,
+  "samples": 10,
+  "quota_units": 1,
+  "quota_counted": false,
+  "device": null,
+  "device_source": "pending_platform_report",
+  "platform_task_id": null,
+  "returned_solutions": null,
+  "runtime_s": null,
+  "error_stage": "submit",
+  "error_type": "LicenseUnavailable",
+  "error_message": "本机缺少 license.lic；SDK 请求 user_id/sdk_code，执行脚本按约定终止，未创建云端任务、未消耗配额",
+  "archive_dir": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-001932-b_q2_baseline-be06017f"
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "version": "B-Q3-O3",
+  "kind": "independent_reproduction",
+  "created_at": "2026-11-27 23:08:03 +0800",
+  "sub_question": "Q3",
+  "x_value": "O3",
+  "x_declared": true,
+  "value_column": "V_hat",
+  "value_semantics": "lower_is_better",
+  "shape": [
+    52,
+    52
+  ],
+  "matrix_sha256": "23908ae0adad088d2fed03e70fc7d48c01da770e28818e0503144405c3f6e423",
+  "files": {
+    "matrix.csv": "9a9e4747e90f3980818c95d6d698f865c4d9d2eb4c24108888306cce3e572325",
+    "mapping.json": "60027e40dc549e4cf120998b3e799ec05b5301628d40761601317fea93e100c2",
+    "source_manifest.json": "007768b3555164c47f709af2d2fd8cf080f2025740a4d43fb34155e4c4cf1041"
+  },
+  "source_paths": [
+    "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\results\\reproduction_20261127\\predictions\\pool_q3_phys.csv"
+  ],
+  "notes": ""
+}

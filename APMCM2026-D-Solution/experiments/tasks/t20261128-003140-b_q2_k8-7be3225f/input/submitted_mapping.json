@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "task_id": "t20261128-003140-b_q2_k8-7be3225f",
+  "input_version": "B-Q2-NO2",
+  "input_kind": "independent_reproduction",
+  "input_matrix_sha256": "0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e",
+  "topk": 8,
+  "mfactor": 1.0,
+  "submitted_matrix_sha256": "7be3225f2b2473d7c6e16715ffd8277e6ea74accc3637d7fddb37ea984d25d86",
+  "submitted_matrix_shape": [
+    17,
+    17
+  ],
+  "n_qubo": 16,
+  "n_ising": 17,
+  "aux_spin_count": 1,
+  "aux_spin_position": "last",
+  "aux_spin_indices": [
+    16
+  ],
+  "A_axis": "row",
+  "B_axis": "column",
+  "A": [
+    "La",
+    "Y",
+    "Sc",
+    "Sr",
+    "Ca",
+    "Ba",
+    "Bi",
+    "Pb"
+  ],
+  "B": [
+    "Zr",
+    "Hf",
+    "Si",
+    "Ti",
+    "Ga",
+    "Ta",
+    "Sn",
+    "Al"
+  ],
+  "variables": [
+    {
+      "index": 0,
+      "kind": "A",
+      "label": "La"
+    },
+    {
+      "index": 1,
+      "kind": "A",
+      "label": "Y"
+    },
+    {
+      "index": 2,
+      "kind": "A",
+      "label": "Sc"
+    },
+    {
+      "index": 3,
+      "kind": "A",
+      "label": "Sr"
+    },
+    {
+      "index": 4,
+      "kind": "A",
+      "label": "Ca"
+    },
+    {
+      "index": 5,
+      "kind": "A",
+      "label": "Ba"
+    },
+    {
+      "index": 6,
+      "kind": "A",
+      "label": "Bi"
+    },
+    {
+      "index": 7,
+      "kind": "A",
+      "label": "Pb"
+    },
+    {
+      "index": 8,
+      "kind": "B",
+      "label": "Zr"
+    },
+    {
+      "index": 9,
+      "kind": "B",
+      "label": "Hf"
+    },
+    {
+      "index": 10,
+      "kind": "B",
+      "label": "Si"
+    },
+    {
+      "index": 11,
+      "kind": "B",
+      "label": "Ti"
+    },
+    {
+      "index": 12,
+      "kind": "B",
+      "label": "Ga"
+    },
+    {
+      "index": 13,
+      "kind": "B",
+      "label": "Ta"
+    },
+    {
+      "index": 14,
+      "kind": "B",
+      "label": "Sn"
+    },
+    {
+      "index": 15,
+      "kind": "B",
+      "label": "Al"
+    },
+    {
+      "index": 16,
+      "kind": "aux",
+      "label": null
+    }
+  ],
+  "filtered_target_matrix": {
+    "path": "input/submitted_target_V.csv",
+    "shape": [
+      8,
+      8
+    ],
+    "file_sha256": "542a73a03487b06230e1a991d5a7d16e4a29ea96dcc2b6b4faa1c8c177810ff5",
+    "semantic_sha256": "4abbd63ce9054386c4fb62cb416c358b89f3f4e16d3437e8c33235c0836a4887"
+  }
+}

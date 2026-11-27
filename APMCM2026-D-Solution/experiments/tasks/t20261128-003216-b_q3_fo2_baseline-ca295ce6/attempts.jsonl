@@ -1,0 +1,2 @@
+{"at": "2026-11-28 00:32:16 +0800", "stage": "submit", "status": "started", "detail": "backend=real"}
+{"at": "2026-11-28 00:32:30 +0800", "stage": "solve", "status": "completed", "detail": "solutions=(9, 27)", "runtime_s": 14.015860899991821}

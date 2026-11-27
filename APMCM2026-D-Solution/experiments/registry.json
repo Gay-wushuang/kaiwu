@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-11-28 00:32:30 +0800",
+  "tasks": [
+    {
+      "task_id": "t20261128-001932-b_q2_baseline-be06017f",
+      "task_name": "B_Q2_baseline",
+      "status": "submit_failed",
+      "input_version": "B-Q2-NO2",
+      "input_kind": "independent_reproduction",
+      "input_matrix_sha256": "0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e",
+      "submitted_matrix_sha256": "be06017ff8837e0b70886e5bbc049b25c5e61bb17890658da83d58d52d617940",
+      "mode_key": "optimization",
+      "mode": "opt",
+      "quota_units": 1,
+      "archive_dir": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-001932-b_q2_baseline-be06017f",
+      "created_at": "2026-11-28 00:19:33 +0800",
+      "updated_at": "2026-11-28 00:30:10 +0800",
+      "quota_counted": false,
+      "error_stage": "submit",
+      "error_type": "LicenseUnavailable",
+      "error_message": "本机缺少 license.lic；SDK 请求 user_id/sdk_code，执行脚本按约定终止，未创建云端任务、未消耗配额"
+    },
+    {
+      "task_id": "t20261128-003014-b_q2_baseline-be06017f",
+      "task_name": "B_Q2_baseline",
+      "status": "completed",
+      "input_version": "B-Q2-NO2",
+      "input_kind": "independent_reproduction",
+      "input_matrix_sha256": "0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e",
+      "submitted_matrix_sha256": "be06017ff8837e0b70886e5bbc049b25c5e61bb17890658da83d58d52d617940",
+      "mode_key": "optimization",
+      "mode": "opt",
+      "quota_units": 1,
+      "archive_dir": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-003014-b_q2_baseline-be06017f",
+      "created_at": "2026-11-28 00:30:14 +0800",
+      "updated_at": "2026-11-28 00:30:22 +0800",
+      "sdk_matrix_hash": "565fa9b143a8a489f5924a1b03477764",
+      "quota_counted": true,
+      "returned_solutions": [
+        10,
+        27
+      ]
+    },
+    {
+      "task_id": "t20261128-003124-b_q2_m3x-e2530a24",
+      "task_name": "B_Q2_m3x",
+      "status": "completed",
+      "input_version": "B-Q2-NO2",
+      "input_kind": "independent_reproduction",
+      "input_matrix_sha256": "0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e",
+      "submitted_matrix_sha256": "e2530a2481d043f7bdcb21b6468a782be4d22f57516b339ae2a9bee80c8d3e73",
+      "mode_key": "optimization",
+      "mode": "opt",
+      "quota_units": 1,
+      "archive_dir": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-003124-b_q2_m3x-e2530a24",
+      "created_at": "2026-11-28 00:31:24 +0800",
+      "updated_at": "2026-11-28 00:31:32 +0800",
+      "sdk_matrix_hash": "08efa36913e7de3190f16e25c7e24c0c",
+      "quota_counted": true,
+      "returned_solutions": [
+        10,
+        27
+      ]
+    },
+    {
+      "task_id": "t20261128-003140-b_q2_k8-7be3225f",
+      "task_name": "B_Q2_k8",
+      "status": "completed",
+      "input_version": "B-Q2-NO2",
+      "input_kind": "independent_reproduction",
+      "input_matrix_sha256": "0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e",
+      "submitted_matrix_sha256": "7be3225f2b2473d7c6e16715ffd8277e6ea74accc3637d7fddb37ea984d25d86",
+      "mode_key": "optimization",
+      "mode": "opt",
+      "quota_units": 1,
+      "archive_dir": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-003140-b_q2_k8-7be3225f",
+      "created_at": "2026-11-28 00:31:41 +0800",
+      "updated_at": "2026-11-28 00:31:48 +0800",
+      "sdk_matrix_hash": "366250c5f478a327cef44bc54d7fc8c8",
+      "quota_counted": true,
+      "returned_solutions": [
+        10,
+        17
+      ]
+    },
+    {
+      "task_id": "t20261128-003159-b_q3_o3_baseline-7cd9ce6b",
+      "task_name": "B_Q3_O3_baseline",
+      "status": "completed",
+      "input_version": "B-Q3-O3",
+      "input_kind": "independent_reproduction",
+      "input_matrix_sha256": "23908ae0adad088d2fed03e70fc7d48c01da770e28818e0503144405c3f6e423",
+      "submitted_matrix_sha256": "7cd9ce6bef3a22a859a8fc20add93d1520e2d9948fdbdc32bd5f72eab2c903a9",
+      "mode_key": "optimization",
+      "mode": "opt",
+      "quota_units": 1,
+      "archive_dir": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-003159-b_q3_o3_baseline-7cd9ce6b",
+      "created_at": "2026-11-28 00:32:00 +0800",
+      "updated_at": "2026-11-28 00:32:07 +0800",
+      "sdk_matrix_hash": "68b6546d51f94f44ec2d54b76375668b",
+      "quota_counted": true,
+      "returned_solutions": [
+        9,
+        27
+      ]
+    },
+    {
+      "task_id": "t20261128-003216-b_q3_fo2_baseline-ca295ce6",
+      "task_name": "B_Q3_FO2_baseline",
+      "status": "completed",
+      "input_version": "B-Q3-FO2",
+      "input_kind": "independent_reproduction",
+      "input_matrix_sha256": "ef4f5e512b5b4ef3860d5ec71fc67e0ccd478a666eb730b84ae578d8b6cefcf8",
+      "submitted_matrix_sha256": "ca295ce6a0b4af05eed472c0f2862e861c055d8214970105ce9b57163dc34b45",
+      "mode_key": "optimization",
+      "mode": "opt",
+      "quota_units": 1,
+      "archive_dir": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-003216-b_q3_fo2_baseline-ca295ce6",
+      "created_at": "2026-11-28 00:32:16 +0800",
+      "updated_at": "2026-11-28 00:32:30 +0800",
+      "sdk_matrix_hash": "42daec1aa1dcfedeb50359b25d3b07a5",
+      "quota_counted": true,
+      "returned_solutions": [
+        9,
+        27
+      ]
+    }
+  ]
+}

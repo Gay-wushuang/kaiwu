@@ -1,0 +1,2 @@
+{"at": "2026-11-28 00:19:33 +0800", "stage": "submit", "status": "started", "detail": "backend=real"}
+{"at": "2026-11-28 00:30:10 +0800", "stage": "submit", "status": "submit_failed", "detail": "本机缺少 license.lic；SDK 请求 user_id/sdk_code，执行脚本按约定终止，未创建云端任务、未消耗配额"}
