@@ -187,6 +187,14 @@
 - Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）调用 2 次。第一次核验为 REVISE：指出 `M0` 不能对任意非负 V 保证合法解胜出、`resolution` 不能单独决定排序、第一轮复核需列出全部返回样本；Trae 补全证据并修正表述。第二次核验为 CONFIRMED，确认上述修正、48/11/合法命中口径、原始 argmin 保留 2/5 与返回命中 0/5 的区分、合法子空间边界。两次结论见 `results/round2/phase1_math_interfaces/codex_review_01/02.json`。
 - 第二轮正式研究配置未提供，第二阶段停止；未选择参数、未执行真机、未消耗配额。
 
+## 2026-11-28 T002-A：有限精度 QUBO 数学表达研究辅助
+
+- 分支：`research/qubo-refinement`（起始 `b4ed23f6cbaa233e70fba20eb369807bc7cf1a6d`）。
+- Trae（DeepSeek-V4.1-Flash）阅读允许范围内的数学接口、T002 证据与公开文献种子；向 Codex 提出四个方向的数学问题；独立复算 Codex 的教学例子与命题（33/33 PASS）；核验 5 篇文献的 arXiv/DOI；归档 `results/round2/qubo_refinement/`。未训练模型、未修改基线 B、未提交真机、量子配额消耗 0。
+- Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）调用 1 次，输入为问题、上下文和文献种子，未扫描整个仓库；输出罚项阈值、目标变换、替代编码、量化误差四部分的公式、推导、反例与 3 个手算例。Trae 复算未发现需要追加第二次调用的实质性矛盾。
+- 本阶段只产出数学研究辅助资料；编码、罚项、变换、评价指标与正式实验参数由队员独立决定，第二阶段工程实现未启动。
+
+
 
 
 
