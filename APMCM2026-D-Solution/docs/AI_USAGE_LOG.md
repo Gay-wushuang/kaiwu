@@ -199,6 +199,7 @@
 - Trae（DeepSeek-V4.1-Flash）在 `research/qubo-refinement` 上实现非赛题合成基准：200 个随机 4×4 成本表，one-hot vs domain-wall，strong/weak 两档 M；全逻辑空间穷举并走 8bit 适配；归档 `results/round2/qubo_refinement/EXPERIMENTS/`。未使用赛题输入、未修改第一轮数据、未提交真机、量子配额消耗 0。
 - Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）调用 1 次，返回 REVISE：修正 Spearman 常量秩、weak 有效计数，并给出 domain-wall 强罚项反例（`M=4.2` 时非法码 `(010,010)` 能量 −2.6，低于合法最优 1.0）。Trae 已修正实现/README 并复现反例；本次没有追加第二次 Codex。
 - 该基准是合成验证，不是正式第二轮实验；编码/参数/验收仍由队员决定。
+- 追加冻结 B 输入 topk=8 全空间对照：one-hot 与 domain-wall 在 Q2/O3/FO2 上互有胜负，无跨输入稳定占优；未产生可提交真机的候选，真机 0 次、配额 0。
 
 
 

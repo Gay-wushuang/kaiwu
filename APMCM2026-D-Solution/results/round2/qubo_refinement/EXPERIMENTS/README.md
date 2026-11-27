@@ -60,7 +60,21 @@
 - 未实现 binary 编码的系统对照（一般 `V` 需要高阶/辅助位），也未使用 PrecisionReducer/动态范围压缩/变量拆分。
 - 结论仅支持：在本合成设置下，合法域等价不保证量化后最优集合相同；strong M 在本批随机实例中保持全空间约束有效，但存在 domain-wall 反例；weak M 会失效；domain-wall 在该样本下目标保真指标更好，但不能外推。
 
-## 与第一轮指标的关系
+## 冻结 B 输入 topk=8 的全空间对照
+
+使用 `B-Q2-NO2`、`B-Q3-O3`、`B-Q3-FO2` 的 topk=8 子矩阵（不是第一轮 topk=13 配置），one-hot strong 与 domain-wall 四档 M；全逻辑空间穷举。结果文件：`domain_wall_bq_multi_results.json`。
+
+| 输入 | one-hot：保留/非原始/Spearman | DW 1.05：保留/非原始/Spearman | DW 8：保留/非原始/Spearman | 约束有效（exact/quant） |
+|---|---|---|---|---|
+| B-Q2-NO2 | 1.000 / 0 / 0.9779 | 1.000 / 1 / 0.99975 | 0.000 / 2 / 0.99138 | 全部 true |
+| B-Q3-O3 | 0.667 / 2 / 0.9087 | 0.333 / 0 / 0.99339 | 0.333 / 3 / 0.96579 | 全部 true |
+| B-Q3-FO2 | 0.000 / 1 / 0.9437 | 0.000 / 2 / 0.99667 | 1.000 / 1 / 0.97991 | 全部 true |
+
+- 规模：one-hot 16 逻辑变量 / Ising 17；domain-wall 14 / Ising 15；两者各 1 个辅助自旋。
+- 没有一个编码在三个输入上同时保持原始最优集合：one-hot 在 Q2 完整保留、O3 部分、FO2 丢失；domain-wall 在 Q2 有额外非原始最优、O3 保留更低、FO2 仅在部分 M 下保留。
+- 因此不能从本合成/子集对照直接选出“更好的编码”；也不能据此声称相对第一轮真机指标有提升。
+
+
 
 第一轮真机：48 返回 / 11 合法（采样合法率）、量化合法最优命中 5/5、返回合法解命中原始最优 0/5。本基准是合成成本表上的全空间枚举：`quant_valid_rate` 是“最优合法 vs 最优非法”的全空间约束有效性，不是硬件采样合法率；“保留比例/非原始最优”是 16 个合法标签集合指标。两者口径不同，**不能计算或声称相对第一轮的指标升降**。第一轮数据未重算、未修改。
 
@@ -73,6 +87,8 @@
 ```powershell
 & "$env:LOCALAPPDATA\kaiwu-verify\Scripts\python.exe" `
   results/round2/qubo_refinement/EXPERIMENTS/synthetic_encoding_benchmark.py
+& "$env:LOCALAPPDATA\kaiwu-verify\Scripts\python.exe" `
+  results/round2/qubo_refinement/EXPERIMENTS/domain_wall_bq_multi.py
 ```
 
-输出 `synthetic_benchmark_results.json`，含 800 条逐实例记录（`instance/regime/encoding/M/Vmin/Vmax/raw_set/quant_set/...`）。Codex 核验记录见 `CODEX_REVIEW_01.json`。
+输出 `synthetic_benchmark_results.json`（800 条逐实例记录）与 `domain_wall_bq_multi_results.json`（3 个 B 输入、topk=8）。Codex 核验记录见 `CODEX_REVIEW_01.json`。
