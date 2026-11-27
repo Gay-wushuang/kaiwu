@@ -175,4 +175,11 @@
 - 第二轮正式参数尚未由队员给出；AI 未预设方案。后续仅按队员确定并人工确认的配置调用既有入口，保留逐任务人工确认。
 - 队员对第一轮结果、报告及本记录的独立核验、采纳与修改情况待据实补记。
 
+## 2026-11-28 任务 001：第一轮成果交付冻结（Trae + Codex）
+
+- Trae（会话模型标识为 DeepSeek-V4.1-Flash）按队员指定范围整理基线 B 模型复现记录、四个预测池、第一轮 5 个完成任务与 1 个失败记录、平台 PDF、配额账本与 AI 使用记录；生成候选包清单、引用关系、来源完整性对照与待确认事项。未修改原始报告或实验数据，未选择研究参数，未提交真机，量子配额消耗 0。
+- Codex（`gpt-6.2-sol` / `medium`）作为独立审查 Agent，仅检查候选包目录与交付清单。前三次使用 `read-only`，每次调用的 status、findings、evidence、required_changes 见交付目录 `results/support_materials_candidate_20261128/REVIEW/CODEX_REVIEW_01..03.json`。队员先例外授权第三次复审；第三次仍为 REVISE 后，明确要求 Codex 直接修复。第 4 次调用改用 `workspace-write`，仅允许修改候选包内文件，未改动任何文件并返回 PASS，记录见 `CODEX_REVIEW_04.json`。Trae 按有效反馈修复实际交付问题，并做本地哈希与清单复核。
+- 两个 Agent 均未参与核心建模、算法设计、求解方案或科学结论；论文负责人仍需按 `PENDING_CONFIRMATIONS.md` 独立核验。
+
+
 

@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "findings": [
+    "候选包已满足全部要求。修订件仅删除原件中唯一含“3 次配额已用完”的一行。",
+    "SOURCE_INTEGRITY.csv 的修订行与要求完全一致。FORMAL/BASELINE_B/REVISIONS.md 已记录来源、原件和修订件的 SHA256 及修订内容。"
+  ],
+  "evidence": [
+    "PowerShell 脚本从原件字节偏移 1335 处删除目标行的 106 字节，所得 1335 字节与修订件逐字节相等。",
+    "原件 SHA256 为 40e7d82399f7eaeb7a10999457ec29131f633637ab58f2d8798f911283698b87。",
+    "修订件 SHA256 为 9789ff3f9c01dff2da835c1f84b8d97c7d8cdfd81b0dbc9c4c92745850e6c76a。",
+    "包内共 184 个文件。MANIFEST.csv 覆盖应列的 182 个文件，字节数和 SHA256 全部匹配。根 SHA256SUMS.txt 覆盖应列的 183 个文件，格式正确且 SHA256 全部匹配。"
+  ],
+  "required_changes": [],
+  "requires_human": false,
+  "changes_made": []
+}

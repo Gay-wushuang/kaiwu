@@ -1,0 +1,23 @@
+{
+  "status": "REVISE",
+  "findings": [
+    "上一轮三项问题已修复。根 SHA256SUMS.txt 覆盖除自身外的全部 181 个文件，含嵌套预测哈希清单，逐项重算均一致。嵌套清单中的 4 个预测文件也全部匹配。",
+    "REFERENCE_MAP.md 第 4 节覆盖全部 6 个任务。逐项核对了输入版本、任务 config.json 中记录的哈希、表中哈希及集中 source_manifest.json 副本的实测哈希，全部一致。",
+    "MANIFEST.csv 引用的 180 个文件均存在，大小及哈希均匹配。SOURCE_INTEGRITY.csv 覆盖全部 170 个复制件，逐项列出来源路径、原件打包前后 SHA-256、复制件 SHA-256 和 match，全部为 yes。包内重算结果与记录一致，原件前后哈希依据包内记录核对。",
+    "任务归档和注册表均为 5 个 completed、1 个 submit_failed，失败项 quota_counted=false。第一轮历史记录计用 5 次，本次只读验收消耗 0 次真机配额。",
+    "包内文件名与文本扫描未发现实际登录凭据、License 内容或所列排除目录及文件。文档将 V̂ 定义为代理模型预测违反度，并将真机最优限定在 8-bit 适配矩阵的合法 one-hot 指派范围内。",
+    "正式基线登记为 B，A 的预测池和平台报告未混入。仍有一处正文混用：FORMAL/BASELINE_B/FINAL_ANSWERS.md 第 40 行以未标注历史归属的口吻写有“3 次配额已用完”，并指向 A 的结果目录。KNOWN_ISSUES.md 确认该行属于 A，B 的正式答案正文仍易被误引。"
+  ],
+  "evidence": [
+    "根清单与预测清单：SHA256SUMS.txt、FORMAL/BASELINE_B/predictions/SHA256SUMS.txt",
+    "六项映射：REFERENCE_MAP.md、FORMAL/ROUND1/tasks/、FORMAL/ROUND1/inputs/B-Q2-NO2/source_manifest.json、FORMAL/ROUND1/inputs/B-Q3-O3/source_manifest.json、FORMAL/ROUND1/inputs/B-Q3-FO2/source_manifest.json",
+    "复制件清单与来源证据：MANIFEST.csv、SOURCE_INTEGRITY.csv",
+    "任务、配额与结果口径：FORMAL/ROUND1/registry.json、FORMAL/ROUND1/ROUND1_REAL_MACHINE_REPORT.md、README.md",
+    "排除项与安全扫描：VERSION.json、SECURITY_SCAN.md",
+    "基线混用位置与历史归属：FORMAL/BASELINE_B/FINAL_ANSWERS.md、KNOWN_ISSUES.md、HISTORICAL/BASELINE_A_REFERENCE.md"
+  ],
+  "required_changes": [
+    "从基线 B 的正式答案正文移除第 40 行的基线 A 配额和结果引用，将该信息保留在历史说明中。正式答案如需链接真机结果，指向 FORMAL/ROUND1/ROUND1_REAL_MACHINE_REPORT.md。同步更新受影响的文件清单和 SHA-256 记录，并准确记录修订件的来源。"
+  ],
+  "requires_human": false
+}

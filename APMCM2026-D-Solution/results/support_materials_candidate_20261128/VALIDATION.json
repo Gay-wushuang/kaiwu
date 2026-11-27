@@ -1,0 +1,1894 @@
+{
+  "created_at": "2026-11-28 02:09:01 +0800",
+  "checks": [
+    {
+      "check": "修订件仅删除一行",
+      "status": "PASS",
+      "evidence": "FINAL_ANSWERS.md"
+    },
+    {
+      "check": "修订件不含 A 配额注记",
+      "status": "PASS",
+      "evidence": "FINAL_ANSWERS.md"
+    },
+    {
+      "check": "原件打包前后不变 results/reproduction_20261127/README.md",
+      "status": "PASS",
+      "evidence": "results/reproduction_20261127/README.md"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/REPRODUCTION_README.md",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/REPRODUCTION_README.md"
+    },
+    {
+      "check": "原件打包前后不变 results/reproduction_20261127/FINAL_ANSWERS.md",
+      "status": "PASS",
+      "evidence": "results/reproduction_20261127/FINAL_ANSWERS.md"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/FINAL_ANSWERS_ORIGINAL.md",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/FINAL_ANSWERS_ORIGINAL.md"
+    },
+    {
+      "check": "原件打包前后不变 results/reproduction_20261127/final_answers.json",
+      "status": "PASS",
+      "evidence": "results/reproduction_20261127/final_answers.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/final_answers.json",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/final_answers.json"
+    },
+    {
+      "check": "原件打包前后不变 results/reproduction_20261127/run_all.log",
+      "status": "PASS",
+      "evidence": "results/reproduction_20261127/run_all.log"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/run_all.log",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/run_all.log"
+    },
+    {
+      "check": "原件打包前后不变 results/EXPERIMENT_VERSION.json",
+      "status": "PASS",
+      "evidence": "results/EXPERIMENT_VERSION.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/EXPERIMENT_VERSION.json",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/EXPERIMENT_VERSION.json"
+    },
+    {
+      "check": "原件打包前后不变 docs/reproduction/PROTOCOLS.md",
+      "status": "PASS",
+      "evidence": "docs/reproduction/PROTOCOLS.md"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/PROTOCOLS.md",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/PROTOCOLS.md"
+    },
+    {
+      "check": "原件打包前后不变 results/reproduction_20261127/submission_q1_holdout.csv",
+      "status": "PASS",
+      "evidence": "results/reproduction_20261127/submission_q1_holdout.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/delivered/submission_q1_holdout.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/delivered/submission_q1_holdout.csv"
+    },
+    {
+      "check": "原件打包前后不变 results/reproduction_20261127/submission_q2_top20.csv",
+      "status": "PASS",
+      "evidence": "results/reproduction_20261127/submission_q2_top20.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/delivered/submission_q2_top20.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/delivered/submission_q2_top20.csv"
+    },
+    {
+      "check": "原件打包前后不变 results/reproduction_20261127/submission_q3_top20.csv",
+      "status": "PASS",
+      "evidence": "results/reproduction_20261127/submission_q3_top20.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/delivered/submission_q3_top20.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/delivered/submission_q3_top20.csv"
+    },
+    {
+      "check": "原件打包前后不变 results/reproduction_20261127/predictions/README.md",
+      "status": "PASS",
+      "evidence": "results/reproduction_20261127/predictions/README.md"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/predictions/README.md",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/predictions/README.md"
+    },
+    {
+      "check": "原件打包前后不变 results/reproduction_20261127/predictions/SHA256SUMS.txt",
+      "status": "PASS",
+      "evidence": "results/reproduction_20261127/predictions/SHA256SUMS.txt"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/predictions/SHA256SUMS.txt",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/predictions/SHA256SUMS.txt"
+    },
+    {
+      "check": "原件打包前后不变 results/reproduction_20261127/predictions/pool_q2_phys.csv",
+      "status": "PASS",
+      "evidence": "results/reproduction_20261127/predictions/pool_q2_phys.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/predictions/pool_q2_phys.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/predictions/pool_q2_phys.csv"
+    },
+    {
+      "check": "原件打包前后不变 results/reproduction_20261127/predictions/pool_q2b_phys.csv",
+      "status": "PASS",
+      "evidence": "results/reproduction_20261127/predictions/pool_q2b_phys.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/predictions/pool_q2b_phys.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/predictions/pool_q2b_phys.csv"
+    },
+    {
+      "check": "原件打包前后不变 results/reproduction_20261127/predictions/pool_q3_phys.csv",
+      "status": "PASS",
+      "evidence": "results/reproduction_20261127/predictions/pool_q3_phys.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/predictions/pool_q3_phys.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/predictions/pool_q3_phys.csv"
+    },
+    {
+      "check": "原件打包前后不变 results/reproduction_20261127/predictions/pool_q3b_phys.csv",
+      "status": "PASS",
+      "evidence": "results/reproduction_20261127/predictions/pool_q3b_phys.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/predictions/pool_q3b_phys.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/predictions/pool_q3b_phys.csv"
+    },
+    {
+      "check": "原件打包前后不变 reproduction/original_env_20261127/README.md",
+      "status": "PASS",
+      "evidence": "reproduction/original_env_20261127/README.md"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/original_env/ORIGINAL_ENV_README.md",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/original_env/ORIGINAL_ENV_README.md"
+    },
+    {
+      "check": "原件打包前后不变 reproduction/original_env_20261127/run_20261127/COMPARISON.md",
+      "status": "PASS",
+      "evidence": "reproduction/original_env_20261127/run_20261127/COMPARISON.md"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/original_env/COMPARISON.md",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/original_env/COMPARISON.md"
+    },
+    {
+      "check": "原件打包前后不变 reproduction/original_env_20261127/run_reproduction.ps1",
+      "status": "PASS",
+      "evidence": "reproduction/original_env_20261127/run_reproduction.ps1"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/original_env/run_reproduction.ps1",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/original_env/run_reproduction.ps1"
+    },
+    {
+      "check": "原件打包前后不变 docs/reproduction/original_environment/REPRO_NOTES.md",
+      "status": "PASS",
+      "evidence": "docs/reproduction/original_environment/REPRO_NOTES.md"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/original_env/REPRO_NOTES.md",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/original_env/REPRO_NOTES.md"
+    },
+    {
+      "check": "原件打包前后不变 docs/reproduction/original_environment/same_protocol_metrics.json",
+      "status": "PASS",
+      "evidence": "docs/reproduction/original_environment/same_protocol_metrics.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/original_env/same_protocol_metrics.json",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/original_env/same_protocol_metrics.json"
+    },
+    {
+      "check": "原件打包前后不变 docs/reproduction/original_environment/requirements.txt",
+      "status": "PASS",
+      "evidence": "docs/reproduction/original_environment/requirements.txt"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/original_env/requirements.txt",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/original_env/requirements.txt"
+    },
+    {
+      "check": "原件打包前后不变 docs/reproduction/original_environment/requirements.freeze.txt",
+      "status": "PASS",
+      "evidence": "docs/reproduction/original_environment/requirements.freeze.txt"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/original_env/requirements.freeze.txt",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/original_env/requirements.freeze.txt"
+    },
+    {
+      "check": "原件打包前后不变 docs/reproduction/original_environment/ENVIRONMENT_REPORT.md",
+      "status": "PASS",
+      "evidence": "docs/reproduction/original_environment/ENVIRONMENT_REPORT.md"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/original_env/ENVIRONMENT_REPORT.md",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/original_env/ENVIRONMENT_REPORT.md"
+    },
+    {
+      "check": "原件打包前后不变 docs/reproduction/original_environment/MANIFEST.json",
+      "status": "PASS",
+      "evidence": "docs/reproduction/original_environment/MANIFEST.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/original_env/MANIFEST.json",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/original_env/MANIFEST.json"
+    },
+    {
+      "check": "原件打包前后不变 docs/reproduction/original_environment/import_check.json",
+      "status": "PASS",
+      "evidence": "docs/reproduction/original_environment/import_check.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/original_env/import_check.json",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/original_env/import_check.json"
+    },
+    {
+      "check": "原件打包前后不变 docs/reproduction/original_environment/pip_check.txt",
+      "status": "PASS",
+      "evidence": "docs/reproduction/original_environment/pip_check.txt"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/original_env/pip_check.txt",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/original_env/pip_check.txt"
+    },
+    {
+      "check": "原件打包前后不变 docs/reproduction/original_environment/verify_project_original_env.txt",
+      "status": "PASS",
+      "evidence": "docs/reproduction/original_environment/verify_project_original_env.txt"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/BASELINE_B/original_env/verify_project_original_env.txt",
+      "status": "PASS",
+      "evidence": "FORMAL/BASELINE_B/original_env/verify_project_original_env.txt"
+    },
+    {
+      "check": "原件打包前后不变 results/ROUND1_REAL_MACHINE_REPORT.md",
+      "status": "PASS",
+      "evidence": "results/ROUND1_REAL_MACHINE_REPORT.md"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/ROUND1_REAL_MACHINE_REPORT.md",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/ROUND1_REAL_MACHINE_REPORT.md"
+    },
+    {
+      "check": "原件打包前后不变 docs/AI_USAGE_LOG.md",
+      "status": "PASS",
+      "evidence": "docs/AI_USAGE_LOG.md"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/AI_USAGE_LOG.md",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/AI_USAGE_LOG.md"
+    },
+    {
+      "check": "原件打包前后不变 experiments/registry.json",
+      "status": "PASS",
+      "evidence": "experiments/registry.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/registry.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/registry.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/config/quota_budget.json",
+      "status": "PASS",
+      "evidence": "experiments/config/quota_budget.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/quota_budget.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/quota_budget.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/inputs/B-Q2-NO2/manifest.json",
+      "status": "PASS",
+      "evidence": "experiments/inputs/B-Q2-NO2/manifest.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/inputs/B-Q2-NO2/manifest.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/inputs/B-Q2-NO2/manifest.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/inputs/B-Q2-NO2/mapping.json",
+      "status": "PASS",
+      "evidence": "experiments/inputs/B-Q2-NO2/mapping.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/inputs/B-Q2-NO2/mapping.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/inputs/B-Q2-NO2/mapping.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/inputs/B-Q2-NO2/source_manifest.json",
+      "status": "PASS",
+      "evidence": "experiments/inputs/B-Q2-NO2/source_manifest.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/inputs/B-Q2-NO2/source_manifest.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/inputs/B-Q2-NO2/source_manifest.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/inputs/B-Q2-NO2/matrix.csv",
+      "status": "PASS",
+      "evidence": "experiments/inputs/B-Q2-NO2/matrix.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/inputs/B-Q2-NO2/matrix.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/inputs/B-Q2-NO2/matrix.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/inputs/B-Q3-O3/manifest.json",
+      "status": "PASS",
+      "evidence": "experiments/inputs/B-Q3-O3/manifest.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/inputs/B-Q3-O3/manifest.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/inputs/B-Q3-O3/manifest.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/inputs/B-Q3-O3/mapping.json",
+      "status": "PASS",
+      "evidence": "experiments/inputs/B-Q3-O3/mapping.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/inputs/B-Q3-O3/mapping.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/inputs/B-Q3-O3/mapping.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/inputs/B-Q3-O3/source_manifest.json",
+      "status": "PASS",
+      "evidence": "experiments/inputs/B-Q3-O3/source_manifest.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/inputs/B-Q3-O3/source_manifest.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/inputs/B-Q3-O3/source_manifest.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/inputs/B-Q3-O3/matrix.csv",
+      "status": "PASS",
+      "evidence": "experiments/inputs/B-Q3-O3/matrix.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/inputs/B-Q3-O3/matrix.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/inputs/B-Q3-O3/matrix.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/inputs/B-Q3-FO2/manifest.json",
+      "status": "PASS",
+      "evidence": "experiments/inputs/B-Q3-FO2/manifest.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/inputs/B-Q3-FO2/manifest.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/inputs/B-Q3-FO2/manifest.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/inputs/B-Q3-FO2/mapping.json",
+      "status": "PASS",
+      "evidence": "experiments/inputs/B-Q3-FO2/mapping.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/inputs/B-Q3-FO2/mapping.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/inputs/B-Q3-FO2/mapping.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/inputs/B-Q3-FO2/source_manifest.json",
+      "status": "PASS",
+      "evidence": "experiments/inputs/B-Q3-FO2/source_manifest.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/inputs/B-Q3-FO2/source_manifest.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/inputs/B-Q3-FO2/source_manifest.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/inputs/B-Q3-FO2/matrix.csv",
+      "status": "PASS",
+      "evidence": "experiments/inputs/B-Q3-FO2/matrix.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/inputs/B-Q3-FO2/matrix.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/inputs/B-Q3-FO2/matrix.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/inputs/B-Q3-NO2/manifest.json",
+      "status": "PASS",
+      "evidence": "experiments/inputs/B-Q3-NO2/manifest.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/inputs/B-Q3-NO2/manifest.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/inputs/B-Q3-NO2/manifest.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/inputs/B-Q3-NO2/mapping.json",
+      "status": "PASS",
+      "evidence": "experiments/inputs/B-Q3-NO2/mapping.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/inputs/B-Q3-NO2/mapping.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/inputs/B-Q3-NO2/mapping.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/inputs/B-Q3-NO2/source_manifest.json",
+      "status": "PASS",
+      "evidence": "experiments/inputs/B-Q3-NO2/source_manifest.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/inputs/B-Q3-NO2/source_manifest.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/inputs/B-Q3-NO2/source_manifest.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/inputs/B-Q3-NO2/matrix.csv",
+      "status": "PASS",
+      "evidence": "experiments/inputs/B-Q3-NO2/matrix.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/inputs/B-Q3-NO2/matrix.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/inputs/B-Q3-NO2/matrix.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/attempts.jsonl",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/attempts.jsonl"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/attempts.jsonl",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/attempts.jsonl"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/config.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/config.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/config.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/config.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/task.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/task.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/task.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/task.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/hashes.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/hashes.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/hashes.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/hashes.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/ising_matrix.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/ising_matrix.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/ising_matrix.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/ising_matrix.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/ising_matrix_raw.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/ising_matrix_raw.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/ising_matrix_raw.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/ising_matrix_raw.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/ising_matrix_raw.npz",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/ising_matrix_raw.npz"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/ising_matrix_raw.npz",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/ising_matrix_raw.npz"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/manifest.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/manifest.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/manifest.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/manifest.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/mapping.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/mapping.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/mapping.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/mapping.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/matrix.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/matrix.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/matrix.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/matrix.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/submitted_mapping.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/submitted_mapping.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/submitted_mapping.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/submitted_mapping.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/submitted_target_V.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/input/submitted_target_V.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/submitted_target_V.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/submitted_target_V.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/logs/run.log",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/logs/run.log"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/logs/run.log",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/logs/run.log"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/raw/solutions.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/raw/solutions.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/raw/solutions.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/raw/solutions.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/raw/solutions.npz",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/raw/solutions.npz"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/raw/solutions.npz",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/raw/solutions.npz"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/raw/solution_energy.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/raw/solution_energy.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/raw/solution_energy.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/raw/solution_energy.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/reports/B_Q2_baseline.pdf",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003014-b_q2_baseline-be06017f/reports/B_Q2_baseline.pdf"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/reports/B_Q2_baseline.pdf",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/reports/B_Q2_baseline.pdf"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/attempts.jsonl",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/attempts.jsonl"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/attempts.jsonl",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/attempts.jsonl"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/config.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/config.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/config.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/config.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/task.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/task.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/task.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/task.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/hashes.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/hashes.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/hashes.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/hashes.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/ising_matrix.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/ising_matrix.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/ising_matrix.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/ising_matrix.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/ising_matrix_raw.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/ising_matrix_raw.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/ising_matrix_raw.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/ising_matrix_raw.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/ising_matrix_raw.npz",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/ising_matrix_raw.npz"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/ising_matrix_raw.npz",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/ising_matrix_raw.npz"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/manifest.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/manifest.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/manifest.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/manifest.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/mapping.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/mapping.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/mapping.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/mapping.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/matrix.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/matrix.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/matrix.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/matrix.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/submitted_mapping.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/submitted_mapping.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/submitted_mapping.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/submitted_mapping.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/submitted_target_V.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/submitted_target_V.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/submitted_target_V.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/input/submitted_target_V.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/logs/run.log",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/logs/run.log"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/logs/run.log",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/logs/run.log"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/raw/solutions.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/raw/solutions.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/raw/solutions.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/raw/solutions.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/raw/solutions.npz",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/raw/solutions.npz"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/raw/solutions.npz",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/raw/solutions.npz"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/raw/solution_energy.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/raw/solution_energy.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/raw/solution_energy.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/raw/solution_energy.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/reports/B_Q2_m3x.pdf",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003124-b_q2_m3x-e2530a24/reports/B_Q2_m3x.pdf"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/reports/B_Q2_m3x.pdf",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003124-b_q2_m3x-e2530a24/reports/B_Q2_m3x.pdf"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/attempts.jsonl",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/attempts.jsonl"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/attempts.jsonl",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/attempts.jsonl"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/config.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/config.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/config.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/config.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/task.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/task.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/task.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/task.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/hashes.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/hashes.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/hashes.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/hashes.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/ising_matrix.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/ising_matrix.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/ising_matrix.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/ising_matrix.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/ising_matrix_raw.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/ising_matrix_raw.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/ising_matrix_raw.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/ising_matrix_raw.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/ising_matrix_raw.npz",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/ising_matrix_raw.npz"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/ising_matrix_raw.npz",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/ising_matrix_raw.npz"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/manifest.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/manifest.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/manifest.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/manifest.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/mapping.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/mapping.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/mapping.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/mapping.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/matrix.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/matrix.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/matrix.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/matrix.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/submitted_mapping.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/submitted_mapping.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/submitted_mapping.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/submitted_mapping.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/submitted_target_V.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/input/submitted_target_V.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/submitted_target_V.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/input/submitted_target_V.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/logs/run.log",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/logs/run.log"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/logs/run.log",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/logs/run.log"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/raw/solutions.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/raw/solutions.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/raw/solutions.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/raw/solutions.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/raw/solutions.npz",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/raw/solutions.npz"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/raw/solutions.npz",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/raw/solutions.npz"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/raw/solution_energy.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/raw/solution_energy.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/raw/solution_energy.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/raw/solution_energy.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/reports/B_Q2_k8.pdf",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003140-b_q2_k8-7be3225f/reports/B_Q2_k8.pdf"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/reports/B_Q2_k8.pdf",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003140-b_q2_k8-7be3225f/reports/B_Q2_k8.pdf"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/attempts.jsonl",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/attempts.jsonl"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/attempts.jsonl",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/attempts.jsonl"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/config.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/config.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/config.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/config.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/task.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/task.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/task.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/task.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/hashes.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/hashes.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/hashes.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/hashes.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/ising_matrix.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/ising_matrix.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/ising_matrix.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/ising_matrix.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/ising_matrix_raw.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/ising_matrix_raw.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/ising_matrix_raw.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/ising_matrix_raw.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/ising_matrix_raw.npz",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/ising_matrix_raw.npz"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/ising_matrix_raw.npz",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/ising_matrix_raw.npz"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/manifest.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/manifest.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/manifest.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/manifest.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/mapping.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/mapping.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/mapping.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/mapping.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/matrix.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/matrix.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/matrix.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/matrix.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/submitted_mapping.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/submitted_mapping.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/submitted_mapping.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/submitted_mapping.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/submitted_target_V.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/submitted_target_V.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/submitted_target_V.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/input/submitted_target_V.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/logs/run.log",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/logs/run.log"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/logs/run.log",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/logs/run.log"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/raw/solutions.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/raw/solutions.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/raw/solutions.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/raw/solutions.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/raw/solutions.npz",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/raw/solutions.npz"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/raw/solutions.npz",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/raw/solutions.npz"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/raw/solution_energy.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/raw/solution_energy.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/raw/solution_energy.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/raw/solution_energy.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/reports/B_Q3_O3_baseline.pdf",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/reports/B_Q3_O3_baseline.pdf"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/reports/B_Q3_O3_baseline.pdf",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003159-b_q3_o3_baseline-7cd9ce6b/reports/B_Q3_O3_baseline.pdf"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/attempts.jsonl",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/attempts.jsonl"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/attempts.jsonl",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/attempts.jsonl"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/config.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/config.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/config.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/config.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/task.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/task.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/task.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/task.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/hashes.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/hashes.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/hashes.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/hashes.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/ising_matrix.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/ising_matrix.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/ising_matrix.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/ising_matrix.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/ising_matrix_raw.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/ising_matrix_raw.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/ising_matrix_raw.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/ising_matrix_raw.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/ising_matrix_raw.npz",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/ising_matrix_raw.npz"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/ising_matrix_raw.npz",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/ising_matrix_raw.npz"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/manifest.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/manifest.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/manifest.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/manifest.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/mapping.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/mapping.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/mapping.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/mapping.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/matrix.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/matrix.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/matrix.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/matrix.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/submitted_mapping.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/submitted_mapping.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/submitted_mapping.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/submitted_mapping.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/submitted_target_V.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/submitted_target_V.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/submitted_target_V.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/input/submitted_target_V.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/logs/run.log",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/logs/run.log"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/logs/run.log",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/logs/run.log"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/raw/solutions.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/raw/solutions.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/raw/solutions.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/raw/solutions.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/raw/solutions.npz",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/raw/solutions.npz"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/raw/solutions.npz",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/raw/solutions.npz"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/raw/solution_energy.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/raw/solution_energy.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/raw/solution_energy.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/raw/solution_energy.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/reports/B_Q3_FO2_baseline.pdf",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/reports/B_Q3_FO2_baseline.pdf"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/reports/B_Q3_FO2_baseline.pdf",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-003216-b_q3_fo2_baseline-ca295ce6/reports/B_Q3_FO2_baseline.pdf"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/attempts.jsonl",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/attempts.jsonl"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/attempts.jsonl",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/attempts.jsonl"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/config.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/config.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/config.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/config.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/task.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/task.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/task.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/task.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/hashes.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/hashes.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/hashes.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/hashes.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/ising_matrix.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/ising_matrix.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/ising_matrix.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/ising_matrix.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/ising_matrix_raw.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/ising_matrix_raw.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/ising_matrix_raw.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/ising_matrix_raw.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/ising_matrix_raw.npz",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/ising_matrix_raw.npz"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/ising_matrix_raw.npz",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/ising_matrix_raw.npz"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/manifest.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/manifest.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/manifest.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/manifest.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/mapping.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/mapping.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/mapping.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/mapping.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/matrix.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/matrix.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/matrix.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/matrix.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/submitted_mapping.json",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/submitted_mapping.json"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/submitted_mapping.json",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/submitted_mapping.json"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/submitted_target_V.csv",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/input/submitted_target_V.csv"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/submitted_target_V.csv",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/input/submitted_target_V.csv"
+    },
+    {
+      "check": "原件打包前后不变 experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/logs/run.log",
+      "status": "PASS",
+      "evidence": "experiments/tasks/t20261128-001932-b_q2_baseline-be06017f/logs/run.log"
+    },
+    {
+      "check": "复制件与来源一致 FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/logs/run.log",
+      "status": "PASS",
+      "evidence": "FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/logs/run.log"
+    },
+    {
+      "check": "原件打包前后不变 code/artifact_consistency.py",
+      "status": "PASS",
+      "evidence": "code/artifact_consistency.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/artifact_consistency.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/artifact_consistency.py"
+    },
+    {
+      "check": "原件打包前后不变 code/d_baseline.py",
+      "status": "PASS",
+      "evidence": "code/d_baseline.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/d_baseline.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/d_baseline.py"
+    },
+    {
+      "check": "原件打包前后不变 code/d_check.py",
+      "status": "PASS",
+      "evidence": "code/d_check.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/d_check.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/d_check.py"
+    },
+    {
+      "check": "原件打包前后不变 code/d_experiment.py",
+      "status": "PASS",
+      "evidence": "code/d_experiment.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/d_experiment.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/d_experiment.py"
+    },
+    {
+      "check": "原件打包前后不变 code/d_route_compare.py",
+      "status": "PASS",
+      "evidence": "code/d_route_compare.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/d_route_compare.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/d_route_compare.py"
+    },
+    {
+      "check": "原件打包前后不变 code/d_run_stats.py",
+      "status": "PASS",
+      "evidence": "code/d_run_stats.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/d_run_stats.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/d_run_stats.py"
+    },
+    {
+      "check": "原件打包前后不变 code/d_step12.py",
+      "status": "PASS",
+      "evidence": "code/d_step12.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/d_step12.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/d_step12.py"
+    },
+    {
+      "check": "原件打包前后不变 code/d_step3.py",
+      "status": "PASS",
+      "evidence": "code/d_step3.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/d_step3.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/d_step3.py"
+    },
+    {
+      "check": "原件打包前后不变 code/d_submit_cim.py",
+      "status": "PASS",
+      "evidence": "code/d_submit_cim.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/d_submit_cim.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/d_submit_cim.py"
+    },
+    {
+      "check": "原件打包前后不变 code/equations.tex",
+      "status": "PASS",
+      "evidence": "code/equations.tex"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/equations.tex",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/equations.tex"
+    },
+    {
+      "check": "原件打包前后不变 code/experiment_archive.py",
+      "status": "PASS",
+      "evidence": "code/experiment_archive.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/experiment_archive.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/experiment_archive.py"
+    },
+    {
+      "check": "原件打包前后不变 code/experiment_budget.py",
+      "status": "PASS",
+      "evidence": "code/experiment_budget.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/experiment_budget.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/experiment_budget.py"
+    },
+    {
+      "check": "原件打包前后不变 code/experiment_input.py",
+      "status": "PASS",
+      "evidence": "code/experiment_input.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/experiment_input.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/experiment_input.py"
+    },
+    {
+      "check": "原件打包前后不变 code/final_surrogate.py",
+      "status": "PASS",
+      "evidence": "code/final_surrogate.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/final_surrogate.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/final_surrogate.py"
+    },
+    {
+      "check": "原件打包前后不变 code/final_surrogate_phys.py",
+      "status": "PASS",
+      "evidence": "code/final_surrogate_phys.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/final_surrogate_phys.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/final_surrogate_phys.py"
+    },
+    {
+      "check": "原件打包前后不变 code/local_sa_stats.py",
+      "status": "PASS",
+      "evidence": "code/local_sa_stats.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/local_sa_stats.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/local_sa_stats.py"
+    },
+    {
+      "check": "原件打包前后不变 code/mock_backend.py",
+      "status": "PASS",
+      "evidence": "code/mock_backend.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/mock_backend.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/mock_backend.py"
+    },
+    {
+      "check": "原件打包前后不变 code/model_compare.py",
+      "status": "PASS",
+      "evidence": "code/model_compare.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/model_compare.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/model_compare.py"
+    },
+    {
+      "check": "原件打包前后不变 code/paths.py",
+      "status": "PASS",
+      "evidence": "code/paths.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/paths.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/paths.py"
+    },
+    {
+      "check": "原件打包前后不变 code/run_all.py",
+      "status": "PASS",
+      "evidence": "code/run_all.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/run_all.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/run_all.py"
+    },
+    {
+      "check": "原件打包前后不变 code/train_q1.py",
+      "status": "PASS",
+      "evidence": "code/train_q1.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/train_q1.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/train_q1.py"
+    },
+    {
+      "check": "原件打包前后不变 code/verify_project.py",
+      "status": "PASS",
+      "evidence": "code/verify_project.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/code/verify_project.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/code/verify_project.py"
+    },
+    {
+      "check": "原件打包前后不变 tests/test_experiment_pipeline.py",
+      "status": "PASS",
+      "evidence": "tests/test_experiment_pipeline.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/tests/test_experiment_pipeline.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/tests/test_experiment_pipeline.py"
+    },
+    {
+      "check": "原件打包前后不变 tests/test_math_interfaces.py",
+      "status": "PASS",
+      "evidence": "tests/test_math_interfaces.py"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/tests/test_math_interfaces.py",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/tests/test_math_interfaces.py"
+    },
+    {
+      "check": "原件打包前后不变 requirements.lock.txt",
+      "status": "PASS",
+      "evidence": "requirements.lock.txt"
+    },
+    {
+      "check": "复制件与来源一致 DEV_RECORDS/requirements.lock.txt",
+      "status": "PASS",
+      "evidence": "DEV_RECORDS/requirements.lock.txt"
+    },
+    {
+      "check": "B 预测哈希 pool_q2_phys.csv",
+      "status": "PASS",
+      "evidence": "e818443c78480b68… vs e818443c78480b68…"
+    },
+    {
+      "check": "B 预测哈希 pool_q2b_phys.csv",
+      "status": "PASS",
+      "evidence": "5898af30887ea249… vs 5898af30887ea249…"
+    },
+    {
+      "check": "B 预测哈希 pool_q3_phys.csv",
+      "status": "PASS",
+      "evidence": "37c21d9dfa265640… vs 37c21d9dfa265640…"
+    },
+    {
+      "check": "B 预测哈希 pool_q3b_phys.csv",
+      "status": "PASS",
+      "evidence": "f362fa5a1bccbc37… vs f362fa5a1bccbc37…"
+    },
+    {
+      "check": "平台报告存在 B_Q2_baseline",
+      "status": "PASS",
+      "evidence": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-003014-b_q2_baseline-be06017f\\reports\\B_Q2_baseline.pdf"
+    },
+    {
+      "check": "平台报告哈希 B_Q2_baseline",
+      "status": "PASS",
+      "evidence": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-003014-b_q2_baseline-be06017f\\reports\\B_Q2_baseline.pdf"
+    },
+    {
+      "check": "平台报告存在 B_Q2_m3x",
+      "status": "PASS",
+      "evidence": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-003124-b_q2_m3x-e2530a24\\reports\\B_Q2_m3x.pdf"
+    },
+    {
+      "check": "平台报告哈希 B_Q2_m3x",
+      "status": "PASS",
+      "evidence": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-003124-b_q2_m3x-e2530a24\\reports\\B_Q2_m3x.pdf"
+    },
+    {
+      "check": "平台报告存在 B_Q2_k8",
+      "status": "PASS",
+      "evidence": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-003140-b_q2_k8-7be3225f\\reports\\B_Q2_k8.pdf"
+    },
+    {
+      "check": "平台报告哈希 B_Q2_k8",
+      "status": "PASS",
+      "evidence": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-003140-b_q2_k8-7be3225f\\reports\\B_Q2_k8.pdf"
+    },
+    {
+      "check": "平台报告存在 B_Q3_O3_baseline",
+      "status": "PASS",
+      "evidence": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-003159-b_q3_o3_baseline-7cd9ce6b\\reports\\B_Q3_O3_baseline.pdf"
+    },
+    {
+      "check": "平台报告哈希 B_Q3_O3_baseline",
+      "status": "PASS",
+      "evidence": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-003159-b_q3_o3_baseline-7cd9ce6b\\reports\\B_Q3_O3_baseline.pdf"
+    },
+    {
+      "check": "平台报告存在 B_Q3_FO2_baseline",
+      "status": "PASS",
+      "evidence": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-003216-b_q3_fo2_baseline-ca295ce6\\reports\\B_Q3_FO2_baseline.pdf"
+    },
+    {
+      "check": "平台报告哈希 B_Q3_FO2_baseline",
+      "status": "PASS",
+      "evidence": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-003216-b_q3_fo2_baseline-ca295ce6\\reports\\B_Q3_FO2_baseline.pdf"
+    },
+    {
+      "check": "5 个 completed 任务",
+      "status": "PASS",
+      "evidence": "completed=5"
+    },
+    {
+      "check": "1 个失败记录",
+      "status": "PASS",
+      "evidence": "submit_failed=1"
+    },
+    {
+      "check": "失败记录未计配额",
+      "status": "PASS",
+      "evidence": "t20261128-001932-b_q2_baseline-be06017f"
+    },
+    {
+      "check": "输入哈希 B-Q2-NO2 / B_Q2_baseline",
+      "status": "PASS",
+      "evidence": "0001ed364b48bbe0… vs 0001ed364b48bbe0…"
+    },
+    {
+      "check": "输入哈希 B-Q2-NO2 / B_Q2_m3x",
+      "status": "PASS",
+      "evidence": "0001ed364b48bbe0… vs 0001ed364b48bbe0…"
+    },
+    {
+      "check": "输入哈希 B-Q2-NO2 / B_Q2_k8",
+      "status": "PASS",
+      "evidence": "0001ed364b48bbe0… vs 0001ed364b48bbe0…"
+    },
+    {
+      "check": "输入哈希 B-Q2-NO2 / B_Q2_baseline",
+      "status": "PASS",
+      "evidence": "0001ed364b48bbe0… vs 0001ed364b48bbe0…"
+    },
+    {
+      "check": "输入哈希 B-Q3-O3 / B_Q3_O3_baseline",
+      "status": "PASS",
+      "evidence": "23908ae0adad088d… vs 23908ae0adad088d…"
+    },
+    {
+      "check": "输入哈希 B-Q3-FO2 / B_Q3_FO2_baseline",
+      "status": "PASS",
+      "evidence": "ef4f5e512b5b4ef3… vs ef4f5e512b5b4ef3…"
+    },
+    {
+      "check": "基线 A/B 预测文件不同",
+      "status": "PASS",
+      "evidence": "code/predictions 与 reproduction_20261127/predictions 同名文件哈希不同"
+    },
+    {
+      "check": "任务 source_manifest 哈希 B_Q2_baseline",
+      "status": "PASS",
+      "evidence": "d5bb963cf7ad25ac7d72f6ba88251601c97cee110609001b07fd8140a1e8354e vs d5bb963cf7ad25ac7d72f6ba88251601c97cee110609001b07fd8140a1e8354e"
+    },
+    {
+      "check": "任务 source_manifest 哈希 B_Q2_m3x",
+      "status": "PASS",
+      "evidence": "d5bb963cf7ad25ac7d72f6ba88251601c97cee110609001b07fd8140a1e8354e vs d5bb963cf7ad25ac7d72f6ba88251601c97cee110609001b07fd8140a1e8354e"
+    },
+    {
+      "check": "任务 source_manifest 哈希 B_Q2_k8",
+      "status": "PASS",
+      "evidence": "d5bb963cf7ad25ac7d72f6ba88251601c97cee110609001b07fd8140a1e8354e vs d5bb963cf7ad25ac7d72f6ba88251601c97cee110609001b07fd8140a1e8354e"
+    },
+    {
+      "check": "任务 source_manifest 哈希 B_Q3_O3_baseline",
+      "status": "PASS",
+      "evidence": "007768b3555164c47f709af2d2fd8cf080f2025740a4d43fb34155e4c4cf1041 vs 007768b3555164c47f709af2d2fd8cf080f2025740a4d43fb34155e4c4cf1041"
+    },
+    {
+      "check": "任务 source_manifest 哈希 B_Q3_FO2_baseline",
+      "status": "PASS",
+      "evidence": "cfbfa63f6db0d56ad5825afb76b26043cdada790ff8b0a0a54eda69583e9961d vs cfbfa63f6db0d56ad5825afb76b26043cdada790ff8b0a0a54eda69583e9961d"
+    },
+    {
+      "check": "任务 source_manifest 哈希 B_Q2_baseline（license 提交前失败）",
+      "status": "PASS",
+      "evidence": "d5bb963cf7ad25ac7d72f6ba88251601c97cee110609001b07fd8140a1e8354e vs d5bb963cf7ad25ac7d72f6ba88251601c97cee110609001b07fd8140a1e8354e"
+    },
+    {
+      "check": "无 License/凭据文件",
+      "status": "PASS",
+      "evidence": "[]"
+    },
+    {
+      "check": "无实际凭据值",
+      "status": "PASS",
+      "evidence": "[]"
+    },
+    {
+      "check": "无 pkl 缓存",
+      "status": "PASS",
+      "evidence": "sdk_checkpoints 已排除"
+    },
+    {
+      "check": "无 pycache",
+      "status": "PASS",
+      "evidence": "__pycache__ 已排除"
+    },
+    {
+      "check": "MANIFEST 覆盖",
+      "status": "PASS",
+      "evidence": "缺少 []"
+    }
+  ],
+  "summary": {
+    "pass": 377,
+    "fail": 0
+  }
+}

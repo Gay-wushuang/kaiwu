@@ -1,0 +1,20 @@
+{
+  "status": "REVISE",
+  "findings": [
+    "原末行“3 次配额已用完”已移除。修订件新增页首两行说明及一个空行，并用基线 B 真机报告的引用替换原末行。页首仍提及基线 A 的 3 次配额，实际差异超出“仅删除该行”。其余内容经逐字节比对一致，数值、表格和答案均未改动。",
+    "原件与修订件的实算 SHA256 均与修订记录及 MANIFEST 一致。根 SHA256 清单覆盖除自身外全部 183 个文件，哈希全部匹配。两份 CSV 的现有包内引用均存在且哈希匹配。SOURCE_INTEGRITY 收录了原件和 AI 使用日志，缺少修订件的来源对照条目。",
+    "第一轮归档有 5 个 completed 和 1 个 submit_failed。5 份平台 PDF 的哈希均与任务记录一致。历史第一轮计用 5 次，失败记录未计费，本次只读验收消耗 0 次真机配额。",
+    "基线 B 为正式基线，基线 A 仅作历史对照。V̂ 明确为代理模型预测违反度，真机 H 最优限定于 8-bit 适配矩阵的合法 one-hot 指派。包内路径和文本扫描未发现实际凭据、License 文件或缓存。任务 001 已记录 Trae 与 Codex 的参与。"
+  ],
+  "evidence": [
+    "FORMAL/BASELINE_B/FINAL_ANSWERS.md 第 1–3 行及第 43 行；FORMAL/BASELINE_B/FINAL_ANSWERS_ORIGINAL.md 末行。",
+    "FORMAL/BASELINE_B/REVISIONS.md；MANIFEST.csv；SOURCE_INTEGRITY.csv；SHA256SUMS.txt。",
+    "FORMAL/ROUND1/tasks/ 下 6 份 task.json 及 5 份 reports/ 内的 PDF；FORMAL/ROUND1/ROUND1_REAL_MACHINE_REPORT.md。",
+    "README.md；HISTORICAL/BASELINE_A_REFERENCE.md；SECURITY_SCAN.md；FORMAL/ROUND1/AI_USAGE_LOG.md 第 178–181 行。"
+  ],
+  "required_changes": [
+    "从包内原件生成仅删除末行的修订件，保留其余字节。将修订说明及基线 B 真机报告引用放在 REVISIONS.md 或引用索引中。",
+    "在 SOURCE_INTEGRITY.csv 补录修订件与原件的来源哈希关系，注明差异属于包内修订。同步更新 REVISIONS.md、MANIFEST.csv 和根 SHA256SUMS.txt 的相关记录。"
+  ],
+  "requires_human": false
+}

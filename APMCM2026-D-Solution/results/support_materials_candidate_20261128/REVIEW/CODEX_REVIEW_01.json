@@ -1,0 +1,24 @@
+{
+  "status": "REVISE",
+  "findings": [
+    "共核实 5 个 completed 真机任务和 1 个 submit_failed 记录。失败发生在提交前，未创建平台任务，quota_counted=false。第一轮计费 5 次，失败消耗 0 次。本次验收未提交真机任务，消耗 0 次。",
+    "正式基线为 B。包内校验记录表明 A/B 预测来自不同批次，A 的预测和平台报告未进入正式数据。B 的原始复现文档末尾仍保留 A 的“3 次配额已用完”历史注记，包内已注明归属。",
+    "MANIFEST.csv 的 179 条记录均能定位到实际文件，文件大小和 SHA-256 均匹配。REFERENCE_MAP.md 指向包内材料的路径均存在。排除根校验清单自身后，根清单覆盖 180 个应校验文件中的 179 个，漏列了基线 B 预测目录下的 SHA256SUMS.txt。",
+    "5 个完成任务均有平台 PDF、原始解向量、输入矩阵、配置和哈希。平台 PDF 的实算哈希与任务记录一致，输入矩阵文件哈希也与归档记录一致。6 个任务的输入哈希记录均列出 source_manifest.json，但逐任务目录均缺该文件。集中输入目录中的对应副本可按 input_version 定位，哈希均匹配，引用关系尚未在包内文档中说明。",
+    "包内复制件与 MANIFEST.csv 登记哈希一致。VALIDATION.json 未逐项记录关键原件在打包前后的完整哈希，现有包内证据不足以独立确认所有原件在打包期间保持不变。",
+    "包内目录和凭据模式检查未发现登录凭据、License 文件内容或指定的禁入目录和缓存。文档明确 V̂ 是代理模型预测违反度，并将真机最优限定为 8-bit 适配矩阵上的合法 one-hot 空间。AI 使用边界和待队员确认事项均已列明，科学结论由队员负责。"
+  ],
+  "evidence": [
+    "FORMAL/ROUND1/registry.json、FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/task.json、FORMAL/ROUND1/tasks/t20261128-001932-b_q2_baseline-be06017f/attempts.jsonl、VERSION.json",
+    "REFERENCE_MAP.md、HISTORICAL/BASELINE_A_REFERENCE.md、FORMAL/BASELINE_B/FINAL_ANSWERS.md、KNOWN_ISSUES.md",
+    "MANIFEST.csv、SHA256SUMS.txt、FORMAL/BASELINE_B/predictions/SHA256SUMS.txt",
+    "FORMAL/ROUND1/tasks/t20261128-003014-b_q2_baseline-be06017f/input/hashes.json、FORMAL/ROUND1/inputs/B-Q2-NO2/source_manifest.json、VALIDATION.json",
+    "SECURITY_SCAN.md、README.md、FORMAL/ROUND1/ROUND1_REAL_MACHINE_REPORT.md、FORMAL/ROUND1/AI_USAGE_LOG.md、PENDING_CONFIRMATIONS.md"
+  ],
+  "required_changes": [
+    "将 FORMAL/BASELINE_B/predictions/SHA256SUMS.txt 纳入根 SHA256SUMS.txt，并重新核验根清单自身以外的全部包内文件。",
+    "在包内引用图注明六个任务的 source_manifest.json 按 input_version 指向集中输入目录中的哪份文件，或补齐逐任务副本。保留原始归档记录。",
+    "补充关键原件与复制件的来源校验记录，逐项列出来源路径、原件打包前后的完整 SHA-256 和复制件 SHA-256，使验收可仅凭包内材料核对。"
+  ],
+  "requires_human": false
+}
