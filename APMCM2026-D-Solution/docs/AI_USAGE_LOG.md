@@ -244,7 +244,17 @@
 - 集成分支 `integration/t003-final`：main 已为祖先，合并 PR5，未重复合并 qubo-refinement。
 - 完整回归 40/40；direct8 哈希与旧配置兼容；7 个归档任务核验全通过；
   未修改基线 B/T001，未新增真机任务、配额 0。
-- 集成 PR #7：<https://github.com/Gay-wushuang/kaiwu/pull/7>（OPEN/MERGEABLE，未自动合并）。
+- 集成 PR #7：<https://github.com/Gay-wushuang/kaiwu/pull/7>；已由队员确认合并到 `main`
+  （merge commit `8c8a501`）。
+- 论文同步（`paper/APMCM_D_paper_CN.docx` / `_color.docx` 与 PDF）：
+  - 摘要更新为“首轮三组 + 第二轮 lowM/PR 两组”，删除“始终未命中最优”的旧结论；
+  - 新增 6.5 节、表 9b 与表 6/15 行：lowM 17 自旋、7.10 档、严格命中 1/10；
+    PR tp14 121 自旋、拆分一致 2/10、合法 2/10、两者同时 1/10、严格命中 1/10；
+  - 首轮结论限定为“首轮三组”；附录 C 改为 Q2 五次任务；
+  - 新增 9.2 AI 使用披露；
+  - PDF 已用 Word 重新导出为 24 页，文本核验含新 6.5/9.2。
+- 关键对照汇总：`results/round2/T003_FINAL/KEY_COMPARISON.md`。
+- 未新增真机任务、配额 0；未修改基线 B/-T001。
 
 
 
