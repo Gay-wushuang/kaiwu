@@ -210,6 +210,21 @@
 - 关键结论：42/42 点量化基态合法；但 lowM（1.05）的全体合法态分离裕量为 −4，非法态可优于部分合法态；Q2 集合相等只在 1.05/1.10 两个孤立点，1.075 即并列；原始最优间隙 0.001396 远小于量化残差摆动，不能外推为普遍适用。
 - 本阶段真机 0 次、配额 0；账面剩余 26，平台余额待核实。
 
+## 2026-11-28 T003：PrecisionReducer 接管与工程融合
+
+- 分支：`research/precision-reducer`（起点 `c001b08`）。
+- Trae（DeepSeek-V4.1-Flash）核验本机 Kaiwu 1.4.4 PrecisionReducer 接口与行为；
+  实现 `code/precision_reducer.py`、`d_experiment.py` 的 `precision_reducer` 路线、
+  扩展归档与 resume；新增 4 项回归测试，全套 32/32 通过；direct8 已知提交矩阵哈希不变。
+- 数学与本地验证（非真机）：Q2 lowM 的 PrecisionReducer 扩展 62/121/246 自旋；
+  拆分映射用公开 split 接口复现并核验（常数比例偏差 1.4e-14）；截断位宽全空间枚举
+  表明最优随位数非单调；SA 拆分一致率 1–10/100，G3/G4 本地弱于 G1/G2。
+- Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）调用 1 次，核验可行子空间等价、
+  罚项充分性、tp12 的 V=0 来源、截断非单调、映射可区分性与结论边界；输出见
+  `results/round2/precision_reducer/EXPERIMENTS/CODEX_REVIEW_01.json`。
+- 真机任务 0 次、配额 0；两个候选（tp14 保真优先、tp12 链路优先）已 dry-run，
+  等待队员授权。未修改基线 B、第一轮数据与 T001 冻结材料。
+
 
 
 

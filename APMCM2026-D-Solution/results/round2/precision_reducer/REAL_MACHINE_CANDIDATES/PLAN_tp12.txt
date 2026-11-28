@@ -1,0 +1,26 @@
+﻿==================================================================
+输入版本      : B-Q2-NO2（independent_reproduction）
+来源说明      : 独立复现产物（results/reproduction_*/）
+任务名称      : B_Q2_k8_lowM_PR_tp12 | 项目 默认
+目标矩阵规模  : (52, 52) → (8, 8)（topk=8）
+input_matrix_sha256 = 0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e
+submitted_target_V_semantic_sha256 = 4abbd63ce9054386c4fb62cb416c358b89f3f4e16d3437e8c33235c0836a4887
+raw_ising_matrix_sha256 = 8f714e44bc6fd06e41f8eeeba526907c6f7928772fed5a9438c7d5673aa1b386
+submitted_matrix_sha256 = ef86d45518c0175b54b196a843eabdd0e36544e76486c432bf5c18e380906e4e
+variables_sha256 = b48eaded022e0229dfcd20704fb2df07c19572f41474ea3c12f4eed280a66cdf
+expanded_ising_matrix_sha256 = ef86d45518c0175b54b196a843eabdd0e36544e76486c432bf5c18e380906e4e
+实际变量映射  : 62 个（前 8 个）[{"index": 0, "kind": "A", "label": "La", "group": 0, "copy": 0}, {"index": 1, "kind": "A", "label": "La", "group": 0, "copy": 1}, {"index": 2, "kind": "A", "label": "La", "group": 0, "copy": 2}, {"index": 3, "kind": "A", "label": "Y", "group": 1, "copy": 0}, {"index": 4, "kind": "A", "label": "Y", "group": 1, "copy": 1}, {"index": 5, "kind": "A", "label": "Y", "group": 1, "copy": 2}, {"index": 6, "kind": "A", "label": "Sc", "group": 2, "copy": 0}, {"index": 7, "kind": "A", "label": "Sc", "group": 2, "copy": 1}]
+精度路线      : precision_reducer（precision=8, target_bits=550, truncated_precision=12, only_feasible_solution=False）
+QUBO / Ising  : 16 比特 → 原始 Ising 17（原始辅助自旋 1） → 提交 Ising 62（新增拆分自旋 45）
+拆分映射      : verified_reconstruction（分组数 17）
+罚项 M        : 14.265（基准 42.171 × 0.33826）
+目标分辨率    : 原始 Ising 7.10 档 | 拆分矩阵无单一目标块，不计算 8bit resolution
+模式          : opt | 采样数 10
+设备          : 由平台调度（SDK 不支持指定机型）
+本地配额      : 优化任务（OPTIMIZATION） 总额 32 / 已用 6 / 剩余 26（verified=False，用户口述 2026-11-27，未经平台核对）
+重复检查      : 未发现同矩阵历史任务
+任务编号      : t20261128-161036-b_q2_k8_lowm_pr_tp12-ef86d455（预演，不落盘）
+==================================================================
+
+[DRY-RUN] 未调用 license、未创建云端任务、未消耗配额、未写入归档。
+          确认要提交时追加 --submit，并按提示输入任务编号。
