@@ -1,0 +1,9 @@
+{
+  "input_version": "B-Q2-NO2",
+  "task_name": "T004_R2_intentional_repeat_Q2_lowM_direct8",
+  "mode": "opt",
+  "topk": 8,
+  "mfactor": 0.33826009024559534,
+  "samples": 10,
+  "precision_method": "direct_8bit"
+}
