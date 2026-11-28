@@ -1,0 +1,87 @@
+{
+  "input": "B-Q2-NO2",
+  "topk": 8,
+  "A": [
+    "La",
+    "Y",
+    "Sc",
+    "Sr",
+    "Ca",
+    "Ba",
+    "Bi",
+    "Pb"
+  ],
+  "B": [
+    "Zr",
+    "Hf",
+    "Si",
+    "Ti",
+    "Ga",
+    "Ta",
+    "Sn",
+    "Al"
+  ],
+  "M0": 42.17095322771115,
+  "M_low": 14.264750444548355,
+  "mfactor": 0.33826009024559534,
+  "target_block_equal": true,
+  "target_block_check": "np.array_equal（逐元素严格相等，无相对容差）",
+  "coeff": {
+    "Q": {
+      "shape": [
+        16,
+        16
+      ],
+      "diff_count": 72,
+      "diff_count_definition": "满足 |a-b|>1e-12 的矩阵位置数",
+      "independent_edges": 72,
+      "max_abs_diff": 55.812405566325594
+    },
+    "I": {
+      "shape": [
+        17,
+        17
+      ],
+      "diff_count": 144,
+      "diff_count_definition": "满足 |a-b|>1e-12 的矩阵位置数",
+      "independent_edges": 72,
+      "max_abs_diff": 41.85930417474422
+    },
+    "adj": {
+      "shape": [
+        17,
+        17
+      ],
+      "diff_count": 252,
+      "diff_count_definition": "满足 |a-b|>1e-12 的矩阵位置数",
+      "independent_edges": 126,
+      "max_abs_diff": 17.0
+    },
+    "M0": {
+      "step": 0.5687338959285005,
+      "round_mean": 0.32869295966693823,
+      "round_mean_unit": "量化步长（含零项与对称位置的全矩阵平均）",
+      "round_mean_in_original_units": 0.18693882751564728,
+      "round_max": 0.48516912114849253,
+      "round_max_unit": "量化步长（全矩阵最大值）",
+      "nonzero_adj": 250,
+      "max_abs_I": 72.22920478291957,
+      "max_abs_adj": 127.0,
+      "resol_raw": 2.9859035814271873,
+      "resol_adj": 3.0
+    },
+    "lowM": {
+      "step": 0.239133075654924,
+      "round_mean": 0.18132606193822678,
+      "round_mean_unit": "量化步长（含零项与对称位置的全矩阵平均）",
+      "round_mean_in_original_units": 0.04336105888768342,
+      "round_max": 0.49511447712937695,
+      "round_max_unit": "量化步长（全矩阵最大值）",
+      "nonzero_adj": 260,
+      "max_abs_I": 30.36990060817535,
+      "max_abs_adj": 127.0,
+      "resol_raw": 7.1014207134711755,
+      "resol_adj": 7.0
+    }
+  }
+}

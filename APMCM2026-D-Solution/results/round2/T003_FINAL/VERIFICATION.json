@@ -1,0 +1,135 @@
+{
+  "tasks": [
+    {
+      "task_id": "t20261128-001932-b_q2_baseline-be06017f",
+      "status": "submit_failed",
+      "registry_status": "submit_failed",
+      "submitted_hash_ok": true,
+      "raw_hash_ok": true
+    },
+    {
+      "task_id": "t20261128-003014-b_q2_baseline-be06017f",
+      "status": "completed",
+      "registry_status": "completed",
+      "submitted_hash_ok": true,
+      "raw_hash_ok": true,
+      "solutions_shape": [
+        10,
+        27
+      ],
+      "solutions_pm1": true,
+      "pdf": "B_Q2_baseline.pdf",
+      "pdf_hash_ok": true,
+      "device": "SPQC-550",
+      "hardware_ms": 1.0327,
+      "platform_task_id": "44923771c251417d91f15d9841651b4c"
+    },
+    {
+      "task_id": "t20261128-003124-b_q2_m3x-e2530a24",
+      "status": "completed",
+      "registry_status": "completed",
+      "submitted_hash_ok": true,
+      "raw_hash_ok": true,
+      "solutions_shape": [
+        10,
+        27
+      ],
+      "solutions_pm1": true,
+      "pdf": "B_Q2_m3x.pdf",
+      "pdf_hash_ok": true,
+      "device": "SPQC-550",
+      "hardware_ms": 13.9135,
+      "platform_task_id": "a8894d47ec774954ad2c0a3f99634eca"
+    },
+    {
+      "task_id": "t20261128-003140-b_q2_k8-7be3225f",
+      "status": "completed",
+      "registry_status": "completed",
+      "submitted_hash_ok": true,
+      "raw_hash_ok": true,
+      "solutions_shape": [
+        10,
+        17
+      ],
+      "solutions_pm1": true,
+      "pdf": "B_Q2_k8.pdf",
+      "pdf_hash_ok": true,
+      "device": "SPQC-550",
+      "hardware_ms": 10.9816,
+      "platform_task_id": "6258685cdb1c4541becdb1ae40fac598"
+    },
+    {
+      "task_id": "t20261128-003159-b_q3_o3_baseline-7cd9ce6b",
+      "status": "completed",
+      "registry_status": "completed",
+      "submitted_hash_ok": true,
+      "raw_hash_ok": true,
+      "solutions_shape": [
+        9,
+        27
+      ],
+      "solutions_pm1": true,
+      "pdf": "B_Q3_O3_baseline.pdf",
+      "pdf_hash_ok": true,
+      "device": "SPQC-550",
+      "hardware_ms": 0.7838,
+      "platform_task_id": "4a75fbffbe734857b87db54ed346c342"
+    },
+    {
+      "task_id": "t20261128-003216-b_q3_fo2_baseline-ca295ce6",
+      "status": "completed",
+      "registry_status": "completed",
+      "submitted_hash_ok": true,
+      "raw_hash_ok": true,
+      "solutions_shape": [
+        9,
+        27
+      ],
+      "solutions_pm1": true,
+      "pdf": "B_Q3_FO2_baseline.pdf",
+      "pdf_hash_ok": true,
+      "device": "SPQC-550",
+      "hardware_ms": 1.2345,
+      "platform_task_id": "87d51d0a3fa14434a80d3bcb63878348"
+    },
+    {
+      "task_id": "t20261128-043036-b_q2_k8_lowm-34f84ed6",
+      "status": "completed",
+      "registry_status": "completed",
+      "submitted_hash_ok": true,
+      "raw_hash_ok": true,
+      "solutions_shape": [
+        10,
+        17
+      ],
+      "solutions_pm1": true,
+      "pdf": "B_Q2_k8_lowM.pdf",
+      "pdf_hash_ok": true,
+      "device": "SPQC-1",
+      "hardware_ms": 4.3098,
+      "platform_task_id": "b12121ad1655442e81c4a10de62199d1"
+    },
+    {
+      "task_id": "t20261128-161915-b_q2_k8_lowm_pr_tp14-d4f6e0ff",
+      "status": "completed",
+      "registry_status": "completed",
+      "submitted_hash_ok": true,
+      "raw_hash_ok": true,
+      "solutions_shape": [
+        10,
+        17
+      ],
+      "solutions_pm1": true,
+      "expanded_shape": [
+        10,
+        121
+      ],
+      "pdf": "B_Q2_k8_lowM_PR_tp14.pdf",
+      "pdf_hash_ok": true,
+      "device": "SPQC-550",
+      "hardware_ms": 1.5511,
+      "platform_task_id": "d833dedb390f4c54ac0c6d7db3bb9b11"
+    }
+  ],
+  "errors": []
+}

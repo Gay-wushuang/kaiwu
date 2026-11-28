@@ -236,8 +236,10 @@ class TaskArchive:
     @classmethod
     def create(cls, task_id: str, config: dict, exin: ExperimentInput, ising_matrix: np.ndarray,
                extra: dict = None, raw_ising_matrix: np.ndarray = None,
-               submitted_A=None, submitted_B=None, filtered_V=None) -> "TaskArchive":
-        arc = cls(task_id)
+               submitted_A=None, submitted_B=None, filtered_V=None,
+               precision_meta: dict = None, expanded_matrix: np.ndarray = None,
+               root: Path = None) -> "TaskArchive":
+        arc = cls(task_id, root=root)
         if arc.dir.exists():
             raise SystemExit(f"[归档] 任务目录已存在，拒绝覆盖：{arc.dir}")
         for sub in ("input", "raw", "logs", "sdk_checkpoints", "reports"):
@@ -302,6 +304,32 @@ class TaskArchive:
             (arc.dir / "config.json").write_text(
                 json.dumps(json_safe(cfg), ensure_ascii=False, indent=2), encoding="utf-8")
 
+        if precision_meta is not None:
+            if expanded_matrix is None:
+                raise SystemExit("[归档] precision_reducer 路线缺少扩展矩阵。")
+            exp_npz = arc.dir / "input" / "ising_matrix_expanded.npz"
+            np.savez(exp_npz, matrix=np.asarray(expanded_matrix, dtype=np.float64))
+            readback = np.load(exp_npz, allow_pickle=False)["matrix"]
+            h_exp = numeric_matrix_sha256(expanded_matrix)
+            if numeric_matrix_sha256(readback) != h_exp:
+                raise SystemExit("[归档] 扩展矩阵二进制回读哈希不一致，已中止。")
+            split_map_path = arc.dir / "input" / "split_mapping.json"
+            split_map_path.write_text(json.dumps(json_safe(precision_meta), ensure_ascii=False,
+                                                 indent=2), encoding="utf-8")
+            hashes.update({
+                "expanded_ising_matrix_sha256": h_exp,
+                "expanded_ising_matrix_npz_sha256": sha256_file(exp_npz),
+                "split_mapping_sha256": sha256_file(split_map_path),
+            })
+            cfg.update({
+                "expanded_ising_matrix_sha256": h_exp,
+                "expanded_ising_shape": list(np.asarray(expanded_matrix).shape),
+                "split_mapping_file": "input/split_mapping.json",
+                "split_mapping_sha256": sha256_file(split_map_path),
+            })
+            (arc.dir / "config.json").write_text(
+                json.dumps(json_safe(cfg), ensure_ascii=False, indent=2), encoding="utf-8")
+
         # 实际提交映射：topk 预筛后 A/B 顺序、辅助自旋、变量索引、筛选后的 V
         if (submitted_A is None) != (submitted_B is None) or \
                 (submitted_A is None) != (filtered_V is None):
@@ -312,11 +340,13 @@ class TaskArchive:
             V = np.asarray(filtered_V, dtype=np.float64)
             nA, nB = len(A), len(B)
             n_qubo, n_ising = nA + nB, int(np.asarray(ising_matrix).shape[0])
-            aux = n_ising - n_qubo
+            n_ising_original = (int(precision_meta["n_original"])
+                                if precision_meta is not None else n_ising)
+            aux = n_ising_original - n_qubo
             if V.shape != (nA, nB):
                 raise SystemExit(f"[归档] 筛选后 V 形状 {V.shape} 与 A/B 数量 {(nA, nB)} 不一致。")
             if aux < 1:
-                raise SystemExit(f"[归档] Ising 维度 {n_ising} 未包含辅助自旋（QUBO {n_qubo}）。")
+                raise SystemExit(f"[归档] Ising 维度 {n_ising_original} 未包含辅助自旋（QUBO {n_qubo}）。")
 
             v_csv = arc.dir / "input" / "submitted_target_V.csv"
             with open(v_csv, "w", encoding="utf-8-sig", newline="") as f:
@@ -340,14 +370,17 @@ class TaskArchive:
                 "submitted_matrix_shape": [n_ising, n_ising],
                 "n_qubo": n_qubo,
                 "n_ising": n_ising,
+                "n_ising_original": n_ising_original,
+                "split_extra_spins": n_ising - n_ising_original,
                 "aux_spin_count": aux,
                 "aux_spin_position": "last",
-                "aux_spin_indices": list(range(n_qubo, n_ising)),
+                "aux_spin_indices": list(range(n_qubo, n_ising_original)),
                 "A_axis": "row",
                 "B_axis": "column",
                 "A": A,
                 "B": B,
-                "variables": submitted_variables(A, B, n_ising),
+                "variables": (precision_meta["variables"] if precision_meta is not None
+                              else submitted_variables(A, B, n_ising)),
                 "filtered_target_matrix": {
                     "path": "input/submitted_target_V.csv",
                     "shape": [nA, nB],
@@ -355,6 +388,17 @@ class TaskArchive:
                     "semantic_sha256": numeric_matrix_sha256(V),
                 },
             }
+            if precision_meta is not None:
+                mapping.update({
+                    "precision_method": "precision_reducer",
+                    "precision_params": precision_meta.get("params"),
+                    "mapping_status": precision_meta.get("mapping_status"),
+                    "split_indices": precision_meta.get("split_indices"),
+                    "split_groups": precision_meta.get("groups"),
+                    "split_mapping_file": "input/split_mapping.json",
+                    "split_mapping_sha256": sha256_file(split_map_path),
+                    "expanded_ising_matrix_sha256": hashes["expanded_ising_matrix_sha256"],
+                })
             mapping_path = arc.dir / "input" / "submitted_mapping.json"
             mapping_path.write_text(json.dumps(mapping, ensure_ascii=False, indent=2),
                                     encoding="utf-8")
@@ -451,6 +495,43 @@ class TaskArchive:
         np.savez(path, solutions=arr)
         fmt = "%d" if np.all(arr == np.round(arr)) else "%.10g"
         np.savetxt(self.dir / "raw" / "solutions.csv", arr, delimiter=",", fmt=fmt)
+        return str(path)
+
+    def save_expanded_solutions(self, solutions: np.ndarray) -> str:
+        """保存底层求解器在扩展矩阵上的原始返回（不覆盖原始解）。"""
+        arr = np.atleast_2d(np.asarray(solutions))
+        path = self.dir / "raw" / "solutions_expanded.npz"
+        if path.exists():
+            raise SystemExit(f"[归档] 扩展解已存在，拒绝覆盖：{path}")
+        np.savez(path, solutions=arr)
+        np.savetxt(self.dir / "raw" / "solutions_expanded.csv", arr, delimiter=",",
+                   fmt="%d" if np.all(arr == np.round(arr)) else "%.10g")
+        return str(path)
+
+    def save_feasible_solutions(self, solutions: np.ndarray) -> str:
+        arr = np.atleast_2d(np.asarray(solutions))
+        path = self.dir / "raw" / "solutions_feasible.npz"
+        if path.exists():
+            raise SystemExit(f"[归档] 可行解已存在，拒绝覆盖：{path}")
+        np.savez(path, solutions=arr)
+        np.savetxt(self.dir / "raw" / "solutions_feasible.csv", arr, delimiter=",",
+                   fmt="%d" if np.all(arr == np.round(arr)) else "%.10g")
+        return str(path)
+
+    def save_expanded_energy(self, solutions: np.ndarray, expanded_matrix: np.ndarray):
+        sol = np.atleast_2d(np.asarray(solutions, dtype=np.float64))
+        J = np.asarray(expanded_matrix, dtype=np.float64)
+        H = -np.einsum("ij,ij->i", sol.dot(J), sol)
+        with open(self.dir / "raw" / "solution_energy_expanded.csv", "w",
+                  encoding="utf-8") as f:
+            f.write("sample,H,sum_plus_one\n")
+            for i, (h, s) in enumerate(zip(H, sol)):
+                f.write(f"{i},{h:.10g},{int((s > 0).sum())}\n")
+
+    def save_restore_status(self, payload: dict) -> str:
+        path = self.dir / "raw" / "restore_status.json"
+        path.write_text(json.dumps(json_safe(payload), ensure_ascii=False, indent=2),
+                        encoding="utf-8")
         return str(path)
 
     def save_platform_result(self, result) -> str:

@@ -38,6 +38,7 @@ import numpy as np
 import d_submit_cim as S
 import experiment_budget as budget
 import experiment_input as exin_mod
+import precision_reducer as PRR
 from experiment_archive import (
     Registry,
     STATUS_TEXT,
@@ -67,9 +68,38 @@ def select_topk(A, B, V, topk: int):
     return list(A), list(B), V
 
 
-def build_problem(exin: ExperimentInput, topk: int = 0, mfactor: float = 1.0) -> dict:
-    """构造 QUBO / Ising / 8bit 精度适配矩阵；只复用既有实现。"""
+PRECISION_METHOD_DIRECT_8BIT = "direct_8bit"
+PRECISION_METHOD_PRECISION_REDUCER = "precision_reducer"
+PRECISION_METHODS = (PRECISION_METHOD_DIRECT_8BIT, PRECISION_METHOD_PRECISION_REDUCER)
+
+
+def adapt_precision(I, method: str = PRECISION_METHOD_DIRECT_8BIT):
+    """精度适配入口：方法标识 -> 适配后矩阵。
+
+    当前仅实现直接 8bit 适配（adjust_ising_matrix_precision）；
+    PrecisionReducer 等外部方法由此边界接入，构造侧不依赖具体方法。
+    """
     import kaiwu.preprocess as pp
+
+    if method == PRECISION_METHOD_DIRECT_8BIT:
+        return np.asarray(pp.adjust_ising_matrix_precision(I, 8), dtype=float)
+    raise SystemExit(f"[精度] 未知的精度适配方法：{method}")
+
+
+def build_problem(exin: ExperimentInput, topk: int = 0, mfactor: float = 1.0,
+                  precision_method: str = PRECISION_METHOD_DIRECT_8BIT,
+                  pr_params: dict = None) -> dict:
+    """构造 QUBO / Ising / 精度适配矩阵；只复用既有实现。
+
+    direct_8bit：行为与旧版完全一致。
+    precision_reducer：用 SDK 的 PrecisionReducer 生成扩展矩阵；提交维度可能大于原始维度。
+    """
+    import kaiwu.preprocess as pp
+
+    if precision_method not in PRECISION_METHODS:
+        raise SystemExit(f"[精度] 未知的精度适配方法：{precision_method}")
+    if precision_method == PRECISION_METHOD_DIRECT_8BIT and pr_params:
+        raise SystemExit("[精度] direct_8bit 路线不接受 PrecisionReducer 参数。")
 
     A, B, V = select_topk(exin.A, exin.B, exin.V, topk)
     Q, offset, M0 = S.build_qubo(V)
@@ -77,31 +107,61 @@ def build_problem(exin: ExperimentInput, topk: int = 0, mfactor: float = 1.0) ->
     if mfactor != 1.0:
         Q, offset, M = S.build_qubo(V, M=M0 * mfactor)
     I, bias = S.to_ising(Q)
-    adj = np.asarray(pp.adjust_ising_matrix_precision(I, 8), dtype=float)
-    if adj.shape != I.shape or not np.array_equal(adj, adj.T) or not np.isfinite(adj).all():
-        raise SystemExit("[精度] 适配矩阵的形状、对称性或有限性检查失败。")
-    # 可等比缩放到 8 位整数的浮点矩阵也是 SDK 的合法提交矩阵。
-    if not pp.calculate_ising_matrix_bit_width(adj, 8)["precision"] <= 8:
-        raise SystemExit("[精度] 提交矩阵未通过 SDK 的 8 位可表示性检查。")
-
     nA, nB = len(A), len(B)
     raw = S.resolution(I, nA, nB)
+    n_qubo = int(Q.shape[0])
+
+    if precision_method == PRECISION_METHOD_DIRECT_8BIT:
+        adj = adapt_precision(I, precision_method)
+        if adj.shape != I.shape or not np.array_equal(adj, adj.T) or not np.isfinite(adj).all():
+            raise SystemExit("[精度] 适配矩阵的形状、对称性或有限性检查失败。")
+        # 可等比缩放到 8 位整数的浮点矩阵也是 SDK 的合法提交矩阵。
+        if not pp.calculate_ising_matrix_bit_width(adj, 8)["precision"] <= 8:
+            raise SystemExit("[精度] 提交矩阵未通过 SDK 的 8 位可表示性检查。")
+    else:
+        exp = PRR.expand_ising(I, pr_params)
+        adj = np.asarray(exp["matrix_submitted"], dtype=float)
+        if adj.ndim != 2 or adj.shape[0] != adj.shape[1] or not np.array_equal(adj, adj.T) \
+                or not np.isfinite(adj).all():
+            raise SystemExit("[精度] PrecisionReducer 扩展矩阵的形状、对称性或有限性检查失败。")
+        if not pp.calculate_ising_matrix_bit_width(adj, 8)["precision"] <= 8:
+            raise SystemExit("[精度] PrecisionReducer 提交矩阵未通过 SDK 的 8 位可表示性检查。")
+
     Ia = np.abs(adj)
     step = Ia.max() / 127.0 if Ia.max() else 1.0
     obj = Ia[:nA, nA:nA + nB].max() if nA and nB else 0.0
-    adj_resol = float(obj / step)
-    n_qubo = int(Q.shape[0])
+    adj_resol = float(obj / step) if precision_method == PRECISION_METHOD_DIRECT_8BIT else None
     n_ising = int(adj.shape[0])
-    return {
+    problem = {
         "A": A, "B": B, "V": V, "Q": Q, "I": I, "adj": adj,
         "offset": float(offset), "bias": float(bias), "M": float(M), "M0": float(M0),
         "topk": int(topk), "mfactor": float(mfactor),
+        "precision_method": precision_method,
         "n_qubo": n_qubo, "n_ising": n_ising,
-        "aux_bits": n_ising - n_qubo,
+        "n_ising_original": int(I.shape[0]),
+        "aux_bits": int(I.shape[0]) - n_qubo,
         "resol_raw": float(raw["resol"]), "resol_adj": adj_resol,
-        "maxJ": float(Ia.max()), "obj_adj": float(obj), "step_adj": float(step),
+        "maxJ": float(Ia.max()), "step_adj": float(step),
         "matrix_sha256": numeric_matrix_sha256(adj),
     }
+    if precision_method == PRECISION_METHOD_DIRECT_8BIT:
+        problem.update({"precision_params": None, "split_extra_spins": 0,
+                        "split_indices": None, "split_groups": None,
+                        "mapping_status": "not_applicable", "mapping_evidence": None,
+                        "expanded_matrix": None, "obj_adj": float(obj)})
+    else:
+        problem.update({
+            "precision_params": exp["params"],
+            "split_extra_spins": int(n_ising - I.shape[0]),
+            "split_indices": exp["split_indices"], "split_groups": exp["groups"],
+            "mapping_status": exp["mapping_status"],
+            "mapping_evidence": exp["mapping_evidence"],
+            "expanded_matrix": np.asarray(exp["matrix_expanded"], dtype=float),
+            "submitted_equals_expanded": exp["submitted_equals_expanded"],
+            "submitted_bit_width": exp["bit_width"],
+            "obj_adj": None,
+        })
+    return problem
 
 
 def validate_run_args(mode: str, topk: int, n_labels: int, samples: int):
@@ -149,12 +209,31 @@ def print_plan(exin, problem, task_name, mode, samples, submit, dup, budget_info
     print(f"目标矩阵规模  : {exin.shape} → {problem['V'].shape}（topk={problem['topk']}）")
     for name, digest in hashes.items():
         print(f"{name} = {digest}")
-    print("实际变量映射  : " + json.dumps(variables, ensure_ascii=False))
-    print(f"QUBO / Ising  : {problem['n_qubo']} 比特 → {problem['n_ising']} 比特"
-          f"（辅助自旋 {problem['aux_bits']} 个，位于末位）")
+    if len(variables) <= 20:
+        print("实际变量映射  : " + json.dumps(variables, ensure_ascii=False))
+    else:
+        print(f"实际变量映射  : {len(variables)} 个（前 8 个）"
+              + json.dumps(variables[:8], ensure_ascii=False))
+    if problem["precision_method"] == PRECISION_METHOD_DIRECT_8BIT:
+        print(f"QUBO / Ising  : {problem['n_qubo']} 比特 → {problem['n_ising']} 比特"
+              f"（辅助自旋 {problem['aux_bits']} 个，位于末位）")
+    else:
+        p = problem["precision_params"]
+        print(f"精度路线      : precision_reducer（precision={p['precision']}, "
+              f"target_bits={p['target_bits']}, truncated_precision={p['truncated_precision']}, "
+              f"only_feasible_solution={p['only_feasible_solution']}）")
+        print(f"QUBO / Ising  : {problem['n_qubo']} 比特 → 原始 Ising "
+              f"{problem['n_ising_original']}（原始辅助自旋 {problem['aux_bits']}）"
+              f" → 提交 Ising {problem['n_ising']}（新增拆分自旋 {problem['split_extra_spins']}）")
+        print(f"拆分映射      : {problem['mapping_status']}"
+              f"（分组数 {len(problem['split_groups'] or [])}）")
     print(f"罚项 M        : {problem['M']:.3f}（基准 {problem['M0']:.3f} × {problem['mfactor']:g}）")
-    print(f"目标分辨率    : 原始 Ising {problem['resol_raw']:.2f} 档 | "
-          f"8bit 适配后 {problem['resol_adj']:.2f} 档（两种口径同时给出）")
+    if problem["resol_adj"] is None:
+        print(f"目标分辨率    : 原始 Ising {problem['resol_raw']:.2f} 档 | "
+              f"拆分矩阵无单一目标块，不计算 8bit resolution")
+    else:
+        print(f"目标分辨率    : 原始 Ising {problem['resol_raw']:.2f} 档 | "
+              f"8bit 适配后 {problem['resol_adj']:.2f} 档（两种口径同时给出）")
     print(f"模式          : {mode} | 采样数 {samples}")
     print(f"设备          : 由平台调度（SDK 不支持指定机型）")
     print(f"本地配额      : {budget_info['label']} 总额 {budget_info['total']} / "
@@ -241,16 +320,32 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
                  backend: str = "real", mock_fail_stage: str = None,
                  allow_matrix_reuse: bool = False, confirm=None,
                  project_no: str = None, notes: str = "", expected_hashes=None,
-                 baseline_b_only: bool = False) -> dict:
+                 baseline_b_only: bool = False,
+                 precision_method: str = PRECISION_METHOD_DIRECT_8BIT,
+                 pr_params: dict = None) -> dict:
     """执行一次实验（默认 dry-run）。返回结构化结果，便于测试与审计。"""
     exin = exin_mod.load(input_version)
     if baseline_b_only and (not exin.version.startswith("B-") or exin.kind != "independent_reproduction"):
         raise SystemExit("[配置] 第二轮真机配置需要基线 B 的独立复现输入。")
+    if precision_method not in PRECISION_METHODS:
+        raise SystemExit(f"[精度] 未知的精度适配方法：{precision_method}")
+    if precision_method == PRECISION_METHOD_DIRECT_8BIT and pr_params:
+        raise SystemExit("[精度] direct_8bit 路线不接受 PrecisionReducer 参数。")
+    if precision_method == PRECISION_METHOD_PRECISION_REDUCER:
+        pr_params = PRR.normalize_params(pr_params)
     validate_run_args(mode, topk, len(exin.A), samples)
     if not np.isfinite(mfactor):
         raise SystemExit("[参数] mfactor 必须是有限数值。")
-    problem = build_problem(exin, topk=topk, mfactor=mfactor)
-    variables = submitted_variables(problem["A"], problem["B"], problem["n_ising"])
+    problem = build_problem(exin, topk=topk, mfactor=mfactor,
+                            precision_method=precision_method, pr_params=pr_params)
+    if problem["precision_method"] == PRECISION_METHOD_PRECISION_REDUCER:
+        if problem["split_indices"] is None:
+            raise SystemExit("[精度] PrecisionReducer 拆分映射未能核验，拒绝进入执行/提交阶段。")
+        variables = PRR.expanded_variables(problem["A"], problem["B"],
+                                           problem["n_ising_original"],
+                                           problem["split_indices"])
+    else:
+        variables = submitted_variables(problem["A"], problem["B"], problem["n_ising"])
     hashes = {
         "input_matrix_sha256": exin.matrix_sha256,
         "submitted_target_V_semantic_sha256": numeric_matrix_sha256(problem["V"]),
@@ -258,6 +353,8 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
         "submitted_matrix_sha256": problem["matrix_sha256"],
         "variables_sha256": variables_sha256(variables),
     }
+    if problem["precision_method"] == PRECISION_METHOD_PRECISION_REDUCER:
+        hashes["expanded_ising_matrix_sha256"] = numeric_matrix_sha256(problem["expanded_matrix"])
     if expected_hashes is not None:
         if not isinstance(expected_hashes, dict):
             raise SystemExit("[核验] expected_hashes 应为哈希名称到 SHA-256 的对象。")
@@ -324,6 +421,8 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
         "task_mode": "sampling" if mode == "sampling" else "optimization",
         "topk": int(topk),
         "mfactor": float(mfactor),
+        "precision_method": problem["precision_method"],
+        "precision_params": problem["precision_params"],
         "samples": int(samples),
         "project_no": project_no,
         "quota_units": 1,
@@ -332,6 +431,9 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
         "expected_hashes": expected_hashes,
         "n_qubo": problem["n_qubo"],
         "n_ising": problem["n_ising"],
+        "n_ising_original": problem["n_ising_original"],
+        "split_extra_spins": problem["split_extra_spins"],
+        "mapping_status": problem["mapping_status"],
         "aux_bits": problem["aux_bits"],
         "M": problem["M"],
         "M0": problem["M0"],
@@ -341,10 +443,26 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
         "git_dir": str(ROOT),
         "started_at": now_str(),
     }
+    precision_meta = None
+    if problem["precision_method"] == PRECISION_METHOD_PRECISION_REDUCER:
+        precision_meta = PRR.split_mapping_payload({
+            "params": problem["precision_params"],
+            "n_original": problem["n_ising_original"],
+            "n_expanded": problem["n_ising"],
+            "n_extra": problem["split_extra_spins"],
+            "mapping_status": problem["mapping_status"],
+            "mapping_evidence": problem["mapping_evidence"],
+            "split_indices": problem["split_indices"],
+            "bit_width": problem["submitted_bit_width"],
+            "submitted_multiplier": problem["submitted_bit_width"].get("multiplier"),
+            "submitted_equals_expanded": problem["submitted_equals_expanded"],
+        }, problem["A"], problem["B"])
     arc = TaskArchive.create(task_id, config, exin, problem["adj"],
                              raw_ising_matrix=problem["I"],
                              submitted_A=problem["A"], submitted_B=problem["B"],
-                             filtered_V=problem["V"])
+                             filtered_V=problem["V"],
+                             precision_meta=precision_meta,
+                             expanded_matrix=problem["expanded_matrix"])
     entry = {k: arc.meta()[k] for k in (
         "task_id", "task_name", "status", "input_version", "input_kind",
         "input_matrix_sha256", "submitted_matrix_sha256", "mode_key", "mode",
@@ -379,9 +497,21 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
         arc.update(sdk_matrix_hash=sdk_hash)
         registry.update(task_id, sdk_matrix_hash=sdk_hash)
 
+    is_pr = problem["precision_method"] == PRECISION_METHOD_PRECISION_REDUCER
+    component = None
+    expanded_solutions = None
     t0 = time.perf_counter()
     try:
-        solutions = opt.solve(problem["adj"])
+        if is_pr:
+            import kaiwu.preprocess as pp
+            component = PRR.wrap_recording_component(opt)
+            solver = pp.PrecisionReducer(component, **problem["precision_params"])
+            solutions = solver.solve(problem["I"])
+            expanded_solutions = component.recorded_solutions
+            if component.recorded_matrix is None:
+                raise RuntimeError("PrecisionReducer 未向底层求解器传入矩阵")
+        else:
+            solutions = opt.solve(problem["adj"])
     except KeyboardInterrupt:
         elapsed = time.perf_counter() - t0
         arc.log("[中断] 进程在提交后被中断；云端任务可能已创建，请用 resume 查询，勿重复提交。")
@@ -414,11 +544,18 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
         return base
 
     elapsed = time.perf_counter() - t0
+    restore_info = None
     try:
-        arr = validate_spin_matrix(solutions, problem["n_ising"])
+        if is_pr:
+            exp_arr = validate_spin_matrix(expanded_solutions, problem["n_ising"])
+            arr = validate_spin_matrix(solutions, problem["n_ising_original"])
+        else:
+            arr = validate_spin_matrix(solutions, problem["n_ising"])
     except ValueError as exc:
         raw = np.atleast_2d(np.asarray(solutions))
         arc.save_solutions(raw)
+        if is_pr and expanded_solutions is not None:
+            arc.save_expanded_solutions(np.atleast_2d(np.asarray(expanded_solutions)))
         arc.log(f"[非法返回] {exc}；原始数组已保存，未采信。")
         arc.append_attempt("result", "invalid", str(exc), shape=list(raw.shape),
                            runtime_s=elapsed)
@@ -433,8 +570,36 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
         print(f"       原始数组已归档：{arc.dir}")
         return base
 
+    if is_pr:
+        arc.save_expanded_solutions(exp_arr)
+        arc.save_expanded_energy(exp_arr, problem["adj"])
+        restored, feasible = PRR.restore_feasible(exp_arr, problem["split_indices"])
+        cmp_n = min(len(restored), len(arr))
+        match = 0
+        for k in range(cmp_n):
+            if not np.all(np.isfinite(restored[k])):
+                continue
+            if np.array_equal(restored[k], arr[k]) or np.array_equal(-restored[k], arr[k]):
+                match += 1
+        restore_info = {
+            "n_expanded_samples": int(exp_arr.shape[0]),
+            "split_feasible_samples": int(feasible.sum()),
+            "n_restored_samples": int(arr.shape[0]),
+            "restore_consistency_checked": int(cmp_n),
+            "restore_consistency_matches": int(match),
+            "recorded_matrix_matches_archived": bool(
+                np.array_equal(component.recorded_matrix, problem["adj"])),
+            "method_note": "PrecisionReducer 内部恢复；本表用公开 restore_split_solution 对拆分一致样本做独立核对。",
+        }
+        if feasible.any():
+            arc.save_feasible_solutions(restored[feasible])
+        arc.save_restore_status(restore_info)
+        arc.log(f"PrecisionReducer：扩展 {problem['n_ising']} 比特，"
+                f"拆分一致样本 {int(feasible.sum())}/{int(exp_arr.shape[0])}，"
+                f"恢复核对 {match}/{cmp_n}")
+
     arc.save_solutions(arr)
-    arc.save_energy(arr, problem["adj"])
+    arc.save_energy(arr, problem["I"] if is_pr else problem["adj"])
     arc.log(f"提交成功，返回 {arr.shape[0]} 个解 × {arr.shape[1]} 比特，耗时 {elapsed:.2f}s")
     arc.append_attempt("solve", "completed", f"solutions={arr.shape}", runtime_s=elapsed)
     arc.update(status="completed", returned_solutions=list(arr.shape),
@@ -454,6 +619,8 @@ def resume_task(task_id: str, backend=None, local_only: bool = False) -> dict:
     """用同一任务名 + 同一矩阵向平台查询已有结果；绝不重新提交。"""
     arc = TaskArchive(task_id)
     meta = arc.meta()
+    was_completed = (meta.get("status") == "completed"
+                     and (arc.dir / "raw" / "solutions.npz").exists())
     if local_only:
         print(json.dumps(meta, ensure_ascii=False, indent=2))
         return {"task_id": task_id, "status": meta.get("status"), "local_only": True}
@@ -483,6 +650,13 @@ def resume_task(task_id: str, backend=None, local_only: bool = False) -> dict:
         status = "download_failed" if stage == "download" else (
             "run_failed" if stage == "run" else "resume_no_result")
         arc.append_attempt("resume", "failed", str(exc), error_type=type(exc).__name__)
+        if was_completed:
+            arc.update(last_resume_at=now_str(), last_resume_error=str(exc))
+            print(f"[恢复失败] 阶段 {stage} / {type(exc).__name__}: {exc}")
+            print("[恢复] 本地任务已 completed，保留原状态，不降级。")
+            return {"task_id": task_id, "status": "completed",
+                    "note": "platform query failed; local completed preserved",
+                    "error": str(exc)}
         arc.update(status=status, error_stage=stage, error_type=type(exc).__name__,
                    error_message=str(exc))
         Registry().update(task_id, status=status, error_stage=stage)
@@ -505,11 +679,54 @@ def resume_task(task_id: str, backend=None, local_only: bool = False) -> dict:
         try:
             solutions = validate_spin_matrix(solutions, adj.shape[0])
         except ValueError as exc:
+            if was_completed:
+                arc.append_attempt("resume", "invalid_ignored", str(exc))
+                print(f"[恢复] 平台返回格式异常，但本地任务已 completed，保留原状态：{exc}")
+                return {"task_id": task_id, "status": "completed",
+                        "note": "platform result invalid; local completed preserved",
+                        "error": str(exc)}
             arc.update(status="invalid_result", error_stage="result",
                        error_type="ValueError", error_message=str(exc))
             Registry().update(task_id, status="invalid_result", error_stage="result")
             print(f"[恢复] 平台返回解格式非法：{exc}；原始返回已归档。")
             return {"task_id": task_id, "status": "invalid_result", "error": str(exc)}
+        if was_completed:
+            arc.append_attempt("resume", "verified", f"solutions={solutions.shape}")
+            print("[恢复] 本地任务已 completed；仅核对平台返回，不覆盖历史文件与状态。")
+            return {"task_id": task_id, "status": "completed",
+                    "solutions": list(solutions.shape), "note": "existing completed preserved"}
+        cfg = json.loads((arc.dir / "config.json").read_text(encoding="utf-8-sig"))
+        is_pr = cfg.get("precision_method") == PRECISION_METHOD_PRECISION_REDUCER
+        if is_pr:
+            map_path = arc.dir / "input" / "split_mapping.json"
+            mapping = json.loads(map_path.read_text(encoding="utf-8-sig"))
+            idx = mapping.get("split_indices")
+            if idx is None:
+                raise SystemExit("[恢复] 拆分映射不可用，无法恢复原始变量；原始扩展解将保留。")
+            restored, feasible = PRR.restore_feasible(solutions, idx)
+            raw_i = np.load(arc.dir / "input" / "ising_matrix_raw.npz",
+                            allow_pickle=False)["matrix"]
+            if not (arc.dir / "raw" / "solutions_expanded.npz").exists():
+                arc.save_expanded_solutions(solutions)
+                arc.save_expanded_energy(solutions, adj)
+            ok = np.all(np.isfinite(restored), axis=1)
+            restored_ok = restored[ok]
+            if not (arc.dir / "raw" / "solutions.npz").exists() and restored_ok.size:
+                arc.save_solutions(restored_ok)
+                arc.save_energy(restored_ok, raw_i)
+            arc.save_restore_status({
+                "n_expanded_samples": int(solutions.shape[0]),
+                "split_feasible_samples": int(np.sum(ok)),
+                "n_restored_samples": int(restored_ok.shape[0]),
+                "source": "resume",
+            })
+            arc.update(status="completed", returned_solutions=list(restored_ok.shape),
+                       completed_at=now_str(), quota_counted=True)
+            Registry().update(task_id, status="completed", quota_counted=True)
+            print(f"[恢复完成] 扩展解 {solutions.shape[0]} 个；可恢复 {restored_ok.shape[0]} 个")
+            return {"task_id": task_id, "status": "completed",
+                    "solutions": list(restored_ok.shape)}
+
         if not (arc.dir / "raw" / "solutions.npz").exists():
             arc.save_solutions(solutions)
             arc.save_energy(solutions, adj)
@@ -522,6 +739,12 @@ def resume_task(task_id: str, backend=None, local_only: bool = False) -> dict:
     status = "run_failed" if (isinstance(result, dict) and
                               str(result.get("task_status_code", "")).upper() in ("FAILED", "FAIL")) \
         else "resume_no_result"
+    if was_completed:
+        arc.update(last_resume_at=now_str(), last_resume_status=status)
+        print("[恢复] 未取到新解，但本地任务已 completed；保留原状态，不降级。")
+        return {"task_id": task_id, "status": "completed",
+                "note": f"platform returned {status}; local completed preserved",
+                "platform_result": result}
     arc.update(status=status)
     Registry().update(task_id, status=status)
     print(f"[恢复] 未取到解，状态记为 {status}；平台返回已原样归档。")
@@ -596,7 +819,9 @@ def cmd_inputs_show(a):
 def cmd_plan(a):
     r = execute_task(a.input_version, a.task_name, a.mode, a.topk, a.mfactor, a.samples,
                      submit=False, backend=a.backend, project_no=a.project_no,
-                     expected_hashes=a.expected_hashes, baseline_b_only=a.config is not None and a.backend == "real")
+                     expected_hashes=a.expected_hashes,
+                     precision_method=a.precision_method, pr_params=a.pr_params,
+                     baseline_b_only=a.config is not None and a.backend == "real")
     return EXIT_OK if r.get("status") == "dry_run" else EXIT_BLOCKED
 
 
@@ -604,7 +829,9 @@ def cmd_run(a):
     r = execute_task(a.input_version, a.task_name, a.mode, a.topk, a.mfactor, a.samples,
                      submit=a.submit, backend=a.backend, mock_fail_stage=a.mock_fail_stage,
                      allow_matrix_reuse=a.allow_matrix_reuse, project_no=a.project_no,
-                     expected_hashes=a.expected_hashes, baseline_b_only=a.config is not None and a.backend == "real")
+                     expected_hashes=a.expected_hashes,
+                     precision_method=a.precision_method, pr_params=a.pr_params,
+                     baseline_b_only=a.config is not None and a.backend == "real")
     if r.get("status") in ("dry_run", "completed", "submitted", "cancelled"):
         return EXIT_OK
     return EXIT_FAILED
@@ -744,7 +971,10 @@ def build_parser():
 def resolve_task_config(args):
     defaults = {"mode": "opt", "topk": 13, "mfactor": 1.0, "samples": 10}
     args.expected_hashes = None
+    args.precision_method = None
+    args.pr_params = None
     if args.config is None:
+        args.precision_method = PRECISION_METHOD_DIRECT_8BIT
         if not args.input_version or not args.task_name:
             raise SystemExit("[参数] 请指定 --input-version 和 --task-name，或使用 --config。")
         for field, value in defaults.items():
@@ -753,7 +983,7 @@ def resolve_task_config(args):
         return
 
     required = {"input_version", "task_name", *defaults}
-    allowed = required | {"expected_hashes", "project_no"}
+    allowed = required | {"expected_hashes", "project_no", "precision_method", "pr_params"}
     if any(getattr(args, field) is not None for field in allowed):
         raise SystemExit("[配置] 使用 --config 时，研究参数须全部来自同一份文件。")
     try:
@@ -774,6 +1004,17 @@ def resolve_task_config(args):
         raise SystemExit("[配置] topk 和 samples 必须是整数。")
     if type(cfg["mfactor"]) not in (int, float):
         raise SystemExit("[配置] mfactor 必须是数值。")
+    cfg.setdefault("precision_method", PRECISION_METHOD_DIRECT_8BIT)
+    cfg.setdefault("pr_params", None)
+    if cfg["precision_method"] not in PRECISION_METHODS:
+        raise SystemExit(f"[配置] 未知 precision_method：{cfg['precision_method']}")
+    if cfg["precision_method"] == PRECISION_METHOD_DIRECT_8BIT and cfg["pr_params"]:
+        raise SystemExit("[配置] direct_8bit 路线不接受 pr_params。")
+    if cfg["precision_method"] == PRECISION_METHOD_PRECISION_REDUCER:
+        try:
+            cfg["pr_params"] = PRR.normalize_params(cfg["pr_params"])
+        except ValueError as exc:
+            raise SystemExit(f"[配置] pr_params 非法：{exc}") from exc
     for field, value in cfg.items():
         setattr(args, field, value)
 

@@ -187,6 +187,67 @@
 - Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）调用 2 次。第一次核验为 REVISE：指出 `M0` 不能对任意非负 V 保证合法解胜出、`resolution` 不能单独决定排序、第一轮复核需列出全部返回样本；Trae 补全证据并修正表述。第二次核验为 CONFIRMED，确认上述修正、48/11/合法命中口径、原始 argmin 保留 2/5 与返回命中 0/5 的区分、合法子空间边界。两次结论见 `results/round2/phase1_math_interfaces/codex_review_01/02.json`。
 - 第二轮正式研究配置未提供，第二阶段停止；未选择参数、未执行真机、未消耗配额。
 
+## 2026-11-28 T002-A：有限精度 QUBO 数学表达研究辅助
+
+- 分支：`research/qubo-refinement`（起始 `b4ed23f6cbaa233e70fba20eb369807bc7cf1a6d`）。
+- Trae（DeepSeek-V4.1-Flash）阅读允许范围内的数学接口、T002 证据与公开文献种子；向 Codex 提出四个方向的数学问题；独立复算 Codex 的教学例子与命题（33/33 PASS）；核验 5 篇文献的 arXiv/DOI；归档 `results/round2/qubo_refinement/`。未训练模型、未修改基线 B、未提交真机、量子配额消耗 0。
+- Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）调用 1 次，输入为问题、上下文和文献种子，未扫描整个仓库；输出罚项阈值、目标变换、替代编码、量化误差四部分的公式、推导、反例与 3 个手算例。Trae 复算未发现需要追加第二次调用的实质性矛盾。
+- 本阶段只产出数学研究辅助资料；编码、罚项、变换、评价指标与正式实验参数由队员独立决定，第二阶段工程实现未启动。
+
+## 2026-11-28 T002-A V2：合成编码基准
+
+- Trae（DeepSeek-V4.1-Flash）在 `research/qubo-refinement` 上实现非赛题合成基准：200 个随机 4×4 成本表，one-hot vs domain-wall，strong/weak 两档 M；全逻辑空间穷举并走 8bit 适配；归档 `results/round2/qubo_refinement/EXPERIMENTS/`。未使用赛题输入、未修改第一轮数据、未提交真机、量子配额消耗 0。
+- Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）调用 1 次，返回 REVISE：修正 Spearman 常量秩、weak 有效计数，并给出 domain-wall 强罚项反例（`M=4.2` 时非法码 `(010,010)` 能量 −2.6，低于合法最优 1.0）。Trae 已修正实现/README 并复现反例；本次没有追加第二次 Codex。
+- 该基准是合成验证，不是正式第二轮实验；编码/参数/验收仍由队员决定。
+- 追加冻结 B 输入 topk=8 全空间对照：one-hot 与 domain-wall 在 Q2/O3/FO2 上互有胜负，无跨输入稳定占优；未产生可提交真机的候选，真机 0 次、配额 0。
+- 追加 one-hot 罚项缩放候选：B-Q2-NO2 topk=8，M0 本地保留 0、非原始 5、分辨率 3；`lowM=1.05*max V`（mfactor 0.33826009024559534）本地保留 1、非原始 0、分辨率 7.10/7.00、量化约束有效。已生成 `REAL_MACHINE_CANDIDATES/B_Q2_k8_lowM.json` 并 dry-run（未调用 license、未提交、配额 0），等待真机授权。
+- 队员授权后提交 `B_Q2_k8_lowM` 1 次：task `t20261128-043036-b_q2_k8_lowm-34f84ed6`，返回 10、合法 2，最低合法 La-Zr（H=−1716，V=0），原始/量化最优命中 1/1；设备 SPQC-1，硬件 4.3098 ms，端到端 7.754 s；平台 PDF 已归档；配额已用 6、剩余 26。未重复提交。
+
+## 2026-11-28 T002-A V4：one-hot 有限精度稳定性验证
+
+- Trae（DeepSeek-V4.1-Flash）在 `research/qubo-refinement` 上完成 3 输入 × 14 个 `M/Vmax`（42 点）全逻辑空间穷举与量化误差结构分析；新增 1.075 点；区分“基态合法”与“全体合法态严格分离”；修正目标块比较、`diff_count` 口径与辅助位取最小能量；在 `code/d_experiment.py` 增加 `adapt_precision`/`precision_method` 接口边界（默认 `direct_8bit`，不改变矩阵与哈希）。23 项实验管线测试与 5 项数学接口测试通过。未选择正式方案、未提交真机、量子配额消耗 0。产出 `results/round2/qubo_refinement/ONEHOT_STABILITY.md` 与 3 个 JSON。
+- Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）调用 1 次，返回 REVISE：独立复算 39 点；补算 1.075 并发现 La-Zr/La-Hf 并列；指出 2.80 保留原始最优但多出并列；给出带符号误差的集合保持判据与 `Δ>2ε` 充分条件，并指出 `np.allclose(atol=0)` 仍保留默认相对容差。Trae 已按反馈修正，本轮无第二次调用。
+- 关键结论：42/42 点量化基态合法；但 lowM（1.05）的全体合法态分离裕量为 −4，非法态可优于部分合法态；Q2 集合相等只在 1.05/1.10 两个孤立点，1.075 即并列；原始最优间隙 0.001396 远小于量化残差摆动，不能外推为普遍适用。
+- 本阶段真机 0 次、配额 0；账面剩余 26，平台余额待核实。
+
+## 2026-11-28 T003：PrecisionReducer 接管与工程融合
+
+- 分支：`research/precision-reducer`（起点 `c001b08`）。
+- Trae（DeepSeek-V4.1-Flash）核验本机 Kaiwu 1.4.4 PrecisionReducer 接口与行为；
+  实现 `code/precision_reducer.py`、`d_experiment.py` 的 `precision_reducer` 路线、
+  扩展归档与 resume；新增 4 项回归测试，全套 32/32 通过；direct8 已知提交矩阵哈希不变。
+- 数学与本地验证（非真机）：Q2 lowM 的 PrecisionReducer 扩展 62/121/246 自旋；
+  拆分映射用公开 split 接口复现并核验（常数比例偏差 1.4e-14）；截断位宽全空间枚举
+  表明最优随位数非单调；SA 拆分一致率 1–10/100，G3/G4 本地弱于 G1/G2。
+- Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）调用 1 次，核验可行子空间等价、
+  罚项充分性、tp12 的 V=0 来源、截断非单调、映射可区分性与结论边界；输出见
+  `results/round2/precision_reducer/EXPERIMENTS/CODEX_REVIEW_01.json`。
+- 队员授权“仅提交 tp14”后执行 1 次真机：task `t20261128-161915-b_q2_k8_lowm_pr_tp14-d4f6e0ff`，
+  status=completed；扩展 121 自旋；10 返回、拆分一致 2/10、恢复合法 2/10、
+  两者同时 1/10，严格有效原始最优命中 1/10（样本 0，La-Zr V=0，H=−206404）；
+  平台结果 pkl 与归档扩展解逐元素一致。
+- 配额消耗 1（账面已用 7 / 剩余 25）；tp12 未提交。
+- 平台报告已人工登录下载并归档：SPQC-550、硬件 1.5511 ms、
+  平台任务 ID `d833dedb...`；PDF 10 条向量与归档 10/10 一致。
+- 未修改基线 B、第一轮数据与 T001 冻结材料。
+
+## 2026-11-28 T003-FINAL：研究分支集成与正式基线更新
+
+- 修正 tp14 统计：拆分一致 2/10、恢复合法 2/10、两者同时 1/10、严格原始最优命中 1/10；
+  样本 1 虽合法但拆分不一致，不计入严格命中。
+- 修复 resume 对已 completed 任务的状态降级：查询失败/空结果/格式异常均保留 completed；
+  受影响的 tp14 状态已恢复，历史尝试保留；新增 2 项回归测试。
+- 平台 PDF 已由人工登录下载并归档：SPQC-550、硬件 1.5511 ms、
+  平台任务 ID `d833dedb...`、PDF SHA256 `90365064...`；PDF 10 条向量与归档 10/10 一致。
+- PR #5（`ab36818`）作为独立离线验证工具合并，保留 direct/truncate+split/mutate 能力；
+  正式路线仍为 `code/precision_reducer.py` + `d_experiment.py`，未替换。
+- 集成分支 `integration/t003-final`：main 已为祖先，合并 PR5，未重复合并 qubo-refinement。
+- 完整回归 40/40；direct8 哈希与旧配置兼容；7 个归档任务核验全通过；
+  未修改基线 B/T001，未新增真机任务、配额 0。
+- 集成 PR #7：<https://github.com/Gay-wushuang/kaiwu/pull/7>（OPEN/MERGEABLE，未自动合并）。
+
+
+
 
 
 

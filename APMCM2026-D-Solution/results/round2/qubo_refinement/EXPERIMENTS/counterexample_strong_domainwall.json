@@ -1,0 +1,56 @@
+{
+  "V": [
+    [
+      1.0,
+      4.0,
+      1.0,
+      1.0
+    ],
+    [
+      4.0,
+      1.0,
+      4.0,
+      1.0
+    ],
+    [
+      1.0,
+      4.0,
+      1.0,
+      1.0
+    ],
+    [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  ],
+  "M": 4.2,
+  "M_over_maxV": 1.05,
+  "best_legal": {
+    "bits": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "energy": 1.0,
+    "legal": true
+  },
+  "best_illegal": {
+    "bits": [
+      0,
+      1,
+      0,
+      0,
+      1,
+      0
+    ],
+    "energy": -2.5999999999999996,
+    "legal": false
+  },
+  "illegal_minus_legal": -3.5999999999999996,
+  "note": "invalid domain-wall code 010 has negative cross-cost contributions; M based only on Vmax is not sufficient"
+}

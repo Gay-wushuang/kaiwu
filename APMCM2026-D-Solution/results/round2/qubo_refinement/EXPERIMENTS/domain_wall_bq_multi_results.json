@@ -1,0 +1,1520 @@
+{
+  "schema_version": 1,
+  "scope": "local full-space control on frozen B inputs topk=8; not a real-machine run",
+  "inputs": [
+    "B-Q2-NO2",
+    "B-Q3-O3",
+    "B-Q3-FO2"
+  ],
+  "topk": 8,
+  "results": {
+    "B-Q2-NO2": {
+      "A": [
+        "La",
+        "Y",
+        "Sc",
+        "Sr",
+        "Ca",
+        "Ba",
+        "Bi",
+        "Pb"
+      ],
+      "B": [
+        "Zr",
+        "Hf",
+        "Si",
+        "Ti",
+        "Ga",
+        "Ta",
+        "Sn",
+        "Al"
+      ],
+      "V": [
+        [
+          0.0,
+          0.001396369617951,
+          0.4374266436071758,
+          1.3107881474845726,
+          2.359781015775952,
+          5.184650754525606,
+          2.893517288457716,
+          3.2257923931514307
+        ],
+        [
+          0.3094283591372146,
+          0.2993465284664722,
+          0.7171960451722867,
+          2.1051564155431146,
+          5.39886274854166,
+          4.582796375798744,
+          3.035497033015659,
+          4.628357665421632
+        ],
+        [
+          1.1057400156017962,
+          2.041915901665845,
+          1.431866360886545,
+          2.616749266352258,
+          6.000099177517683,
+          6.965257242526889,
+          4.665044095448039,
+          7.394709159945989
+        ],
+        [
+          6.143997825441958,
+          6.172110986864859,
+          8.179617260801322,
+          9.2344282552713,
+          10.729646742273149,
+          2.37640990451132,
+          9.093889745266791,
+          9.679087655527212
+        ],
+        [
+          6.24055428816044,
+          5.880609637998718,
+          5.949398733555711,
+          7.167434083712586,
+          10.816813508630176,
+          2.8846950120860697,
+          9.59797769204863,
+          6.933654469923866
+        ],
+        [
+          6.977024201452196,
+          6.565541334176544,
+          10.668398955514078,
+          8.16304463321012,
+          10.159927830319546,
+          3.352173813179107,
+          9.964470209300202,
+          8.512781702181428
+        ],
+        [
+          6.968112431920019,
+          11.30719933049592,
+          6.385695316650782,
+          3.356403165371333,
+          8.263863864599017,
+          11.8914534750796,
+          8.68066572563987,
+          10.840627129768066
+        ],
+        [
+          6.397678273896787,
+          7.306762294448006,
+          13.585476613855576,
+          6.123509710511215,
+          11.58540149688362,
+          4.211206851273652,
+          12.017117740729702,
+          10.55504654922403
+        ]
+      ],
+      "vmin": 0.0,
+      "vmax": 13.585476613855576,
+      "M0": 42.17095322771115,
+      "rows": [
+        {
+          "encoding": "onehot",
+          "n_var": 16,
+          "n_ising": 17,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              0
+            ]
+          ],
+          "quant_set": [
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "intersection_size": 0,
+          "retention": 0.0,
+          "non_original": 5,
+          "spearman": 0.7777698919306011,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 42.17095322771115,
+          "exact_gap": 42.17095322771115,
+          "quant_best_legal": -1780.0,
+          "quant_best_illegal": -1716.0,
+          "quant_gap": 64.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 13.585476613855576,
+          "exact_separation": 28.585476613855576,
+          "quant_worst_legal": -1748.0,
+          "quant_separation": 32.0,
+          "legal_set_equal": false,
+          "variant": "M0",
+          "M": 42.17095322771115,
+          "M_over_maxV": 3.104120262126231
+        },
+        {
+          "encoding": "onehot",
+          "n_var": 16,
+          "n_ising": 17,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              0
+            ]
+          ],
+          "quant_set": [
+            [
+              0,
+              0
+            ]
+          ],
+          "intersection_size": 1,
+          "retention": 1.0,
+          "non_original": 0,
+          "spearman": 0.9779053098125594,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 14.264750444548355,
+          "exact_gap": 14.264750444548355,
+          "quant_best_legal": -1716.0,
+          "quant_best_illegal": -1656.0,
+          "quant_gap": 60.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 13.585476613855576,
+          "exact_separation": 0.6792738306927788,
+          "quant_worst_legal": -1652.0,
+          "quant_separation": -4.0,
+          "legal_set_equal": true,
+          "variant": "lowM",
+          "M": 14.264750444548355,
+          "M_over_maxV": 1.05
+        },
+        {
+          "encoding": "domainwall",
+          "n_var": 14,
+          "n_ising": 15,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              0
+            ]
+          ],
+          "quant_set": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "intersection_size": 1,
+          "retention": 1.0,
+          "non_original": 1,
+          "spearman": 0.9997481462194123,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 8.898352123879622,
+          "exact_gap": 8.898352123879622,
+          "quant_best_legal": -3402.0,
+          "quant_best_illegal": -2774.0,
+          "quant_gap": 628.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 13.585476613855576,
+          "exact_separation": -4.687124489975954,
+          "quant_worst_legal": -2438.0,
+          "quant_separation": -336.0,
+          "legal_set_equal": false,
+          "variant": "ratio1.05",
+          "M": 14.264750444548355,
+          "M_over_maxV": 1.05
+        },
+        {
+          "encoding": "domainwall",
+          "n_var": 14,
+          "n_ising": 15,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              0
+            ]
+          ],
+          "quant_set": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "intersection_size": 1,
+          "retention": 1.0,
+          "non_original": 1,
+          "spearman": 0.9982593809637829,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 49.038069736127675,
+          "exact_gap": 49.038069736127675,
+          "quant_best_legal": -3142.0,
+          "quant_best_illegal": -2226.0,
+          "quant_gap": 916.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 13.585476613855576,
+          "exact_separation": 35.4525931222721,
+          "quant_worst_legal": -2890.0,
+          "quant_separation": 664.0,
+          "legal_set_equal": false,
+          "variant": "ratio4",
+          "M": 54.341906455422304,
+          "M_over_maxV": 4.0
+        },
+        {
+          "encoding": "domainwall",
+          "n_var": 14,
+          "n_ising": 15,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              0
+            ]
+          ],
+          "quant_set": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "intersection_size": 0,
+          "retention": 0.0,
+          "non_original": 2,
+          "spearman": 0.9913825563568983,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 103.37997619154999,
+          "exact_gap": 103.37997619154999,
+          "quant_best_legal": -3100.0,
+          "quant_best_illegal": -2124.0,
+          "quant_gap": 976.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 13.585476613855576,
+          "exact_separation": 89.79449957769441,
+          "quant_worst_legal": -2964.0,
+          "quant_separation": 840.0,
+          "legal_set_equal": false,
+          "variant": "ratio8",
+          "M": 108.68381291084461,
+          "M_over_maxV": 8.0
+        },
+        {
+          "encoding": "domainwall",
+          "n_var": 14,
+          "n_ising": 15,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              0
+            ]
+          ],
+          "quant_set": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "intersection_size": 1,
+          "retention": 1.0,
+          "non_original": 2,
+          "spearman": 0.9713971319485102,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 212.06378910239457,
+          "exact_gap": 212.06378910239457,
+          "quant_best_legal": -3064.0,
+          "quant_best_illegal": -2080.0,
+          "quant_gap": 984.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 13.585476613855548,
+          "exact_separation": 198.47831248853902,
+          "quant_worst_legal": -3008.0,
+          "quant_separation": 928.0,
+          "legal_set_equal": false,
+          "variant": "ratio16",
+          "M": 217.36762582168922,
+          "M_over_maxV": 16.0
+        }
+      ],
+      "summary": {
+        "onehot": {
+          "variants": [
+            "M0",
+            "lowM"
+          ],
+          "ratios": [
+            3.104120262126231,
+            1.05
+          ],
+          "exact_valid": [
+            true,
+            true
+          ],
+          "quant_valid": [
+            true,
+            true
+          ],
+          "retention": [
+            0.0,
+            1.0
+          ],
+          "non_original": [
+            5,
+            0
+          ],
+          "spearman": [
+            0.7777698919306011,
+            0.9779053098125594
+          ],
+          "exact_gap": [
+            42.17095322771115,
+            14.264750444548355
+          ],
+          "quant_gap": [
+            64.0,
+            60.0
+          ],
+          "n_var": 16,
+          "n_ising": 17,
+          "aux": 1
+        },
+        "domainwall": {
+          "variants": [
+            "ratio1.05",
+            "ratio4",
+            "ratio8",
+            "ratio16"
+          ],
+          "ratios": [
+            1.05,
+            4.0,
+            8.0,
+            16.0
+          ],
+          "exact_valid": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "quant_valid": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "retention": [
+            1.0,
+            1.0,
+            0.0,
+            1.0
+          ],
+          "non_original": [
+            1,
+            1,
+            2,
+            2
+          ],
+          "spearman": [
+            0.9997481462194123,
+            0.9982593809637829,
+            0.9913825563568983,
+            0.9713971319485102
+          ],
+          "exact_gap": [
+            8.898352123879622,
+            49.038069736127675,
+            103.37997619154999,
+            212.06378910239457
+          ],
+          "quant_gap": [
+            628.0,
+            916.0,
+            976.0,
+            984.0
+          ],
+          "n_var": 14,
+          "n_ising": 15,
+          "aux": 1
+        }
+      }
+    },
+    "B-Q3-O3": {
+      "A": [
+        "Cs",
+        "K",
+        "Pb",
+        "Rb",
+        "Na",
+        "Sn",
+        "Li",
+        "Ba"
+      ],
+      "B": [
+        "Nb",
+        "Ti",
+        "Ta",
+        "Hf",
+        "Si",
+        "In",
+        "Y",
+        "Zr"
+      ],
+      "V": [
+        [
+          4.940383100701183,
+          10.828691300703872,
+          0.0,
+          10.628425908260212,
+          14.527013531568812,
+          10.827373625224311,
+          12.090020140792843,
+          10.23944272010823
+        ],
+        [
+          0.0,
+          8.359572691950746,
+          0.9025884268485244,
+          6.55830259491745,
+          10.224043272829036,
+          11.611744925423068,
+          11.680085111842176,
+          6.772871600542203
+        ],
+        [
+          8.899457159205895,
+          0.0,
+          8.461258225612312,
+          2.77065077640259,
+          0.5078916876237969,
+          6.189017904911012,
+          12.153041788577012,
+          6.257531526317507
+        ],
+        [
+          0.0006749601780029,
+          8.782493372168801,
+          2.3537395020184704,
+          6.317981186992768,
+          11.266781360290338,
+          11.78587752897289,
+          11.774613931531007,
+          7.1711375889672695
+        ],
+        [
+          0.0010025720278008,
+          7.216886939793824,
+          0.2128151918295771,
+          5.141210423151762,
+          9.567637997248994,
+          11.55907204747298,
+          11.96888553913324,
+          3.76405669571433
+        ],
+        [
+          13.419799380071709,
+          0.2153116968192989,
+          11.521122136776285,
+          0.015296689692712,
+          2.3450782499613183,
+          11.443784458235598,
+          13.915510405594674,
+          0.3623045884298586
+        ],
+        [
+          0.019559662041729,
+          7.128533447073118,
+          4.795876778720412,
+          5.111936962989603,
+          9.30407822039993,
+          12.96429902396308,
+          13.854671631975537,
+          4.385542123747436
+        ],
+        [
+          5.593940634009925,
+          1.0090468969540325,
+          1.0495819033963585,
+          33.75626001987348,
+          0.0553681257491414,
+          6.220158019429705,
+          11.170209528420784,
+          21.69898074138109
+        ]
+      ],
+      "vmin": 0.0,
+      "vmax": 33.75626001987348,
+      "M0": 82.51252003974696,
+      "rows": [
+        {
+          "encoding": "onehot",
+          "n_var": 16,
+          "n_ising": 17,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "quant_set": [
+            [
+              6,
+              0
+            ]
+          ],
+          "intersection_size": 0,
+          "retention": 0.0,
+          "non_original": 1,
+          "spearman": 0.8513452064692373,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 82.51252003974696,
+          "exact_gap": 82.51252003974696,
+          "quant_best_legal": -1836.0,
+          "quant_best_illegal": -1760.0,
+          "quant_gap": 76.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 33.75626001987348,
+          "exact_separation": 48.75626001987348,
+          "quant_worst_legal": -1792.0,
+          "quant_separation": 32.0,
+          "legal_set_equal": false,
+          "variant": "M0",
+          "M": 82.51252003974696,
+          "M_over_maxV": 2.4443620232563967
+        },
+        {
+          "encoding": "onehot",
+          "n_var": 16,
+          "n_ising": 17,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "quant_set": [
+            [
+              0,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              5,
+              3
+            ]
+          ],
+          "intersection_size": 2,
+          "retention": 0.6666666666666666,
+          "non_original": 2,
+          "spearman": 0.9087411017804009,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 35.44407302086716,
+          "exact_gap": 35.44407302086716,
+          "quant_best_legal": -1754.0,
+          "quant_best_illegal": -1694.0,
+          "quant_gap": 60.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 33.75626001987348,
+          "exact_separation": 1.6878130009936783,
+          "quant_worst_legal": -1686.0,
+          "quant_separation": -8.0,
+          "legal_set_equal": false,
+          "variant": "lowM",
+          "M": 35.44407302086716,
+          "M_over_maxV": 1.05
+        },
+        {
+          "encoding": "domainwall",
+          "n_var": 14,
+          "n_ising": 15,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "quant_set": [
+            [
+              0,
+              2
+            ]
+          ],
+          "intersection_size": 1,
+          "retention": 0.3333333333333333,
+          "non_original": 0,
+          "spearman": 0.9933892321225389,
+          "exact_best_legal": -1.7763568394002505e-15,
+          "exact_best_illegal": 2.7522280236968513,
+          "exact_gap": 2.752228023696853,
+          "quant_best_legal": -2040.0,
+          "quant_best_illegal": -1984.0,
+          "quant_gap": 56.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 33.75626001987348,
+          "exact_separation": -31.00403199617663,
+          "quant_worst_legal": -1436.0,
+          "quant_separation": -548.0,
+          "legal_set_equal": false,
+          "variant": "ratio1.05",
+          "M": 35.44407302086716,
+          "M_over_maxV": 1.05
+        },
+        {
+          "encoding": "domainwall",
+          "n_var": 14,
+          "n_ising": 15,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "quant_set": [
+            [
+              0,
+              2
+            ],
+            [
+              6,
+              0
+            ]
+          ],
+          "intersection_size": 1,
+          "retention": 0.3333333333333333,
+          "non_original": 1,
+          "spearman": 0.9702521521334097,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 102.33319508232361,
+          "exact_gap": 102.33319508232361,
+          "quant_best_legal": -2686.0,
+          "quant_best_illegal": -2026.0,
+          "quant_gap": 660.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 33.756260019873494,
+          "exact_separation": 68.57693506245012,
+          "quant_worst_legal": -2462.0,
+          "quant_separation": 436.0,
+          "legal_set_equal": false,
+          "variant": "ratio4",
+          "M": 135.02504007949392,
+          "M_over_maxV": 4.0
+        },
+        {
+          "encoding": "domainwall",
+          "n_var": 14,
+          "n_ising": 15,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "quant_set": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              7,
+              4
+            ]
+          ],
+          "intersection_size": 1,
+          "retention": 0.3333333333333333,
+          "non_original": 3,
+          "spearman": 0.9657927569511043,
+          "exact_best_legal": -2.3092638912203256e-14,
+          "exact_best_illegal": 237.3582351618175,
+          "exact_gap": 237.35823516181753,
+          "quant_best_legal": -2848.0,
+          "quant_best_illegal": -2024.0,
+          "quant_gap": 824.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 33.756260019873494,
+          "exact_separation": 203.60197514194402,
+          "quant_worst_legal": -2732.0,
+          "quant_separation": 708.0,
+          "legal_set_equal": false,
+          "variant": "ratio8",
+          "M": 270.05008015898784,
+          "M_over_maxV": 8.0
+        },
+        {
+          "encoding": "domainwall",
+          "n_var": 14,
+          "n_ising": 15,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "quant_set": [
+            [
+              6,
+              0
+            ],
+            [
+              7,
+              1
+            ]
+          ],
+          "intersection_size": 0,
+          "retention": 0.0,
+          "non_original": 2,
+          "spearman": 0.9377247775711425,
+          "exact_best_legal": -2.3092638912203256e-14,
+          "exact_best_illegal": 507.4083153208053,
+          "exact_gap": 507.4083153208053,
+          "quant_best_legal": -2952.0,
+          "quant_best_illegal": -2036.0,
+          "quant_gap": 916.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 33.756260019873324,
+          "exact_separation": 473.652055300932,
+          "quant_worst_legal": -2888.0,
+          "quant_separation": 852.0,
+          "legal_set_equal": false,
+          "variant": "ratio16",
+          "M": 540.1001603179757,
+          "M_over_maxV": 16.0
+        }
+      ],
+      "summary": {
+        "onehot": {
+          "variants": [
+            "M0",
+            "lowM"
+          ],
+          "ratios": [
+            2.4443620232563967,
+            1.05
+          ],
+          "exact_valid": [
+            true,
+            true
+          ],
+          "quant_valid": [
+            true,
+            true
+          ],
+          "retention": [
+            0.0,
+            0.6666666666666666
+          ],
+          "non_original": [
+            1,
+            2
+          ],
+          "spearman": [
+            0.8513452064692373,
+            0.9087411017804009
+          ],
+          "exact_gap": [
+            82.51252003974696,
+            35.44407302086716
+          ],
+          "quant_gap": [
+            76.0,
+            60.0
+          ],
+          "n_var": 16,
+          "n_ising": 17,
+          "aux": 1
+        },
+        "domainwall": {
+          "variants": [
+            "ratio1.05",
+            "ratio4",
+            "ratio8",
+            "ratio16"
+          ],
+          "ratios": [
+            1.05,
+            4.0,
+            8.0,
+            16.0
+          ],
+          "exact_valid": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "quant_valid": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "retention": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.0
+          ],
+          "non_original": [
+            0,
+            1,
+            3,
+            2
+          ],
+          "spearman": [
+            0.9933892321225389,
+            0.9702521521334097,
+            0.9657927569511043,
+            0.9377247775711425
+          ],
+          "exact_gap": [
+            2.752228023696853,
+            102.33319508232361,
+            237.35823516181753,
+            507.4083153208053
+          ],
+          "quant_gap": [
+            56.0,
+            660.0,
+            824.0,
+            916.0
+          ],
+          "n_var": 14,
+          "n_ising": 15,
+          "aux": 1
+        }
+      }
+    },
+    "B-Q3-FO2": {
+      "A": [
+        "Na",
+        "K",
+        "Rb",
+        "Ba",
+        "Li",
+        "Pb",
+        "La",
+        "Sr"
+      ],
+      "B": [
+        "Ti",
+        "Sc",
+        "Al",
+        "Mg",
+        "La",
+        "In",
+        "Zr",
+        "Si"
+      ],
+      "V": [
+        [
+          0.0,
+          9.461301455641902,
+          7.507889964380823,
+          15.103556876141852,
+          12.215426003321582,
+          11.218103388143746,
+          2.801141054543084,
+          0.4777037192991429
+        ],
+        [
+          0.0,
+          9.056064769346015,
+          8.80730442643359,
+          13.306586183377432,
+          10.611118185111138,
+          9.761033866283924,
+          0.2023329221267431,
+          1.0712632867955565
+        ],
+        [
+          0.0082815841124537,
+          10.76359599818403,
+          9.148921396617707,
+          13.431396989865164,
+          10.985968106380952,
+          11.04107862740024,
+          0.490576655171143,
+          3.759170580249531
+        ],
+        [
+          4.394721746438336,
+          0.0269983655932186,
+          2.115783061645061,
+          12.697789192578398,
+          0.1295529965431834,
+          1.994265246627621,
+          4.565102425116493,
+          9.055517192832568
+        ],
+        [
+          0.0385946262926149,
+          11.401802078853862,
+          9.403246120581358,
+          16.715026180832936,
+          13.638066913511125,
+          12.562438799430096,
+          1.019624014752723,
+          1.411151191246418
+        ],
+        [
+          8.145794990806792,
+          0.7763762151320543,
+          0.0804692315088937,
+          17.470662332351026,
+          6.124235902849279,
+          1.178702685752442,
+          6.607884590850066,
+          20.27326721574657
+        ],
+        [
+          8.019911244424293,
+          2.3666819472283587,
+          1.3457213375741048,
+          0.0816976253155354,
+          9.601402067113495,
+          3.276090998611167,
+          8.713637580751147,
+          12.362791913214224
+        ],
+        [
+          1.734078960923,
+          0.3149667162736245,
+          1.6444459247879315,
+          8.545396124181593,
+          0.3346188425016549,
+          0.1693501611012147,
+          1.417791854922143,
+          0.9967658224744724
+        ]
+      ],
+      "vmin": 0.0,
+      "vmax": 20.27326721574657,
+      "M0": 55.54653443149314,
+      "rows": [
+        {
+          "encoding": "onehot",
+          "n_var": 16,
+          "n_ising": 17,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "quant_set": [
+            [
+              3,
+              1
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              6,
+              1
+            ]
+          ],
+          "intersection_size": 0,
+          "retention": 0.0,
+          "non_original": 4,
+          "spearman": 0.8254754513719083,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 55.54653443149314,
+          "exact_gap": 55.54653443149314,
+          "quant_best_legal": -1788.0,
+          "quant_best_illegal": -1728.0,
+          "quant_gap": 60.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 20.27326721574657,
+          "exact_separation": 35.27326721574657,
+          "quant_worst_legal": -1756.0,
+          "quant_separation": 28.0,
+          "legal_set_equal": false,
+          "variant": "M0",
+          "M": 55.54653443149314,
+          "M_over_maxV": 2.739890607684057
+        },
+        {
+          "encoding": "onehot",
+          "n_var": 16,
+          "n_ising": 17,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "quant_set": [
+            [
+              7,
+              5
+            ]
+          ],
+          "intersection_size": 0,
+          "retention": 0.0,
+          "non_original": 1,
+          "spearman": 0.9437305382569678,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 21.2869305765339,
+          "exact_gap": 21.2869305765339,
+          "quant_best_legal": -1662.0,
+          "quant_best_illegal": -1606.0,
+          "quant_gap": 56.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 20.27326721574657,
+          "exact_separation": 1.01366336078733,
+          "quant_worst_legal": -1582.0,
+          "quant_separation": -24.0,
+          "legal_set_equal": false,
+          "variant": "lowM",
+          "M": 21.2869305765339,
+          "M_over_maxV": 1.05
+        },
+        {
+          "encoding": "domainwall",
+          "n_var": 14,
+          "n_ising": 15,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "quant_set": [
+            [
+              4,
+              0
+            ],
+            [
+              6,
+              3
+            ]
+          ],
+          "intersection_size": 0,
+          "retention": 0.0,
+          "non_original": 2,
+          "spearman": 0.9966677600738898,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 1.1930239166667924,
+          "exact_gap": 1.1930239166667924,
+          "quant_best_legal": -2432.0,
+          "quant_best_illegal": -2388.0,
+          "quant_gap": 44.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 20.27326721574657,
+          "exact_separation": -19.08024329907978,
+          "quant_worst_legal": -1660.0,
+          "quant_separation": -728.0,
+          "legal_set_equal": false,
+          "variant": "ratio1.05",
+          "M": 21.2869305765339,
+          "M_over_maxV": 1.05
+        },
+        {
+          "encoding": "domainwall",
+          "n_var": 14,
+          "n_ising": 15,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "quant_set": [
+            [
+              7,
+              1
+            ]
+          ],
+          "intersection_size": 0,
+          "retention": 0.0,
+          "non_original": 1,
+          "spearman": 0.97963081866572,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 62.29427118901333,
+          "exact_gap": 62.29427118901333,
+          "quant_best_legal": -3060.0,
+          "quant_best_illegal": -2276.0,
+          "quant_gap": 784.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 20.27326721574657,
+          "exact_separation": 42.02100397326676,
+          "quant_worst_legal": -2800.0,
+          "quant_separation": 524.0,
+          "legal_set_equal": false,
+          "variant": "ratio4",
+          "M": 81.09306886298629,
+          "M_over_maxV": 4.0
+        },
+        {
+          "encoding": "domainwall",
+          "n_var": 14,
+          "n_ising": 15,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "quant_set": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "intersection_size": 2,
+          "retention": 1.0,
+          "non_original": 1,
+          "spearman": 0.9799124237408047,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 143.38734005199964,
+          "exact_gap": 143.38734005199964,
+          "quant_best_legal": -3058.0,
+          "quant_best_illegal": -2154.0,
+          "quant_gap": 904.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 20.2732672157466,
+          "exact_separation": 123.11407283625304,
+          "quant_worst_legal": -2930.0,
+          "quant_separation": 776.0,
+          "legal_set_equal": false,
+          "variant": "ratio8",
+          "M": 162.18613772597257,
+          "M_over_maxV": 8.0
+        },
+        {
+          "encoding": "domainwall",
+          "n_var": 14,
+          "n_ising": 15,
+          "aux": 1,
+          "legal_equal_V": true,
+          "raw_set": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "quant_set": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              3,
+              4
+            ]
+          ],
+          "intersection_size": 1,
+          "retention": 0.5,
+          "non_original": 2,
+          "spearman": 0.9297059624249524,
+          "exact_best_legal": 0.0,
+          "exact_best_illegal": 305.5734777779722,
+          "exact_gap": 305.5734777779722,
+          "quant_best_legal": -3060.0,
+          "quant_best_illegal": -2096.0,
+          "quant_gap": 964.0,
+          "exact_valid": true,
+          "quant_valid": true,
+          "exact_worst_legal": 20.273267215746543,
+          "exact_separation": 285.30021056222563,
+          "quant_worst_legal": -2984.0,
+          "quant_separation": 888.0,
+          "legal_set_equal": false,
+          "variant": "ratio16",
+          "M": 324.37227545194514,
+          "M_over_maxV": 16.0
+        }
+      ],
+      "summary": {
+        "onehot": {
+          "variants": [
+            "M0",
+            "lowM"
+          ],
+          "ratios": [
+            2.739890607684057,
+            1.05
+          ],
+          "exact_valid": [
+            true,
+            true
+          ],
+          "quant_valid": [
+            true,
+            true
+          ],
+          "retention": [
+            0.0,
+            0.0
+          ],
+          "non_original": [
+            4,
+            1
+          ],
+          "spearman": [
+            0.8254754513719083,
+            0.9437305382569678
+          ],
+          "exact_gap": [
+            55.54653443149314,
+            21.2869305765339
+          ],
+          "quant_gap": [
+            60.0,
+            56.0
+          ],
+          "n_var": 16,
+          "n_ising": 17,
+          "aux": 1
+        },
+        "domainwall": {
+          "variants": [
+            "ratio1.05",
+            "ratio4",
+            "ratio8",
+            "ratio16"
+          ],
+          "ratios": [
+            1.05,
+            4.0,
+            8.0,
+            16.0
+          ],
+          "exact_valid": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "quant_valid": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "retention": [
+            0.0,
+            0.0,
+            1.0,
+            0.5
+          ],
+          "non_original": [
+            2,
+            1,
+            1,
+            2
+          ],
+          "spearman": [
+            0.9966677600738898,
+            0.97963081866572,
+            0.9799124237408047,
+            0.9297059624249524
+          ],
+          "exact_gap": [
+            1.1930239166667924,
+            62.29427118901333,
+            143.38734005199964,
+            305.5734777779722
+          ],
+          "quant_gap": [
+            44.0,
+            784.0,
+            904.0,
+            964.0
+          ],
+          "n_var": 14,
+          "n_ising": 15,
+          "aux": 1
+        }
+      }
+    }
+  },
+  "runtime_s": 3.1589682000048924
+}

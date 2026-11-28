@@ -1,0 +1,173 @@
+﻿{
+  "scope": "offline legal-one-hot validation; no network, license, CIM submission or output files",
+  "input": {
+    "shape": [
+      3,
+      3
+    ],
+    "n_qubo": 6,
+    "n_ising": 7,
+    "M": 18.475257361426316,
+    "M0": 18.475257361426316,
+    "mfactor": 1.0,
+    "kind": "teaching",
+    "version": null
+  },
+  "parameters": {
+    "precision": 8,
+    "target_bits": null,
+    "truncated_precision": 20,
+    "seed": 20261128
+  },
+  "dynamic_range": {
+    "raw": 11.876702710070514,
+    "reducer_split": 7.94251450533924
+  },
+  "reducer": {
+    "split_shape": [
+      41,
+      41
+    ],
+    "added_split_variables": 34,
+    "original_aux_spin_indices": [
+      6
+    ],
+    "split_representative_indices": [
+      5,
+      11,
+      16,
+      22,
+      28,
+      34,
+      40
+    ],
+    "fallback_direct_rounding": false,
+    "bit_width_before_fallback": {
+      "precision": 8.0,
+      "multiplier": 0.007194244604316547
+    },
+    "bit_width": {
+      "precision": 8.0,
+      "multiplier": 0.007194244604316547
+    },
+    "recovery": {
+      "roundtrip_exact": true,
+      "candidate_count": 128,
+      "returned_shape": [
+        128,
+        7
+      ],
+      "actual_split_shape": [
+        41,
+        41
+      ],
+      "aux_gauge_values": [
+        1
+      ],
+      "solve_and_restore_ms": 10.05399995483458,
+      "legal_candidate_count": 18,
+      "legal_candidate_rate": 0.140625
+    }
+  },
+  "mutation": {
+    "enabled": true,
+    "iterations": 100,
+    "adaptation_ms": 180.84709998220205,
+    "dynamic_range_before": 11.876702710070514,
+    "dynamic_range_after": 11.876706188376982
+  },
+  "strategies": {
+    "direct": {
+      "best_pair": [
+        "a2",
+        "b1"
+      ],
+      "best_energy": -956.0,
+      "best_v": 0.12384047029690515,
+      "energy_gap_to_second": 4.0,
+      "minimum_tie_count": 1,
+      "raw_optimum_retained": false,
+      "topk": 8,
+      "topk_retained": 8,
+      "topk_retention": 1.0,
+      "pairwise_comparable_pairs": 36,
+      "pairwise_agreement": 0.9166666666666666,
+      "new_ties_among_comparable_pairs": 1,
+      "raw": {
+        "best_pair": [
+          "a3",
+          "b1"
+        ],
+        "best_energy": -38.71683896621124,
+        "best_v": 0.053886822769405596,
+        "energy_gap_to_second": 0.06995364752749822,
+        "minimum_tie_count": 1
+      },
+      "adaptation_ms": 0.10389997623860836
+    },
+    "precision_reducer": {
+      "best_pair": [
+        "a3",
+        "b1"
+      ],
+      "best_energy": -7468748.0,
+      "best_v": 0.053886822769405596,
+      "energy_gap_to_second": 7228.0,
+      "minimum_tie_count": 1,
+      "raw_optimum_retained": true,
+      "topk": 8,
+      "topk_retained": 8,
+      "topk_retention": 1.0,
+      "pairwise_comparable_pairs": 36,
+      "pairwise_agreement": 1.0,
+      "new_ties_among_comparable_pairs": 0,
+      "raw": {
+        "best_pair": [
+          "a3",
+          "b1"
+        ],
+        "best_energy": -38.71683896621124,
+        "best_v": 0.053886822769405596,
+        "energy_gap_to_second": 0.06995364752749822,
+        "minimum_tie_count": 1
+      },
+      "adaptation_ms": 4.104499996174127
+    },
+    "mutate_then_direct": {
+      "best_pair": [
+        "a2",
+        "b1"
+      ],
+      "best_energy": -956.0,
+      "best_v": 0.12384047029690515,
+      "energy_gap_to_second": 4.0,
+      "minimum_tie_count": 1,
+      "raw_optimum_retained": false,
+      "topk": 8,
+      "topk_retained": 8,
+      "topk_retention": 1.0,
+      "pairwise_comparable_pairs": 36,
+      "pairwise_agreement": 0.9166666666666666,
+      "new_ties_among_comparable_pairs": 1,
+      "raw": {
+        "best_pair": [
+          "a3",
+          "b1"
+        ],
+        "best_energy": -38.71683896621124,
+        "best_v": 0.053886822769405596,
+        "energy_gap_to_second": 0.06995364752749822,
+        "minimum_tie_count": 1
+      },
+      "adaptation_ms": 180.84709998220205
+    }
+  },
+  "notes": [
+    "candidate solver verifies transformation/recovery only; it is not an optimizer or sampling-quality benchmark",
+    "legal_candidate_rate describes probe coverage, not an optimizer's valid-solution rate",
+    "energy gaps use each matrix's own scale; use retention and pairwise agreement for cross-matrix fidelity",
+    "PrecisionReducer may still fall back to direct rounding after splitting; fallback_direct_rounding records that event",
+    "target_bits=None imposes no hardware size cap; review added_split_variables before any migration",
+    "mutate is exploratory and is not guaranteed to reduce dynamic range or preserve an 8-bit argmin"
+  ]
+}

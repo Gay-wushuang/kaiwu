@@ -1,0 +1,23 @@
+﻿==================================================================
+输入版本      : B-Q2-NO2（independent_reproduction）
+来源说明      : 独立复现产物（results/reproduction_*/）
+任务名称      : B_Q2_k8_lowM | 项目 默认
+目标矩阵规模  : (52, 52) → (8, 8)（topk=8）
+input_matrix_sha256 = 0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e
+submitted_target_V_semantic_sha256 = 4abbd63ce9054386c4fb62cb416c358b89f3f4e16d3437e8c33235c0836a4887
+raw_ising_matrix_sha256 = 8f714e44bc6fd06e41f8eeeba526907c6f7928772fed5a9438c7d5673aa1b386
+submitted_matrix_sha256 = 34f84ed6633373975e3211b6099b20313a26d3734fa3770dded0187767454b30
+variables_sha256 = b0a216f5f5562854d996303b9dc51ea4d952db455de9233ceaef9aacd8f8c57f
+实际变量映射  : [{"index": 0, "kind": "A", "label": "La"}, {"index": 1, "kind": "A", "label": "Y"}, {"index": 2, "kind": "A", "label": "Sc"}, {"index": 3, "kind": "A", "label": "Sr"}, {"index": 4, "kind": "A", "label": "Ca"}, {"index": 5, "kind": "A", "label": "Ba"}, {"index": 6, "kind": "A", "label": "Bi"}, {"index": 7, "kind": "A", "label": "Pb"}, {"index": 8, "kind": "B", "label": "Zr"}, {"index": 9, "kind": "B", "label": "Hf"}, {"index": 10, "kind": "B", "label": "Si"}, {"index": 11, "kind": "B", "label": "Ti"}, {"index": 12, "kind": "B", "label": "Ga"}, {"index": 13, "kind": "B", "label": "Ta"}, {"index": 14, "kind": "B", "label": "Sn"}, {"index": 15, "kind": "B", "label": "Al"}, {"index": 16, "kind": "aux", "label": null}]
+QUBO / Ising  : 16 比特 → 17 比特（辅助自旋 1 个，位于末位）
+罚项 M        : 14.265（基准 42.171 × 0.33826）
+目标分辨率    : 原始 Ising 7.10 档 | 8bit 适配后 7.00 档（两种口径同时给出）
+模式          : opt | 采样数 10
+设备          : 由平台调度（SDK 不支持指定机型）
+本地配额      : 优化任务（OPTIMIZATION） 总额 32 / 已用 5 / 剩余 27（verified=False，用户口述 2026-11-27，未经平台核对）
+重复检查      : 未发现同矩阵历史任务
+任务编号      : t20261128-040917-b_q2_k8_lowm-34f84ed6（预演，不落盘）
+==================================================================
+
+[DRY-RUN] 未调用 license、未创建云端任务、未消耗配额、未写入归档。
+          确认要提交时追加 --submit，并按提示输入任务编号。
