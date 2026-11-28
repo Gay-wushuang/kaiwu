@@ -619,6 +619,8 @@ def resume_task(task_id: str, backend=None, local_only: bool = False) -> dict:
     """用同一任务名 + 同一矩阵向平台查询已有结果；绝不重新提交。"""
     arc = TaskArchive(task_id)
     meta = arc.meta()
+    was_completed = (meta.get("status") == "completed"
+                     and (arc.dir / "raw" / "solutions.npz").exists())
     if local_only:
         print(json.dumps(meta, ensure_ascii=False, indent=2))
         return {"task_id": task_id, "status": meta.get("status"), "local_only": True}
@@ -648,6 +650,13 @@ def resume_task(task_id: str, backend=None, local_only: bool = False) -> dict:
         status = "download_failed" if stage == "download" else (
             "run_failed" if stage == "run" else "resume_no_result")
         arc.append_attempt("resume", "failed", str(exc), error_type=type(exc).__name__)
+        if was_completed:
+            arc.update(last_resume_at=now_str(), last_resume_error=str(exc))
+            print(f"[恢复失败] 阶段 {stage} / {type(exc).__name__}: {exc}")
+            print("[恢复] 本地任务已 completed，保留原状态，不降级。")
+            return {"task_id": task_id, "status": "completed",
+                    "note": "platform query failed; local completed preserved",
+                    "error": str(exc)}
         arc.update(status=status, error_stage=stage, error_type=type(exc).__name__,
                    error_message=str(exc))
         Registry().update(task_id, status=status, error_stage=stage)
@@ -670,11 +679,22 @@ def resume_task(task_id: str, backend=None, local_only: bool = False) -> dict:
         try:
             solutions = validate_spin_matrix(solutions, adj.shape[0])
         except ValueError as exc:
+            if was_completed:
+                arc.append_attempt("resume", "invalid_ignored", str(exc))
+                print(f"[恢复] 平台返回格式异常，但本地任务已 completed，保留原状态：{exc}")
+                return {"task_id": task_id, "status": "completed",
+                        "note": "platform result invalid; local completed preserved",
+                        "error": str(exc)}
             arc.update(status="invalid_result", error_stage="result",
                        error_type="ValueError", error_message=str(exc))
             Registry().update(task_id, status="invalid_result", error_stage="result")
             print(f"[恢复] 平台返回解格式非法：{exc}；原始返回已归档。")
             return {"task_id": task_id, "status": "invalid_result", "error": str(exc)}
+        if was_completed:
+            arc.append_attempt("resume", "verified", f"solutions={solutions.shape}")
+            print("[恢复] 本地任务已 completed；仅核对平台返回，不覆盖历史文件与状态。")
+            return {"task_id": task_id, "status": "completed",
+                    "solutions": list(solutions.shape), "note": "existing completed preserved"}
         cfg = json.loads((arc.dir / "config.json").read_text(encoding="utf-8-sig"))
         is_pr = cfg.get("precision_method") == PRECISION_METHOD_PRECISION_REDUCER
         if is_pr:
@@ -719,6 +739,12 @@ def resume_task(task_id: str, backend=None, local_only: bool = False) -> dict:
     status = "run_failed" if (isinstance(result, dict) and
                               str(result.get("task_status_code", "")).upper() in ("FAILED", "FAIL")) \
         else "resume_no_result"
+    if was_completed:
+        arc.update(last_resume_at=now_str(), last_resume_status=status)
+        print("[恢复] 未取到新解，但本地任务已 completed；保留原状态，不降级。")
+        return {"task_id": task_id, "status": "completed",
+                "note": f"platform returned {status}; local completed preserved",
+                "platform_result": result}
     arc.update(status=status)
     Registry().update(task_id, status=status)
     print(f"[恢复] 未取到解，状态记为 {status}；平台返回已原样归档。")

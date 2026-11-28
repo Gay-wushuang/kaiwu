@@ -1,0 +1,48 @@
+{
+  "n_returned": 10,
+  "split_feasible": 2,
+  "restored_legal": 2,
+  "both_split_and_legal": 1,
+  "strict_original_optimum_hit": 1,
+  "strict_hit_samples": [
+    0
+  ],
+  "feasible_samples": [
+    0,
+    2
+  ],
+  "legal_samples": [
+    0,
+    1
+  ],
+  "V_by_sample": [
+    0.0,
+    0.0,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "H_by_sample": [
+    -206404.0,
+    -203716.0,
+    -198700.0,
+    -191820.0,
+    13020.0,
+    18292.0,
+    27700.0,
+    62252.0,
+    173324.0,
+    207100.0
+  ],
+  "definitions": {
+    "split_feasible": "每组拆分副本完全一致",
+    "restored_legal": "PrecisionReducer 恢复后前 2d 位 one-hot 合法",
+    "both": "同一返回同时满足拆分一致与 one-hot 合法",
+    "strict_original_optimum_hit": "拆分一致 + 合法 + 原始目标 V=0"
+  }
+}

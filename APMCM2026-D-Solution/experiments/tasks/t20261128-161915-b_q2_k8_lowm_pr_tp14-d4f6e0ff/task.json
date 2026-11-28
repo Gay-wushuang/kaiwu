@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "t20261128-161915-b_q2_k8_lowm_pr_tp14-d4f6e0ff",
   "task_name": "B_Q2_k8_lowM_PR_tp14",
-  "status": "resume_no_result",
+  "status": "completed",
   "created_at": "2026-11-28 16:19:15 +0800",
-  "updated_at": "2026-11-28 16:21:45 +0800",
+  "updated_at": "2026-11-28 16:46:36 +0800",
   "input_version": "B-Q2-NO2",
   "input_kind": "independent_reproduction",
   "input_matrix_sha256": "0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e",
@@ -38,5 +38,13 @@
   "platform_time_consume_source": "platform_result.json",
   "platform_vector_check": "10x121 platform pkl equals archived expanded solutions",
   "platform_task_id_source": "platform_pdf_pending",
-  "report_file": null
+  "report_file": null,
+  "result_metrics": {
+    "n_returned": 10,
+    "split_feasible": 2,
+    "restored_legal": 2,
+    "both_split_and_legal": 1,
+    "strict_original_optimum_hit": 1,
+    "source": "raw/result_metrics.json"
+  }
 }
