@@ -1,0 +1,32 @@
+﻿python.exe : .......C:\Users\ERE.DESKTOP-JD48OPB\AppData\Local\kaiwu-verify\Lib\site-packages\matplotlib\_fontconfig_pa
+ttern.py:64: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+所在位置 行:15 字符: 2537
++ ... TECODE="1"; & $py -m unittest discover -s tests -p "test_*.py" 2>&1 | ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (.......C:\Users... - use 'one_of':String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  prop = Group((name + Suppress("=") + comma_separated(value)) | oneOf(_CONSTANTS))
+C:\Users\ERE.DESKTOP-JD48OPB\AppData\Local\kaiwu-verify\Lib\site-packages\matplotlib\_fontconfig_pattern.py:85: Pyparsi
+ngDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+  parse = parser.parseString(pattern)
+C:\Users\ERE.DESKTOP-JD48OPB\AppData\Local\kaiwu-verify\Lib\site-packages\matplotlib\_fontconfig_pattern.py:89: Pyparsi
+ngDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+  parser.resetCache()
+C:\Users\ERE.DESKTOP-JD48OPB\AppData\Local\kaiwu-verify\Lib\site-packages\matplotlib\_mathtext.py:45: PyparsingDeprecat
+ionWarning: 'enablePackrat' deprecated - use 'enable_packrat'
+  ParserElement.enablePackrat()
+In C:\Users\ERE.DESKTOP-JD48OPB\AppData\Local\kaiwu-verify\Lib\site-packages\matplotlib\mpl-data\stylelib\classic.mplst
+yle: 'parseString' deprecated - use 'parse_string'
+In C:\Users\ERE.DESKTOP-JD48OPB\AppData\Local\kaiwu-verify\Lib\site-packages\matplotlib\mpl-data\stylelib\classic.mplst
+yle: 'resetCache' deprecated - use 'reset_cache'
+...........................................
+----------------------------------------------------------------------
+Ran 50 tests in 4.532s
+
+OK
+[2026-11-28 19:14:23 +0800] 尝试恢复任务 t_resume_guard（仅查询，不重新提交）
+[恢复] 未取到新解，但本地任务已 completed；保留原状态，不降级。
+[2026-11-28 19:14:23 +0800] 尝试恢复任务 t_resume_guard（仅查询，不重新提交）
+[恢复失败] 阶段 unknown / RuntimeError: mock platform unavailable
+[恢复] 本地任务已 completed，保留原状态，不降级。

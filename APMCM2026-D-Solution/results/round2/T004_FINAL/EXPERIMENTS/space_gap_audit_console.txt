@@ -1,0 +1,6 @@
+﻿B_Q2_baseline            n= 27 legal=  -3018.0 illegal=  -2982.0 gap=   36.0 all_legal=True
+B_Q2_m3x                 n= 27 legal=  -3120.0 illegal=  -3084.0 gap=   36.0 all_legal=True
+B_Q2_k8                  n= 17 legal=  -1780.0 illegal=  -1716.0 gap=   64.0 all_legal=True
+B_Q3_O3_baseline         n= 27 legal=  -2962.0 illegal=  -2938.0 gap=   24.0 all_legal=True
+B_Q3_FO2_baseline        n= 27 legal=  -2912.0 illegal=  -2876.0 gap=   36.0 all_legal=True
+B_Q2_k8_lowM             n= 17 legal=  -1716.0 illegal=  -1656.0 gap=   60.0 all_legal=True

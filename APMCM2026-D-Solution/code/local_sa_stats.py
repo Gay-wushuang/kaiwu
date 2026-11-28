@@ -3,6 +3,7 @@
 import json
 import numpy as np, pandas as pd
 import d_submit_cim as S
+import precision_reducer as PRR
 import kaiwu.preprocess as pp
 from paths import CIM_SAMPLES, ensure_output_dirs
 
@@ -47,7 +48,7 @@ def stats(A, B, V, adj, tag, n_restart=3000):
     H = np.array([-s.astype(float) @ adj @ s.astype(float) for s in sols])
     rows = []
     for k, s in enumerate(sols):
-        bits = ((s.astype(int) + 1) // 2)[:nA + nB]
+        bits = PRR.logical_bits_from_spins(s.astype(float))[0][:nA + nB]
         ai = [i for i in range(nA) if bits[i] == 1]
         bi = [i - nA for i in range(nA, nA + nB) if bits[i] == 1]
         ok = len(ai) == 1 and len(bi) == 1

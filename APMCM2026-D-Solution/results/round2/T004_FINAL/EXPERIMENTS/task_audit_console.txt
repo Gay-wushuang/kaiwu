@@ -1,0 +1,90 @@
+﻿           task_name input_version  precision_method  topk  n_ising   device  returned  legal  split_feasible  both  strict_hit  best_legal_V  best_strict_V  hardware_ms  runtime_s  H_matches_archived                                              input_matrix_sha256                                          submitted_matrix_sha256
+       B_Q2_baseline      B-Q2-NO2              None    13       27 SPQC-550        10      2             NaN   NaN           0      6.240554            NaN       1.0327      7.790                True 0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e be06017ff8837e0b70886e5bbc049b25c5e61bb17890658da83d58d52d617940
+            B_Q2_m3x      B-Q2-NO2              None    13       27 SPQC-550        10      4             NaN   NaN           0      6.607887            NaN      13.9135      7.657                True 0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e e2530a2481d043f7bdcb21b6468a782be4d22f57516b339ae2a9bee80c8d3e73
+             B_Q2_k8      B-Q2-NO2              None     8       17 SPQC-550        10      2             NaN   NaN           0      1.310788            NaN      10.9816      7.713                True 0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e 7be3225f2b2473d7c6e16715ffd8277e6ea74accc3637d7fddb37ea984d25d86
+    B_Q3_O3_baseline       B-Q3-O3              None    13       27 SPQC-550         9      1             NaN   NaN           0      2.503005            NaN       0.7838      7.644                True 23908ae0adad088d2fed03e70fc7d48c01da770e28818e0503144405c3f6e423 7cd9ce6bef3a22a859a8fc20add93d1520e2d9948fdbdc32bd5f72eab2c903a9
+   B_Q3_FO2_baseline      B-Q3-FO2              None    13       27 SPQC-550         9      2             NaN   NaN           0      1.644446            NaN       1.2345     14.016                True ef4f5e512b5b4ef3860d5ec71fc67e0ccd478a666eb730b84ae578d8b6cefcf8 ca295ce6a0b4af05eed472c0f2862e861c055d8214970105ce9b57163dc34b45
+        B_Q2_k8_lowM      B-Q2-NO2              None     8       17   SPQC-1        10      2             NaN   NaN           1      0.000000            NaN       4.3098      7.754                True 0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e 34f84ed6633373975e3211b6099b20313a26d3734fa3770dded0187767454b30
+B_Q2_k8_lowM_PR_tp14      B-Q2-NO2 precision_reducer     8      121 SPQC-550        10      2             2.0   1.0           1      0.000000            0.0       1.5511     14.501                True 0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e d4f6e0ff12ac469484f9ca6fd16100ac77de0395e724d24cc2aaffa50f5815b3
+
+B_Q2_baseline: vmin_full=0.0 argmin=[('La', 'Zr')]
+   {'sample': 0, 'legal': True, 'i': 4, 'j': 0, 'A': 'Ca', 'B': 'Zr', 'V': 6.24055428816044, 'hit_raw_opt': False, 'hit_sub_opt': False}
+   {'sample': 1, 'legal': True, 'i': 6, 'j': 12, 'A': 'Bi', 'B': 'Sc', 'V': 12.497471468038173, 'hit_raw_opt': False, 'hit_sub_opt': False}
+   {'sample': 2, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 3, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 4, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 5, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 6, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 7, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 8, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 9, 'legal': False, 'reason': 'onehot_violation'}
+
+B_Q2_m3x: vmin_full=0.0 argmin=[('La', 'Zr')]
+   {'sample': 0, 'legal': True, 'i': 0, 'j': 9, 'A': 'La', 'B': 'B', 'V': 9.784209713289101, 'hit_raw_opt': False, 'hit_sub_opt': False}
+   {'sample': 1, 'legal': True, 'i': 9, 'j': 0, 'A': 'Hf', 'B': 'Zr', 'V': 11.087984974032182, 'hit_raw_opt': False, 'hit_sub_opt': False}
+   {'sample': 2, 'legal': True, 'i': 0, 'j': 10, 'A': 'La', 'B': 'Nb', 'V': 6.607887442102367, 'hit_raw_opt': False, 'hit_sub_opt': False}
+   {'sample': 3, 'legal': True, 'i': 12, 'j': 0, 'A': 'Li', 'B': 'Zr', 'V': 11.000498624545171, 'hit_raw_opt': False, 'hit_sub_opt': False}
+   {'sample': 4, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 5, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 6, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 7, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 8, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 9, 'legal': False, 'reason': 'onehot_violation'}
+
+B_Q2_k8: vmin_full=0.0 argmin=[('La', 'Zr')]
+   {'sample': 0, 'legal': True, 'i': 0, 'j': 3, 'A': 'La', 'B': 'Ti', 'V': 1.3107881474845726, 'hit_raw_opt': False, 'hit_sub_opt': False}
+   {'sample': 1, 'legal': True, 'i': 0, 'j': 7, 'A': 'La', 'B': 'Al', 'V': 3.2257923931514307, 'hit_raw_opt': False, 'hit_sub_opt': False}
+   {'sample': 2, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 3, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 4, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 5, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 6, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 7, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 8, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 9, 'legal': False, 'reason': 'onehot_violation'}
+
+B_Q3_O3_baseline: vmin_full=0.0 argmin=[('Cs', 'Ta'), ('K', 'Nb'), ('Pb', 'Ti')]
+   {'sample': 0, 'legal': True, 'i': 9, 'j': 11, 'A': 'Ge', 'B': 'Ge', 'V': 2.5030048552267203, 'hit_raw_opt': False, 'hit_sub_opt': False}
+   {'sample': 1, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 2, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 3, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 4, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 5, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 6, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 7, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 8, 'legal': False, 'reason': 'onehot_violation'}
+
+B_Q3_FO2_baseline: vmin_full=0.0 argmin=[('K', 'Ti'), ('Na', 'Ti')]
+   {'sample': 0, 'legal': True, 'i': 7, 'j': 2, 'A': 'Sr', 'B': 'Al', 'V': 1.6444459247879315, 'hit_raw_opt': False, 'hit_sub_opt': False}
+   {'sample': 1, 'legal': True, 'i': 0, 'j': 5, 'A': 'Na', 'B': 'In', 'V': 11.218103388143746, 'hit_raw_opt': False, 'hit_sub_opt': False}
+   {'sample': 2, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 3, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 4, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 5, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 6, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 7, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 8, 'legal': False, 'reason': 'onehot_violation'}
+
+B_Q2_k8_lowM: vmin_full=0.0 argmin=[('La', 'Zr')]
+   {'sample': 0, 'legal': True, 'i': 0, 'j': 0, 'A': 'La', 'B': 'Zr', 'V': 0.0, 'hit_raw_opt': True, 'hit_sub_opt': True}
+   {'sample': 1, 'legal': True, 'i': 0, 'j': 7, 'A': 'La', 'B': 'Al', 'V': 3.2257923931514307, 'hit_raw_opt': False, 'hit_sub_opt': False}
+   {'sample': 2, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 3, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 4, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 5, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 6, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 7, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 8, 'legal': False, 'reason': 'onehot_violation'}
+   {'sample': 9, 'legal': False, 'reason': 'onehot_violation'}
+
+B_Q2_k8_lowM_PR_tp14: vmin_full=0.0 argmin=[('La', 'Zr')]
+   {'sample': 0, 'legal': True, 'i': 0, 'j': 0, 'A': 'La', 'B': 'Zr', 'V': 0.0, 'split_feasible': True, 'strict_valid': True, 'hit_raw_opt': True}
+   {'sample': 1, 'legal': True, 'i': 0, 'j': 0, 'A': 'La', 'B': 'Zr', 'V': 0.0, 'split_feasible': False, 'strict_valid': False, 'hit_raw_opt': False}
+   {'sample': 2, 'legal': False, 'reason': 'onehot_violation', 'split_feasible': True, 'strict_valid': False, 'hit_raw_opt': False}
+   {'sample': 3, 'legal': False, 'reason': 'onehot_violation', 'split_feasible': False, 'strict_valid': False, 'hit_raw_opt': False}
+   {'sample': 4, 'legal': False, 'reason': 'onehot_violation', 'split_feasible': False, 'strict_valid': False, 'hit_raw_opt': False}
+   {'sample': 5, 'legal': False, 'reason': 'onehot_violation', 'split_feasible': False, 'strict_valid': False, 'hit_raw_opt': False}
+   {'sample': 6, 'legal': False, 'reason': 'onehot_violation', 'split_feasible': False, 'strict_valid': False, 'hit_raw_opt': False}
+   {'sample': 7, 'legal': False, 'reason': 'onehot_violation', 'split_feasible': False, 'strict_valid': False, 'hit_raw_opt': False}
+   {'sample': 8, 'legal': False, 'reason': 'onehot_violation', 'split_feasible': False, 'strict_valid': False, 'hit_raw_opt': False}
+   {'sample': 9, 'legal': False, 'reason': 'onehot_violation', 'split_feasible': False, 'strict_valid': False, 'hit_raw_opt': False}

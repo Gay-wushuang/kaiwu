@@ -1,0 +1,9 @@
+{
+  "input_version": "B-Q3-O3",
+  "task_name": "T004_Q3_O3_lowM_direct8",
+  "mode": "opt",
+  "topk": 13,
+  "mfactor": 0.4296,
+  "samples": 10,
+  "precision_method": "direct_8bit"
+}
