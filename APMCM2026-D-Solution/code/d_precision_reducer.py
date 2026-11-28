@@ -22,6 +22,7 @@ import time
 import numpy as np
 
 import d_submit_cim as S
+import precision_reducer as PRR
 import kaiwu as kw
 import kaiwu.preprocess as pp
 
@@ -146,7 +147,7 @@ def verify_reducer_recovery(I, candidates, transform, nA=None, nB=None):
         "solve_and_restore_ms": elapsed_ms,
     }
     if nA is not None and nB is not None:
-        bits = (restored + 1) // 2
+        bits = PRR.logical_bits_from_spins(restored)
         legal = ((bits[:, :nA].sum(axis=1) == 1) &
                  (bits[:, nA:nA + nB].sum(axis=1) == 1))
         result["legal_candidate_count"] = int(legal.sum())

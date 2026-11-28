@@ -12,6 +12,7 @@ import kaiwu as kw
 import kaiwu.preprocess as pp
 
 from paths import DATA, MODELS, PRED, RES, ensure_output_dirs, require_data
+import precision_reducer as PRR
 
 ensure_output_dirs()
 MOD = MODELS
@@ -190,7 +191,7 @@ def solve_block(A, B, V, tag, topk, sa_restarts=400):
             if dH <= 0 or rng.random() < np.exp(-dH / max(T, 1e-9)):
                 s[i] = -s[i]
             T *= alpha
-        bits = ((s.astype(int) + 1) // 2)[:nA + nB]
+        bits = PRR.logical_bits_from_spins(s.astype(float))[0][:nA + nB]
         ai = np.flatnonzero(bits[:nA]); bi = np.flatnonzero(bits[nA:])
         if len(ai) == 1 and len(bi) == 1 and V[ai[0], bi[0]] < best_v:
             best_v = V[ai[0], bi[0]]; best_sa = (A[ai[0]], B[bi[0]])

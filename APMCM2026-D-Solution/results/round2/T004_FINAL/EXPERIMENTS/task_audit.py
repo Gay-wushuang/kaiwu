@@ -33,14 +33,18 @@ def load_matrix(path):
 
 
 def decode_rows(rows, A, B, V):
+    """按相对自旋 x_i=(s_i*s_aux+1)/2 解码；末位必须是原始辅助自旋。"""
     nA, nB = len(A), len(B)
     out = []
     for k, s in enumerate(np.atleast_2d(rows)):
         if not np.all(np.isfinite(s)):
             out.append(dict(sample=k, legal=False, reason="restore_conflict"))
             continue
-        s = np.asarray(s, float)
-        bits = ((s + 1) // 2).astype(int)[: nA + nB]
+        try:
+            bits = PRR.logical_bits_from_spins(s)[0][: nA + nB]
+        except ValueError:
+            out.append(dict(sample=k, legal=False, reason="decode_error"))
+            continue
         ia = [i for i in range(nA) if bits[i] == 1]
         ib = [i - nA for i in range(nA, nA + nB) if bits[i] == 1]
         if len(ia) == 1 and len(ib) == 1:
@@ -134,7 +138,7 @@ def audit(task_dir: Path):
                 r["hit_raw_opt"] = bool((r.get("A"), r.get("B")) in raw_pairs)
                 r["hit_sub_opt"] = bool((r.get("A"), r.get("B")) in sub_pairs)
         legal = sum(r.get("legal", False) for r in rows)
-        # 8bit 适配后的合法域最优集合（精确枚举 one-hot 标签）
+        # 8bit 适配后的合法域最优集合（逻辑规范代表 aux=+1）
         nA, nB = len(A), len(B)
         leg = []
         for i in range(nA):
@@ -142,12 +146,8 @@ def audit(task_dir: Path):
                 s = -np.ones(nA + nB + 1)
                 s[i] = 1
                 s[nA + j] = 1
-                # aux ±1
                 s[-1] = 1
-                h1 = float(-s @ adj @ s)
-                s[-1] = -1
-                h2 = float(-s @ adj @ s)
-                leg.append((i, j, float(V[i, j]), min(h1, h2)))
+                leg.append((i, j, float(V[i, j]), float(-s @ adj @ s)))
         hmin = min(r[3] for r in leg)
         qset = {(A[i], B[j]) for i, j, _, h in leg if abs(h - hmin) < 1e-9}
         qret = len(qset & raw_pairs) / max(len(raw_pairs), 1)

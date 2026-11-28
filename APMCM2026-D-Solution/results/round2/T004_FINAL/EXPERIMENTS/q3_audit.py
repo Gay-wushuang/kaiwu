@@ -18,6 +18,7 @@ CODE = ROOT / "code"
 sys.path.insert(0, str(CODE))
 
 import d_submit_cim as S                            # noqa: E402
+import precision_reducer as PRR                    # noqa: E402
 import kaiwu as kw                                  # noqa: E402
 import kaiwu.preprocess as pp                       # noqa: E402
 from experiment_input import matrix_sha256, numeric_matrix_sha256  # noqa: E402
@@ -40,7 +41,11 @@ def load_matrix_csv(path):
 
 
 def legal_energies(V, I, nA, nB):
-    """枚举全部合法 one-hot 指派；aux 取使其能量最小的符号。"""
+    """枚举全部合法 one-hot 逻辑指派；规范代表固定 aux=+1。
+
+    x_i=(s_i*s_aux+1)/2，故同一逻辑 x 的两个物理代表是 s 与 -s，能量相同。
+    这里只取 aux=+1 的规范代表，不再对同一物理 s 单独切换 aux 取最小。
+    """
     n = nA + nB
     out = []
     for i in range(nA):
@@ -48,19 +53,17 @@ def legal_energies(V, I, nA, nB):
             s = -np.ones(n + 1)
             s[i] = 1
             s[nA + j] = 1
-            hs = []
-            for a in (-1, 1):
-                s[-1] = a
-                hs.append(float(-s @ I @ s))
-            out.append((i, j, float(V[i, j]), min(hs)))
+            s[-1] = 1
+            out.append((i, j, float(V[i, j]), float(-s @ I @ s)))
     return out
 
 
 def exact_submitted_space(adj, nA=13, nB=13):
-    """对实际提交的 (nA+nB+1) 自旋 Ising 做全空间精确枚举。
+    """对实际提交的 (nA+nB+1) 自旋 Ising 做全空间逻辑枚举。
 
-    利用 QUBO 结构：组内非对角系数一致、A-B 交叉块非负。
-    对每个 A/B 子集组合计算 aux=+1 与 aux=-1 的较小能量。
+    逻辑变量 x_i=(s_i*s_aux+1)/2；每个逻辑 x 的两个物理代表 s 与 -s 能量相同。
+    因此固定规范代表 aux=+1（QUBO 转换使用的分支）即可枚举全部逻辑状态：
+    对每个 A/B 子集组合计算 aux=+1 的能量，不再对同一物理 s 单独切换 aux。
     """
     n = nA + nB
     Qp, offp = kw.core.ising_matrix_to_qubo_matrix(adj)
@@ -72,7 +75,6 @@ def exact_submitted_space(adj, nA=13, nB=13):
     assert np.allclose(Qp[np.triu_indices(nA, 1)], off_a)
     assert np.allclose(Qp[nA + np.triu_indices(nB, 1)[0], nA + np.triu_indices(nB, 1)[1]], off_b)
     C = Qp[:nA, nA:]
-    j = adj[:n, n]
 
     X = ((np.arange(1 << nA)[:, None] >> np.arange(nA)[None, :]) & 1).astype(np.float64)
     Y = ((np.arange(1 << nB)[:, None] >> np.arange(nB)[None, :]) & 1).astype(np.float64)
@@ -80,10 +82,6 @@ def exact_submitted_space(adj, nA=13, nB=13):
     kB = Y.sum(1)
     linA = X @ d[:nA]
     linB = Y @ d[nA:]
-    # j^T s = 2*sum_{selected} j - sum_all j
-    uA = X @ j[:nA]
-    uB = Y @ j[nA:]
-    jsum = float(j.sum())
     # kaiwu 的 QUBO 以上三角存储为准：x^T Q x 的组内交叉项为 off*C(k,2)
     penA = off_a * kA * (kA - 1) / 2.0
     penB = off_b * kB * (kB - 1) / 2.0
@@ -91,55 +89,37 @@ def exact_submitted_space(adj, nA=13, nB=13):
 
     best_legal = (np.inf, None)
     best_illegal = (np.inf, None)
-    best_legal_plus = (np.inf, None)
-    best_illegal_plus = (np.inf, None)
     for start in range(0, 1 << nA, 128):
         xs = slice(start, min(start + 128, 1 << nA))
-        base = (offp + linA[xs, None] + linB[None, :]
-                + penA[xs, None] + penB[None, :] + CY[xs, :])
-        u = 2.0 * (uA[xs, None] + uB[None, :]) - jsum
-        e = np.minimum(base, base + 4.0 * u)
-        kkA = kA[xs, None]
-        kkB = kB[None, :]
-        legal = (kkA == 1) & (kkB == 1)
-        for mask, e_now, plus, is_legal in (
-                (legal, e, False, True), (~legal, e, False, False),
-                (legal, base, True, True), (~legal, base, True, False)):
+        e = (offp + linA[xs, None] + linB[None, :]
+             + penA[xs, None] + penB[None, :] + CY[xs, :])
+        legal = (kA[xs, None] == 1) & (kB[None, :] == 1)
+        for mask, is_legal in ((legal, True), (~legal, False)):
             if not np.any(mask):
                 continue
-            v = float(e_now[mask].min())
-            tgt = (best_legal_plus if plus else best_legal) if is_legal \
-                else (best_illegal_plus if plus else best_illegal)
+            v = float(e[mask].min())
+            tgt = best_legal if is_legal else best_illegal
             if v < tgt[0]:
                 ii, jj = np.nonzero(mask)
-                k = int(np.argmin(e_now[mask]))
+                k = int(np.argmin(e[mask]))
                 tgt = (v, (int(ii[k]) + start, int(jj[k])))
-                if plus:
-                    if is_legal:
-                        best_legal_plus = tgt
-                    else:
-                        best_illegal_plus = tgt
+                if is_legal:
+                    best_legal = tgt
                 else:
-                    if is_legal:
-                        best_legal = tgt
-                    else:
-                        best_illegal = tgt
+                    best_illegal = tgt
     return dict(
-        min_legal_anyaux=best_legal[0], min_legal_anyaux_state=best_legal[1],
-        min_illegal_anyaux=best_illegal[0], min_illegal_anyaux_state=best_illegal[1],
-        min_legal_aux_plus=best_legal_plus[0], min_legal_aux_plus_state=best_legal_plus[1],
-        min_illegal_aux_plus=best_illegal_plus[0], min_illegal_aux_plus_state=best_illegal_plus[1],
-        gap_anyaux=best_illegal[0] - best_legal[0],
-        gap_aux_plus=best_illegal_plus[0] - best_legal_plus[0],
-        ground_state_all_legal_anyaux=bool(best_illegal[0] > best_legal[0]),
+        min_legal_logical=best_legal[0], min_legal_logical_state=best_legal[1],
+        min_illegal_logical=best_illegal[0], min_illegal_logical_state=best_illegal[1],
+        gap_logical=best_illegal[0] - best_legal[0],
+        ground_state_all_logical_legal=bool(best_illegal[0] > best_legal[0]),
         ground_state_contains_legal=bool(best_legal[0] <= best_illegal[0]),
-        note="Ising 无外场时 H(s)=H(-s)：任一合法态的全局翻转是非法态且能量相同，"
-             "故全空间基态必然同时包含合法与非法态；aux=+1 的二进制域无此对称性。",
+        note="逻辑变量按 x_i=(s_i*s_aux+1)/2 解码；s 与 -s 是同一逻辑状态的两个物理代表，"
+             "能量相同。全空间逻辑枚举固定 aux=+1 规范代表；全局翻转不产生新的逻辑状态，"
+             "也不改变 one-hot 合法性。",
         structure=dict(n=n, offdiag_A=float(off_a), offdiag_B=float(off_b),
                        diag_A_min=float(d[:nA].min()), diag_A_max=float(d[:nA].max()),
                        diag_B_min=float(d[nA:].min()), diag_B_max=float(d[nA:].max()),
-                       cross_min=float(C.min()), cross_max=float(C.max()),
-                       aux_coupling_min=float(j.min()), aux_coupling_max=float(j.max())),
+                       cross_min=float(C.min()), cross_max=float(C.max())),
     )
 
 
@@ -161,6 +141,8 @@ def q3_report(x):
     arg = np.argwhere(V_in <= vmin + 1e-12)
     raw_set = [(A_in[i], B_in[j], float(V_in[i, j])) for i, j in arg]
     raw_pairs = {(a, b) for a, b, _ in raw_set}
+    selected_pairs = {(a, b) for a in A_sel for b in B_sel}
+    topk_raw_hits = len(raw_pairs & selected_pairs)
 
     # 实际提交域：重建并逐字核对归档哈希
     Qs, _, _ = S.build_qubo(V_sel)
@@ -201,7 +183,7 @@ def q3_report(x):
     for k, srow in enumerate(sol):
         s = srow.astype(float)
         H = float(-s @ adj_arch @ s)
-        bits = ((s + 1) // 2).astype(int)[: nA_s + nB_s]
+        bits = PRR.logical_bits_from_spins(s)[0][: nA_s + nB_s]
         ai = [i for i in range(nA_s) if bits[i] == 1]
         bi = [i - nA_s for i in range(nA_s, nA_s + nB_s) if bits[i] == 1]
         ok = len(ai) == 1 and len(bi) == 1
@@ -237,7 +219,10 @@ def q3_report(x):
         sub_B_equals_selection=bool(subm["B"] == B_sel),
         sub_V_equals_selection=bool(np.allclose(V_sub, V_sel, atol=1e-12, rtol=0)),
         raw_min=vmin, raw_argmin_count=len(raw_set), raw_argmin_top=sorted(raw_set),
-        topk_retains_all_raw_argmins=bool(raw_pairs <= {(a, b) for a in A_sel for b in B_sel}),
+        topk_raw_hits=topk_raw_hits,
+        topk_retains_all_raw_argmins=bool(topk_raw_hits == len(raw_pairs)),
+        topk_retains_at_least_one_raw=bool(topk_raw_hits >= 1),
+        topk_note="实际候选映射逐一核对；select_topk 在并列截断时不保证无条件保留全部原始最优",
         topk_sub_min=raw_sub_min, topk_sub_argmin_count=len(raw_sub_pairs),
         topk_sub_argmin_top=sorted(raw_sub_pairs),
         quantized_full_legal_min_h=hf_min,

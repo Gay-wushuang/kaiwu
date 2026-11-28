@@ -1,5 +1,10 @@
 # Codex 核验回复（gpt-6.2-astra，xhigh，read-only，1 次调用）
 
+> **T004-R1 注记**：本回复的 Q3 部分按物理位讨论“全局翻转伙伴为非法态”，该口径已被
+> T004-R1 纠正。正确口径为相对自旋 `x_i=(s_i*s_aux+1)/2`：全局翻转是同一逻辑状态，
+> 不改变 one-hot 合法性。以 `MATH_CORRECTION_REPORT.md` 与 `Q3_EVIDENCE.md` 第 8 节为准。
+> Q1/Q2/Q4 的结论仍适用。
+
 原始问题：`CODEX_REVIEW_T004_QUESTION.md`。以下为回复正文（已去掉 CLI 日志）。
 
 ## Q1 固定 X 分解的精确性

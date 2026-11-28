@@ -12,6 +12,7 @@ Q3,baseline_B,global_argmin_count,6,candidates,q3_audit.json,verified,"O3=3, NO2
 Q3,baseline_B,global_argmin_list,CsTaO3 | KNbO3 | KTiO2F | LaZrO2N | NaTiO2F | PbTiO3,,q3_audit.json,verified,
 Q3,O3_slice,raw_min,0.0,,q3_audit.json,verified,
 Q3,O3_slice,raw_argmin,CsTaO3;KNbO3;PbTiO3,,q3_audit.json,verified,
+Q3,O3_slice,topk_raw_hits,3,candidates,q3_audit.json,verified,"actual mapping check, not an unconditional theorem"
 Q3,O3_slice,topk_retains_all_raw,True,bool,q3_audit.json,verified,
 Q3,O3_slice,quantized_full_legal_set_size,2,labels,q3_audit.json,verified,
 Q3,O3_slice,quantized_full_retention,0.0,fraction,q3_audit.json,verified,
@@ -19,10 +20,10 @@ Q3,O3_slice,quantized_topk_legal_set_size,3,labels,q3_audit.json,verified,
 Q3,O3_slice,quantized_topk_retention,0.3333333333333333,fraction,q3_audit.json,verified,
 Q3,O3_slice,quantized_topk_extra,2,labels,q3_audit.json,verified,
 Q3,O3_slice,quantized_topk_spearman,-0.009474987494116696,,q3_audit.json,verified,
-Q3,O3_slice,full_space_gap_aux_plus,24.0,H units,q3_audit.json,verified,aux=+1 binary domain
-Q3,O3_slice,full_space_gap_anyaux,0.0,H units,q3_audit.json,verified,Z2 complement degeneracy
+Q3,O3_slice,full_space_gap_logical,24.0,H units,q3_audit.json,verified,相对自旋解码；固定 aux=+1 规范代表，全局翻转不改变逻辑状态
 Q3,NO2_slice,raw_min,0.0,,q3_audit.json,verified,
 Q3,NO2_slice,raw_argmin,LaZrO2N,,q3_audit.json,verified,
+Q3,NO2_slice,topk_raw_hits,1,candidates,q3_audit.json,verified,"actual mapping check, not an unconditional theorem"
 Q3,NO2_slice,topk_retains_all_raw,True,bool,q3_audit.json,verified,
 Q3,NO2_slice,quantized_full_legal_set_size,20,labels,q3_audit.json,verified,
 Q3,NO2_slice,quantized_full_retention,1.0,fraction,q3_audit.json,verified,
@@ -30,10 +31,10 @@ Q3,NO2_slice,quantized_topk_legal_set_size,5,labels,q3_audit.json,verified,
 Q3,NO2_slice,quantized_topk_retention,0.0,fraction,q3_audit.json,verified,
 Q3,NO2_slice,quantized_topk_extra,5,labels,q3_audit.json,verified,
 Q3,NO2_slice,quantized_topk_spearman,0.5456726567089986,,q3_audit.json,verified,
-Q3,NO2_slice,full_space_gap_aux_plus,36.0,H units,q3_audit.json,verified,aux=+1 binary domain
-Q3,NO2_slice,full_space_gap_anyaux,0.0,H units,q3_audit.json,verified,Z2 complement degeneracy
+Q3,NO2_slice,full_space_gap_logical,36.0,H units,q3_audit.json,verified,相对自旋解码；固定 aux=+1 规范代表，全局翻转不改变逻辑状态
 Q3,FO2_slice,raw_min,0.0,,q3_audit.json,verified,
 Q3,FO2_slice,raw_argmin,KTiO2F;NaTiO2F,,q3_audit.json,verified,
+Q3,FO2_slice,topk_raw_hits,2,candidates,q3_audit.json,verified,"actual mapping check, not an unconditional theorem"
 Q3,FO2_slice,topk_retains_all_raw,True,bool,q3_audit.json,verified,
 Q3,FO2_slice,quantized_full_legal_set_size,2,labels,q3_audit.json,verified,
 Q3,FO2_slice,quantized_full_retention,0.0,fraction,q3_audit.json,verified,
@@ -41,8 +42,7 @@ Q3,FO2_slice,quantized_topk_legal_set_size,7,labels,q3_audit.json,verified,
 Q3,FO2_slice,quantized_topk_retention,0.5,fraction,q3_audit.json,verified,
 Q3,FO2_slice,quantized_topk_extra,6,labels,q3_audit.json,verified,
 Q3,FO2_slice,quantized_topk_spearman,0.6416148677199188,,q3_audit.json,verified,
-Q3,FO2_slice,full_space_gap_aux_plus,36.0,H units,q3_audit.json,verified,aux=+1 binary domain
-Q3,FO2_slice,full_space_gap_anyaux,0.0,H units,q3_audit.json,verified,Z2 complement degeneracy
+Q3,FO2_slice,full_space_gap_logical,36.0,H units,q3_audit.json,verified,相对自旋解码；固定 aux=+1 规范代表，全局翻转不改变逻辑状态
 REAL_MACHINE,B_Q2_baseline,task_id,t20261128-003014-b_q2_baseline-be06017f,,t20261128-003014-b_q2_baseline-be06017f,observed,
 REAL_MACHINE,B_Q2_baseline,platform_task_id,44923771c251417d91f15d9841651b4c,,t20261128-003014-b_q2_baseline-be06017f,observed,
 REAL_MACHINE,B_Q2_baseline,device,SPQC-550,,t20261128-003014-b_q2_baseline-be06017f,observed,
@@ -244,30 +244,36 @@ COST_LOCAL,Q3_FO2_lowM_direct8_topk13,adapt_ms_median,0.0231,ms,route_cost.json,
 COST_LOCAL,Q3_FO2_lowM_PR_tp14_topk13,n_submitted,183,spins,route_cost.json,measured,
 COST_LOCAL,Q3_FO2_lowM_PR_tp14_topk13,build_ms_median,0.1105,ms,route_cost.json,measured,
 COST_LOCAL,Q3_FO2_lowM_PR_tp14_topk13,adapt_ms_median,57.1583,ms,route_cost.json,measured,
-SPACE_GAP,B_Q2_baseline,legal_min_H_aux_plus,-3018.0,H,space_gap_audit.json,verified,2^26 or 2^16 exact
-SPACE_GAP,B_Q2_baseline,illegal_min_H_aux_plus,-2982.0,H,space_gap_audit.json,verified,
-SPACE_GAP,B_Q2_baseline,gap_aux_plus,36.0,H,space_gap_audit.json,verified,
-SPACE_GAP,B_Q2_baseline,gap_anyaux,0.0,H,space_gap_audit.json,verified,Z2 degeneracy
-SPACE_GAP,B_Q2_m3x,legal_min_H_aux_plus,-3120.0,H,space_gap_audit.json,verified,2^26 or 2^16 exact
-SPACE_GAP,B_Q2_m3x,illegal_min_H_aux_plus,-3084.0,H,space_gap_audit.json,verified,
-SPACE_GAP,B_Q2_m3x,gap_aux_plus,36.0,H,space_gap_audit.json,verified,
-SPACE_GAP,B_Q2_m3x,gap_anyaux,0.0,H,space_gap_audit.json,verified,Z2 degeneracy
-SPACE_GAP,B_Q2_k8,legal_min_H_aux_plus,-1780.0,H,space_gap_audit.json,verified,2^26 or 2^16 exact
-SPACE_GAP,B_Q2_k8,illegal_min_H_aux_plus,-1716.0,H,space_gap_audit.json,verified,
-SPACE_GAP,B_Q2_k8,gap_aux_plus,64.0,H,space_gap_audit.json,verified,
-SPACE_GAP,B_Q2_k8,gap_anyaux,0.0,H,space_gap_audit.json,verified,Z2 degeneracy
-SPACE_GAP,B_Q3_O3_baseline,legal_min_H_aux_plus,-2962.0,H,space_gap_audit.json,verified,2^26 or 2^16 exact
-SPACE_GAP,B_Q3_O3_baseline,illegal_min_H_aux_plus,-2938.0,H,space_gap_audit.json,verified,
-SPACE_GAP,B_Q3_O3_baseline,gap_aux_plus,24.0,H,space_gap_audit.json,verified,
-SPACE_GAP,B_Q3_O3_baseline,gap_anyaux,0.0,H,space_gap_audit.json,verified,Z2 degeneracy
-SPACE_GAP,B_Q3_FO2_baseline,legal_min_H_aux_plus,-2912.0,H,space_gap_audit.json,verified,2^26 or 2^16 exact
-SPACE_GAP,B_Q3_FO2_baseline,illegal_min_H_aux_plus,-2876.0,H,space_gap_audit.json,verified,
-SPACE_GAP,B_Q3_FO2_baseline,gap_aux_plus,36.0,H,space_gap_audit.json,verified,
-SPACE_GAP,B_Q3_FO2_baseline,gap_anyaux,0.0,H,space_gap_audit.json,verified,Z2 degeneracy
-SPACE_GAP,B_Q2_k8_lowM,legal_min_H_aux_plus,-1716.0,H,space_gap_audit.json,verified,2^26 or 2^16 exact
-SPACE_GAP,B_Q2_k8_lowM,illegal_min_H_aux_plus,-1656.0,H,space_gap_audit.json,verified,
-SPACE_GAP,B_Q2_k8_lowM,gap_aux_plus,60.0,H,space_gap_audit.json,verified,
-SPACE_GAP,B_Q2_k8_lowM,gap_anyaux,0.0,H,space_gap_audit.json,verified,Z2 degeneracy
+SPACE_GAP,B_Q2_baseline,legal_min_H_logical,-3018.0,H,space_gap_audit.json,verified,2^26 or 2^16 exact logical enumeration
+SPACE_GAP,B_Q2_baseline,illegal_min_H_logical,-2982.0,H,space_gap_audit.json,verified,
+SPACE_GAP,B_Q2_baseline,gap_logical,36.0,H,space_gap_audit.json,verified,positive => all logical ground states legal
+SPACE_GAP,B_Q2_baseline,all_logical_ground_states_legal,True,bool,space_gap_audit.json,verified,
+SPACE_GAP,B_Q2_m3x,legal_min_H_logical,-3120.0,H,space_gap_audit.json,verified,2^26 or 2^16 exact logical enumeration
+SPACE_GAP,B_Q2_m3x,illegal_min_H_logical,-3084.0,H,space_gap_audit.json,verified,
+SPACE_GAP,B_Q2_m3x,gap_logical,36.0,H,space_gap_audit.json,verified,positive => all logical ground states legal
+SPACE_GAP,B_Q2_m3x,all_logical_ground_states_legal,True,bool,space_gap_audit.json,verified,
+SPACE_GAP,B_Q2_k8,legal_min_H_logical,-1780.0,H,space_gap_audit.json,verified,2^26 or 2^16 exact logical enumeration
+SPACE_GAP,B_Q2_k8,illegal_min_H_logical,-1716.0,H,space_gap_audit.json,verified,
+SPACE_GAP,B_Q2_k8,gap_logical,64.0,H,space_gap_audit.json,verified,positive => all logical ground states legal
+SPACE_GAP,B_Q2_k8,all_logical_ground_states_legal,True,bool,space_gap_audit.json,verified,
+SPACE_GAP,B_Q3_O3_baseline,legal_min_H_logical,-2962.0,H,space_gap_audit.json,verified,2^26 or 2^16 exact logical enumeration
+SPACE_GAP,B_Q3_O3_baseline,illegal_min_H_logical,-2938.0,H,space_gap_audit.json,verified,
+SPACE_GAP,B_Q3_O3_baseline,gap_logical,24.0,H,space_gap_audit.json,verified,positive => all logical ground states legal
+SPACE_GAP,B_Q3_O3_baseline,all_logical_ground_states_legal,True,bool,space_gap_audit.json,verified,
+SPACE_GAP,B_Q3_FO2_baseline,legal_min_H_logical,-2912.0,H,space_gap_audit.json,verified,2^26 or 2^16 exact logical enumeration
+SPACE_GAP,B_Q3_FO2_baseline,illegal_min_H_logical,-2876.0,H,space_gap_audit.json,verified,
+SPACE_GAP,B_Q3_FO2_baseline,gap_logical,36.0,H,space_gap_audit.json,verified,positive => all logical ground states legal
+SPACE_GAP,B_Q3_FO2_baseline,all_logical_ground_states_legal,True,bool,space_gap_audit.json,verified,
+SPACE_GAP,B_Q2_k8_lowM,legal_min_H_logical,-1716.0,H,space_gap_audit.json,verified,2^26 or 2^16 exact logical enumeration
+SPACE_GAP,B_Q2_k8_lowM,illegal_min_H_logical,-1656.0,H,space_gap_audit.json,verified,
+SPACE_GAP,B_Q2_k8_lowM,gap_logical,60.0,H,space_gap_audit.json,verified,positive => all logical ground states legal
+SPACE_GAP,B_Q2_k8_lowM,all_logical_ground_states_legal,True,bool,space_gap_audit.json,verified,
+LOCAL_SA,G1_M0_direct8,strict_original_optimum_hits_5seeds,5/5,seeds,G1_G4_LOCAL.json,observed,逐种子复算；tp14 的 1/5 属于 tp12 的历史误记已纠正
+LOCAL_SA,G2_lowM_direct8,strict_original_optimum_hits_5seeds,5/5,seeds,G1_G4_LOCAL.json,observed,逐种子复算；tp14 的 1/5 属于 tp12 的历史误记已纠正
+LOCAL_SA,G3_M0_PR_tp12,strict_original_optimum_hits_5seeds,0/5,seeds,G1_G4_LOCAL.json,observed,逐种子复算；tp14 的 1/5 属于 tp12 的历史误记已纠正
+LOCAL_SA,G3_M0_PR_tp14,strict_original_optimum_hits_5seeds,0/5,seeds,G3_TP14_LOCAL.json,observed,逐种子复算；tp14 的 1/5 属于 tp12 的历史误记已纠正
+LOCAL_SA,G4_lowM_PR_tp12,strict_original_optimum_hits_5seeds,1/5,seeds,G1_G4_LOCAL.json,observed,逐种子复算；tp14 的 1/5 属于 tp12 的历史误记已纠正
+LOCAL_SA,G4_lowM_PR_tp14,strict_original_optimum_hits_5seeds,0/5,seeds,LOCAL_VALIDATION.json,observed,逐种子复算；tp14 的 1/5 属于 tp12 的历史误记已纠正
 CANDIDATE,Q3_O3_lowM_direct8,n_submitted,27,spins,CANDIDATE_LOCAL_EVIDENCE.json,dry_run,not submitted
 CANDIDATE,Q3_O3_lowM_direct8,matrix_sha256,857238fb3f3004460e0df79c6771ae04953ce8f3a8680edc2e0f538d9dfb4e01,,CANDIDATE_LOCAL_EVIDENCE.json,dry_run,
 CANDIDATE,Q3_O3_lowM_direct8,quantized_retention,0.0,fraction,CANDIDATE_LOCAL_EVIDENCE.json,verified_local,原始 V̂ 最优是否在量化合法最优集合内

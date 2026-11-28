@@ -159,7 +159,10 @@
           0.0
         ]
       ],
+      "topk_raw_hits": 3,
       "topk_retains_all_raw_argmins": true,
+      "topk_retains_at_least_one_raw": true,
+      "topk_note": "实际候选映射逐一核对；select_topk 在并列截断时不保证无条件保留全部原始最优",
       "topk_sub_min": 0.0,
       "topk_sub_argmin_count": 3,
       "topk_sub_argmin_top": [
@@ -216,31 +219,20 @@
       "quantized_topk_extra": 2,
       "quantized_topk_spearman": -0.009474987494116696,
       "submitted_space_exact": {
-        "min_legal_anyaux": -2962.0,
-        "min_legal_anyaux_state": [
+        "min_legal_logical": -2962.0,
+        "min_legal_logical_state": [
           1,
           4
         ],
-        "min_illegal_anyaux": -2962.0,
-        "min_illegal_anyaux_state": [
-          7679,
-          6143
-        ],
-        "min_legal_aux_plus": -2962.0,
-        "min_legal_aux_plus_state": [
-          1,
-          4
-        ],
-        "min_illegal_aux_plus": -2938.0,
-        "min_illegal_aux_plus_state": [
+        "min_illegal_logical": -2938.0,
+        "min_illegal_logical_state": [
           3,
           4
         ],
-        "gap_anyaux": 0.0,
-        "gap_aux_plus": 24.0,
-        "ground_state_all_legal_anyaux": false,
+        "gap_logical": 24.0,
+        "ground_state_all_logical_legal": true,
         "ground_state_contains_legal": true,
-        "note": "Ising 无外场时 H(s)=H(-s)：任一合法态的全局翻转是非法态且能量相同，故全空间基态必然同时包含合法与非法态；aux=+1 的二进制域无此对称性。",
+        "note": "逻辑变量按 x_i=(s_i*s_aux+1)/2 解码；s 与 -s 是同一逻辑状态的两个物理代表，能量相同。全空间逻辑枚举固定 aux=+1 规范代表；全局翻转不产生新的逻辑状态，也不改变 one-hot 合法性。",
         "structure": {
           "n": 26,
           "offdiag_A": 88.0,
@@ -250,9 +242,7 @@
           "diag_B_min": -68.0,
           "diag_B_max": -48.0,
           "cross_min": -0.0,
-          "cross_max": 16.0,
-          "aux_coupling_min": -127.0,
-          "aux_coupling_max": -121.0
+          "cross_max": 16.0
         }
       },
       "hw_returned": 9,
@@ -451,7 +441,10 @@
           0.0
         ]
       ],
+      "topk_raw_hits": 1,
       "topk_retains_all_raw_argmins": true,
+      "topk_retains_at_least_one_raw": true,
+      "topk_note": "实际候选映射逐一核对；select_topk 在并列截断时不保证无条件保留全部原始最优",
       "topk_sub_min": 0.0,
       "topk_sub_argmin_count": 1,
       "topk_sub_argmin_top": [
@@ -600,31 +593,20 @@
       "quantized_topk_extra": 5,
       "quantized_topk_spearman": 0.5456726567089986,
       "submitted_space_exact": {
-        "min_legal_anyaux": -3018.0,
-        "min_legal_anyaux_state": [
+        "min_legal_logical": -3018.0,
+        "min_legal_logical_state": [
           4,
           1
         ],
-        "min_illegal_anyaux": -3018.0,
-        "min_illegal_anyaux_state": [
-          8175,
-          7167
-        ],
-        "min_legal_aux_plus": -3018.0,
-        "min_legal_aux_plus_state": [
-          4,
-          1
-        ],
-        "min_illegal_aux_plus": -2982.0,
-        "min_illegal_aux_plus_state": [
+        "min_illegal_logical": -2982.0,
+        "min_illegal_logical_state": [
           0,
           1
         ],
-        "gap_anyaux": 0.0,
-        "gap_aux_plus": 36.0,
-        "ground_state_all_legal_anyaux": false,
+        "gap_logical": 36.0,
+        "ground_state_all_logical_legal": true,
         "ground_state_contains_legal": true,
-        "note": "Ising 无外场时 H(s)=H(-s)：任一合法态的全局翻转是非法态且能量相同，故全空间基态必然同时包含合法与非法态；aux=+1 的二进制域无此对称性。",
+        "note": "逻辑变量按 x_i=(s_i*s_aux+1)/2 解码；s 与 -s 是同一逻辑状态的两个物理代表，能量相同。全空间逻辑枚举固定 aux=+1 规范代表；全局翻转不产生新的逻辑状态，也不改变 one-hot 合法性。",
         "structure": {
           "n": 26,
           "offdiag_A": 80.0,
@@ -634,9 +616,7 @@
           "diag_B_min": -44.0,
           "diag_B_max": -24.0,
           "cross_min": -0.0,
-          "cross_max": 16.0,
-          "aux_coupling_min": -127.0,
-          "aux_coupling_max": -116.0
+          "cross_max": 16.0
         }
       },
       "hw_returned": 10,
@@ -855,7 +835,10 @@
           0.0
         ]
       ],
+      "topk_raw_hits": 2,
       "topk_retains_all_raw_argmins": true,
+      "topk_retains_at_least_one_raw": true,
+      "topk_note": "实际候选映射逐一核对；select_topk 在并列截断时不保证无条件保留全部原始最优",
       "topk_sub_min": 0.0,
       "topk_sub_argmin_count": 2,
       "topk_sub_argmin_top": [
@@ -928,31 +911,20 @@
       "quantized_topk_extra": 6,
       "quantized_topk_spearman": 0.6416148677199188,
       "submitted_space_exact": {
-        "min_legal_anyaux": -2912.0,
-        "min_legal_anyaux_state": [
+        "min_legal_logical": -2912.0,
+        "min_legal_logical_state": [
           2,
           1
         ],
-        "min_illegal_anyaux": -2912.0,
-        "min_illegal_anyaux_state": [
-          6143,
-          8187
-        ],
-        "min_legal_aux_plus": -2912.0,
-        "min_legal_aux_plus_state": [
-          2,
-          1
-        ],
-        "min_illegal_aux_plus": -2876.0,
-        "min_illegal_aux_plus_state": [
+        "min_illegal_logical": -2876.0,
+        "min_illegal_logical_state": [
           64,
           12
         ],
-        "gap_anyaux": 0.0,
-        "gap_aux_plus": 36.0,
-        "ground_state_all_legal_anyaux": false,
+        "gap_logical": 36.0,
+        "ground_state_all_logical_legal": true,
         "ground_state_contains_legal": true,
-        "note": "Ising 无外场时 H(s)=H(-s)：任一合法态的全局翻转是非法态且能量相同，故全空间基态必然同时包含合法与非法态；aux=+1 的二进制域无此对称性。",
+        "note": "逻辑变量按 x_i=(s_i*s_aux+1)/2 解码；s 与 -s 是同一逻辑状态的两个物理代表，能量相同。全空间逻辑枚举固定 aux=+1 规范代表；全局翻转不产生新的逻辑状态，也不改变 one-hot 合法性。",
         "structure": {
           "n": 26,
           "offdiag_A": 80.0,
@@ -962,9 +934,7 @@
           "diag_B_min": -44.0,
           "diag_B_max": -32.0,
           "cross_min": -0.0,
-          "cross_max": 16.0,
-          "aux_coupling_min": -127.0,
-          "aux_coupling_max": -114.0
+          "cross_max": 16.0
         }
       },
       "hw_returned": 9,

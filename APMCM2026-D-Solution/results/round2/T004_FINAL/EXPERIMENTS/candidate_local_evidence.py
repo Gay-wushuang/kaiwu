@@ -27,10 +27,7 @@ def legal_set(V, adj):
             s[i] = 1
             s[nA + j] = 1
             s[-1] = 1
-            h1 = float(-s @ adj @ s)
-            s[-1] = -1
-            h2 = float(-s @ adj @ s)
-            h = min(h1, h2)
+            h = float(-s @ adj @ s)
             rows.append((i, j, float(V[i, j]), h))
             best = h if best is None else min(best, h)
     qset = [(i, j) for i, j, _, h in rows if abs(h - best) < 1e-9]

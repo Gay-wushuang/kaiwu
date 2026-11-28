@@ -37,15 +37,15 @@ def main():
         r.update(task_name=task["task_name"], n_ising=int(adj.shape[0]),
                  topk=n, matrix_sha256=cfg["submitted_matrix_sha256"])
         rows.append(r)
-    out = {"scope": "exact full-space enumeration of submitted direct8 Ising matrices",
-           "note": "aux=+1 子空间是 QUBO 二进制域；aux 自由时 H(s)=H(-s) 产生非法互补基态。",
+    out = {"scope": "exact full-space logical enumeration of submitted direct8 Ising matrices",
+           "note": "逻辑变量 x_i=(s_i*s_aux+1)/2；固定 aux=+1 规范代表枚举全部逻辑状态。"
+                   "s 与 -s 是同一逻辑状态的两个物理代表，能量相同，不产生新的逻辑状态。",
            "rows": rows}
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     for r in rows:
         print(f"{r['task_name']:24s} n={r['n_ising']:3d} "
-              f"legal={r['min_legal_aux_plus']:9.1f} illegal(aux+1)={r['min_illegal_aux_plus']:9.1f} "
-              f"gap+={r['gap_aux_plus']:7.1f} illegal(anyaux)={r['min_illegal_anyaux']:9.1f} "
-              f"gap_any={r['gap_anyaux']:7.1f}")
+              f"legal={r['min_legal_logical']:9.1f} illegal={r['min_illegal_logical']:9.1f} "
+              f"gap={r['gap_logical']:7.1f} all_legal={r['ground_state_all_logical_legal']}")
 
 
 if __name__ == "__main__":

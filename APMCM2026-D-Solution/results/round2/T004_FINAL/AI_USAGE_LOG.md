@@ -8,7 +8,7 @@
 | 角色 | 模型 | 权限 | 实际用途 |
 |---|---|---|---|
 | Trae CN（主控/工程） | DeepSeek-V4.1-Flash | 工作区读写、本地运行 | 读题、核对归档、写审计脚本、运行本地枚举/SA/测试、生成交接材料 |
-| Codex（数学核验） | gpt-6.2-astra，reasoning=xhigh | **read-only** | 1 次：核验固定 X 分解、单 QUBO 构造、Z2 对称性、PrecisionReducer 证据边界 |
+| Codex（数学核验） | gpt-6.2-astra，reasoning=xhigh | **read-only** | T004 首轮 1 次成功；T004-R1 追加 1 次请求但被账户 usage limit 拒绝，未返回意见 |
 
 Codex 调用命令（本地，只读，未写文件）：
 
@@ -18,7 +18,19 @@ Get-Content -Raw -Encoding UTF8 EXPERIMENTS/CODEX_REVIEW_T004_QUESTION.md |
     exec -m gpt-6.2-astra -s read-only -c model_reasoning_effort="xhigh" -
 ```
 
-回复：`EXPERIMENTS/CODEX_REVIEW_T004_RESPONSE.md`。**Codex 实际调用 1 次。**
+回复：`EXPERIMENTS/CODEX_REVIEW_T004_RESPONSE.md`。**T004 首轮 Codex 成功调用 1 次。**
+
+T004-R1 追加请求：
+
+```powershell
+Get-Content -Raw -Encoding UTF8 EXPERIMENTS/CODEX_REVIEW_T004R1_QUESTION.md |
+  & "C:\Users\ERE.DESKTOP-JD48OPB\AppData\Local\OpenAI\Codex\bin\9e1da79431da526b\codex.exe" `
+    exec -m gpt-6.2-astra -s read-only -c model_reasoning_effort="xhigh" -
+```
+
+该次调用被账户 usage limit 拒绝，未返回最终意见；请求文件保留在
+`EXPERIMENTS/CODEX_REVIEW_T004R1_QUESTION.md`。因此 **T004-R1 的数学结论由本地精确枚举与
+50 项测试支撑，不冒充 Codex 已核验**。
 
 ## 2. Trae 实际完成的工作
 
@@ -34,9 +46,12 @@ Get-Content -Raw -Encoding UTF8 EXPERIMENTS/CODEX_REVIEW_T004_QUESTION.md |
    - `EXPERIMENTS/g3_tp14_local.py`：G3 缺格的本地 SA。
    - `EXPERIMENTS/acceptance_check.py`：33 项集中验收。
    - `EXPERIMENTS/make_final_metrics.py`：生成 `FINAL_METRICS.csv`。
-5. 运行回归测试：40/40 OK；direct8 已知哈希不变；基线 B 四个预测文件哈希不变。
+5. 运行回归测试：T004 首轮 40/40；T004-R1 后 50/50（新增 10 项相对自旋/Top-K 测试）。
+   direct8 已知哈希不变；基线 B 四个预测文件哈希不变。
 6. 生成 Q3 证据、受控对照、论文交接、技术冻结与证据映射。
 7. 对 3 个候选做 dry-run（`REAL_MACHINE_CANDIDATES/CANDIDATE_PLANS.txt`），**未提交任何真机任务**。
+8. T004-R1：修正物理位直接解码、aux 单独切换取最小、量化集合/采样命中混同、Top-K 无条件定理、
+   PR tp14 本地 1/5 误记；重新生成 Q3/task/space-gap 证据与 `MATH_CORRECTION_REPORT.md`。
 
 ## 3. AI 没有做的事
 

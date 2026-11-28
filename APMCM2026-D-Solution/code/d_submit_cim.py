@@ -20,6 +20,7 @@ import pandas as pd
 
 from paths import PRED, RES, ensure_output_dirs, require_files
 from experiment_archive import backup_if_exists, validate_spin_matrix
+import precision_reducer as PRR
 
 ensure_output_dirs()
 
@@ -192,10 +193,10 @@ def do_run(task_name, project_no, sample_number, wait, topk, force):
         raise SystemExit(f"[中止] 返回解格式异常：{exc}；未写入结果文件。")
     print(f"返回 {len(sol)} 个解，形状 {sol.shape}")
     A, B, V = info["A"], info["B"], info["V"]
-    bits_all = ((sol + 1) // 2).astype(int)
+    bits_all = PRR.logical_bits_from_spins(sol)     # 相对自旋；末位是辅助自旋
     rows = []
     for k in range(bits_all.shape[0]):
-        bits = bits_all[k][:len(A) + len(B)]        # 丢掉 SDK 追加的辅助比特
+        bits = bits_all[k][:len(A) + len(B)]        # 丢掉辅助比特
         dd = decode(bits, A, B)
         rows.append(dict(sample=k, A=dd[0] if dd else "", B=dd[1] if dd else "",
                          V_hat=float(V[A.index(dd[0]), B.index(dd[1])]) if dd else np.nan,

@@ -85,10 +85,10 @@ Q3 量化/全空间证据：
 | 数字 | 文件 | 口径 |
 |---|---|---|
 | 全 52×52 原始最优 3/1/2 | `q3_audit.json` `per_x.*.raw_argmin_top` | 精确枚举 |
-| topk13 保留全部 6 个 | `per_x.*.topk_retains_all_raw_argmins` | 行/列最小值性质 |
+| topk13 保留全部 6 个 | `per_x.*.topk_raw_hits` / `topk_retains_all_raw_argmins` | 实际候选映射逐一核对；非无条件定理（并列截断反例见测试） |
 | 量化全量合法最优 2/20/2 | `per_x.*.quantized_full_legal_set` | 2,704 合法指派 |
 | 量化 topk13 合法最优 3/5/7 | `per_x.*.quantized_topk_legal_set` | 2,704 合法指派 |
-| 全空间合法/非法间隙 24/36/36 | `per_x.*.submitted_space_exact` / `space_gap_audit.json` | 2^26 精确枚举 |
+| 全空间逻辑合法/非法间隙 24/36/36 | `per_x.*.submitted_space_exact` / `space_gap_audit.json` | 2^26 逻辑状态精确枚举；相对自旋 |
 
 ## 4. 论文表 → 证据文件速查
 
@@ -118,6 +118,6 @@ $env:PYTHONPATH = "$PWD\code"
 & "$env:LOCALAPPDATA\kaiwu-original\Scripts\python.exe" results\round2\T004_FINAL\EXPERIMENTS\route_cost.py
 # 指标表
 & "$env:LOCALAPPDATA\kaiwu-verify\Scripts\python.exe" results\round2\T004_FINAL\EXPERIMENTS\make_final_metrics.py
-# 回归测试（40/40）
+# 回归测试（50/50）
 & "$env:LOCALAPPDATA\kaiwu-verify\Scripts\python.exe" -m unittest discover -s tests -p "test_*.py"
 ```

@@ -65,6 +65,8 @@ def main():
         add("Q3", f"{x}_slice", "raw_argmin",
             ";".join(fmap.get((a, b, x), f"{a}-{b}") for a, b, _ in r.get("raw_argmin_top", [])),
             "", "q3_audit.json", "verified", "")
+        add("Q3", f"{x}_slice", "topk_raw_hits", r.get("topk_raw_hits"), "candidates",
+            "q3_audit.json", "verified", "actual mapping check, not an unconditional theorem")
         add("Q3", f"{x}_slice", "topk_retains_all_raw", r.get("topk_retains_all_raw_argmins"), "bool",
             "q3_audit.json", "verified", "")
         add("Q3", f"{x}_slice", "quantized_full_legal_set_size",
@@ -80,10 +82,9 @@ def main():
         add("Q3", f"{x}_slice", "quantized_topk_spearman", r.get("quantized_topk_spearman"), "",
             "q3_audit.json", "verified", "")
         sp = r.get("submitted_space_exact") or {}
-        add("Q3", f"{x}_slice", "full_space_gap_aux_plus", sp.get("gap_aux_plus"), "H units",
-            "q3_audit.json", "verified", "aux=+1 binary domain")
-        add("Q3", f"{x}_slice", "full_space_gap_anyaux", sp.get("gap_anyaux"), "H units",
-            "q3_audit.json", "verified", "Z2 complement degeneracy")
+        add("Q3", f"{x}_slice", "full_space_gap_logical", sp.get("gap_logical"), "H units",
+            "q3_audit.json", "verified",
+            "相对自旋解码；固定 aux=+1 规范代表，全局翻转不改变逻辑状态")
 
     # 真机任务逐项
     for t in tasks:
@@ -138,14 +139,26 @@ def main():
 
     # 全空间间隙
     for r in gaps:
-        add("SPACE_GAP", r["task_name"], "legal_min_H_aux_plus", r["min_legal_aux_plus"], "H",
-            "space_gap_audit.json", "verified", "2^26 or 2^16 exact")
-        add("SPACE_GAP", r["task_name"], "illegal_min_H_aux_plus", r["min_illegal_aux_plus"], "H",
+        add("SPACE_GAP", r["task_name"], "legal_min_H_logical", r["min_legal_logical"], "H",
+            "space_gap_audit.json", "verified", "2^26 or 2^16 exact logical enumeration")
+        add("SPACE_GAP", r["task_name"], "illegal_min_H_logical", r["min_illegal_logical"], "H",
             "space_gap_audit.json", "verified", "")
-        add("SPACE_GAP", r["task_name"], "gap_aux_plus", r["gap_aux_plus"], "H",
-            "space_gap_audit.json", "verified", "")
-        add("SPACE_GAP", r["task_name"], "gap_anyaux", r["gap_anyaux"], "H",
-            "space_gap_audit.json", "verified", "Z2 degeneracy")
+        add("SPACE_GAP", r["task_name"], "gap_logical", r["gap_logical"], "H",
+            "space_gap_audit.json", "verified", "positive => all logical ground states legal")
+        add("SPACE_GAP", r["task_name"], "all_logical_ground_states_legal",
+            r["ground_state_all_logical_legal"], "bool", "space_gap_audit.json", "verified", "")
+
+    # 本地 G1–G4 严格命中（5 seeds；来自 G1_G4_LOCAL / LOCAL_VALIDATION / G3_TP14_LOCAL）
+    for route, hits, source in (
+        ("G1_M0_direct8", "5/5", "G1_G4_LOCAL.json"),
+        ("G2_lowM_direct8", "5/5", "G1_G4_LOCAL.json"),
+        ("G3_M0_PR_tp12", "0/5", "G1_G4_LOCAL.json"),
+        ("G3_M0_PR_tp14", "0/5", "G3_TP14_LOCAL.json"),
+        ("G4_lowM_PR_tp12", "1/5", "G1_G4_LOCAL.json"),
+        ("G4_lowM_PR_tp14", "0/5", "LOCAL_VALIDATION.json"),
+    ):
+        add("LOCAL_SA", route, "strict_original_optimum_hits_5seeds", hits, "seeds",
+            source, "observed", "逐种子复算；tp14 的 1/5 属于 tp12 的历史误记已纠正")
 
     # 候选
     cand = load("CANDIDATE_LOCAL_EVIDENCE.json")

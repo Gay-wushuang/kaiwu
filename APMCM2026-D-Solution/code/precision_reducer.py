@@ -306,8 +306,41 @@ def wrap_recording_component(inner):
     return RecordingComponent(inner)
 
 
+def logical_bits_from_spins(spins):
+    """按相对自旋解码原始逻辑变量：x_i = (s_i * s_aux + 1) / 2。
+
+    约定最后一列为原始辅助自旋（原始 Ising / 恢复后的原始向量均如此）。
+    全局翻转 s -> -s 不改变 x；单独翻转辅助自旋会改变 x，不能视为同一逻辑状态。
+    这是唯一允许的原始维度解码口径；扩展矩阵不能直接套用（末位不是原始辅助自旋）。
+    """
+    s = np.atleast_2d(np.asarray(spins, dtype=float))
+    if s.ndim != 2 or s.shape[1] < 2:
+        raise ValueError(f"自旋向量必须为二维且至少 2 列：shape={s.shape}")
+    if not np.all(np.isfinite(s)):
+        raise ValueError("自旋向量含非有限值（恢复冲突行不能解码）")
+    aux = s[:, [-1]]
+    x = (s[:, :-1] * aux + 1.0) / 2.0
+    if not np.allclose(x, np.round(x), atol=1e-9):
+        raise ValueError("相对自旋解码未得到 0/1")
+    return np.round(x).astype(int)
+
+
+def logical_labels_from_spins(spins, nA, nB):
+    """返回每行的 (i, j) 或 None；只认恰好一个 A、一个 B 的 one-hot。"""
+    bits = logical_bits_from_spins(spins)
+    out = []
+    for row in bits:
+        ia = [i for i in range(nA) if row[i] == 1]
+        ib = [i - nA for i in range(nA, nA + nB) if row[i] == 1]
+        out.append((ia[0], ib[0]) if len(ia) == 1 and len(ib) == 1 else None)
+    return out
+
+
 def evaluate_restored(restored, V, A, B):
-    """对恢复后的原始自旋逐行解码，返回合法性、标签与原始目标值。"""
+    """对恢复后的原始自旋逐行解码，返回合法性、标签与原始目标值。
+
+    使用相对自旋口径，原始辅助自旋在末位；扩展矩阵必须先恢复再解码。
+    """
     V = np.asarray(V, dtype=float)
     nA, nB = V.shape
     R = np.atleast_2d(np.asarray(restored, dtype=float))
@@ -316,7 +349,11 @@ def evaluate_restored(restored, V, A, B):
         if not np.all(np.isfinite(s)):
             rows.append({"sample": k, "legal": False, "reason": "restore_conflict"})
             continue
-        bits = ((s + 1) // 2).astype(int)[:nA + nB]
+        try:
+            bits = logical_bits_from_spins(s)[0][:nA + nB]
+        except ValueError:
+            rows.append({"sample": k, "legal": False, "reason": "decode_error"})
+            continue
         ia = [i for i in range(nA) if bits[i] == 1]
         ib = [i - nA for i in range(nA, nA + nB) if bits[i] == 1]
         if len(ia) == 1 and len(ib) == 1:
