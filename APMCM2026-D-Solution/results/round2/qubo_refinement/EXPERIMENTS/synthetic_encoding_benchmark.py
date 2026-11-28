@@ -174,7 +174,9 @@ def eval_instance(V, M, encoding):
         if lab is not None:
             legal[lab] = True
             exact[lab] = e
-            quant[lab] = q
+            # 辅助位不参与合法性判定（与 d_run_stats 解码一致）；其能量取硬件可达的最小值。
+            if lab not in quant or q < quant[lab]:
+                quant[lab] = q
     exact_all = np.asarray(exact_all)
     quant_all = np.asarray(quant_all)
     legal_mask = np.array([False] * len(exact_all))
@@ -201,6 +203,8 @@ def eval_instance(V, M, encoding):
     exact_illegal = float(exact_all[~legal_mask].min())
     quant_legal = float(quant_all[legal_mask].min())
     quant_illegal = float(quant_all[~legal_mask].min())
+    exact_worst_legal = float(exact_all[legal_mask].max())
+    quant_worst_legal = float(quant_all[legal_mask].max())
     # Spearman
     rho = spearman(Vf, quant_vec)
     return {
@@ -217,6 +221,13 @@ def eval_instance(V, M, encoding):
         "quant_gap": quant_illegal - quant_legal,
         "exact_valid": bool(exact_legal < exact_illegal),
         "quant_valid": bool(quant_legal < quant_illegal),
+        # 全体合法态与最佳非法态的严格分离裕量（Codex V4 建议口径）
+        "exact_worst_legal": exact_worst_legal,
+        "exact_separation": exact_illegal - exact_worst_legal,
+        "quant_worst_legal": quant_worst_legal,
+        "quant_separation": quant_illegal - quant_worst_legal,
+        # 合法域集合相等（与“全空间保持”分开）
+        "legal_set_equal": raw_set == qset,
     }
 
 

@@ -67,8 +67,25 @@ def select_topk(A, B, V, topk: int):
     return list(A), list(B), V
 
 
-def build_problem(exin: ExperimentInput, topk: int = 0, mfactor: float = 1.0) -> dict:
-    """构造 QUBO / Ising / 8bit 精度适配矩阵；只复用既有实现。"""
+PRECISION_METHOD_DIRECT_8BIT = "direct_8bit"
+
+
+def adapt_precision(I, method: str = PRECISION_METHOD_DIRECT_8BIT):
+    """精度适配入口：方法标识 -> 适配后矩阵。
+
+    当前仅实现直接 8bit 适配（adjust_ising_matrix_precision）；
+    PrecisionReducer 等外部方法由此边界接入，构造侧不依赖具体方法。
+    """
+    import kaiwu.preprocess as pp
+
+    if method == PRECISION_METHOD_DIRECT_8BIT:
+        return np.asarray(pp.adjust_ising_matrix_precision(I, 8), dtype=float)
+    raise SystemExit(f"[精度] 未知的精度适配方法：{method}")
+
+
+def build_problem(exin: ExperimentInput, topk: int = 0, mfactor: float = 1.0,
+                  precision_method: str = PRECISION_METHOD_DIRECT_8BIT) -> dict:
+    """构造 QUBO / Ising / 精度适配矩阵；只复用既有实现。"""
     import kaiwu.preprocess as pp
 
     A, B, V = select_topk(exin.A, exin.B, exin.V, topk)
@@ -77,7 +94,7 @@ def build_problem(exin: ExperimentInput, topk: int = 0, mfactor: float = 1.0) ->
     if mfactor != 1.0:
         Q, offset, M = S.build_qubo(V, M=M0 * mfactor)
     I, bias = S.to_ising(Q)
-    adj = np.asarray(pp.adjust_ising_matrix_precision(I, 8), dtype=float)
+    adj = adapt_precision(I, precision_method)
     if adj.shape != I.shape or not np.array_equal(adj, adj.T) or not np.isfinite(adj).all():
         raise SystemExit("[精度] 适配矩阵的形状、对称性或有限性检查失败。")
     # 可等比缩放到 8 位整数的浮点矩阵也是 SDK 的合法提交矩阵。
@@ -96,6 +113,7 @@ def build_problem(exin: ExperimentInput, topk: int = 0, mfactor: float = 1.0) ->
         "A": A, "B": B, "V": V, "Q": Q, "I": I, "adj": adj,
         "offset": float(offset), "bias": float(bias), "M": float(M), "M0": float(M0),
         "topk": int(topk), "mfactor": float(mfactor),
+        "precision_method": precision_method,
         "n_qubo": n_qubo, "n_ising": n_ising,
         "aux_bits": n_ising - n_qubo,
         "resol_raw": float(raw["resol"]), "resol_adj": adj_resol,
@@ -324,6 +342,7 @@ def execute_task(input_version: str, task_name: str, mode: str = "opt", topk: in
         "task_mode": "sampling" if mode == "sampling" else "optimization",
         "topk": int(topk),
         "mfactor": float(mfactor),
+        "precision_method": problem["precision_method"],
         "samples": int(samples),
         "project_no": project_no,
         "quota_units": 1,

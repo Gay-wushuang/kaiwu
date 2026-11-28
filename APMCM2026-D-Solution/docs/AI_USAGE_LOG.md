@@ -203,6 +203,13 @@
 - 追加 one-hot 罚项缩放候选：B-Q2-NO2 topk=8，M0 本地保留 0、非原始 5、分辨率 3；`lowM=1.05*max V`（mfactor 0.33826009024559534）本地保留 1、非原始 0、分辨率 7.10/7.00、量化约束有效。已生成 `REAL_MACHINE_CANDIDATES/B_Q2_k8_lowM.json` 并 dry-run（未调用 license、未提交、配额 0），等待真机授权。
 - 队员授权后提交 `B_Q2_k8_lowM` 1 次：task `t20261128-043036-b_q2_k8_lowm-34f84ed6`，返回 10、合法 2，最低合法 La-Zr（H=−1716，V=0），原始/量化最优命中 1/1；设备 SPQC-1，硬件 4.3098 ms，端到端 7.754 s；平台 PDF 已归档；配额已用 6、剩余 26。未重复提交。
 
+## 2026-11-28 T002-A V4：one-hot 有限精度稳定性验证
+
+- Trae（DeepSeek-V4.1-Flash）在 `research/qubo-refinement` 上完成 3 输入 × 14 个 `M/Vmax`（42 点）全逻辑空间穷举与量化误差结构分析；新增 1.075 点；区分“基态合法”与“全体合法态严格分离”；修正目标块比较、`diff_count` 口径与辅助位取最小能量；在 `code/d_experiment.py` 增加 `adapt_precision`/`precision_method` 接口边界（默认 `direct_8bit`，不改变矩阵与哈希）。23 项实验管线测试与 5 项数学接口测试通过。未选择正式方案、未提交真机、量子配额消耗 0。产出 `results/round2/qubo_refinement/ONEHOT_STABILITY.md` 与 3 个 JSON。
+- Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）调用 1 次，返回 REVISE：独立复算 39 点；补算 1.075 并发现 La-Zr/La-Hf 并列；指出 2.80 保留原始最优但多出并列；给出带符号误差的集合保持判据与 `Δ>2ε` 充分条件，并指出 `np.allclose(atol=0)` 仍保留默认相对容差。Trae 已按反馈修正，本轮无第二次调用。
+- 关键结论：42/42 点量化基态合法；但 lowM（1.05）的全体合法态分离裕量为 −4，非法态可优于部分合法态；Q2 集合相等只在 1.05/1.10 两个孤立点，1.075 即并列；原始最优间隙 0.001396 远小于量化残差摆动，不能外推为普遍适用。
+- 本阶段真机 0 次、配额 0；账面剩余 26，平台余额待核实。
+
 
 
 

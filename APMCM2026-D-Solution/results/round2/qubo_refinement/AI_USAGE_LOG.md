@@ -30,3 +30,24 @@
 - 追加 one-hot 罚项缩放检查：B-Q2-NO2 topk=8 的 M0=42.171 本地保留 0.0、非原始 5、分辨率 3；`lowM=1.05*max V`（mfactor 0.33826009024559534，M=14.265）本地保留 1.0、非原始 0、分辨率 7.10/7.00、量化约束有效。已生成 `REAL_MACHINE_CANDIDATES/B_Q2_k8_lowM.json` 并执行 `d_experiment plan` dry-run（未调用 license、未提交、配额 0）；等待真机授权。
 - 队员授权后提交 `B_Q2_k8_lowM` 1 次：task `t20261128-043036-b_q2_k8_lowm-34f84ed6`，状态 completed；返回 10、合法 2，最低合法 La-Zr（H=−1716，V=0），原始/量化最优命中 1/1；设备 SPQC-1，硬件 4.3098 ms，端到端 7.754 s。平台 PDF 已归档；配额已用 6、剩余 26。未重复提交。
 
+## T002-A V4：one-hot 数学表达深化与有限精度稳定性
+
+- Trae（DeepSeek-V4.1-Flash）：
+  - 实现并运行 `EXPERIMENTS/onehot_mfactor_scan.py`（3 输入 × 14 个 `M/Vmax`，共 42 点；
+    topk=8，全逻辑空间穷举），增加 1.075 点，区分 `legal_set_equal`、
+    `quant_fullspace_valid`、`quant_gap`、`quant_separation`。
+  - 实现并运行 `EXPERIMENTS/onehot_quant_error_structure.py`（合法 8×8 量化能量、
+    有效尺度 α、残差两向分解、逐点翻转量），生成 `onehot_quant_error_structure.json`。
+  - 修正 `lowm_coeff_delta.py` 的目标块比较为 `np.array_equal`，明确 `diff_count` 与
+    独立边数、舍入误差单位；修正合法能量对辅助位取最小值的口径。
+  - 在 `code/d_experiment.py` 增加 `adapt_precision` 分派与 `precision_method` 标识
+    （默认 `direct_8bit`），不改变现有矩阵与哈希；23 项实验管线测试与 5 项数学接口测试通过。
+  - 撰写 `ONEHOT_STABILITY.md`；未选择正式方案、未提交真机、配额消耗 0。
+- Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）：调用 1 次，输入
+  `EXPERIMENTS/CODEX_REVIEW_02_QUESTION.md` 与同目录数据；输出
+  `EXPERIMENTS/CODEX_REVIEW_02.json`（REVISE）。Codex 独立复算 39 点，补算 1.075
+  并发现 La-Zr/La-Hf 并列，指出 2.80 反例、`np.allclose(atol=0)` 的默认相对容差、
+  集合相等的两种口径，并给出带符号误差判据与 `Δ>2ε` 充分条件。Trae 已按反馈修正；
+  本轮无新增需要第二次调用的实质数学矛盾。
+- 本轮真机 0 次、配额 0；账面剩余 26，平台余额待核实。
+
