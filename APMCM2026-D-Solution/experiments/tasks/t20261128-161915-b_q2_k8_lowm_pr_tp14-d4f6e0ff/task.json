@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "task_id": "t20261128-161915-b_q2_k8_lowm_pr_tp14-d4f6e0ff",
+  "task_name": "B_Q2_k8_lowM_PR_tp14",
+  "status": "resume_no_result",
+  "created_at": "2026-11-28 16:19:15 +0800",
+  "updated_at": "2026-11-28 16:21:45 +0800",
+  "input_version": "B-Q2-NO2",
+  "input_kind": "independent_reproduction",
+  "input_matrix_sha256": "0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e",
+  "submitted_matrix_sha256": "d4f6e0ff12ac469484f9ca6fd16100ac77de0395e724d24cc2aaffa50f5815b3",
+  "ising_shape": [
+    121,
+    121
+  ],
+  "sdk_matrix_hash": "ed074313caadec61dae14cf43fe0943f",
+  "mode_key": "optimization",
+  "mode": "opt",
+  "topk": 8,
+  "mfactor": 0.33826009024559534,
+  "samples": 10,
+  "quota_units": 1,
+  "quota_counted": true,
+  "device": null,
+  "device_source": "platform_pdf_pending",
+  "platform_task_id": null,
+  "returned_solutions": [
+    10,
+    17
+  ],
+  "runtime_s": 14.501,
+  "error_stage": null,
+  "error_type": null,
+  "error_message": null,
+  "archive_dir": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\experiments\\tasks\\t20261128-161915-b_q2_k8_lowm_pr_tp14-d4f6e0ff",
+  "completed_at": "2026-11-28 16:19:30 +0800",
+  "platform_time_consume": "1551.104",
+  "platform_time_consume_source": "platform_result.json",
+  "platform_vector_check": "10x121 platform pkl equals archived expanded solutions",
+  "platform_task_id_source": "platform_pdf_pending",
+  "report_file": null
+}

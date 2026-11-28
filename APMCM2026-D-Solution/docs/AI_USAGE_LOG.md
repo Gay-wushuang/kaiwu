@@ -222,8 +222,11 @@
 - Codex（`gpt-6.2-astra` / `xhigh` / `read-only`）调用 1 次，核验可行子空间等价、
   罚项充分性、tp12 的 V=0 来源、截断非单调、映射可区分性与结论边界；输出见
   `results/round2/precision_reducer/EXPERIMENTS/CODEX_REVIEW_01.json`。
-- 真机任务 0 次、配额 0；两个候选（tp14 保真优先、tp12 链路优先）已 dry-run，
-  等待队员授权。未修改基线 B、第一轮数据与 T001 冻结材料。
+- 队员授权“仅提交 tp14”后执行 1 次真机：task `t20261128-161915-b_q2_k8_lowm_pr_tp14-d4f6e0ff`，
+  status=completed；扩展 121 自旋；10 返回、2 个拆分一致，其中 1 个为 La-Zr（V=0），
+  扩展能量 −206404 与构造最优一致；平台结果 pkl 与归档扩展解逐元素一致。
+- 配额消耗 1（账面已用 7 / 剩余 25）；tp12 未提交；平台 PDF/设备待补。
+- 未修改基线 B、第一轮数据与 T001 冻结材料。
 
 
 

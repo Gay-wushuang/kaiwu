@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "version": "B-Q2-NO2",
+  "kind": "independent_reproduction",
+  "created_at": "2026-11-27 23:08:02 +0800",
+  "sub_question": "Q2",
+  "x_value": "NO2",
+  "x_declared": true,
+  "value_column": "V_hat",
+  "value_semantics": "lower_is_better",
+  "shape": [
+    52,
+    52
+  ],
+  "matrix_sha256": "0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e",
+  "files": {
+    "matrix.csv": "55254bdcfc71a39b6a6f8542403c0b9704cbe929a0f20f66a6d5113fca07ebaf",
+    "mapping.json": "76075b1a49ed602a752f038bd6dd6d9ec9c66e21ecb7d2679c5ca4966fdc8c5c",
+    "source_manifest.json": "d5bb963cf7ad25ac7d72f6ba88251601c97cee110609001b07fd8140a1e8354e"
+  },
+  "source_paths": [
+    "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\results\\reproduction_20261127\\predictions\\pool_q2_phys.csv"
+  ],
+  "notes": ""
+}

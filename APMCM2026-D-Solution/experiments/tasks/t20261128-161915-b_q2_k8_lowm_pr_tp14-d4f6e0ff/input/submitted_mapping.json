@@ -1,0 +1,1003 @@
+{
+  "schema_version": 1,
+  "task_id": "t20261128-161915-b_q2_k8_lowm_pr_tp14-d4f6e0ff",
+  "input_version": "B-Q2-NO2",
+  "input_kind": "independent_reproduction",
+  "input_matrix_sha256": "0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e",
+  "topk": 8,
+  "mfactor": 0.33826009024559534,
+  "submitted_matrix_sha256": "d4f6e0ff12ac469484f9ca6fd16100ac77de0395e724d24cc2aaffa50f5815b3",
+  "submitted_matrix_shape": [
+    121,
+    121
+  ],
+  "n_qubo": 16,
+  "n_ising": 121,
+  "n_ising_original": 17,
+  "split_extra_spins": 104,
+  "aux_spin_count": 1,
+  "aux_spin_position": "last",
+  "aux_spin_indices": [
+    16
+  ],
+  "A_axis": "row",
+  "B_axis": "column",
+  "A": [
+    "La",
+    "Y",
+    "Sc",
+    "Sr",
+    "Ca",
+    "Ba",
+    "Bi",
+    "Pb"
+  ],
+  "B": [
+    "Zr",
+    "Hf",
+    "Si",
+    "Ti",
+    "Ga",
+    "Ta",
+    "Sn",
+    "Al"
+  ],
+  "variables": [
+    {
+      "index": 0,
+      "kind": "A",
+      "label": "La",
+      "group": 0,
+      "copy": 0
+    },
+    {
+      "index": 1,
+      "kind": "A",
+      "label": "La",
+      "group": 0,
+      "copy": 1
+    },
+    {
+      "index": 2,
+      "kind": "A",
+      "label": "La",
+      "group": 0,
+      "copy": 2
+    },
+    {
+      "index": 3,
+      "kind": "A",
+      "label": "La",
+      "group": 0,
+      "copy": 3
+    },
+    {
+      "index": 4,
+      "kind": "A",
+      "label": "La",
+      "group": 0,
+      "copy": 4
+    },
+    {
+      "index": 5,
+      "kind": "A",
+      "label": "La",
+      "group": 0,
+      "copy": 5
+    },
+    {
+      "index": 6,
+      "kind": "A",
+      "label": "Y",
+      "group": 1,
+      "copy": 0
+    },
+    {
+      "index": 7,
+      "kind": "A",
+      "label": "Y",
+      "group": 1,
+      "copy": 1
+    },
+    {
+      "index": 8,
+      "kind": "A",
+      "label": "Y",
+      "group": 1,
+      "copy": 2
+    },
+    {
+      "index": 9,
+      "kind": "A",
+      "label": "Y",
+      "group": 1,
+      "copy": 3
+    },
+    {
+      "index": 10,
+      "kind": "A",
+      "label": "Y",
+      "group": 1,
+      "copy": 4
+    },
+    {
+      "index": 11,
+      "kind": "A",
+      "label": "Y",
+      "group": 1,
+      "copy": 5
+    },
+    {
+      "index": 12,
+      "kind": "A",
+      "label": "Sc",
+      "group": 2,
+      "copy": 0
+    },
+    {
+      "index": 13,
+      "kind": "A",
+      "label": "Sc",
+      "group": 2,
+      "copy": 1
+    },
+    {
+      "index": 14,
+      "kind": "A",
+      "label": "Sc",
+      "group": 2,
+      "copy": 2
+    },
+    {
+      "index": 15,
+      "kind": "A",
+      "label": "Sc",
+      "group": 2,
+      "copy": 3
+    },
+    {
+      "index": 16,
+      "kind": "A",
+      "label": "Sc",
+      "group": 2,
+      "copy": 4
+    },
+    {
+      "index": 17,
+      "kind": "A",
+      "label": "Sc",
+      "group": 2,
+      "copy": 5
+    },
+    {
+      "index": 18,
+      "kind": "A",
+      "label": "Sr",
+      "group": 3,
+      "copy": 0
+    },
+    {
+      "index": 19,
+      "kind": "A",
+      "label": "Sr",
+      "group": 3,
+      "copy": 1
+    },
+    {
+      "index": 20,
+      "kind": "A",
+      "label": "Sr",
+      "group": 3,
+      "copy": 2
+    },
+    {
+      "index": 21,
+      "kind": "A",
+      "label": "Sr",
+      "group": 3,
+      "copy": 3
+    },
+    {
+      "index": 22,
+      "kind": "A",
+      "label": "Sr",
+      "group": 3,
+      "copy": 4
+    },
+    {
+      "index": 23,
+      "kind": "A",
+      "label": "Sr",
+      "group": 3,
+      "copy": 5
+    },
+    {
+      "index": 24,
+      "kind": "A",
+      "label": "Sr",
+      "group": 3,
+      "copy": 6
+    },
+    {
+      "index": 25,
+      "kind": "A",
+      "label": "Ca",
+      "group": 4,
+      "copy": 0
+    },
+    {
+      "index": 26,
+      "kind": "A",
+      "label": "Ca",
+      "group": 4,
+      "copy": 1
+    },
+    {
+      "index": 27,
+      "kind": "A",
+      "label": "Ca",
+      "group": 4,
+      "copy": 2
+    },
+    {
+      "index": 28,
+      "kind": "A",
+      "label": "Ca",
+      "group": 4,
+      "copy": 3
+    },
+    {
+      "index": 29,
+      "kind": "A",
+      "label": "Ca",
+      "group": 4,
+      "copy": 4
+    },
+    {
+      "index": 30,
+      "kind": "A",
+      "label": "Ca",
+      "group": 4,
+      "copy": 5
+    },
+    {
+      "index": 31,
+      "kind": "A",
+      "label": "Ca",
+      "group": 4,
+      "copy": 6
+    },
+    {
+      "index": 32,
+      "kind": "A",
+      "label": "Ba",
+      "group": 5,
+      "copy": 0
+    },
+    {
+      "index": 33,
+      "kind": "A",
+      "label": "Ba",
+      "group": 5,
+      "copy": 1
+    },
+    {
+      "index": 34,
+      "kind": "A",
+      "label": "Ba",
+      "group": 5,
+      "copy": 2
+    },
+    {
+      "index": 35,
+      "kind": "A",
+      "label": "Ba",
+      "group": 5,
+      "copy": 3
+    },
+    {
+      "index": 36,
+      "kind": "A",
+      "label": "Ba",
+      "group": 5,
+      "copy": 4
+    },
+    {
+      "index": 37,
+      "kind": "A",
+      "label": "Ba",
+      "group": 5,
+      "copy": 5
+    },
+    {
+      "index": 38,
+      "kind": "A",
+      "label": "Ba",
+      "group": 5,
+      "copy": 6
+    },
+    {
+      "index": 39,
+      "kind": "A",
+      "label": "Bi",
+      "group": 6,
+      "copy": 0
+    },
+    {
+      "index": 40,
+      "kind": "A",
+      "label": "Bi",
+      "group": 6,
+      "copy": 1
+    },
+    {
+      "index": 41,
+      "kind": "A",
+      "label": "Bi",
+      "group": 6,
+      "copy": 2
+    },
+    {
+      "index": 42,
+      "kind": "A",
+      "label": "Bi",
+      "group": 6,
+      "copy": 3
+    },
+    {
+      "index": 43,
+      "kind": "A",
+      "label": "Bi",
+      "group": 6,
+      "copy": 4
+    },
+    {
+      "index": 44,
+      "kind": "A",
+      "label": "Bi",
+      "group": 6,
+      "copy": 5
+    },
+    {
+      "index": 45,
+      "kind": "A",
+      "label": "Bi",
+      "group": 6,
+      "copy": 6
+    },
+    {
+      "index": 46,
+      "kind": "A",
+      "label": "Bi",
+      "group": 6,
+      "copy": 7
+    },
+    {
+      "index": 47,
+      "kind": "A",
+      "label": "Pb",
+      "group": 7,
+      "copy": 0
+    },
+    {
+      "index": 48,
+      "kind": "A",
+      "label": "Pb",
+      "group": 7,
+      "copy": 1
+    },
+    {
+      "index": 49,
+      "kind": "A",
+      "label": "Pb",
+      "group": 7,
+      "copy": 2
+    },
+    {
+      "index": 50,
+      "kind": "A",
+      "label": "Pb",
+      "group": 7,
+      "copy": 3
+    },
+    {
+      "index": 51,
+      "kind": "A",
+      "label": "Pb",
+      "group": 7,
+      "copy": 4
+    },
+    {
+      "index": 52,
+      "kind": "A",
+      "label": "Pb",
+      "group": 7,
+      "copy": 5
+    },
+    {
+      "index": 53,
+      "kind": "A",
+      "label": "Pb",
+      "group": 7,
+      "copy": 6
+    },
+    {
+      "index": 54,
+      "kind": "A",
+      "label": "Pb",
+      "group": 7,
+      "copy": 7
+    },
+    {
+      "index": 55,
+      "kind": "A",
+      "label": "Pb",
+      "group": 7,
+      "copy": 8
+    },
+    {
+      "index": 56,
+      "kind": "B",
+      "label": "Zr",
+      "group": 8,
+      "copy": 0
+    },
+    {
+      "index": 57,
+      "kind": "B",
+      "label": "Zr",
+      "group": 8,
+      "copy": 1
+    },
+    {
+      "index": 58,
+      "kind": "B",
+      "label": "Zr",
+      "group": 8,
+      "copy": 2
+    },
+    {
+      "index": 59,
+      "kind": "B",
+      "label": "Zr",
+      "group": 8,
+      "copy": 3
+    },
+    {
+      "index": 60,
+      "kind": "B",
+      "label": "Zr",
+      "group": 8,
+      "copy": 4
+    },
+    {
+      "index": 61,
+      "kind": "B",
+      "label": "Zr",
+      "group": 8,
+      "copy": 5
+    },
+    {
+      "index": 62,
+      "kind": "B",
+      "label": "Zr",
+      "group": 8,
+      "copy": 6
+    },
+    {
+      "index": 63,
+      "kind": "B",
+      "label": "Hf",
+      "group": 9,
+      "copy": 0
+    },
+    {
+      "index": 64,
+      "kind": "B",
+      "label": "Hf",
+      "group": 9,
+      "copy": 1
+    },
+    {
+      "index": 65,
+      "kind": "B",
+      "label": "Hf",
+      "group": 9,
+      "copy": 2
+    },
+    {
+      "index": 66,
+      "kind": "B",
+      "label": "Hf",
+      "group": 9,
+      "copy": 3
+    },
+    {
+      "index": 67,
+      "kind": "B",
+      "label": "Hf",
+      "group": 9,
+      "copy": 4
+    },
+    {
+      "index": 68,
+      "kind": "B",
+      "label": "Hf",
+      "group": 9,
+      "copy": 5
+    },
+    {
+      "index": 69,
+      "kind": "B",
+      "label": "Hf",
+      "group": 9,
+      "copy": 6
+    },
+    {
+      "index": 70,
+      "kind": "B",
+      "label": "Si",
+      "group": 10,
+      "copy": 0
+    },
+    {
+      "index": 71,
+      "kind": "B",
+      "label": "Si",
+      "group": 10,
+      "copy": 1
+    },
+    {
+      "index": 72,
+      "kind": "B",
+      "label": "Si",
+      "group": 10,
+      "copy": 2
+    },
+    {
+      "index": 73,
+      "kind": "B",
+      "label": "Si",
+      "group": 10,
+      "copy": 3
+    },
+    {
+      "index": 74,
+      "kind": "B",
+      "label": "Si",
+      "group": 10,
+      "copy": 4
+    },
+    {
+      "index": 75,
+      "kind": "B",
+      "label": "Si",
+      "group": 10,
+      "copy": 5
+    },
+    {
+      "index": 76,
+      "kind": "B",
+      "label": "Si",
+      "group": 10,
+      "copy": 6
+    },
+    {
+      "index": 77,
+      "kind": "B",
+      "label": "Ti",
+      "group": 11,
+      "copy": 0
+    },
+    {
+      "index": 78,
+      "kind": "B",
+      "label": "Ti",
+      "group": 11,
+      "copy": 1
+    },
+    {
+      "index": 79,
+      "kind": "B",
+      "label": "Ti",
+      "group": 11,
+      "copy": 2
+    },
+    {
+      "index": 80,
+      "kind": "B",
+      "label": "Ti",
+      "group": 11,
+      "copy": 3
+    },
+    {
+      "index": 81,
+      "kind": "B",
+      "label": "Ti",
+      "group": 11,
+      "copy": 4
+    },
+    {
+      "index": 82,
+      "kind": "B",
+      "label": "Ti",
+      "group": 11,
+      "copy": 5
+    },
+    {
+      "index": 83,
+      "kind": "B",
+      "label": "Ti",
+      "group": 11,
+      "copy": 6
+    },
+    {
+      "index": 84,
+      "kind": "B",
+      "label": "Ga",
+      "group": 12,
+      "copy": 0
+    },
+    {
+      "index": 85,
+      "kind": "B",
+      "label": "Ga",
+      "group": 12,
+      "copy": 1
+    },
+    {
+      "index": 86,
+      "kind": "B",
+      "label": "Ga",
+      "group": 12,
+      "copy": 2
+    },
+    {
+      "index": 87,
+      "kind": "B",
+      "label": "Ga",
+      "group": 12,
+      "copy": 3
+    },
+    {
+      "index": 88,
+      "kind": "B",
+      "label": "Ga",
+      "group": 12,
+      "copy": 4
+    },
+    {
+      "index": 89,
+      "kind": "B",
+      "label": "Ga",
+      "group": 12,
+      "copy": 5
+    },
+    {
+      "index": 90,
+      "kind": "B",
+      "label": "Ga",
+      "group": 12,
+      "copy": 6
+    },
+    {
+      "index": 91,
+      "kind": "B",
+      "label": "Ta",
+      "group": 13,
+      "copy": 0
+    },
+    {
+      "index": 92,
+      "kind": "B",
+      "label": "Ta",
+      "group": 13,
+      "copy": 1
+    },
+    {
+      "index": 93,
+      "kind": "B",
+      "label": "Ta",
+      "group": 13,
+      "copy": 2
+    },
+    {
+      "index": 94,
+      "kind": "B",
+      "label": "Ta",
+      "group": 13,
+      "copy": 3
+    },
+    {
+      "index": 95,
+      "kind": "B",
+      "label": "Ta",
+      "group": 13,
+      "copy": 4
+    },
+    {
+      "index": 96,
+      "kind": "B",
+      "label": "Ta",
+      "group": 13,
+      "copy": 5
+    },
+    {
+      "index": 97,
+      "kind": "B",
+      "label": "Ta",
+      "group": 13,
+      "copy": 6
+    },
+    {
+      "index": 98,
+      "kind": "B",
+      "label": "Sn",
+      "group": 14,
+      "copy": 0
+    },
+    {
+      "index": 99,
+      "kind": "B",
+      "label": "Sn",
+      "group": 14,
+      "copy": 1
+    },
+    {
+      "index": 100,
+      "kind": "B",
+      "label": "Sn",
+      "group": 14,
+      "copy": 2
+    },
+    {
+      "index": 101,
+      "kind": "B",
+      "label": "Sn",
+      "group": 14,
+      "copy": 3
+    },
+    {
+      "index": 102,
+      "kind": "B",
+      "label": "Sn",
+      "group": 14,
+      "copy": 4
+    },
+    {
+      "index": 103,
+      "kind": "B",
+      "label": "Sn",
+      "group": 14,
+      "copy": 5
+    },
+    {
+      "index": 104,
+      "kind": "B",
+      "label": "Sn",
+      "group": 14,
+      "copy": 6
+    },
+    {
+      "index": 105,
+      "kind": "B",
+      "label": "Al",
+      "group": 15,
+      "copy": 0
+    },
+    {
+      "index": 106,
+      "kind": "B",
+      "label": "Al",
+      "group": 15,
+      "copy": 1
+    },
+    {
+      "index": 107,
+      "kind": "B",
+      "label": "Al",
+      "group": 15,
+      "copy": 2
+    },
+    {
+      "index": 108,
+      "kind": "B",
+      "label": "Al",
+      "group": 15,
+      "copy": 3
+    },
+    {
+      "index": 109,
+      "kind": "B",
+      "label": "Al",
+      "group": 15,
+      "copy": 4
+    },
+    {
+      "index": 110,
+      "kind": "B",
+      "label": "Al",
+      "group": 15,
+      "copy": 5
+    },
+    {
+      "index": 111,
+      "kind": "B",
+      "label": "Al",
+      "group": 15,
+      "copy": 6
+    },
+    {
+      "index": 112,
+      "kind": "aux",
+      "label": null,
+      "group": 16,
+      "copy": 0
+    },
+    {
+      "index": 113,
+      "kind": "aux",
+      "label": null,
+      "group": 16,
+      "copy": 1
+    },
+    {
+      "index": 114,
+      "kind": "aux",
+      "label": null,
+      "group": 16,
+      "copy": 2
+    },
+    {
+      "index": 115,
+      "kind": "aux",
+      "label": null,
+      "group": 16,
+      "copy": 3
+    },
+    {
+      "index": 116,
+      "kind": "aux",
+      "label": null,
+      "group": 16,
+      "copy": 4
+    },
+    {
+      "index": 117,
+      "kind": "aux",
+      "label": null,
+      "group": 16,
+      "copy": 5
+    },
+    {
+      "index": 118,
+      "kind": "aux",
+      "label": null,
+      "group": 16,
+      "copy": 6
+    },
+    {
+      "index": 119,
+      "kind": "aux",
+      "label": null,
+      "group": 16,
+      "copy": 7
+    },
+    {
+      "index": 120,
+      "kind": "aux",
+      "label": null,
+      "group": 16,
+      "copy": 8
+    }
+  ],
+  "filtered_target_matrix": {
+    "path": "input/submitted_target_V.csv",
+    "shape": [
+      8,
+      8
+    ],
+    "file_sha256": "542a73a03487b06230e1a991d5a7d16e4a29ea96dcc2b6b4faa1c8c177810ff5",
+    "semantic_sha256": "4abbd63ce9054386c4fb62cb416c358b89f3f4e16d3437e8c33235c0836a4887"
+  },
+  "precision_method": "precision_reducer",
+  "precision_params": {
+    "precision": 8,
+    "target_bits": 550,
+    "truncated_precision": 14,
+    "only_feasible_solution": false
+  },
+  "mapping_status": "verified_reconstruction",
+  "split_indices": [
+    5,
+    11,
+    17,
+    24,
+    31,
+    38,
+    46,
+    55,
+    62,
+    69,
+    76,
+    83,
+    90,
+    97,
+    104,
+    111,
+    120
+  ],
+  "split_groups": [
+    [
+      0,
+      5
+    ],
+    [
+      6,
+      11
+    ],
+    [
+      12,
+      17
+    ],
+    [
+      18,
+      24
+    ],
+    [
+      25,
+      31
+    ],
+    [
+      32,
+      38
+    ],
+    [
+      39,
+      46
+    ],
+    [
+      47,
+      55
+    ],
+    [
+      56,
+      62
+    ],
+    [
+      63,
+      69
+    ],
+    [
+      70,
+      76
+    ],
+    [
+      77,
+      83
+    ],
+    [
+      84,
+      90
+    ],
+    [
+      91,
+      97
+    ],
+    [
+      98,
+      104
+    ],
+    [
+      105,
+      111
+    ],
+    [
+      112,
+      120
+    ]
+  ],
+  "split_mapping_file": "input/split_mapping.json",
+  "split_mapping_sha256": "445cc7af784d4b79eaae1a5b0a1d6dc78a79b2e247e58d16d54915d0bab58e48",
+  "expanded_ising_matrix_sha256": "d4f6e0ff12ac469484f9ca6fd16100ac77de0395e724d24cc2aaffa50f5815b3"
+}

@@ -1,0 +1,9 @@
+{
+  "n_expanded_samples": 10,
+  "split_feasible_samples": 2,
+  "n_restored_samples": 10,
+  "restore_consistency_checked": 10,
+  "restore_consistency_matches": 2,
+  "recorded_matrix_matches_archived": true,
+  "method_note": "PrecisionReducer 内部恢复；本表用公开 restore_split_solution 对拆分一致样本做独立核对。"
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "original_matrix_path": "E:\\ERE\\Documents\\Work\\开物量子\\APMCM2026-D-Solution\\results\\reproduction_20261127\\predictions\\pool_q2_phys.csv",
+  "detected_kind": "independent_reproduction",
+  "source_format": "long",
+  "filters": {
+    "x_column": "X",
+    "x_value": "NO2",
+    "value_column": "V_hat",
+    "a_column": "A",
+    "b_column": "B"
+  }
+}
