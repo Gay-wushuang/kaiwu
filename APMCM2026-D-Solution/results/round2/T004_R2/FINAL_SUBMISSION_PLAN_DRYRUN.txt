@@ -1,0 +1,180 @@
+﻿######## CAND_G3_Q2_M0_PR_tp14.json ########
+==================================================================
+输入版本      : B-Q2-NO2（independent_reproduction）
+来源说明      : 独立复现产物（results/reproduction_*/）
+任务名称      : T004_G3_Q2_M0_PR_tp14 | 项目 默认
+目标矩阵规模  : (52, 52) → (8, 8)（topk=8）
+input_matrix_sha256 = 0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e
+submitted_target_V_semantic_sha256 = 4abbd63ce9054386c4fb62cb416c358b89f3f4e16d3437e8c33235c0836a4887
+raw_ising_matrix_sha256 = 8aec370fc0f9bdf318a3ab0d6c542455eb87356ae406eb4e28a8a370dcbb3619
+submitted_matrix_sha256 = 87b440364e7bc352b16a7a6f19a63b15fb912b59083b0162da722d52a73926b3
+variables_sha256 = 524da39da9309da486ca00e205fe95999503fbee6b09846c30f52ba196efc961
+expanded_ising_matrix_sha256 = 87b440364e7bc352b16a7a6f19a63b15fb912b59083b0162da722d52a73926b3
+实际变量映射  : 129 个（前 8 个）[{"index": 0, "kind": "A", "label": "La", "group": 0, "copy": 0}, {"index": 1, "kind": "A", "label": "La", "group": 0, "copy": 1}, {"index": 2, "kind": "A", "label": "La", "group": 0, "copy": 2}, {"index": 3, "kind": "A", "label": "La", "group": 0, "copy": 3}, {"index": 4, "kind": "A", "label": "La", "group": 0, "copy": 4}, {"index": 5, "kind": "A", "label": "La", "group": 0, "copy": 5}, {"index": 6, "kind": "A", "label": "La", "group": 0, "copy": 6}, {"index": 7, "kind": "A", "label": "Y", "group": 1, "copy": 0}]
+精度路线      : precision_reducer（precision=8, target_bits=550, truncated_precision=14, only_feasible_solution=False）
+QUBO / Ising  : 16 比特 → 原始 Ising 17（原始辅助自旋 1） → 提交 Ising 129（新增拆分自旋 112）
+拆分映射      : verified_reconstruction（分组数 17）
+罚项 M        : 42.171（基准 42.171 × 1）
+目标分辨率    : 原始 Ising 2.99 档 | 拆分矩阵无单一目标块，不计算 8bit resolution
+模式          : opt | 采样数 10
+设备          : 由平台调度（SDK 不支持指定机型）
+本地配额      : 优化任务（OPTIMIZATION） 总额 32 / 已用 7 / 剩余 25（verified=False，用户口述 2026-11-27，未经平台核对）
+重复检查      : 未发现同矩阵历史任务
+任务编号      : t20261128-195911-t004_g3_q2_m0_pr_tp14-87b44036（预演，不落盘）
+==================================================================
+
+[DRY-RUN] 未调用 license、未创建云端任务、未消耗配额、未写入归档。
+          确认要提交时追加 --submit，并按提示输入任务编号。
+######## CAND_Q2_lowM_direct8_REPEAT.json ########
+==================================================================
+输入版本      : B-Q2-NO2（independent_reproduction）
+来源说明      : 独立复现产物（results/reproduction_*/）
+任务名称      : T004_R2_intentional_repeat_Q2_lowM_direct8 | 项目 默认
+目标矩阵规模  : (52, 52) → (8, 8)（topk=8）
+input_matrix_sha256 = 0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e
+submitted_target_V_semantic_sha256 = 4abbd63ce9054386c4fb62cb416c358b89f3f4e16d3437e8c33235c0836a4887
+raw_ising_matrix_sha256 = 8f714e44bc6fd06e41f8eeeba526907c6f7928772fed5a9438c7d5673aa1b386
+submitted_matrix_sha256 = 34f84ed6633373975e3211b6099b20313a26d3734fa3770dded0187767454b30
+variables_sha256 = b0a216f5f5562854d996303b9dc51ea4d952db455de9233ceaef9aacd8f8c57f
+实际变量映射  : [{"index": 0, "kind": "A", "label": "La"}, {"index": 1, "kind": "A", "label": "Y"}, {"index": 2, "kind": "A", "label": "Sc"}, {"index": 3, "kind": "A", "label": "Sr"}, {"index": 4, "kind": "A", "label": "Ca"}, {"index": 5, "kind": "A", "label": "Ba"}, {"index": 6, "kind": "A", "label": "Bi"}, {"index": 7, "kind": "A", "label": "Pb"}, {"index": 8, "kind": "B", "label": "Zr"}, {"index": 9, "kind": "B", "label": "Hf"}, {"index": 10, "kind": "B", "label": "Si"}, {"index": 11, "kind": "B", "label": "Ti"}, {"index": 12, "kind": "B", "label": "Ga"}, {"index": 13, "kind": "B", "label": "Ta"}, {"index": 14, "kind": "B", "label": "Sn"}, {"index": 15, "kind": "B", "label": "Al"}, {"index": 16, "kind": "aux", "label": null}]
+QUBO / Ising  : 16 比特 → 17 比特（辅助自旋 1 个，位于末位）
+罚项 M        : 14.265（基准 42.171 × 0.33826）
+目标分辨率    : 原始 Ising 7.10 档 | 8bit 适配后 7.00 档（两种口径同时给出）
+模式          : opt | 采样数 10
+设备          : 由平台调度（SDK 不支持指定机型）
+本地配额      : 优化任务（OPTIMIZATION） 总额 32 / 已用 7 / 剩余 25（verified=False，用户口述 2026-11-27，未经平台核对）
+重复检查      : 命中历史任务 t20261128-043036-b_q2_k8_lowm-34f84ed6（matrix，状态 completed）
+任务编号      : t20261128-195913-t004_r2_intentional_repeat_q-34f84ed6（预演，不落盘）
+==================================================================
+
+[DRY-RUN] 未调用 license、未创建云端任务、未消耗配额、未写入归档。
+          确认要提交时追加 --submit，并按提示输入任务编号。
+######## CAND_Q2_lowM_PR_tp14_REPEAT.json ########
+==================================================================
+输入版本      : B-Q2-NO2（independent_reproduction）
+来源说明      : 独立复现产物（results/reproduction_*/）
+任务名称      : T004_R2_intentional_repeat_Q2_lowM_PR_tp14 | 项目 默认
+目标矩阵规模  : (52, 52) → (8, 8)（topk=8）
+input_matrix_sha256 = 0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e
+submitted_target_V_semantic_sha256 = 4abbd63ce9054386c4fb62cb416c358b89f3f4e16d3437e8c33235c0836a4887
+raw_ising_matrix_sha256 = 8f714e44bc6fd06e41f8eeeba526907c6f7928772fed5a9438c7d5673aa1b386
+submitted_matrix_sha256 = d4f6e0ff12ac469484f9ca6fd16100ac77de0395e724d24cc2aaffa50f5815b3
+variables_sha256 = bbf29b21fed605a986a546116c298268892c1ffb95ca28424f4615934e76ad43
+expanded_ising_matrix_sha256 = d4f6e0ff12ac469484f9ca6fd16100ac77de0395e724d24cc2aaffa50f5815b3
+实际变量映射  : 121 个（前 8 个）[{"index": 0, "kind": "A", "label": "La", "group": 0, "copy": 0}, {"index": 1, "kind": "A", "label": "La", "group": 0, "copy": 1}, {"index": 2, "kind": "A", "label": "La", "group": 0, "copy": 2}, {"index": 3, "kind": "A", "label": "La", "group": 0, "copy": 3}, {"index": 4, "kind": "A", "label": "La", "group": 0, "copy": 4}, {"index": 5, "kind": "A", "label": "La", "group": 0, "copy": 5}, {"index": 6, "kind": "A", "label": "Y", "group": 1, "copy": 0}, {"index": 7, "kind": "A", "label": "Y", "group": 1, "copy": 1}]
+精度路线      : precision_reducer（precision=8, target_bits=550, truncated_precision=14, only_feasible_solution=False）
+QUBO / Ising  : 16 比特 → 原始 Ising 17（原始辅助自旋 1） → 提交 Ising 121（新增拆分自旋 104）
+拆分映射      : verified_reconstruction（分组数 17）
+罚项 M        : 14.265（基准 42.171 × 0.33826）
+目标分辨率    : 原始 Ising 7.10 档 | 拆分矩阵无单一目标块，不计算 8bit resolution
+模式          : opt | 采样数 10
+设备          : 由平台调度（SDK 不支持指定机型）
+本地配额      : 优化任务（OPTIMIZATION） 总额 32 / 已用 7 / 剩余 25（verified=False，用户口述 2026-11-27，未经平台核对）
+重复检查      : 命中历史任务 t20261128-161915-b_q2_k8_lowm_pr_tp14-d4f6e0ff（matrix，状态 completed）
+任务编号      : t20261128-195914-t004_r2_intentional_repeat_q-d4f6e0ff（预演，不落盘）
+==================================================================
+
+[DRY-RUN] 未调用 license、未创建云端任务、未消耗配额、未写入归档。
+          确认要提交时追加 --submit，并按提示输入任务编号。
+######## CAND_Q3_FO2_lowM_direct8.json ########
+==================================================================
+输入版本      : B-Q3-FO2（independent_reproduction）
+来源说明      : 独立复现产物（results/reproduction_*/）
+任务名称      : T004_Q3_FO2_lowM_direct8 | 项目 默认
+目标矩阵规模  : (52, 52) → (13, 13)（topk=13）
+input_matrix_sha256 = ef4f5e512b5b4ef3860d5ec71fc67e0ccd478a666eb730b84ae578d8b6cefcf8
+submitted_target_V_semantic_sha256 = f13f9c405d887e95bbcbcca24302a6d2e8b92a89f168f85a7ad15ee6b2bd90a3
+raw_ising_matrix_sha256 = 399004ee97977c1d3748d31ddf7c9c696b745d383b053895ee9f4cbfae038402
+submitted_matrix_sha256 = d45e516fb2f11d14a3d92880289330e84b85f9345b0705e30f82774fa0bebcf6
+variables_sha256 = f53bd36857b038536d0667d1c26d7594c49508f9fd51049ff853ceac25de54f8
+实际变量映射  : 27 个（前 8 个）[{"index": 0, "kind": "A", "label": "Na"}, {"index": 1, "kind": "A", "label": "K"}, {"index": 2, "kind": "A", "label": "Rb"}, {"index": 3, "kind": "A", "label": "Ba"}, {"index": 4, "kind": "A", "label": "Li"}, {"index": 5, "kind": "A", "label": "Pb"}, {"index": 6, "kind": "A", "label": "La"}, {"index": 7, "kind": "A", "label": "Sr"}]
+QUBO / Ising  : 26 比特 → 27 比特（辅助自旋 1 个，位于末位）
+罚项 M        : 28.039（基准 73.170 × 0.3832）
+目标分辨率    : 原始 Ising 4.30 档 | 8bit 适配后 4.00 档（两种口径同时给出）
+模式          : opt | 采样数 10
+设备          : 由平台调度（SDK 不支持指定机型）
+本地配额      : 优化任务（OPTIMIZATION） 总额 32 / 已用 7 / 剩余 25（verified=False，用户口述 2026-11-27，未经平台核对）
+重复检查      : 未发现同矩阵历史任务
+任务编号      : t20261128-195916-t004_q3_fo2_lowm_direct8-d45e516f（预演，不落盘）
+==================================================================
+
+[DRY-RUN] 未调用 license、未创建云端任务、未消耗配额、未写入归档。
+          确认要提交时追加 --submit，并按提示输入任务编号。
+######## CAND_Q3_FO2_lowM_PR_tp14.json ########
+==================================================================
+输入版本      : B-Q3-FO2（independent_reproduction）
+来源说明      : 独立复现产物（results/reproduction_*/）
+任务名称      : T004_R2_Q3_FO2_lowM_PR_tp14 | 项目 默认
+目标矩阵规模  : (52, 52) → (13, 13)（topk=13）
+input_matrix_sha256 = ef4f5e512b5b4ef3860d5ec71fc67e0ccd478a666eb730b84ae578d8b6cefcf8
+submitted_target_V_semantic_sha256 = f13f9c405d887e95bbcbcca24302a6d2e8b92a89f168f85a7ad15ee6b2bd90a3
+raw_ising_matrix_sha256 = 399004ee97977c1d3748d31ddf7c9c696b745d383b053895ee9f4cbfae038402
+submitted_matrix_sha256 = 90d72b2d2a076c73660b47b2b75773283684c8dbc8f544788fc04494189855a9
+variables_sha256 = 7f8b875bd8d10e29e2bfffc6c2678893cf6e69c42deaa4a2a13ac0ddad01ff8d
+expanded_ising_matrix_sha256 = 90d72b2d2a076c73660b47b2b75773283684c8dbc8f544788fc04494189855a9
+实际变量映射  : 183 个（前 8 个）[{"index": 0, "kind": "A", "label": "Na", "group": 0, "copy": 0}, {"index": 1, "kind": "A", "label": "Na", "group": 0, "copy": 1}, {"index": 2, "kind": "A", "label": "Na", "group": 0, "copy": 2}, {"index": 3, "kind": "A", "label": "Na", "group": 0, "copy": 3}, {"index": 4, "kind": "A", "label": "Na", "group": 0, "copy": 4}, {"index": 5, "kind": "A", "label": "Na", "group": 0, "copy": 5}, {"index": 6, "kind": "A", "label": "Na", "group": 0, "copy": 6}, {"index": 7, "kind": "A", "label": "K", "group": 1, "copy": 0}]
+精度路线      : precision_reducer（precision=8, target_bits=550, truncated_precision=14, only_feasible_solution=False）
+QUBO / Ising  : 26 比特 → 原始 Ising 27（原始辅助自旋 1） → 提交 Ising 183（新增拆分自旋 156）
+拆分映射      : verified_reconstruction（分组数 27）
+罚项 M        : 28.039（基准 73.170 × 0.3832）
+目标分辨率    : 原始 Ising 4.30 档 | 拆分矩阵无单一目标块，不计算 8bit resolution
+模式          : opt | 采样数 10
+设备          : 由平台调度（SDK 不支持指定机型）
+本地配额      : 优化任务（OPTIMIZATION） 总额 32 / 已用 7 / 剩余 25（verified=False，用户口述 2026-11-27，未经平台核对）
+重复检查      : 未发现同矩阵历史任务
+任务编号      : t20261128-195918-t004_r2_q3_fo2_lowm_pr_tp14-90d72b2d（预演，不落盘）
+==================================================================
+
+[DRY-RUN] 未调用 license、未创建云端任务、未消耗配额、未写入归档。
+          确认要提交时追加 --submit，并按提示输入任务编号。
+######## CAND_Q3_O3_lowM_direct8.json ########
+==================================================================
+输入版本      : B-Q3-O3（independent_reproduction）
+来源说明      : 独立复现产物（results/reproduction_*/）
+任务名称      : T004_Q3_O3_lowM_direct8 | 项目 默认
+目标矩阵规模  : (52, 52) → (13, 13)（topk=13）
+input_matrix_sha256 = 23908ae0adad088d2fed03e70fc7d48c01da770e28818e0503144405c3f6e423
+submitted_target_V_semantic_sha256 = 47122e0c96f546245aca43ae0ae7b22f2c3635d153bb71d707dd98e2c7198887
+raw_ising_matrix_sha256 = f79243c20cff2533e8a4c107c4712c500a5efcd377b74624ae3dbf9c07e560eb
+submitted_matrix_sha256 = 857238fb3f3004460e0df79c6771ae04953ce8f3a8680edc2e0f538d9dfb4e01
+variables_sha256 = 66dc4fa1eecba7caad32e39010590d4d973cea9c423a3e1f0d338fe9628485e7
+实际变量映射  : 27 个（前 8 个）[{"index": 0, "kind": "A", "label": "Cs"}, {"index": 1, "kind": "A", "label": "K"}, {"index": 2, "kind": "A", "label": "Pb"}, {"index": 3, "kind": "A", "label": "Rb"}, {"index": 4, "kind": "A", "label": "Na"}, {"index": 5, "kind": "A", "label": "Sn"}, {"index": 6, "kind": "A", "label": "Li"}, {"index": 7, "kind": "A", "label": "Ba"}]
+QUBO / Ising  : 26 比特 → 27 比特（辅助自旋 1 个，位于末位）
+罚项 M        : 38.639（基准 89.941 × 0.4296）
+目标分辨率    : 原始 Ising 4.73 档 | 8bit 适配后 5.00 档（两种口径同时给出）
+模式          : opt | 采样数 10
+设备          : 由平台调度（SDK 不支持指定机型）
+本地配额      : 优化任务（OPTIMIZATION） 总额 32 / 已用 7 / 剩余 25（verified=False，用户口述 2026-11-27，未经平台核对）
+重复检查      : 未发现同矩阵历史任务
+任务编号      : t20261128-195919-t004_q3_o3_lowm_direct8-857238fb（预演，不落盘）
+==================================================================
+
+[DRY-RUN] 未调用 license、未创建云端任务、未消耗配额、未写入归档。
+          确认要提交时追加 --submit，并按提示输入任务编号。
+######## CAND_Q3_O3_lowM_PR_tp14.json ########
+==================================================================
+输入版本      : B-Q3-O3（independent_reproduction）
+来源说明      : 独立复现产物（results/reproduction_*/）
+任务名称      : T004_R2_Q3_O3_lowM_PR_tp14 | 项目 默认
+目标矩阵规模  : (52, 52) → (13, 13)（topk=13）
+input_matrix_sha256 = 23908ae0adad088d2fed03e70fc7d48c01da770e28818e0503144405c3f6e423
+submitted_target_V_semantic_sha256 = 47122e0c96f546245aca43ae0ae7b22f2c3635d153bb71d707dd98e2c7198887
+raw_ising_matrix_sha256 = f79243c20cff2533e8a4c107c4712c500a5efcd377b74624ae3dbf9c07e560eb
+submitted_matrix_sha256 = e1bdb504e185a7715c6e7eb36c1eefda02903455343c5cc8c27f7682154c92c5
+variables_sha256 = 732506f92296cf47a48941083c9c6afb6270677f629e666f72447b2615e939a5
+expanded_ising_matrix_sha256 = e1bdb504e185a7715c6e7eb36c1eefda02903455343c5cc8c27f7682154c92c5
+实际变量映射  : 196 个（前 8 个）[{"index": 0, "kind": "A", "label": "Cs", "group": 0, "copy": 0}, {"index": 1, "kind": "A", "label": "Cs", "group": 0, "copy": 1}, {"index": 2, "kind": "A", "label": "Cs", "group": 0, "copy": 2}, {"index": 3, "kind": "A", "label": "Cs", "group": 0, "copy": 3}, {"index": 4, "kind": "A", "label": "Cs", "group": 0, "copy": 4}, {"index": 5, "kind": "A", "label": "Cs", "group": 0, "copy": 5}, {"index": 6, "kind": "A", "label": "Cs", "group": 0, "copy": 6}, {"index": 7, "kind": "A", "label": "Cs", "group": 0, "copy": 7}]
+精度路线      : precision_reducer（precision=8, target_bits=550, truncated_precision=14, only_feasible_solution=False）
+QUBO / Ising  : 26 比特 → 原始 Ising 27（原始辅助自旋 1） → 提交 Ising 196（新增拆分自旋 169）
+拆分映射      : verified_reconstruction（分组数 27）
+罚项 M        : 38.639（基准 89.941 × 0.4296）
+目标分辨率    : 原始 Ising 4.73 档 | 拆分矩阵无单一目标块，不计算 8bit resolution
+模式          : opt | 采样数 10
+设备          : 由平台调度（SDK 不支持指定机型）
+本地配额      : 优化任务（OPTIMIZATION） 总额 32 / 已用 7 / 剩余 25（verified=False，用户口述 2026-11-27，未经平台核对）
+重复检查      : 未发现同矩阵历史任务
+任务编号      : t20261128-195921-t004_r2_q3_o3_lowm_pr_tp14-e1bdb504（预演，不落盘）
+==================================================================
+
+[DRY-RUN] 未调用 license、未创建云端任务、未消耗配额、未写入归档。
+          确认要提交时追加 --submit，并按提示输入任务编号。

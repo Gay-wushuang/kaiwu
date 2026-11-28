@@ -16,6 +16,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 import d_submit_cim as S
+import precision_reducer as PRR
 import kaiwu.preprocess as pp
 from paths import CIM_SAMPLES, CIM_STATS, FIG, ensure_output_dirs
 from experiment_archive import backup_if_exists, validate_spin_matrix
@@ -84,7 +85,7 @@ def run(task_name, topk, mfactor, mode, samples, project_no=None, submit=False):
     for k in range(sol.shape[0]):
         s = sol[k].astype(float)
         H = float(-s @ adj @ s)                     # QBoson 报告里的 Hamiltonian 约定
-        bits = ((s + 1) // 2).astype(int)[:nA + nB]
+        bits = PRR.logical_bits_from_spins(s)[0][:nA + nB]
         ai = [i for i in range(nA) if bits[i] == 1]
         bi = [i - nA for i in range(nA, nA + nB) if bits[i] == 1]
         ok = len(ai) == 1 and len(bi) == 1

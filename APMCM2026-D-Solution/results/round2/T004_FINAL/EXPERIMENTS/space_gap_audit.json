@@ -1,0 +1,192 @@
+{
+  "scope": "exact full-space logical enumeration of submitted direct8 Ising matrices",
+  "note": "逻辑变量 x_i=(s_i*s_aux+1)/2；固定 aux=+1 规范代表枚举全部逻辑状态。s 与 -s 是同一逻辑状态的两个物理代表，能量相同，不产生新的逻辑状态。",
+  "rows": [
+    {
+      "min_legal_logical": -3018.0,
+      "min_legal_logical_state": [
+        4,
+        1
+      ],
+      "min_illegal_logical": -2982.0,
+      "min_illegal_logical_state": [
+        0,
+        1
+      ],
+      "gap_logical": 36.0,
+      "ground_state_all_logical_legal": true,
+      "ground_state_contains_legal": true,
+      "note": "逻辑变量按 x_i=(s_i*s_aux+1)/2 解码；s 与 -s 是同一逻辑状态的两个物理代表，能量相同。全空间逻辑枚举固定 aux=+1 规范代表；全局翻转不产生新的逻辑状态，也不改变 one-hot 合法性。",
+      "structure": {
+        "n": 26,
+        "offdiag_A": 80.0,
+        "offdiag_B": 80.0,
+        "diag_A_min": -44.0,
+        "diag_A_max": -28.0,
+        "diag_B_min": -44.0,
+        "diag_B_max": -24.0,
+        "cross_min": -0.0,
+        "cross_max": 16.0
+      },
+      "task_name": "B_Q2_baseline",
+      "n_ising": 27,
+      "topk": 13,
+      "matrix_sha256": "be06017ff8837e0b70886e5bbc049b25c5e61bb17890658da83d58d52d617940"
+    },
+    {
+      "min_legal_logical": -3120.0,
+      "min_legal_logical_state": [
+        1,
+        256
+      ],
+      "min_illegal_logical": -3084.0,
+      "min_illegal_logical_state": [
+        0,
+        256
+      ],
+      "gap_logical": 36.0,
+      "ground_state_all_logical_legal": true,
+      "ground_state_contains_legal": true,
+      "note": "逻辑变量按 x_i=(s_i*s_aux+1)/2 解码；s 与 -s 是同一逻辑状态的两个物理代表，能量相同。全空间逻辑枚举固定 aux=+1 规范代表；全局翻转不产生新的逻辑状态，也不改变 one-hot 合法性。",
+      "structure": {
+        "n": 26,
+        "offdiag_A": 88.0,
+        "offdiag_B": 88.0,
+        "diag_A_min": -36.0,
+        "diag_A_max": -24.0,
+        "diag_B_min": -36.0,
+        "diag_B_max": -28.0,
+        "cross_min": -0.0,
+        "cross_max": 8.0
+      },
+      "task_name": "B_Q2_m3x",
+      "n_ising": 27,
+      "topk": 13,
+      "matrix_sha256": "e2530a2481d043f7bdcb21b6468a782be4d22f57516b339ae2a9bee80c8d3e73"
+    },
+    {
+      "min_legal_logical": -1780.0,
+      "min_legal_logical_state": [
+        1,
+        8
+      ],
+      "min_illegal_logical": -1716.0,
+      "min_illegal_logical_state": [
+        1,
+        40
+      ],
+      "gap_logical": 64.0,
+      "ground_state_all_logical_legal": true,
+      "ground_state_contains_legal": true,
+      "note": "逻辑变量按 x_i=(s_i*s_aux+1)/2 解码；s 与 -s 是同一逻辑状态的两个物理代表，能量相同。全空间逻辑枚举固定 aux=+1 规范代表；全局翻转不产生新的逻辑状态，也不改变 one-hot 合法性。",
+      "structure": {
+        "n": 16,
+        "offdiag_A": 152.0,
+        "offdiag_B": 152.0,
+        "diag_A_min": -88.0,
+        "diag_A_max": -84.0,
+        "diag_B_min": -96.0,
+        "diag_B_max": -80.0,
+        "cross_min": -0.0,
+        "cross_max": 24.0
+      },
+      "task_name": "B_Q2_k8",
+      "n_ising": 17,
+      "topk": 8,
+      "matrix_sha256": "7be3225f2b2473d7c6e16715ffd8277e6ea74accc3637d7fddb37ea984d25d86"
+    },
+    {
+      "min_legal_logical": -2962.0,
+      "min_legal_logical_state": [
+        1,
+        4
+      ],
+      "min_illegal_logical": -2938.0,
+      "min_illegal_logical_state": [
+        3,
+        4
+      ],
+      "gap_logical": 24.0,
+      "ground_state_all_logical_legal": true,
+      "ground_state_contains_legal": true,
+      "note": "逻辑变量按 x_i=(s_i*s_aux+1)/2 解码；s 与 -s 是同一逻辑状态的两个物理代表，能量相同。全空间逻辑枚举固定 aux=+1 规范代表；全局翻转不产生新的逻辑状态，也不改变 one-hot 合法性。",
+      "structure": {
+        "n": 26,
+        "offdiag_A": 88.0,
+        "offdiag_B": 88.0,
+        "diag_A_min": -68.0,
+        "diag_A_max": -48.0,
+        "diag_B_min": -68.0,
+        "diag_B_max": -48.0,
+        "cross_min": -0.0,
+        "cross_max": 16.0
+      },
+      "task_name": "B_Q3_O3_baseline",
+      "n_ising": 27,
+      "topk": 13,
+      "matrix_sha256": "7cd9ce6bef3a22a859a8fc20add93d1520e2d9948fdbdc32bd5f72eab2c903a9"
+    },
+    {
+      "min_legal_logical": -2912.0,
+      "min_legal_logical_state": [
+        2,
+        1
+      ],
+      "min_illegal_logical": -2876.0,
+      "min_illegal_logical_state": [
+        64,
+        12
+      ],
+      "gap_logical": 36.0,
+      "ground_state_all_logical_legal": true,
+      "ground_state_contains_legal": true,
+      "note": "逻辑变量按 x_i=(s_i*s_aux+1)/2 解码；s 与 -s 是同一逻辑状态的两个物理代表，能量相同。全空间逻辑枚举固定 aux=+1 规范代表；全局翻转不产生新的逻辑状态，也不改变 one-hot 合法性。",
+      "structure": {
+        "n": 26,
+        "offdiag_A": 80.0,
+        "offdiag_B": 80.0,
+        "diag_A_min": -44.0,
+        "diag_A_max": -36.0,
+        "diag_B_min": -44.0,
+        "diag_B_max": -32.0,
+        "cross_min": -0.0,
+        "cross_max": 16.0
+      },
+      "task_name": "B_Q3_FO2_baseline",
+      "n_ising": 27,
+      "topk": 13,
+      "matrix_sha256": "ca295ce6a0b4af05eed472c0f2862e861c055d8214970105ce9b57163dc34b45"
+    },
+    {
+      "min_legal_logical": -1716.0,
+      "min_legal_logical_state": [
+        1,
+        1
+      ],
+      "min_illegal_logical": -1656.0,
+      "min_illegal_logical_state": [
+        1,
+        3
+      ],
+      "gap_logical": 60.0,
+      "ground_state_all_logical_legal": true,
+      "ground_state_contains_legal": true,
+      "note": "逻辑变量按 x_i=(s_i*s_aux+1)/2 解码；s 与 -s 是同一逻辑状态的两个物理代表，能量相同。全空间逻辑枚举固定 aux=+1 规范代表；全局翻转不产生新的逻辑状态，也不改变 one-hot 合法性。",
+      "structure": {
+        "n": 16,
+        "offdiag_A": 120.0,
+        "offdiag_B": 120.0,
+        "diag_A_min": -68.0,
+        "diag_A_max": -60.0,
+        "diag_B_min": -64.0,
+        "diag_B_max": -60.0,
+        "cross_min": -0.0,
+        "cross_max": 56.0
+      },
+      "task_name": "B_Q2_k8_lowM",
+      "n_ising": 17,
+      "topk": 8,
+      "matrix_sha256": "34f84ed6633373975e3211b6099b20313a26d3734fa3770dded0187767454b30"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+﻿=== Q3_O3_lowM_direct8
+  input: B-Q3-O3
+  topk: 13
+  mfactor: 0.4296
+  method: direct_8bit
+  n_submitted: 27
+  extra: 0
+  M: 38.6387014888403
+  matrix_sha256: 857238fb3f3004460e0df79c6771ae04953ce8f3a8680edc2e0f538d9dfb4e01
+  raw_opt: (np.int64(0), np.int64(2), 0.0)
+  qset: [(6, 0, 0.019559662041729)]
+  raw: [(0, 2, 0.0), (1, 0, 0.0), (2, 1, 0.0)]
+  retention: 0.0
+  extra: 0
+=== Q3_FO2_lowM_direct8
+  input: B-Q3-FO2
+  topk: 13
+  mfactor: 0.3832
+  method: direct_8bit
+  n_submitted: 27
+  extra: 0
+  M: 28.038913558723298
+  matrix_sha256: d45e516fb2f11d14a3d92880289330e84b85f9345b0705e30f82774fa0bebcf6
+  raw_opt: (np.int64(0), np.int64(0), 0.0)
+  qset: [(2, 0, 0.0082815841124537), (2, 8, 1.4645995858163587), (3, 4, 0.1295529965431834)]
+  raw: [(0, 0, 0.0), (1, 0, 0.0)]
+  retention: 0.0
+  extra: 0
+=== G3_Q2_M0_PR_tp14
+  input: B-Q2-NO2
+  topk: 8
+  mfactor: 1.0
+  method: precision_reducer
+  n_submitted: 129
+  extra: 112
+  M: 42.17095322771115
+  matrix_sha256: 87b440364e7bc352b16a7a6f19a63b15fb912b59083b0162da722d52a73926b3
+  raw_opt: (np.int64(0), np.int64(0), 0.0)
+  extra: 112
+  mapping_status: verified_reconstruction
+  constructed_feasible: True
+  constructed_H: -225194.0
+=== Q3_O3_lowM_PR_tp14
+  input: B-Q3-O3
+  topk: 13
+  mfactor: 0.4296
+  method: precision_reducer
+  n_submitted: 196
+  extra: 169
+  M: 38.6387014888403
+  matrix_sha256: e1bdb504e185a7715c6e7eb36c1eefda02903455343c5cc8c27f7682154c92c5
+  raw_opt: (np.int64(0), np.int64(2), 0.0)
+  extra: 169
+  mapping_status: verified_reconstruction
+  constructed_feasible: True
+  constructed_H: -347004.0
+=== Q3_FO2_lowM_PR_tp14
+  input: B-Q3-FO2
+  topk: 13
+  mfactor: 0.3832
+  method: precision_reducer
+  n_submitted: 183
+  extra: 156
+  M: 28.038913558723298
+  matrix_sha256: 90d72b2d2a076c73660b47b2b75773283684c8dbc8f544788fc04494189855a9
+  raw_opt: (np.int64(0), np.int64(0), 0.0)
+  extra: 156
+  mapping_status: verified_reconstruction
+  constructed_feasible: True
+  constructed_H: -308634.0

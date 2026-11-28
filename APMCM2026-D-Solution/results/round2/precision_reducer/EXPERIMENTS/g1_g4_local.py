@@ -40,7 +40,7 @@ def decode(solutions, V):
     nA, nB = V.shape
     vals = []
     for s in np.atleast_2d(solutions):
-        b = ((s + 1) // 2).astype(int)[:nA + nB]
+        b = PRR.logical_bits_from_spins(s)[0][:nA + nB]
         ia = [i for i in range(nA) if b[i] == 1]
         ib = [i - nA for i in range(nA, nA + nB) if b[i] == 1]
         if len(ia) == 1 and len(ib) == 1:

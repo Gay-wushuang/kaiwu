@@ -1,0 +1,15 @@
+{
+  "input_version": "B-Q2-NO2",
+  "task_name": "T004_G3_Q2_M0_PR_tp14",
+  "mode": "opt",
+  "topk": 8,
+  "mfactor": 1.0,
+  "samples": 10,
+  "precision_method": "precision_reducer",
+  "pr_params": {
+    "precision": 8,
+    "target_bits": 550,
+    "truncated_precision": 14,
+    "only_feasible_solution": false
+  }
+}
