@@ -1,0 +1,270 @@
+{
+  "scope": "exact full-space enumeration of submitted direct8 Ising matrices",
+  "note": "aux=+1 子空间是 QUBO 二进制域；aux 自由时 H(s)=H(-s) 产生非法互补基态。",
+  "rows": [
+    {
+      "min_legal_anyaux": -3018.0,
+      "min_legal_anyaux_state": [
+        4,
+        1
+      ],
+      "min_illegal_anyaux": -3018.0,
+      "min_illegal_anyaux_state": [
+        8175,
+        7167
+      ],
+      "min_legal_aux_plus": -3018.0,
+      "min_legal_aux_plus_state": [
+        4,
+        1
+      ],
+      "min_illegal_aux_plus": -2982.0,
+      "min_illegal_aux_plus_state": [
+        0,
+        1
+      ],
+      "gap_anyaux": 0.0,
+      "gap_aux_plus": 36.0,
+      "ground_state_all_legal_anyaux": false,
+      "ground_state_contains_legal": true,
+      "note": "Ising 无外场时 H(s)=H(-s)：任一合法态的全局翻转是非法态且能量相同，故全空间基态必然同时包含合法与非法态；aux=+1 的二进制域无此对称性。",
+      "structure": {
+        "n": 26,
+        "offdiag_A": 80.0,
+        "offdiag_B": 80.0,
+        "diag_A_min": -44.0,
+        "diag_A_max": -28.0,
+        "diag_B_min": -44.0,
+        "diag_B_max": -24.0,
+        "cross_min": -0.0,
+        "cross_max": 16.0,
+        "aux_coupling_min": -127.0,
+        "aux_coupling_max": -116.0
+      },
+      "task_name": "B_Q2_baseline",
+      "n_ising": 27,
+      "topk": 13,
+      "matrix_sha256": "be06017ff8837e0b70886e5bbc049b25c5e61bb17890658da83d58d52d617940"
+    },
+    {
+      "min_legal_anyaux": -3120.0,
+      "min_legal_anyaux_state": [
+        1,
+        256
+      ],
+      "min_illegal_anyaux": -3120.0,
+      "min_illegal_anyaux_state": [
+        7679,
+        7679
+      ],
+      "min_legal_aux_plus": -3120.0,
+      "min_legal_aux_plus_state": [
+        1,
+        256
+      ],
+      "min_illegal_aux_plus": -3084.0,
+      "min_illegal_aux_plus_state": [
+        0,
+        256
+      ],
+      "gap_anyaux": 0.0,
+      "gap_aux_plus": 36.0,
+      "ground_state_all_legal_anyaux": false,
+      "ground_state_contains_legal": true,
+      "note": "Ising 无外场时 H(s)=H(-s)：任一合法态的全局翻转是非法态且能量相同，故全空间基态必然同时包含合法与非法态；aux=+1 的二进制域无此对称性。",
+      "structure": {
+        "n": 26,
+        "offdiag_A": 88.0,
+        "offdiag_B": 88.0,
+        "diag_A_min": -36.0,
+        "diag_A_max": -24.0,
+        "diag_B_min": -36.0,
+        "diag_B_max": -28.0,
+        "cross_min": -0.0,
+        "cross_max": 8.0,
+        "aux_coupling_min": -127.0,
+        "aux_coupling_max": -123.0
+      },
+      "task_name": "B_Q2_m3x",
+      "n_ising": 27,
+      "topk": 13,
+      "matrix_sha256": "e2530a2481d043f7bdcb21b6468a782be4d22f57516b339ae2a9bee80c8d3e73"
+    },
+    {
+      "min_legal_anyaux": -1780.0,
+      "min_legal_anyaux_state": [
+        1,
+        8
+      ],
+      "min_illegal_anyaux": -1780.0,
+      "min_illegal_anyaux_state": [
+        127,
+        223
+      ],
+      "min_legal_aux_plus": -1780.0,
+      "min_legal_aux_plus_state": [
+        1,
+        8
+      ],
+      "min_illegal_aux_plus": -1716.0,
+      "min_illegal_aux_plus_state": [
+        1,
+        40
+      ],
+      "gap_anyaux": 0.0,
+      "gap_aux_plus": 64.0,
+      "ground_state_all_legal_anyaux": false,
+      "ground_state_contains_legal": true,
+      "note": "Ising 无外场时 H(s)=H(-s)：任一合法态的全局翻转是非法态且能量相同，故全空间基态必然同时包含合法与非法态；aux=+1 的二进制域无此对称性。",
+      "structure": {
+        "n": 16,
+        "offdiag_A": 152.0,
+        "offdiag_B": 152.0,
+        "diag_A_min": -88.0,
+        "diag_A_max": -84.0,
+        "diag_B_min": -96.0,
+        "diag_B_max": -80.0,
+        "cross_min": -0.0,
+        "cross_max": 24.0,
+        "aux_coupling_min": -127.0,
+        "aux_coupling_max": -115.0
+      },
+      "task_name": "B_Q2_k8",
+      "n_ising": 17,
+      "topk": 8,
+      "matrix_sha256": "7be3225f2b2473d7c6e16715ffd8277e6ea74accc3637d7fddb37ea984d25d86"
+    },
+    {
+      "min_legal_anyaux": -2962.0,
+      "min_legal_anyaux_state": [
+        1,
+        4
+      ],
+      "min_illegal_anyaux": -2962.0,
+      "min_illegal_anyaux_state": [
+        7679,
+        6143
+      ],
+      "min_legal_aux_plus": -2962.0,
+      "min_legal_aux_plus_state": [
+        1,
+        4
+      ],
+      "min_illegal_aux_plus": -2938.0,
+      "min_illegal_aux_plus_state": [
+        3,
+        4
+      ],
+      "gap_anyaux": 0.0,
+      "gap_aux_plus": 24.0,
+      "ground_state_all_legal_anyaux": false,
+      "ground_state_contains_legal": true,
+      "note": "Ising 无外场时 H(s)=H(-s)：任一合法态的全局翻转是非法态且能量相同，故全空间基态必然同时包含合法与非法态；aux=+1 的二进制域无此对称性。",
+      "structure": {
+        "n": 26,
+        "offdiag_A": 88.0,
+        "offdiag_B": 88.0,
+        "diag_A_min": -68.0,
+        "diag_A_max": -48.0,
+        "diag_B_min": -68.0,
+        "diag_B_max": -48.0,
+        "cross_min": -0.0,
+        "cross_max": 16.0,
+        "aux_coupling_min": -127.0,
+        "aux_coupling_max": -121.0
+      },
+      "task_name": "B_Q3_O3_baseline",
+      "n_ising": 27,
+      "topk": 13,
+      "matrix_sha256": "7cd9ce6bef3a22a859a8fc20add93d1520e2d9948fdbdc32bd5f72eab2c903a9"
+    },
+    {
+      "min_legal_anyaux": -2912.0,
+      "min_legal_anyaux_state": [
+        2,
+        1
+      ],
+      "min_illegal_anyaux": -2912.0,
+      "min_illegal_anyaux_state": [
+        6143,
+        8187
+      ],
+      "min_legal_aux_plus": -2912.0,
+      "min_legal_aux_plus_state": [
+        2,
+        1
+      ],
+      "min_illegal_aux_plus": -2876.0,
+      "min_illegal_aux_plus_state": [
+        64,
+        12
+      ],
+      "gap_anyaux": 0.0,
+      "gap_aux_plus": 36.0,
+      "ground_state_all_legal_anyaux": false,
+      "ground_state_contains_legal": true,
+      "note": "Ising 无外场时 H(s)=H(-s)：任一合法态的全局翻转是非法态且能量相同，故全空间基态必然同时包含合法与非法态；aux=+1 的二进制域无此对称性。",
+      "structure": {
+        "n": 26,
+        "offdiag_A": 80.0,
+        "offdiag_B": 80.0,
+        "diag_A_min": -44.0,
+        "diag_A_max": -36.0,
+        "diag_B_min": -44.0,
+        "diag_B_max": -32.0,
+        "cross_min": -0.0,
+        "cross_max": 16.0,
+        "aux_coupling_min": -127.0,
+        "aux_coupling_max": -114.0
+      },
+      "task_name": "B_Q3_FO2_baseline",
+      "n_ising": 27,
+      "topk": 13,
+      "matrix_sha256": "ca295ce6a0b4af05eed472c0f2862e861c055d8214970105ce9b57163dc34b45"
+    },
+    {
+      "min_legal_anyaux": -1716.0,
+      "min_legal_anyaux_state": [
+        1,
+        1
+      ],
+      "min_illegal_anyaux": -1716.0,
+      "min_illegal_anyaux_state": [
+        254,
+        254
+      ],
+      "min_legal_aux_plus": -1716.0,
+      "min_legal_aux_plus_state": [
+        1,
+        1
+      ],
+      "min_illegal_aux_plus": -1656.0,
+      "min_illegal_aux_plus_state": [
+        1,
+        3
+      ],
+      "gap_anyaux": 0.0,
+      "gap_aux_plus": 60.0,
+      "ground_state_all_legal_anyaux": false,
+      "ground_state_contains_legal": true,
+      "note": "Ising 无外场时 H(s)=H(-s)：任一合法态的全局翻转是非法态且能量相同，故全空间基态必然同时包含合法与非法态；aux=+1 的二进制域无此对称性。",
+      "structure": {
+        "n": 16,
+        "offdiag_A": 120.0,
+        "offdiag_B": 120.0,
+        "diag_A_min": -68.0,
+        "diag_A_max": -60.0,
+        "diag_B_min": -64.0,
+        "diag_B_max": -60.0,
+        "cross_min": -0.0,
+        "cross_max": 56.0,
+        "aux_coupling_min": -127.0,
+        "aux_coupling_max": -98.0
+      },
+      "task_name": "B_Q2_k8_lowM",
+      "n_ising": 17,
+      "topk": 8,
+      "matrix_sha256": "34f84ed6633373975e3211b6099b20313a26d3734fa3770dded0187767454b30"
+    }
+  ]
+}

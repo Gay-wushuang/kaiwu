@@ -1,0 +1,1127 @@
+{
+  "predictions": {
+    "baseline": "B (results/reproduction_20261127/predictions)",
+    "baseline_B_shape": [
+      8112,
+      7
+    ],
+    "baseline_A_shape": [
+      8112,
+      7
+    ],
+    "official_shape": [
+      8112,
+      6
+    ],
+    "keys_B_equals_official": true,
+    "keys_A_equals_official": true,
+    "baseline_B_equals_A": false,
+    "n_v_hat_diff_B_vs_A": 8107,
+    "max_abs_v_hat_diff_B_vs_A": 4.7332549552099294
+  },
+  "q3_global": {
+    "raw_min": 0.0,
+    "argmin_count": 6,
+    "argmin_by_x": {
+      "FO2": 2,
+      "NO2": 1,
+      "O3": 3
+    },
+    "argmin_list": [
+      [
+        "Cs",
+        "Ta",
+        "O3"
+      ],
+      [
+        "K",
+        "Nb",
+        "O3"
+      ],
+      [
+        "K",
+        "Ti",
+        "FO2"
+      ],
+      [
+        "La",
+        "Zr",
+        "NO2"
+      ],
+      [
+        "Na",
+        "Ti",
+        "FO2"
+      ],
+      [
+        "Pb",
+        "Ti",
+        "O3"
+      ]
+    ],
+    "per_x_min": {
+      "FO2": 0.0,
+      "NO2": 0.0,
+      "O3": 0.0
+    },
+    "per_x_argmin_count": {
+      "FO2": 2,
+      "NO2": 1,
+      "O3": 3
+    },
+    "per_x_argmins": {
+      "FO2": [
+        [
+          "K",
+          "Ti"
+        ],
+        [
+          "Na",
+          "Ti"
+        ]
+      ],
+      "NO2": [
+        [
+          "La",
+          "Zr"
+        ]
+      ],
+      "O3": [
+        [
+          "Cs",
+          "Ta"
+        ],
+        [
+          "K",
+          "Nb"
+        ],
+        [
+          "Pb",
+          "Ti"
+        ]
+      ]
+    }
+  },
+  "q3_no2_equals_q2": {
+    "same_keys": true,
+    "max_abs_v_diff": 0.0,
+    "q2_rows": 2704,
+    "no2_rows": 2704
+  },
+  "per_x": {
+    "O3": {
+      "x": "O3",
+      "task_id": "t20261128-003159-b_q3_o3_baseline-7cd9ce6b",
+      "platform_task_id": "4a75fbffbe734857b87db54ed346c342",
+      "device": "SPQC-550",
+      "hardware_ms": 0.7838,
+      "runtime_s": 7.644,
+      "topk": 13,
+      "mfactor": 1.0,
+      "samples": 10,
+      "n_qubo": 26,
+      "n_ising": 27,
+      "aux_bits": 1,
+      "M": 89.94111147309195,
+      "resol_raw": 2.2285169521871473,
+      "resol_adj": 2.0,
+      "input_shape": [
+        52,
+        52
+      ],
+      "input_matrix_sha256": "23908ae0adad088d2fed03e70fc7d48c01da770e28818e0503144405c3f6e423",
+      "archived_input_sha256": "23908ae0adad088d2fed03e70fc7d48c01da770e28818e0503144405c3f6e423",
+      "submitted_sha256": "7cd9ce6bef3a22a859a8fc20add93d1520e2d9948fdbdc32bd5f72eab2c903a9",
+      "archived_submitted_sha256": "7cd9ce6bef3a22a859a8fc20add93d1520e2d9948fdbdc32bd5f72eab2c903a9",
+      "raw_ising_sha256": "ba45de5f6840f00fc3d2469f5e27aca324a3e61e72928ed0295584c62a4ddfff",
+      "archived_raw_ising_sha256": "ba45de5f6840f00fc3d2469f5e27aca324a3e61e72928ed0295584c62a4ddfff",
+      "raw_ising_matches": true,
+      "adj_matches_archived": true,
+      "sub_A_equals_selection": true,
+      "sub_B_equals_selection": true,
+      "sub_V_equals_selection": true,
+      "raw_min": 0.0,
+      "raw_argmin_count": 3,
+      "raw_argmin_top": [
+        [
+          "Cs",
+          "Ta",
+          0.0
+        ],
+        [
+          "K",
+          "Nb",
+          0.0
+        ],
+        [
+          "Pb",
+          "Ti",
+          0.0
+        ]
+      ],
+      "topk_retains_all_raw_argmins": true,
+      "topk_sub_min": 0.0,
+      "topk_sub_argmin_count": 3,
+      "topk_sub_argmin_top": [
+        [
+          "Cs",
+          "Ta"
+        ],
+        [
+          "K",
+          "Nb"
+        ],
+        [
+          "Pb",
+          "Ti"
+        ]
+      ],
+      "quantized_full_legal_min_h": -14430.0,
+      "quantized_full_legal_set": [
+        [
+          "La",
+          "Ta",
+          7.029261022029459
+        ],
+        [
+          "La",
+          "Ti",
+          4.527434253946922
+        ]
+      ],
+      "quantized_full_set_equals_raw": false,
+      "quantized_full_retention": 0.0,
+      "quantized_full_extra": 2,
+      "quantized_full_spearman": 0.907923653995102,
+      "quantized_topk_legal_min_h": -2962.0,
+      "quantized_topk_legal_set": [
+        [
+          "Cs",
+          "Ta",
+          0.0
+        ],
+        [
+          "Cs",
+          "Y",
+          12.090020140792843
+        ],
+        [
+          "Ge",
+          "Ge",
+          2.5030048552267203
+        ]
+      ],
+      "quantized_topk_set_equals_raw": false,
+      "quantized_topk_retention": 0.3333333333333333,
+      "quantized_topk_extra": 2,
+      "quantized_topk_spearman": -0.009474987494116696,
+      "submitted_space_exact": {
+        "min_legal_anyaux": -2962.0,
+        "min_legal_anyaux_state": [
+          1,
+          4
+        ],
+        "min_illegal_anyaux": -2962.0,
+        "min_illegal_anyaux_state": [
+          7679,
+          6143
+        ],
+        "min_legal_aux_plus": -2962.0,
+        "min_legal_aux_plus_state": [
+          1,
+          4
+        ],
+        "min_illegal_aux_plus": -2938.0,
+        "min_illegal_aux_plus_state": [
+          3,
+          4
+        ],
+        "gap_anyaux": 0.0,
+        "gap_aux_plus": 24.0,
+        "ground_state_all_legal_anyaux": false,
+        "ground_state_contains_legal": true,
+        "note": "Ising 无外场时 H(s)=H(-s)：任一合法态的全局翻转是非法态且能量相同，故全空间基态必然同时包含合法与非法态；aux=+1 的二进制域无此对称性。",
+        "structure": {
+          "n": 26,
+          "offdiag_A": 88.0,
+          "offdiag_B": 88.0,
+          "diag_A_min": -68.0,
+          "diag_A_max": -48.0,
+          "diag_B_min": -68.0,
+          "diag_B_max": -48.0,
+          "cross_min": -0.0,
+          "cross_max": 16.0,
+          "aux_coupling_min": -127.0,
+          "aux_coupling_max": -121.0
+        }
+      },
+      "hw_returned": 9,
+      "hw_legal_count": 1,
+      "hw_best": {
+        "sample": 0,
+        "H_recomputed": -2962.0,
+        "H_archived": -2962.0,
+        "n_plus": 3,
+        "nA1": 1,
+        "nB1": 1,
+        "aux": 1,
+        "legal": true,
+        "A": "Ge",
+        "B": "Ge",
+        "V": 2.5030048552267203,
+        "hit_raw_opt": false,
+        "hit_sub_quant_opt": true
+      },
+      "hw_hits_raw_opt": 0,
+      "hw_rows": [
+        {
+          "sample": 0,
+          "H_recomputed": -2962.0,
+          "H_archived": -2962.0,
+          "n_plus": 3,
+          "nA1": 1,
+          "nB1": 1,
+          "aux": 1,
+          "legal": true,
+          "A": "Ge",
+          "B": "Ge",
+          "V": 2.5030048552267203,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": true
+        },
+        {
+          "sample": 1,
+          "H_recomputed": -2926.0,
+          "H_archived": -2926.0,
+          "n_plus": 4,
+          "nA1": 2,
+          "nB1": 1,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 2,
+          "H_recomputed": -2894.0,
+          "H_archived": -2894.0,
+          "n_plus": 2,
+          "nA1": 1,
+          "nB1": 0,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 3,
+          "H_recomputed": -2870.0,
+          "H_archived": -2870.0,
+          "n_plus": 3,
+          "nA1": 2,
+          "nB1": 0,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 4,
+          "H_recomputed": -2834.0,
+          "H_archived": -2834.0,
+          "n_plus": 1,
+          "nA1": 0,
+          "nB1": 0,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 5,
+          "H_recomputed": -2106.0,
+          "H_archived": -2106.0,
+          "n_plus": 9,
+          "nA1": 5,
+          "nB1": 3,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 6,
+          "H_recomputed": -1026.0,
+          "H_archived": -1026.0,
+          "n_plus": 12,
+          "nA1": 4,
+          "nB1": 7,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 7,
+          "H_recomputed": 3494.0,
+          "H_archived": 3494.0,
+          "n_plus": 17,
+          "nA1": 3,
+          "nB1": 13,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 8,
+          "H_recomputed": 5378.0,
+          "H_archived": 5378.0,
+          "n_plus": 22,
+          "nA1": 9,
+          "nB1": 12,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        }
+      ]
+    },
+    "NO2": {
+      "x": "NO2",
+      "task_id": "t20261128-003014-b_q2_baseline-be06017f",
+      "platform_task_id": "44923771c251417d91f15d9841651b4c",
+      "device": "SPQC-550",
+      "hardware_ms": 1.0327,
+      "runtime_s": 7.79,
+      "topk": 13,
+      "mfactor": 1.0,
+      "samples": 10,
+      "n_qubo": 26,
+      "n_ising": 27,
+      "aux_bits": 1,
+      "M": 56.87470542030542,
+      "resol_raw": 1.8583598432940704,
+      "resol_adj": 2.0,
+      "input_shape": [
+        52,
+        52
+      ],
+      "input_matrix_sha256": "0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e",
+      "archived_input_sha256": "0001ed364b48bbe0fc9b580f2485c1aebb36c194e5901551532a0992a28a979e",
+      "submitted_sha256": "be06017ff8837e0b70886e5bbc049b25c5e61bb17890658da83d58d52d617940",
+      "archived_submitted_sha256": "be06017ff8837e0b70886e5bbc049b25c5e61bb17890658da83d58d52d617940",
+      "raw_ising_sha256": "75c3bb78a24bee0a98910591f15327fd1fd65bd92dc007e8ee1201bc8a91b162",
+      "archived_raw_ising_sha256": "75c3bb78a24bee0a98910591f15327fd1fd65bd92dc007e8ee1201bc8a91b162",
+      "raw_ising_matches": true,
+      "adj_matches_archived": true,
+      "sub_A_equals_selection": true,
+      "sub_B_equals_selection": true,
+      "sub_V_equals_selection": true,
+      "raw_min": 0.0,
+      "raw_argmin_count": 1,
+      "raw_argmin_top": [
+        [
+          "La",
+          "Zr",
+          0.0
+        ]
+      ],
+      "topk_retains_all_raw_argmins": true,
+      "topk_sub_min": 0.0,
+      "topk_sub_argmin_count": 1,
+      "topk_sub_argmin_top": [
+        [
+          "La",
+          "Zr"
+        ]
+      ],
+      "quantized_full_legal_min_h": -14492.0,
+      "quantized_full_legal_set": [
+        [
+          "Ba",
+          "Hf",
+          6.565541334176544
+        ],
+        [
+          "Ba",
+          "Nb",
+          5.005999686492942
+        ],
+        [
+          "Ba",
+          "Ta",
+          3.352173813179107
+        ],
+        [
+          "Ba",
+          "Ti",
+          8.16304463321012
+        ],
+        [
+          "Ba",
+          "Zr",
+          6.977024201452196
+        ],
+        [
+          "Ca",
+          "Hf",
+          5.880609637998718
+        ],
+        [
+          "Ca",
+          "Nb",
+          5.542586089170584
+        ],
+        [
+          "Ca",
+          "Ta",
+          2.8846950120860697
+        ],
+        [
+          "Ca",
+          "Ti",
+          7.167434083712586
+        ],
+        [
+          "Ca",
+          "Zr",
+          6.24055428816044
+        ],
+        [
+          "La",
+          "Hf",
+          0.001396369617951
+        ],
+        [
+          "La",
+          "Nb",
+          6.607887442102367
+        ],
+        [
+          "La",
+          "Ta",
+          5.184650754525606
+        ],
+        [
+          "La",
+          "Ti",
+          1.3107881474845726
+        ],
+        [
+          "La",
+          "Zr",
+          0.0
+        ],
+        [
+          "Sr",
+          "Hf",
+          6.172110986864859
+        ],
+        [
+          "Sr",
+          "Nb",
+          4.658283276032819
+        ],
+        [
+          "Sr",
+          "Ta",
+          2.37640990451132
+        ],
+        [
+          "Sr",
+          "Ti",
+          9.2344282552713
+        ],
+        [
+          "Sr",
+          "Zr",
+          6.143997825441958
+        ]
+      ],
+      "quantized_full_set_equals_raw": false,
+      "quantized_full_retention": 1.0,
+      "quantized_full_extra": 19,
+      "quantized_full_spearman": 0.9378765542867163,
+      "quantized_topk_legal_min_h": -3018.0,
+      "quantized_topk_legal_set": [
+        [
+          "Ca",
+          "Hf",
+          5.880609637998718
+        ],
+        [
+          "Ca",
+          "Nb",
+          5.542586089170584
+        ],
+        [
+          "Ca",
+          "Zr",
+          6.24055428816044
+        ],
+        [
+          "Sc",
+          "Hf",
+          2.041915901665845
+        ],
+        [
+          "Sc",
+          "Zr",
+          1.1057400156017962
+        ]
+      ],
+      "quantized_topk_set_equals_raw": false,
+      "quantized_topk_retention": 0.0,
+      "quantized_topk_extra": 5,
+      "quantized_topk_spearman": 0.5456726567089986,
+      "submitted_space_exact": {
+        "min_legal_anyaux": -3018.0,
+        "min_legal_anyaux_state": [
+          4,
+          1
+        ],
+        "min_illegal_anyaux": -3018.0,
+        "min_illegal_anyaux_state": [
+          8175,
+          7167
+        ],
+        "min_legal_aux_plus": -3018.0,
+        "min_legal_aux_plus_state": [
+          4,
+          1
+        ],
+        "min_illegal_aux_plus": -2982.0,
+        "min_illegal_aux_plus_state": [
+          0,
+          1
+        ],
+        "gap_anyaux": 0.0,
+        "gap_aux_plus": 36.0,
+        "ground_state_all_legal_anyaux": false,
+        "ground_state_contains_legal": true,
+        "note": "Ising 无外场时 H(s)=H(-s)：任一合法态的全局翻转是非法态且能量相同，故全空间基态必然同时包含合法与非法态；aux=+1 的二进制域无此对称性。",
+        "structure": {
+          "n": 26,
+          "offdiag_A": 80.0,
+          "offdiag_B": 80.0,
+          "diag_A_min": -44.0,
+          "diag_A_max": -28.0,
+          "diag_B_min": -44.0,
+          "diag_B_max": -24.0,
+          "cross_min": -0.0,
+          "cross_max": 16.0,
+          "aux_coupling_min": -127.0,
+          "aux_coupling_max": -116.0
+        }
+      },
+      "hw_returned": 10,
+      "hw_legal_count": 2,
+      "hw_best": {
+        "sample": 0,
+        "H_recomputed": -3018.0,
+        "H_archived": -3018.0,
+        "n_plus": 3,
+        "nA1": 1,
+        "nB1": 1,
+        "aux": 1,
+        "legal": true,
+        "A": "Ca",
+        "B": "Zr",
+        "V": 6.24055428816044,
+        "hit_raw_opt": false,
+        "hit_sub_quant_opt": true
+      },
+      "hw_hits_raw_opt": 0,
+      "hw_rows": [
+        {
+          "sample": 0,
+          "H_recomputed": -3018.0,
+          "H_archived": -3018.0,
+          "n_plus": 3,
+          "nA1": 1,
+          "nB1": 1,
+          "aux": 1,
+          "legal": true,
+          "A": "Ca",
+          "B": "Zr",
+          "V": 6.24055428816044,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": true
+        },
+        {
+          "sample": 1,
+          "H_recomputed": -3006.0,
+          "H_archived": -3006.0,
+          "n_plus": 3,
+          "nA1": 1,
+          "nB1": 1,
+          "aux": 1,
+          "legal": true,
+          "A": "Bi",
+          "B": "Sc",
+          "V": 12.49747146803817,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 2,
+          "H_recomputed": -2938.0,
+          "H_archived": -2938.0,
+          "n_plus": 1,
+          "nA1": 0,
+          "nB1": 0,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 3,
+          "H_recomputed": -2538.0,
+          "H_archived": -2538.0,
+          "n_plus": 7,
+          "nA1": 4,
+          "nB1": 2,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 4,
+          "H_recomputed": -2318.0,
+          "H_archived": -2318.0,
+          "n_plus": 7,
+          "nA1": 5,
+          "nB1": 1,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 5,
+          "H_recomputed": -1858.0,
+          "H_archived": -1858.0,
+          "n_plus": 9,
+          "nA1": 6,
+          "nB1": 2,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 6,
+          "H_recomputed": -1702.0,
+          "H_archived": -1702.0,
+          "n_plus": 10,
+          "nA1": 6,
+          "nB1": 3,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 7,
+          "H_recomputed": -1474.0,
+          "H_archived": -1474.0,
+          "n_plus": 11,
+          "nA1": 6,
+          "nB1": 4,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 8,
+          "H_recomputed": -762.0,
+          "H_archived": -762.0,
+          "n_plus": 13,
+          "nA1": 6,
+          "nB1": 6,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 9,
+          "H_recomputed": -270.0,
+          "H_archived": -270.0,
+          "n_plus": 14,
+          "nA1": 7,
+          "nB1": 6,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        }
+      ]
+    },
+    "FO2": {
+      "x": "FO2",
+      "task_id": "t20261128-003216-b_q3_fo2_baseline-ca295ce6",
+      "platform_task_id": "87d51d0a3fa14434a80d3bcb63878348",
+      "device": "SPQC-550",
+      "hardware_ms": 1.2345,
+      "runtime_s": 14.016,
+      "topk": 13,
+      "mfactor": 1.0,
+      "samples": 10,
+      "n_qubo": 26,
+      "n_ising": 27,
+      "aux_bits": 1,
+      "M": 73.1704424810107,
+      "resol_raw": 1.9946673067071037,
+      "resol_adj": 2.0,
+      "input_shape": [
+        52,
+        52
+      ],
+      "input_matrix_sha256": "ef4f5e512b5b4ef3860d5ec71fc67e0ccd478a666eb730b84ae578d8b6cefcf8",
+      "archived_input_sha256": "ef4f5e512b5b4ef3860d5ec71fc67e0ccd478a666eb730b84ae578d8b6cefcf8",
+      "submitted_sha256": "ca295ce6a0b4af05eed472c0f2862e861c055d8214970105ce9b57163dc34b45",
+      "archived_submitted_sha256": "ca295ce6a0b4af05eed472c0f2862e861c055d8214970105ce9b57163dc34b45",
+      "raw_ising_sha256": "e306ec0bb2a0d50842669c0c5bd983167a4bb3004c44b5924d7ca620ec590277",
+      "archived_raw_ising_sha256": "e306ec0bb2a0d50842669c0c5bd983167a4bb3004c44b5924d7ca620ec590277",
+      "raw_ising_matches": true,
+      "adj_matches_archived": true,
+      "sub_A_equals_selection": true,
+      "sub_B_equals_selection": true,
+      "sub_V_equals_selection": true,
+      "raw_min": 0.0,
+      "raw_argmin_count": 2,
+      "raw_argmin_top": [
+        [
+          "K",
+          "Ti",
+          0.0
+        ],
+        [
+          "Na",
+          "Ti",
+          0.0
+        ]
+      ],
+      "topk_retains_all_raw_argmins": true,
+      "topk_sub_min": 0.0,
+      "topk_sub_argmin_count": 2,
+      "topk_sub_argmin_top": [
+        [
+          "K",
+          "Ti"
+        ],
+        [
+          "Na",
+          "Ti"
+        ]
+      ],
+      "quantized_full_legal_min_h": -14600.0,
+      "quantized_full_legal_set": [
+        [
+          "Sr",
+          "Al",
+          1.6444459247879315
+        ],
+        [
+          "Sr",
+          "Ti",
+          1.734078960923
+        ]
+      ],
+      "quantized_full_set_equals_raw": false,
+      "quantized_full_retention": 0.0,
+      "quantized_full_extra": 2,
+      "quantized_full_spearman": 0.9442481799006848,
+      "quantized_topk_legal_min_h": -2912.0,
+      "quantized_topk_legal_set": [
+        [
+          "Ge",
+          "Al",
+          1.150540227766001
+        ],
+        [
+          "K",
+          "Ti",
+          0.0
+        ],
+        [
+          "La",
+          "Al",
+          1.3457213375741048
+        ],
+        [
+          "La",
+          "Ca",
+          0.5888058343052762
+        ],
+        [
+          "La",
+          "Mg",
+          0.0816976253155354
+        ],
+        [
+          "Mg",
+          "Al",
+          0.2125978854959962
+        ],
+        [
+          "Sr",
+          "Al",
+          1.6444459247879315
+        ]
+      ],
+      "quantized_topk_set_equals_raw": false,
+      "quantized_topk_retention": 0.5,
+      "quantized_topk_extra": 6,
+      "quantized_topk_spearman": 0.6416148677199188,
+      "submitted_space_exact": {
+        "min_legal_anyaux": -2912.0,
+        "min_legal_anyaux_state": [
+          2,
+          1
+        ],
+        "min_illegal_anyaux": -2912.0,
+        "min_illegal_anyaux_state": [
+          6143,
+          8187
+        ],
+        "min_legal_aux_plus": -2912.0,
+        "min_legal_aux_plus_state": [
+          2,
+          1
+        ],
+        "min_illegal_aux_plus": -2876.0,
+        "min_illegal_aux_plus_state": [
+          64,
+          12
+        ],
+        "gap_anyaux": 0.0,
+        "gap_aux_plus": 36.0,
+        "ground_state_all_legal_anyaux": false,
+        "ground_state_contains_legal": true,
+        "note": "Ising 无外场时 H(s)=H(-s)：任一合法态的全局翻转是非法态且能量相同，故全空间基态必然同时包含合法与非法态；aux=+1 的二进制域无此对称性。",
+        "structure": {
+          "n": 26,
+          "offdiag_A": 80.0,
+          "offdiag_B": 80.0,
+          "diag_A_min": -44.0,
+          "diag_A_max": -36.0,
+          "diag_B_min": -44.0,
+          "diag_B_max": -32.0,
+          "cross_min": -0.0,
+          "cross_max": 16.0,
+          "aux_coupling_min": -127.0,
+          "aux_coupling_max": -114.0
+        }
+      },
+      "hw_returned": 9,
+      "hw_legal_count": 2,
+      "hw_best": {
+        "sample": 0,
+        "H_recomputed": -2912.0,
+        "H_archived": -2912.0,
+        "n_plus": 3,
+        "nA1": 1,
+        "nB1": 1,
+        "aux": 1,
+        "legal": true,
+        "A": "Sr",
+        "B": "Al",
+        "V": 1.6444459247879315,
+        "hit_raw_opt": false,
+        "hit_sub_quant_opt": true
+      },
+      "hw_hits_raw_opt": 0,
+      "hw_rows": [
+        {
+          "sample": 0,
+          "H_recomputed": -2912.0,
+          "H_archived": -2912.0,
+          "n_plus": 3,
+          "nA1": 1,
+          "nB1": 1,
+          "aux": 1,
+          "legal": true,
+          "A": "Sr",
+          "B": "Al",
+          "V": 1.6444459247879315,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": true
+        },
+        {
+          "sample": 1,
+          "H_recomputed": -2900.0,
+          "H_archived": -2900.0,
+          "n_plus": 3,
+          "nA1": 1,
+          "nB1": 1,
+          "aux": 1,
+          "legal": true,
+          "A": "Na",
+          "B": "In",
+          "V": 11.218103388143746,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 2,
+          "H_recomputed": -2868.0,
+          "H_archived": -2868.0,
+          "n_plus": 2,
+          "nA1": 1,
+          "nB1": 0,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 3,
+          "H_recomputed": -2828.0,
+          "H_archived": -2828.0,
+          "n_plus": 1,
+          "nA1": 0,
+          "nB1": 0,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 4,
+          "H_recomputed": -2828.0,
+          "H_archived": -2828.0,
+          "n_plus": 3,
+          "nA1": 2,
+          "nB1": 0,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 5,
+          "H_recomputed": -640.0,
+          "H_archived": -640.0,
+          "n_plus": 13,
+          "nA1": 7,
+          "nB1": 5,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 6,
+          "H_recomputed": 8536.0,
+          "H_archived": 8536.0,
+          "n_plus": 26,
+          "nA1": 12,
+          "nB1": 13,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 7,
+          "H_recomputed": 8540.0,
+          "H_archived": 8540.0,
+          "n_plus": 26,
+          "nA1": 12,
+          "nB1": 13,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        },
+        {
+          "sample": 8,
+          "H_recomputed": 9492.0,
+          "H_archived": 9492.0,
+          "n_plus": 27,
+          "nA1": 13,
+          "nB1": 13,
+          "aux": 1,
+          "legal": false,
+          "A": null,
+          "B": null,
+          "V": null,
+          "hit_raw_opt": false,
+          "hit_sub_quant_opt": false
+        }
+      ]
+    }
+  }
+}

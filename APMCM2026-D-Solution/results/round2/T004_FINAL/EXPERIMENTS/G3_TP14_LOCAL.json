@@ -1,0 +1,57 @@
+{
+  "input": "B-Q2-NO2",
+  "route": "G3_M0_PR_tp14",
+  "params": {
+    "precision": 8,
+    "target_bits": 550,
+    "truncated_precision": 14,
+    "only_feasible_solution": false
+  },
+  "n_original": 17,
+  "n_expanded": 129,
+  "extra_spins": 112,
+  "mapping_status": "verified_reconstruction",
+  "matrix_sha256": "87b440364e7bc352b16a7a6f19a63b15fb912b59083b0162da722d52a73926b3",
+  "runs": [
+    {
+      "seed": 0,
+      "rows": 100,
+      "split_feasible": 1,
+      "feasible_legal": 1,
+      "feasible_best_V": 4.665044095448039,
+      "feasible_hit_original": false
+    },
+    {
+      "seed": 1,
+      "rows": 100,
+      "split_feasible": 1,
+      "feasible_legal": 1,
+      "feasible_best_V": 1.1057400156017962,
+      "feasible_hit_original": false
+    },
+    {
+      "seed": 2,
+      "rows": 100,
+      "split_feasible": 1,
+      "feasible_legal": 1,
+      "feasible_best_V": 9.59797769204863,
+      "feasible_hit_original": false
+    },
+    {
+      "seed": 3,
+      "rows": 100,
+      "split_feasible": 1,
+      "feasible_legal": 1,
+      "feasible_best_V": 4.211206851273652,
+      "feasible_hit_original": false
+    },
+    {
+      "seed": 4,
+      "rows": 100,
+      "split_feasible": 1,
+      "feasible_legal": 1,
+      "feasible_best_V": 4.628357665421632,
+      "feasible_hit_original": false
+    }
+  ]
+}

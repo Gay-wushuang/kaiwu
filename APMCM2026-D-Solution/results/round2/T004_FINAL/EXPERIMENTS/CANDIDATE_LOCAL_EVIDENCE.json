@@ -1,0 +1,177 @@
+{
+  "Q3_O3_lowM_direct8": {
+    "input": "B-Q3-O3",
+    "mfactor": 0.4296,
+    "method": "direct_8bit",
+    "n_qubo": 26,
+    "n_ising_original": 27,
+    "n_submitted": 27,
+    "extra": 0,
+    "M": 38.6387014888403,
+    "matrix_sha256": "857238fb3f3004460e0df79c6771ae04953ce8f3a8680edc2e0f538d9dfb4e01",
+    "A": [
+      "Cs",
+      "K",
+      "Pb",
+      "Rb",
+      "Na",
+      "Sn",
+      "Li",
+      "Ba",
+      "Sr",
+      "Ge",
+      "La",
+      "Ca",
+      "Sc"
+    ],
+    "B": [
+      "Nb",
+      "Ti",
+      "Ta",
+      "Hf",
+      "Si",
+      "In",
+      "Y",
+      "Zr",
+      "La",
+      "Al",
+      "Ga",
+      "Ge",
+      "Sn"
+    ],
+    "min_H": -2918.0,
+    "qset": [
+      [
+        6,
+        0,
+        0.019559662041729
+      ]
+    ],
+    "raw": [
+      [
+        0,
+        2,
+        0.0
+      ],
+      [
+        1,
+        0,
+        0.0
+      ],
+      [
+        2,
+        1,
+        0.0
+      ]
+    ],
+    "retention": 0.0,
+    "quantized_extra": 1
+  },
+  "Q3_FO2_lowM_direct8": {
+    "input": "B-Q3-FO2",
+    "mfactor": 0.3832,
+    "method": "direct_8bit",
+    "n_qubo": 26,
+    "n_ising_original": 27,
+    "n_submitted": 27,
+    "extra": 0,
+    "M": 28.038913558723298,
+    "matrix_sha256": "d45e516fb2f11d14a3d92880289330e84b85f9345b0705e30f82774fa0bebcf6",
+    "A": [
+      "Na",
+      "K",
+      "Rb",
+      "Ba",
+      "Li",
+      "Pb",
+      "La",
+      "Sr",
+      "Mg",
+      "Ga",
+      "Ca",
+      "Ge",
+      "In"
+    ],
+    "B": [
+      "Ti",
+      "Sc",
+      "Al",
+      "Mg",
+      "La",
+      "In",
+      "Zr",
+      "Si",
+      "Hf",
+      "Ca",
+      "Be",
+      "B",
+      "Sr"
+    ],
+    "min_H": -2748.0,
+    "qset": [
+      [
+        2,
+        0,
+        0.0082815841124537
+      ],
+      [
+        2,
+        8,
+        1.4645995858163587
+      ],
+      [
+        3,
+        4,
+        0.1295529965431834
+      ]
+    ],
+    "raw": [
+      [
+        0,
+        0,
+        0.0
+      ],
+      [
+        1,
+        0,
+        0.0
+      ]
+    ],
+    "retention": 0.0,
+    "quantized_extra": 3
+  },
+  "G3_Q2_M0_PR_tp14": {
+    "input": "B-Q2-NO2",
+    "mfactor": 1.0,
+    "method": "precision_reducer",
+    "n_qubo": 16,
+    "n_ising_original": 17,
+    "n_submitted": 129,
+    "extra": 112,
+    "M": 42.17095322771115,
+    "matrix_sha256": "87b440364e7bc352b16a7a6f19a63b15fb912b59083b0162da722d52a73926b3",
+    "A": [
+      "La",
+      "Y",
+      "Sc",
+      "Sr",
+      "Ca",
+      "Ba",
+      "Bi",
+      "Pb"
+    ],
+    "B": [
+      "Zr",
+      "Hf",
+      "Si",
+      "Ti",
+      "Ga",
+      "Ta",
+      "Sn",
+      "Al"
+    ],
+    "mapping_status": "verified_reconstruction",
+    "constructed_feasible": null,
+    "note": "扩展空间未做全空间枚举；仅候选 dry-run 与映射核验"
+  }
+}
