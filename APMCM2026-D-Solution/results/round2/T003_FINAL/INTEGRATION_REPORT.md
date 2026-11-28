@@ -20,6 +20,11 @@ PR #5 保留的能力：直接 8bit、公开 truncate+split 重放、动态范�
 `perform_precision_adaption_mutate`、合法 one-hot 保真指标、恢复契约核对。
 其 `CandidateSolver` 仅用于验证矩阵变换与恢复，不是优化器。
 
+PR #5 离线 demo（`PR5_DEMO.json`）：mutate 100 次、DR 11.8767→11.8767
+（该教学矩阵无可压缩空间；工具明确注明 mutate 不保证降低动态范围）；
+split 41 自旋、恢复 128/128 精确、aux 规范为 +1。该工具仅作离线对照，
+不进入 `d_experiment.py` 正式链路，也不用于真机提交。
+
 ## 2. 回归结果
 
 | 检查 | 结果 |
@@ -71,3 +76,10 @@ PDF SHA256 `90365064…`。
 - 统一研究基线已形成：One-hot V4 + PrecisionReducer 正式路线 + PR5 离线工具。
 - 未修改基线 B、T001 冻结材料和第一轮数据。
 - 建议合并 `integration/t003-final` → `main`，由队员最终确认。
+
+## 7. 集成 PR
+
+- PR #7：<https://github.com/Gay-wushuang/kaiwu/pull/7>
+- 状态：OPEN、MERGEABLE、CLEAN；**未自动合并**。
+- 集成提交：`ebf8a9d`（合并 PR5 提交 `6fd1310`；研究分支 `c2a1c62`）。
+- 合并后 `main` 作为 T004 正式对照基线。

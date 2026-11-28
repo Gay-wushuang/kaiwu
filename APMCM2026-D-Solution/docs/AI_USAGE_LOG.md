@@ -231,6 +231,21 @@
   平台任务 ID `d833dedb...`；PDF 10 条向量与归档 10/10 一致。
 - 未修改基线 B、第一轮数据与 T001 冻结材料。
 
+## 2026-11-28 T003-FINAL：研究分支集成与正式基线更新
+
+- 修正 tp14 统计：拆分一致 2/10、恢复合法 2/10、两者同时 1/10、严格原始最优命中 1/10；
+  样本 1 虽合法但拆分不一致，不计入严格命中。
+- 修复 resume 对已 completed 任务的状态降级：查询失败/空结果/格式异常均保留 completed；
+  受影响的 tp14 状态已恢复，历史尝试保留；新增 2 项回归测试。
+- 平台 PDF 已由人工登录下载并归档：SPQC-550、硬件 1.5511 ms、
+  平台任务 ID `d833dedb...`、PDF SHA256 `90365064...`；PDF 10 条向量与归档 10/10 一致。
+- PR #5（`ab36818`）作为独立离线验证工具合并，保留 direct/truncate+split/mutate 能力；
+  正式路线仍为 `code/precision_reducer.py` + `d_experiment.py`，未替换。
+- 集成分支 `integration/t003-final`：main 已为祖先，合并 PR5，未重复合并 qubo-refinement。
+- 完整回归 40/40；direct8 哈希与旧配置兼容；7 个归档任务核验全通过；
+  未修改基线 B/T001，未新增真机任务、配额 0。
+- 集成 PR #7：<https://github.com/Gay-wushuang/kaiwu/pull/7>（OPEN/MERGEABLE，未自动合并）。
+
 
 
 
